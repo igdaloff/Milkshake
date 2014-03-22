@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>{{ title }}</h1>
+<section class="playlist">
+  <ul class="playlist-track-list">
+  {% for track in tracks %}
+    <li class="playlist-track" style="width: {{ track.duration / totalDuration * 100 }}%">
+      <h3 class="track-title">{{ track.title }}</h3>
+      <img class="track-artwork" src="{{ track.artwork }}" href="{{ track.title }}">
+      <div class="progress-bar">
+        <div class="current-progress"></div>
+        <canvas class="progress-circle" width="250" height="250"></canvas>
+      </div>
+    </li>
+  {% endfor %}
+  </ul>
+  <button class="playlist-prev">Previous</button>
+  <button class="playlist-toggle-play">Play/pause</button>
+  <button class="playlist-next">Next</button>
+</section>
+<script>
+bootstrap = [{{ tracks|raw }}];
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="http://192.168.1.64:1337/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://192.168.1.64:1337');
+  socket.on('userConnect', function(data){
+    console.log('users connected now: ' + data.userCount)
+  });
+</script>
+<script>TWM.Playlist.start();</script>
+{% endblock %}

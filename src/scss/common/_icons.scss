@@ -1,0 +1,43 @@
+// =======================
+// $Icons
+// =======================
+
+// Global Icon Styles
+.icon:before {
+	font-family: 'icomoon';
+	position: relative;
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+// To accompany all icons so screen readers communicate what icons mean.
+// Markup looks like <span class="screen-reader-text">E-mail</span>
+.screen-reader-text{
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+
+
+
+
+// Individual Icons
+.icon-add-music:before{
+	content: 'm';
+}
+
+.icon-login:before{
+	content: 'l';
+}
+
+.icon-menu:before{
+	content: '=';
+}
+
+.icon-about:before{
+	content: '?'
+}

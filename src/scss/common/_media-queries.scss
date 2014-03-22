@@ -1,0 +1,37 @@
+// =======================
+// $Media Queries
+// =======================
+$small: 				20em; 	/*  320px  */
+$medium: 				37.5em; /*  600px  */
+$large:					50em;		/*  800px  */
+$extra-large:		62.5em;	/*  1000px */
+
+@mixin larger-than($width) {
+  @if $width == small {
+    @media (min-width: $small) { @content; }
+  }
+  @else if $width == medium {
+    @media (min-width: $medium) { @content; }
+  }
+  @else if $width == large {
+    @media (min-width: $large)  { @content; }
+  }
+  @else if $width == extra-large {
+    @media (min-width: $extra-large)  { @content; }
+  }
+}
+
+@mixin smaller-than($width) {
+  @if $width == small {
+    @media (max-width: $small) { @content; }
+  }
+  @else if $width == medium {
+    @media (max-width: $medium) { @content; }
+  }
+  @else if $width == large {
+    @media (max-width: $large)  { @content; }
+  }
+  @else if $width == extra-large {
+    @media (max-width: $extra-large)  { @content; }
+  }
+}

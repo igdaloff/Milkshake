@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Create a new playlist</h2>
+<h3>Search for and add tracks</h3>
+
+<form class="track-search">
+  <input type="text" class="track-search-query" placeholder="Track name or artist">
+  <input type="submit" value="Search">
+</form>
+<form class="track-form" action="/process-new-playlist/" method="post">
+  <ul class="chosen-tracks">
+  {% for i in [0, 1, 2] %}
+    <li>
+      <!-- Track {{ i }} -->
+      <label for="playlist-track-{{ i }}">Track {{ i + 1 }}</label>
+      <input data-index="{{ i }}" class="playlist-track-select" type="radio" name="track[]" id="playlist-track-{{ i }}" {% if i == 0 %}checked="checked"{% endif %}>
+      <input type="text" id="track-{{ i }}-title" name="track{{ i }}title" class="track-info-title">
+      <input type="hidden" id="track-{{ i }}-id" name="track{{ i }}id">
+      <input type="hidden" id="track-{{ i }}-source" name="track{{ i }}source">
+      <input type="hidden" id="track-{{ i }}-url" name="track{{ i }}url">
+      <input type="hidden" id="track-{{ i }}-artwork" name="track{{ i }}artwork">
+      <input type="hidden" id="track-{{ i }}-duration" name="track{{ i }}duration">
+    </li>
+  {% endfor %}
+  </ul>
+  <hr/>
+  <ul class="track-search-results"></ul>
+  <input type="text" class="new-playlist-title" name="title" placeholder="Title">
+  <input type="submit" value="Create Playlist!">
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+TWM.Playlist.Create.TrackSearch.start()
+</script>
+{% endblock %}

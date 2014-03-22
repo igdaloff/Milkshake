@@ -1,0 +1,16 @@
+// =======================
+// $Mixins
+// =======================
+
+// Box Shadow
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  -webkit-box-shadow: $top $left $blur $color #{$inset};
+  box-shadow: $top $left $blur $color #{$inset};
+}
+
+@mixin ib-whitespace-fix($font_size){
+  font-size: 0;
+  & > *{
+    font-size: $font_size;
+  }
+}

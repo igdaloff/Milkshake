@@ -1,0 +1,73 @@
+.track-search{
+  float: left;
+  margin-bottom: 1em;
+}
+
+.chosen-tracks{
+  float: right;
+
+  li{
+    float: left;
+    margin-left: 2em;
+  }
+}
+
+.playlist-track-list{
+  @include ib-whitespace-fix($body_fs);
+}
+
+.playlist-track{
+  display: inline-block;
+}
+
+.track-artwork{
+  max-width: 100%;
+}
+
+#playlist-embeds{
+  //height: 0;
+  //width: 0;
+  overflow: hidden;
+}
+
+.progress-bar{
+  height: 10px;
+  background: #ccc;
+  .current-progress{
+    background: red;
+    height: 10px;
+    color: white;
+    width: 0;
+    font-size: .5em;
+  }
+}
+
+//TRACK $SEARCH RESULTS
+.track-search-results{
+
+  li{
+    padding: 1em;
+  }
+
+  li:nth-child(odd){
+    background: #f7f7f7;
+  }
+}
+
+.track-search-result-actions{
+  float: right;
+}
+
+.track-search-result-title{
+  margin-bottom: 0.5em;
+  font-style: italic;
+}
+
+.track-search-result-duration{
+  margin-right: 1em;
+  font-weight: bold;
+}
+
+.track-search-result-meta{
+  display: inline-block;
+}
