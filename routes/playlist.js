@@ -50,7 +50,10 @@ exports.playlist = function(req, res){
   var io = require('socket.io').listen(1337);
 
   io.sockets.on('connection', function (socket) {
-    socket.emit('userConnect', { userCount: io.sockets.clients().length });
+    console.log('someone connected! Users now:', io.sockets.clients().length);
+    io.sockets.emit('userConnect', {
+      userCount: io.sockets.clients().length
+    });
   });
 
   Playlist.findById(req.params.id, "-tracks._id", function(err, playlist){
