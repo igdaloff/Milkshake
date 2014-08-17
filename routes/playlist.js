@@ -69,7 +69,6 @@ exports.playlist = function(req, res){
       // If both users are ready, emit the go event
       if(usersReady.length === 2) {
 
-        console.log("go time motherfucker");
         io.sockets.emit("bothUsersReady");
       }
     });
@@ -80,6 +79,11 @@ exports.playlist = function(req, res){
 
         usersReady.splice(socket.id, 1);
       }
+      
+      io.sockets.emit('userDisconnect', {
+        userCount: io.sockets.clients().length
+      });
+
       console.log("A user disconnected. Number of users ready:", usersReady.length);
     });
   });
