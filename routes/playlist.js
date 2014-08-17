@@ -96,6 +96,7 @@ exports.playlist = function(req, res){
       console.log(err);
       return err;
     }
+    playlist.host = req.headers.host.split(":")[0];
     res.render("playlist", playlist);
   });
 }

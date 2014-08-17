@@ -24,10 +24,10 @@ bootstrap = [{{ tracks|raw }}];
 {% endblock %}
 
 {% block scripts %}
-<script src="http://192.168.0.12:1337/socket.io/socket.io.js"></script>
+<script src="http://{{ host }}:1337/socket.io/socket.io.js"></script>
 <script>
 $(function() {
-  var socket = io.connect('http://192.168.0.12:1337');
+  var socket = io.connect('http://{{ host }}:1337');
   socket.on('userConnect', function(data){
 
     TWM.Playlist.API.onUserConnect(data.userCount, socket);
