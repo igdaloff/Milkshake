@@ -114,6 +114,25 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         tracks: tracks
       });
       return playlistManager;
+    },
+    onUserConnect: function(userCount, socket) {
+
+      var playlist = TWM.request("playlist:activePlaylistMgr");
+      // Wait until both users have the tracks loaded and ready to play
+      playlist.onTrackReady(0, function(track) {
+
+        // When the server tells us both users are ready, start the playlist in 3 seconds
+        socket.on("bothUsersReady", function() {
+
+          console.log("Playing in 3 seconds...");
+          var delay = window.setTimeout(function() {
+
+            track.play();
+          }, 3000);
+        });
+        // Tell the server we are ready
+        socket.emit("userReady", socket.id);
+      });
     }
   }
 
@@ -125,5 +144,9 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
     var playlistManager = Playlist.API.loadPlayer(playlist);
     // bind controls to the new playlist manager object
     bindPlaylistUi(playlistManager);
+    TWM.reqres.setHandler("playlist:activePlaylistMgr", function() {
+
+      return playlistManager;
+    });
   });
 });

@@ -1,4 +1,4 @@
-TWM = new Marionette.Application();
+var TWM = new Marionette.Application();
 
 TWM.on("initialize:after", function(){
 
