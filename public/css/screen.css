@@ -173,20 +173,21 @@ a {
 /* line 1, ../../src/scss/modules/_playlist.scss */
 .track-search {
   float: left;
+  margin: 0;
   margin-bottom: 1em;
 }
 
-/* line 6, ../../src/scss/modules/_playlist.scss */
+/* line 7, ../../src/scss/modules/_playlist.scss */
 .chosen-tracks {
   float: right;
 }
-/* line 9, ../../src/scss/modules/_playlist.scss */
+/* line 10, ../../src/scss/modules/_playlist.scss */
 .chosen-tracks li {
   float: left;
   margin-left: 2em;
 }
 
-/* line 15, ../../src/scss/modules/_playlist.scss */
+/* line 16, ../../src/scss/modules/_playlist.scss */
 .playlist-track-list {
   font-size: 0;
 }
@@ -195,27 +196,27 @@ a {
   font-size: 16px;
 }
 
-/* line 19, ../../src/scss/modules/_playlist.scss */
+/* line 20, ../../src/scss/modules/_playlist.scss */
 .playlist-track {
   display: inline-block;
 }
 
-/* line 23, ../../src/scss/modules/_playlist.scss */
+/* line 24, ../../src/scss/modules/_playlist.scss */
 .track-artwork {
   max-width: 100%;
 }
 
-/* line 27, ../../src/scss/modules/_playlist.scss */
+/* line 28, ../../src/scss/modules/_playlist.scss */
 #playlist-embeds {
   overflow: hidden;
 }
 
-/* line 33, ../../src/scss/modules/_playlist.scss */
+/* line 34, ../../src/scss/modules/_playlist.scss */
 .progress-bar {
   height: 10px;
   background: #ccc;
 }
-/* line 36, ../../src/scss/modules/_playlist.scss */
+/* line 37, ../../src/scss/modules/_playlist.scss */
 .progress-bar .current-progress {
   background: red;
   height: 10px;
@@ -224,33 +225,33 @@ a {
   font-size: .5em;
 }
 
-/* line 48, ../../src/scss/modules/_playlist.scss */
+/* line 49, ../../src/scss/modules/_playlist.scss */
 .track-search-results li {
   padding: 1em;
 }
-/* line 52, ../../src/scss/modules/_playlist.scss */
+/* line 53, ../../src/scss/modules/_playlist.scss */
 .track-search-results li:nth-child(odd) {
   background: #f7f7f7;
 }
 
-/* line 57, ../../src/scss/modules/_playlist.scss */
+/* line 58, ../../src/scss/modules/_playlist.scss */
 .track-search-result-actions {
   float: right;
 }
 
-/* line 61, ../../src/scss/modules/_playlist.scss */
+/* line 62, ../../src/scss/modules/_playlist.scss */
 .track-search-result-title {
   margin-bottom: 0.5em;
   font-style: italic;
 }
 
-/* line 66, ../../src/scss/modules/_playlist.scss */
+/* line 67, ../../src/scss/modules/_playlist.scss */
 .track-search-result-duration {
   margin-right: 1em;
   font-weight: bold;
 }
 
-/* line 71, ../../src/scss/modules/_playlist.scss */
+/* line 72, ../../src/scss/modules/_playlist.scss */
 .track-search-result-meta {
   display: inline-block;
 }
