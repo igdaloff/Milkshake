@@ -28,11 +28,11 @@ bootstrap = [{{ tracks|raw }}];
 <script>
 $(function() {
   var socket = io.connect('http://{{ host }}:1337');
+  TWM.Playlist.start();
   socket.on('userConnect', function(data){
 
     TWM.Playlist.API.onUserConnect(data.userCount, socket);
   });
-  TWM.Playlist.start();
 });
 </script>
 {% endblock %}
