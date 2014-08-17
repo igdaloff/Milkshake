@@ -48,13 +48,47 @@ exports.process_new_playlist = function(req, res){
 exports.playlist = function(req, res){
 
   var io = require('socket.io').listen(1337);
+  var usersReady = [];
 
   io.sockets.on('connection', function (socket) {
+
     console.log('someone connected! Users now:', io.sockets.clients().length);
     io.sockets.emit('userConnect', {
       userCount: io.sockets.clients().length
     });
+
+    socket.on('userReady', function () {
+
+      console.log("new user", socket.id);
+      if(usersReady.indexOf(socket.id) === -1) {
+
+        usersReady.push(socket.id);
+      }
+      console.log("A user is ready. Number of users ready:", usersReady.length);
+
+      // If both users are ready, emit the go event
+      if(usersReady.length === 2) {
+
+        io.sockets.emit("bothUsersReady");
+      }
+    });
+
+    socket.on('disconnect', function() {
+
+      if(usersReady.indexOf(socket.id) !== -1) {
+
+        usersReady.splice(socket.id, 1);
+      }
+      
+      io.sockets.emit('userDisconnect', {
+        userCount: io.sockets.clients().length
+      });
+
+      console.log("A user disconnected. Number of users ready:", usersReady.length);
+    });
   });
+
+
 
   Playlist.findById(req.params.id, "-tracks._id", function(err, playlist){
     
@@ -62,6 +96,7 @@ exports.playlist = function(req, res){
       console.log(err);
       return err;
     }
+    playlist.host = req.headers.host.split(":")[0];
     res.render("playlist", playlist);
   });
 }

@@ -25,22 +25,37 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.playTrack = function(trackIndex) {
       
+      this.onTrackReady(trackIndex, function(popcorn) {
+
+        popcorn.play();
+      });
+    };
+
+    PlaylistManager.prototype.onTrackReady = function(trackIndex, callback) {
+
+      if(typeof callback !== "function") {
+
+        console.error("Playlist Manager: Callback cannot be played");
+        return;
+      }
       var track = this.getTrackData(trackIndex);
       this.emptyEmbedsEl();
       var pop = this.getPopcorn(track.url, true);
       if(track.source == "soundcloud") {
         pop.on( "canplayall", function( event ) {
-          pop.play();
+          
+          callback(pop);
         });
       }
       else {
-        pop.play();
+
+        callback();
       }
       this.isPlaying = true;
       this.pop = pop;
       this.setCurrentTrackIndex(trackIndex);
       return this.pop;
-    };
+    },
 
     PlaylistManager.prototype.getTrackData = function(trackIndex) {
 
