@@ -45,53 +45,65 @@ exports.process_new_playlist = function(req, res){
   });
 }
 
-exports.playlist = function(req, res){
+// Socket stuff here
 
-  var io = require('socket.io').listen(1337);
-  var usersReady = [];
+var io = require('socket.io').listen(1337);
 
-  io.sockets.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
 
-    console.log('someone connected! Users now:', io.sockets.clients().length);
-    io.sockets.emit('userConnect', {
+  console.log('someone connected! Users now:', io.sockets.clients().length, "socket url:", socket.handshake.url);
+
+  // Add the user to a room based on the playlist ID
+  socket.on('join room', function (playlistId) {
+
+    socket.set('roomId', playlistId, function() {
+      console.log("User joined the room", playlistId);
+    });
+    socket.join(playlistId);
+
+    io.sockets.in(playlistId).emit('userConnect', {
       userCount: io.sockets.clients().length
     });
 
-    socket.on('userReady', function () {
+    console.log("users in this room:", io.sockets.clients(playlistId).length);
+  });
 
-      console.log("new user", socket.id);
-      if(usersReady.indexOf(socket.id) === -1) {
+  socket.on('userReady', function () {
 
-        usersReady.push(socket.id);
+    socket.isReady = true;
+
+    var usersReady = [];
+
+    socket.get('roomId', function(err, roomId) {
+
+      var clientsInRoom = io.sockets.clients(roomId);
+
+      // Loop over the clients in this room and see who is ready
+      for(var i = 0; i < clientsInRoom.length; i++) {
+
+        var user = clientsInRoom[i];
+        
+        if(user.isReady) {
+
+          usersReady.push(user.id);
+        }
       }
-      console.log("A user is ready. Number of users ready:", usersReady.length);
 
       // If both users are ready, emit the go event
       if(usersReady.length === 2) {
 
-        io.sockets.emit("bothUsersReady");
-      }
-    });
-
-    socket.on('disconnect', function() {
-
-      if(usersReady.indexOf(socket.id) !== -1) {
-
-        usersReady.splice(socket.id, 1);
-      }
-      
-      io.sockets.emit('userDisconnect', {
-        userCount: io.sockets.clients().length
-      });
-
-      console.log("A user disconnected. Number of users ready:", usersReady.length);
+        io.sockets.in(roomId).emit("bothUsersReady");
+      }  
     });
   });
+});
 
+// End socket stuff
 
+exports.playlist = function(req, res){
 
   Playlist.findById(req.params.id, "-tracks._id", function(err, playlist){
-    
+
     if (err){
       console.log(err);
       return err;
