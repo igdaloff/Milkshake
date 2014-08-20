@@ -1,8 +1,8 @@
-var Playlist = require("../models/playlist.js");
+var Playlist = require('../models/playlist.js');
 
 exports.new_playlist = function(req, res){
 
-  res.render("new-playlist");
+  res.render('new-playlist');
 };
 
 exports.process_new_playlist = function(req, res){
@@ -17,12 +17,12 @@ exports.process_new_playlist = function(req, res){
   var playlistTracks = [];
   for(var i = 0; i <= 2; i++){
     var track = {
-      trackId: req.body["track" + i + "id"],
-      source: req.body["track" + i + "source"],
-      title: req.body["track" + i + "title"],
-      url: req.body["track" + i + "url"],
-      artwork: req.body["track" + i + "artwork"],
-      duration: parseFloat(req.body["track" + i + "duration"]),
+      trackId: req.body['track' + i + 'id'],
+      source: req.body['track' + i + 'source'],
+      title: req.body['track' + i + 'title'],
+      url: req.body['track' + i + 'url'],
+      artwork: req.body['track' + i + 'artwork'],
+      duration: parseFloat(req.body['track' + i + 'duration']),
     }
     console.log(track.duration);
     totalDuration += track.duration;
@@ -41,7 +41,7 @@ exports.process_new_playlist = function(req, res){
       console.log(err);
       return err;
     }
-    res.redirect("/playlist/" + playlistRow._id);
+    res.redirect('/playlist/' + playlistRow._id);
   });
 }
 
@@ -51,50 +51,76 @@ var io = require('socket.io').listen(1337);
 
 io.sockets.on('connection', function (socket) {
 
-  console.log('someone connected! Users now:', io.sockets.clients().length, "socket url:", socket.handshake.url);
+  console.log('someone connected! Users now:', io.sockets.clients().length, 'socket url:', socket.handshake.url);
 
-  // Add the user to a room based on the playlist ID
-  socket.on('join room', function (playlistId) {
+  // Add the user to a room based on the playlist ID and tell the client what time they should load
+  // the playlist from (based on any other users in the room)
+  socket.on('joinRoom', function (roomId) {
 
-    socket.set('roomId', playlistId, function() {
-      console.log("User joined the room", playlistId);
+    socket.roomId = roomId;
+    socket.currentTime = 0;
+    console.log("User joined room");
+    socket.join(roomId);
+
+    var clientsInRoom = io.sockets.clients(socket.roomId);
+    var loadPlaylistFrom = 0;
+
+    for(var i = 0; i < clientsInRoom.length; i++) {
+
+      var user = clientsInRoom[i];
+
+      if(user.id !== socket.id) {
+
+        loadPlaylistFrom = user.currentTime;
+      }
+    }
+
+    // Emit the loadPlaylistFrom event
+    console.log("Emit the loadPlaylistFrom event");
+    io.sockets.in(socket.roomId).emit('loadPlaylistFrom', {
+      startTime: loadPlaylistFrom
     });
-    socket.join(playlistId);
-
-    io.sockets.in(playlistId).emit('userConnect', {
-      userCount: io.sockets.clients().length
-    });
-
-    console.log("users in this room:", io.sockets.clients(playlistId).length);
   });
 
-  socket.on('userReady', function () {
+  socket.on('userReadyToPlay', function () {
 
     socket.isReady = true;
 
     var usersReady = [];
+    var clientsInRoom = io.sockets.clients(socket.roomId);
 
-    socket.get('roomId', function(err, roomId) {
+    // Loop over the clients in this room and see who else is ready
+    for(var i = 0; i < clientsInRoom.length; i++) {
 
-      var clientsInRoom = io.sockets.clients(roomId);
+      var user = clientsInRoom[i];
 
-      // Loop over the clients in this room and see who is ready
-      for(var i = 0; i < clientsInRoom.length; i++) {
+      if(user.isReady) {
 
-        var user = clientsInRoom[i];
-        
-        if(user.isReady) {
-
-          usersReady.push(user.id);
-        }
+        usersReady.push(user.id);
       }
+    }
 
-      // If both users are ready, emit the go event
-      if(usersReady.length === 2) {
+    // If both users are ready, emit the go event
+    if(usersReady.length === 2) {
 
-        io.sockets.in(roomId).emit("bothUsersReady");
-      }  
-    });
+      console.log("emit playPlaylist event");
+      io.sockets.in(socket.roomId).emit('playPlaylist');
+    }  
+
+  });
+
+  // Notify the other users when someone disconnects
+  socket.on('disconnect', function() {
+
+    io.sockets.in(socket.roomId).emit('userLeft');
+    console.log('other user disconnected');
+  });
+
+  // Save the user's currentTime when they send it
+  socket.on('currentTime', function(data) {
+
+    socket.currentTime = data.currentTime;
+    console.log('user\'s current time is ', socket.currentTime);
   });
 });
 
@@ -102,13 +128,13 @@ io.sockets.on('connection', function (socket) {
 
 exports.playlist = function(req, res){
 
-  Playlist.findById(req.params.id, "-tracks._id", function(err, playlist){
+  Playlist.findById(req.params.id, '-tracks._id', function(err, playlist){
 
     if (err){
       console.log(err);
       return err;
     }
-    playlist.host = req.headers.host.split(":")[0];
-    res.render("playlist", playlist);
+    playlist.host = req.headers.host.split(':')[0];
+    res.render('playlist', playlist);
   });
 }

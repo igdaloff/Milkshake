@@ -1,4 +1,4 @@
-TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
+TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
   TWM.Components.PlaylistManager = (function(){
 
@@ -8,20 +8,47 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
       this.currentTrackIndex = null;
       this.isPlaying = false;
       // Create a jQuery element that will contain our embed codes and append it to the body
-      this.embedsId = "playlist-embeds";
-      this.$embeds = $("<div></div>").attr("id", this.embedsId).appendTo("body");
+      this.embedsId = 'playlist-embeds';
+      this.$embeds = $('<div></div>').attr('id', this.embedsId).appendTo('body');
     }
 
     PlaylistManager.prototype.startPlaylist = function() {
 
       this.playTrack(0);
-      $(this).on("ended:track", this.next);
+      $(this).on('ended:track', this.next);
     };
 
     PlaylistManager.prototype.stopPlaylist = function() {
 
       $(this).unbind();
     };
+
+    PlaylistManager.prototype.loadFrom = function(startTime, callback) {
+
+      var timeCounter = 0;
+      var startTrack = 0;
+      var requestedTrackTime
+      // Loop over tracks and determine which track contains the requested start time
+      for(trackIndex in this.tracks) {
+
+        var track = this.tracks[trackIndex];
+        timeCounter += track.duration;
+        if(startTime < timeCounter) {
+
+          requestedTrackTime = timeCounter - track.duration;
+          break;
+        }
+        else {
+          startTrack++;
+        }
+      }
+
+      this.onTrackReady(startTrack, function(pop) {
+
+        pop.currentTime(requestedTrackTime);
+        callback(pop);
+      });
+    }
 
     PlaylistManager.prototype.playTrack = function(trackIndex) {
       
@@ -33,16 +60,16 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.onTrackReady = function(trackIndex, callback) {
 
-      if(typeof callback !== "function") {
+      if(typeof callback !== 'function') {
 
-        console.error("Playlist Manager: Callback cannot be played");
+        console.error('Playlist Manager: Callback cannot be played');
         return;
       }
       var track = this.getTrackData(trackIndex);
       this.emptyEmbedsEl();
       var pop = this.getPopcorn(track.url, true);
-      if(track.source == "soundcloud") {
-        pop.on( "canplayall", function( event ) {
+      if(track.source == 'soundcloud') {
+        pop.on( 'canplayall', function( event ) {
           
           callback(pop);
         });
@@ -59,7 +86,7 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.getTrackData = function(trackIndex) {
 
-      if(typeof(this.tracks[trackIndex]) == "object") {
+      if(typeof(this.tracks[trackIndex]) == 'object') {
 
         return this.tracks[trackIndex];
       }
@@ -92,8 +119,13 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.pause = function() {
 
-      this.pop.pause();
-      return this.getTrackData(this.getCurrentTrackIndex());
+      if(typeof this.pop.pause === "function") {
+        this.pop.pause();
+        return this.getTrackData(this.getCurrentTrackIndex());
+      }
+      else{
+        return false;
+      }
     };
 
     PlaylistManager.prototype.resume = function() {
@@ -112,7 +144,7 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.emptyEmbedsEl = function() {
       
-      return this.$embeds.html("");
+      return this.$embeds.html('');
     }
 
     PlaylistManager.prototype.togglePlayPause = function(trackIndex) {
@@ -126,7 +158,7 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
           this.resume();
         }
       }
-      else if(typeof(trackIndex) != "undefined") {
+      else if(typeof(trackIndex) != 'undefined') {
 
         this.playTrack(trackIndex)
       }
@@ -168,28 +200,42 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
       }
     }
 
+    PlaylistManager.prototype.getCurrentTotalTime = function() {
+
+      var currentTrackIndex = this.getCurrentTrackIndex();
+      var prevTrackDurations = 0;
+      
+      // Loop over previous tracks and add up the time
+      for(var i = 0; i < currentTrackIndex; i++) {
+
+        var track = this.tracks[i];
+        prevTrackDurations += track.duration;
+      }
+      return prevTrackDurations + this.pop.currentTime();
+    }
+
     PlaylistManager.prototype.getPopcorn = function(trackUrl) {
 
-      var pop = Popcorn.smart( "#" + this.embedsId, trackUrl);
+      var pop = Popcorn.smart( '#' + this.embedsId, trackUrl);
       pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
-      pop.on("ended", $.proxy(function(){
+      pop.on('ended', $.proxy(function(){
 
-        $(this).trigger("ended:track");
+        $(this).trigger('ended:track');
       }, this));
-      pop.on("playing", $.proxy(function(){
+      pop.on('playing', $.proxy(function(){
 
-        $(this).trigger("playing:track");
+        $(this).trigger('playing:track');
         this.isPlaying = true;
       }, this));
-      pop.on("pause", $.proxy(function(){
+      pop.on('pause', $.proxy(function(){
 
-        $(this).trigger("pause:track");
+        $(this).trigger('pause:track');
         this.isPlaying = false;
       }, this));
-      pop.on("timeupdate", $.proxy(function(){
+      pop.on('timeupdate', $.proxy(function(){
 
-        $(this).trigger("timeupdate:track", pop.currentTime());
+        $(this).trigger('timeupdate:track', pop.currentTime());
       }, this));
       return pop;
     };
@@ -198,7 +244,7 @@ TWM.module("Components", function(Components, TWM, Backbone, Marionette, $, _){
 
   })();
 
-  TWM.reqres.setHandler("playlistManager:components", function(data){ 
+  TWM.reqres.setHandler('playlistManager:components', function(data){ 
     
     return new Components.PlaylistManager(data);
   });

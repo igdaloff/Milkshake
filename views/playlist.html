@@ -30,11 +30,8 @@ $(function() {
   var socket = io.connect('http://{{ host }}:1337');
   TWM.Playlist.start();
   socket.on('connect', function (data) {
-    socket.emit('join room', "{{id}}");
-  });
-  socket.on('userConnect', function(data){
-
-    TWM.Playlist.API.onUserConnect(data.userCount, socket);
+    TWM.Playlist.API.onUserConnect(socket);
+    socket.emit('joinRoom', "{{id}}");
   });
 });
 </script>
