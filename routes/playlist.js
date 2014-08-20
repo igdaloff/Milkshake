@@ -75,9 +75,9 @@ io.sockets.on('connection', function (socket) {
       }
     }
 
-    // Emit the loadPlaylistFrom event
+    // Emit the loadPlaylistFrom event telling the new client where to load from
     console.log("Emit the loadPlaylistFrom event");
-    io.sockets.in(socket.roomId).emit('loadPlaylistFrom', {
+    socket.emit('loadPlaylistFrom', {
       startTime: loadPlaylistFrom
     });
   });

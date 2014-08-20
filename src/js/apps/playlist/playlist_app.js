@@ -139,11 +139,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var socket = TWM.request("playlist:activeSocket");
       var playlist = TWM.request('playlist:activePlaylistMgr');
-      console.log(data.startTime);
       playlist.loadFrom(data.startTime, function(track) {
 
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
+        window.testes = track;
       });
     },
     playPlaylist: function() {

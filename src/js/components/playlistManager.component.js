@@ -46,7 +46,10 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.onTrackReady(startTrack, function(pop) {
 
         pop.currentTime(requestedTrackTime);
-        callback(pop);
+        pop.on( 'canplayall', function( event ) {
+          
+          callback(pop);
+        });
       });
     }
 
