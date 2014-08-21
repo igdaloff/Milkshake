@@ -139,31 +139,48 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var socket = TWM.request("playlist:activeSocket");
       var playlist = TWM.request('playlist:activePlaylistMgr');
-      playlist.loadFrom(data.startTime, function(track) {
+      var startTime = typeof data.startTime !== "undefined" ? data.startTime : 0;
+      // work out if we are starting from the start (0) or resuming, and if resuming calculate where to resume from
+      // based on what the server returned to us
+      if(startTime !== 0) {
+
+        startTime = Playlist.API.calculateTimeDiff(startTime);
+        if(startTime > playlist.getPlaylistDuration()) {
+
+          alert("The playlist is already over lol");
+          return false;
+        }
+      }
+      playlist.loadFromTotalTime(startTime, function(track) {
 
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
         window.testes = track;
       });
     },
-    playPlaylist: function() {
+    playPlaylist: function(data) {
 
       var playlist = TWM.request('playlist:activePlaylistMgr');
-      console.log('Playing in 3 seconds...');
-      var delay = window.setTimeout(function() {
-
+      var startTime = data.startTime;
+      // Account for any latency and get a fresh start time
+      if(startTime === 0) {
         playlist.resume();
-      }, 3000);
+      }
+      else {
+        var timeDiff = Playlist.API.calculateTimeDiff(startTime);
+        var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
+        playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
+      }
     },
     onUserLeft: function() {
 
-      var socket = TWM.request("playlist:activeSocket");
-      var playlist = TWM.request('playlist:activePlaylistMgr');
-      // Pause playback
-      playlist.pause();
-      socket.emit('currentTime', {
-        currentTime: playlist.getCurrentTotalTime()
-      });
+      console.log("Other user left but fuck 'em");
+    },
+    calculateTimeDiff: function(startTime) {
+
+      var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+      var timeDiff = currentUnixTime - startTime;
+      return timeDiff;
     }
   }
 

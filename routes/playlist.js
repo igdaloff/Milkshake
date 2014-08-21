@@ -51,6 +51,8 @@ var io = require('socket.io').listen(1337);
 
 io.sockets.on('connection', function (socket) {
 
+  var playlistStartTime = 0;
+
   console.log('someone connected! Users now:', io.sockets.clients().length, 'socket url:', socket.handshake.url);
 
   // Add the user to a room based on the playlist ID and tell the client what time they should load
@@ -58,27 +60,27 @@ io.sockets.on('connection', function (socket) {
   socket.on('joinRoom', function (roomId) {
 
     socket.roomId = roomId;
-    socket.currentTime = 0;
-    console.log("User joined room");
+    console.log('User joined room');
     socket.join(roomId);
 
     var clientsInRoom = io.sockets.clients(socket.roomId);
-    var loadPlaylistFrom = 0;
 
+    // Check if this is a reconnect event and the loadPlaylistFrom timestamp was set before
     for(var i = 0; i < clientsInRoom.length; i++) {
 
       var user = clientsInRoom[i];
 
-      if(user.id !== socket.id) {
+      if(user.id !== socket.id && typeof user.playlistStartTime !== 'undefined') {
 
-        loadPlaylistFrom = user.currentTime;
+        playlistStartTime = user.playlistStartTime;
       }
     }
 
     // Emit the loadPlaylistFrom event telling the new client where to load from
-    console.log("Emit the loadPlaylistFrom event");
+    // If this is a first time request load from 0
+    console.log('Emit the loadPlaylistFrom event');
     socket.emit('loadPlaylistFrom', {
-      startTime: loadPlaylistFrom
+      startTime: playlistStartTime
     });
   });
 
@@ -89,22 +91,49 @@ io.sockets.on('connection', function (socket) {
     var usersReady = [];
     var clientsInRoom = io.sockets.clients(socket.roomId);
 
-    // Loop over the clients in this room and see who else is ready
-    for(var i = 0; i < clientsInRoom.length; i++) {
+    // If we've already started the playlist, just send the new user the go event
+    if(playlistStartTime !== 0) {
 
-      var user = clientsInRoom[i];
-
-      if(user.isReady) {
-
-        usersReady.push(user.id);
-      }
+      console.log('emit playPlaylist event to new user with timestamp', playlistStartTime);
+      socket.emit('playPlaylist', {
+        startTime: playlistStartTime
+      });
+      socket.playlistStartTime = playlistStartTime;
     }
 
-    // If both users are ready, emit the go event
-    if(usersReady.length === 2) {
 
-      console.log("emit playPlaylist event");
-      io.sockets.in(socket.roomId).emit('playPlaylist');
+    // Otherwise, check if both users are ready and if so emit the go event to everyone
+    else {
+
+      // Loop over the clients in this room and see who else is ready
+      for(var i = 0; i < clientsInRoom.length; i++) {
+
+        var user = clientsInRoom[i];
+
+        if(user.isReady) {
+
+          usersReady.push(user.id);
+        }
+      }
+
+      if(usersReady.length === 2) {
+
+        console.log('emit playPlaylist event to everyone');
+        io.sockets.in(socket.roomId).emit('playPlaylist', {
+          startTime: playlistStartTime
+        });
+
+        // Set the playlistStartTime to be now (current UNIX timestamp) if this is the first play
+        if(playlistStartTime === 0) {
+
+          var clientsInRoom = io.sockets.clients(socket.roomId);
+          for(var i = 0; i < clientsInRoom.length; i++) {
+            
+            var user = clientsInRoom[i];
+            user.playlistStartTime = Math.round(new Date().getTime() / 1000);
+          }
+        }
+      }
     }  
 
   });
@@ -114,13 +143,6 @@ io.sockets.on('connection', function (socket) {
 
     io.sockets.in(socket.roomId).emit('userLeft');
     console.log('other user disconnected');
-  });
-
-  // Save the user's currentTime when they send it
-  socket.on('currentTime', function(data) {
-
-    socket.currentTime = data.currentTime;
-    console.log('user\'s current time is ', socket.currentTime);
   });
 });
 

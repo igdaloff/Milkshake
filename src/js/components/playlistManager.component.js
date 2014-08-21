@@ -23,29 +23,13 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       $(this).unbind();
     };
 
-    PlaylistManager.prototype.loadFrom = function(startTime, callback) {
+    PlaylistManager.prototype.loadFromTotalTime = function(startTime, callback) {
 
-      var timeCounter = 0;
-      var startTrack = 0;
-      var requestedTrackTime
-      // Loop over tracks and determine which track contains the requested start time
-      for(trackIndex in this.tracks) {
+      var requestedTrack = this.getTrackFromTotalTime(startTime);
 
-        var track = this.tracks[trackIndex];
-        timeCounter += track.duration;
-        if(startTime < timeCounter) {
+      this.onTrackReady(requestedTrack.trackIndex, function(pop) {
 
-          requestedTrackTime = timeCounter - track.duration;
-          break;
-        }
-        else {
-          startTrack++;
-        }
-      }
-
-      this.onTrackReady(startTrack, function(pop) {
-
-        pop.currentTime(requestedTrackTime);
+        pop.currentTime(requestedTrack.trackTime);
         pop.on( 'canplayall', function( event ) {
           
           callback(pop);
@@ -53,11 +37,14 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       });
     }
 
-    PlaylistManager.prototype.playTrack = function(trackIndex) {
+    PlaylistManager.prototype.playTrack = function(trackIndex, trackTime) {
       
+      if(typeof trackTime === "undefined") {
+        trackTime = 0;
+      }
       this.onTrackReady(trackIndex, function(popcorn) {
 
-        popcorn.play();
+        popcorn.play(trackTime);
       });
     };
 
@@ -203,6 +190,18 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       }
     }
 
+    PlaylistManager.prototype.getPlaylistDuration = function() {
+
+      var playlistDuration = 0;
+      // Loop over previous tracks and add up the time
+      for(var trackIndex in this.tracks) {
+
+        var track = this.tracks[trackIndex];
+        playlistDuration += track.duration;
+      }
+      return playlistDuration;
+    }
+
     PlaylistManager.prototype.getCurrentTotalTime = function() {
 
       var currentTrackIndex = this.getCurrentTrackIndex();
@@ -215,6 +214,31 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         prevTrackDurations += track.duration;
       }
       return prevTrackDurations + this.pop.currentTime();
+    }
+
+    PlaylistManager.prototype.getTrackFromTotalTime = function(totalTime) {
+
+      var timeCounter = 0;
+      var startTrack = 0;
+      var requestedTrackTime;
+      // Loop over tracks and determine which track contains the requested start time
+      for(trackIndex in this.tracks) {
+
+        var track = this.tracks[trackIndex];
+        timeCounter += track.duration;
+        if(totalTime < timeCounter) {
+
+          requestedTrackTime = totalTime - (timeCounter - track.duration);
+          break;
+        }
+        else {
+          startTrack++;
+        }
+      }
+      return {
+        trackIndex: startTrack,
+        trackTime: requestedTrackTime
+      };
     }
 
     PlaylistManager.prototype.getPopcorn = function(trackUrl) {
