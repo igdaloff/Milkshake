@@ -63,17 +63,14 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.onTrackReady(requestedTrack.trackIndex, function(track) {
 
         track.embed.currentTime(requestedTrack.trackTime);
-        track.embed.on( 'canplayall', function( event ) {
-          
-          callback(track);
-        });
+        callback(track);
       });
     }
 
     PlaylistManager.prototype.playTrack = function(trackIndex, trackTime) {
       
       var _this = this;
-      if(typeof trackTime === "undefined") {
+      if(typeof trackTime === 'undefined') {
         trackTime = 0;
       }
       this.onTrackReady(trackIndex, function(track) {
@@ -101,9 +98,10 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       }
       var track = this.getTrackData(trackIndex);
       if(track.source == 'soundcloud') {
-        track.embed.on( 'canplayall', function( event ) {
+        track.embed.on('canplayall', function(e) {
           
           callback(track);
+          track.embed.off('canplayall');
         });
       }
       else {
@@ -149,7 +147,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.pause = function() {
 
       var track = this.getCurrentTrackData();
-      if(typeof track.embed.pause === "function") {
+      if(typeof track.embed.pause === 'function') {
         track.embed.pause();
       }
       else{
