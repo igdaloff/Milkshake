@@ -41,7 +41,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         });
       }
       // Stop the preview at previewEnd
-      pop.exec(previewEnd, function(){ 
+      pop.exec(previewEnd, function(){
         pop.destroy();
       });
       return pop;
@@ -56,12 +56,22 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var fields = ["id", "source", "title", "url", "artwork", "duration"];
 
       for(var i = 0; i < fields.length; i++){
-
         var field = fields[i];
         var $el = $("#track-" + trackIndex + "-" + field);
         if(trackModel.get(field) && $el.length){
           $el.val(trackModel.get(field));
         }
+
+        $el.siblings("p").html(trackModel.get('title'));
+        $el.siblings(".chosen-track-art").find("img").attr("src", trackModel.get('artwork'));
+      }
+
+      //Detect whether all 3 tracks have been selected and show Create Track button
+      var trackEmpty = $('.chosen-tracks li').find(".track-info-id").filter(function() {
+          return this.value === "";
+      });
+      if(!trackEmpty.length) {
+        $('.playlist-create-title-container').fadeIn();
       }
     }
   }

@@ -1,8 +1,8 @@
 TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, Marionette, $, _){
-  
+
   // prevent starting with parent
   this.startWithParent = false;
-  
+
   // Declare a region to display our results in
   var resultsRegion = new Marionette.Region({
     el: ".track-search-results"
@@ -28,5 +28,5 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       newSearchQuery(query);
     });
   });
-  
+
 });
