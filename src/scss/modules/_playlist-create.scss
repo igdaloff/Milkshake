@@ -1,0 +1,142 @@
+// =======================
+// Playlist Create
+// =======================
+.playlist-create{
+	text-align: center;
+}
+
+
+
+
+//Chosen Tracks
+.chosen-tracks{
+	margin: 0 -5px;
+	@extend .clearfix;
+
+  li{
+  	width: 33.33333%;
+  	float: left;
+  	padding: 0 5px;
+
+  	p{
+  		margin-top: 1em;
+  		font-size: 0.9em;
+  		font-style: italic;
+  	}
+  }
+
+  label{
+  	display: inline-block;
+  	width: 100%;
+  	padding-bottom: 100%;
+  	margin-bottom: -100%;
+  	border: 1px solid transparent;
+  	cursor: pointer;
+  }
+
+  input[type=radio]:checked{
+  	&+ label + .chosen-track-art{
+  		border-color: tomato;
+
+  		&:after{
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: -0.85em;
+				width: 0;
+				height: 0;
+				margin-left: -0.85em;
+				border-left: 0.85em solid transparent;
+				border-right: 0.85em solid transparent;
+				border-top: 0.85em solid tomato;
+			}
+  	}
+  }
+}
+
+.playlist-track-select{
+	display: none;
+}
+
+.chosen-track-art{
+	position: relative;
+	width: 100%;
+	padding-bottom: calc(100% - 2px); //2px of vertical border space
+	border: 1px solid $grey;
+	z-index: -1;
+
+	img{
+		position: absolute;
+		display: block;
+		width: 100%;
+	}
+
+	img[src=""]{
+		display: none;
+	}
+}
+
+
+
+
+//Search
+.track-search{
+	padding: 2em;
+	border: 1px solid $grey;
+	margin-top: 2em;
+	@extend .clearfix;
+}
+
+.track-search-input-container{
+	float: left;
+	width: 66.6666667%;
+	padding-right: 5px;
+}
+
+.track-search-submit-container{
+	float: left;
+	width: 33.3333333%;
+	padding-left: 5px;
+}
+
+
+
+
+//Search Results
+.track-search-results{
+	display: inline-block;
+	width: 100%;
+	margin-top: 2em;
+	text-align: left;
+
+	&:empty{
+		display: none;
+	}
+}
+
+.track-search-result-title,
+.track-search-result-duration,
+.track-search-result-source{
+	float: left;
+	margin-right: 1em;
+	max-width: 25%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.track-search-result-title{
+	width: 50%;
+}
+
+
+
+
+//Playlist Title
+.playlist-create-title-container{
+	display: none;
+}
+
+.new-playlist-title-input-field{
+	margin: 1em 0;
+}

@@ -1,18 +1,3 @@
-.track-search{
-  float: left;
-  margin: 0;
-  margin-bottom: 1em;
-}
-
-.chosen-tracks{
-  float: right;
-
-  li{
-    float: left;
-    margin-left: 2em;
-  }
-}
-
 .playlist-track-list{
   @include ib-whitespace-fix($body_fs);
 }
@@ -26,8 +11,6 @@
 }
 
 #playlist-embeds{
-  //height: 0;
-  //width: 0;
   overflow: hidden;
 }
 
@@ -48,6 +31,7 @@
 
   li{
     padding: 1em;
+    @extend .clearfix;
   }
 
   li:nth-child(odd){
@@ -70,5 +54,6 @@
 }
 
 .track-search-result-meta{
-  display: inline-block;
+  width: 66.666666667%;
+  float: left;
 }

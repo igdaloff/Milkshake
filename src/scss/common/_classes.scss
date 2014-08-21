@@ -1,3 +1,27 @@
 // =======================
 // Classes
 // =======================
+
+// $CLEARFIX
+.clearfix{
+	&:before, &:after{
+		display: table;
+		content: "";
+		visibility: hidden;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+
+
+// $TRANSITIONS
+.transition{
+	-webkit-transition: 0.2s all ease;
+	-moz-transition:		0.2s all ease;
+	-o-transition: 			0.2s all ease;
+	-ms-transition: 		0.2s all ease;
+	transition: 				0.2s all ease;
+}

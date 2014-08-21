@@ -1,0 +1,52 @@
+// =======================
+// Form Elements
+// =======================
+.input-field{
+	width: 100%;
+	height: 2.5em;
+	line-height: 2;
+	padding-left: 0.5em;
+	background: none;
+	border: 1px solid $grey;
+	font-size: 1.5em;
+	@extend .transition;
+
+	&:focus{
+		border-color: tomato;
+		outline: none;
+		@extend .transition;
+
+		&::-webkit-input-placeholder {
+		   color: rgba($grey, 0.5);
+		}
+
+		&:-moz-placeholder { /* Firefox 18- */
+		   color: rgba($grey, 0.5);
+		}
+
+		&::-moz-placeholder {  /* Firefox 19+ */
+		   color: rgba($grey, 0.5);
+		}
+
+		&:-ms-input-placeholder {
+		   color: rgba($grey, 0.5);
+		}
+	}
+}
+
+.btn{
+	width: 100%;
+	height: 2.5em;
+	font-size: 1.5em;
+	line-height: 2;
+	background: tomato;
+	color: white;
+	border-radius: 1px;
+	border: 0;
+	cursor: pointer;
+	@extend .transition;
+
+	&:hover{
+		background: lighten(tomato, 10%);
+	}
+}
