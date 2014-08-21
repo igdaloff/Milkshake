@@ -1,4 +1,4 @@
-TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
+TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
   // prevent starting with parent
   this.startWithParent = false;
@@ -12,40 +12,40 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
   */
   var bindPlaylistUi = function(playlistManager){
 
-    $(".playlist-toggle-play").on("click", function(){
+    $('.playlist-toggle-play').on('click', function(){
 
       playlistManager.togglePlayPause();
-      console.log("Now playing " + playlistManager.getCurrentTrackData().title);
+      console.log('Now playing ' + playlistManager.getCurrentTrackData().title);
     });
 
-    $(".playlist-next").on("click", function(){
+    $('.playlist-next').on('click', function(){
 
       playlistManager.next();
-      console.log("Now playing " + playlistManager.getCurrentTrackData().title);
+      console.log('Now playing ' + playlistManager.getCurrentTrackData().title);
     });
-    $(".playlist-prev").on("click", function(){
+    $('.playlist-prev').on('click', function(){
 
       playlistManager.previous();
-      console.log("Now playing " + playlistManager.getCurrentTrackData().title);
+      console.log('Now playing ' + playlistManager.getCurrentTrackData().title);
     });
 
     // Bind time updates to the progress bars
-    $(playlistManager).on("timeupdate:track", function(event, currentTime){
+    $(playlistManager).on('timeupdate:track', function(event, currentTime){
 
       var trackIndex = playlistManager.getCurrentTrackIndex();
       var trackData = playlistManager.getTrackData(trackIndex);
-      $(".playlist-track").each(function(i) {
+      $('.playlist-track').each(function(i) {
 
-        var $progressBar = $(this).find(".current-progress");
+        var $progressBar = $(this).find('.current-progress');
         // Set the previous tracks duration to 100%
         if(i < trackIndex) {
-          $progressBar.width("100%");
+          $progressBar.width('100%');
         }
         // Update the current track's progress
         else if(i == trackIndex) {
 
           var trackProgress = currentTime / trackData.duration * 100;
-          $progressBar.width(trackProgress + "%");
+          $progressBar.width(trackProgress + '%');
 
           // requestAnimationFrame Shim
           (function() {
@@ -110,41 +110,72 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         var track = playlist.models[key];
         tracks.push(track.attributes);
       }
-      var playlistManager = TWM.request("playlistManager:components", {
+      var playlistManager = TWM.request('playlistManager:components', {
         tracks: tracks
       });
       return playlistManager;
     },
-    onUserConnect: function(userCount, socket) {
+    /*
+     * On User Connect
+     * Handle the sending and receiving of socket messages
+     */
+    onUserConnect: function(socket) {
 
-      var playlist = TWM.request("playlist:activePlaylistMgr");
-      // Wait until both users have the tracks loaded and ready to play
-      playlist.onTrackReady(0, function(track) {
+      // Set a request handler so we can get the active socket in future
+      TWM.reqres.setHandler("playlist:activeSocket", function() {
 
-        // When the server tells us both users are ready, start the playlist in 3 seconds
-        socket.on("bothUsersReady", function() {
+        return socket;
+      });
+      var playlist = TWM.request('playlist:activePlaylistMgr');
 
-          console.log("Playing in 3 seconds...");
-          var delay = window.setTimeout(function() {
+      // When the server tells us when to start loading the playlist from
+      socket.on('loadPlaylistFrom', this.loadPlaylistFrom);
+      // When the server sends the play event
+      socket.on('playPlaylist', this.playPlaylist);
+      // When the other user disconnects
+      socket.on('userLeft', this.onUserLeft);
+    },
+    loadPlaylistFrom: function(data) {
 
-            track.play();
-          }, 3000);
-        });
-        // Tell the server we are ready
-        socket.emit("userReady", socket.id);
+      var socket = TWM.request("playlist:activeSocket");
+      var playlist = TWM.request('playlist:activePlaylistMgr');
+      console.log(data.startTime);
+      playlist.loadFrom(data.startTime, function(track) {
+
+        // Tell the server we are ready to start
+        socket.emit('userReadyToPlay');
+      });
+    },
+    playPlaylist: function() {
+
+      var playlist = TWM.request('playlist:activePlaylistMgr');
+      console.log('Playing in 3 seconds...');
+      var delay = window.setTimeout(function() {
+
+        playlist.resume();
+      }, 3000);
+    },
+    onUserLeft: function() {
+
+      var socket = TWM.request("playlist:activeSocket");
+      var playlist = TWM.request('playlist:activePlaylistMgr');
+      // Pause playback
+      playlist.pause();
+      socket.emit('currentTime', {
+        currentTime: playlist.getCurrentTotalTime()
       });
     }
   }
 
-  Playlist.on("start", function(){
+  Playlist.on('start', function(){
 
     var tracks = bootstrap || {};
-    var playlist = TWM.request("newPlaylist:entities", tracks);
+    var playlist = TWM.request('newPlaylist:entities', tracks);
     // create a new playlist manager from the API.loadPlayer method
     var playlistManager = Playlist.API.loadPlayer(playlist);
     // bind controls to the new playlist manager object
     bindPlaylistUi(playlistManager);
-    TWM.reqres.setHandler("playlist:activePlaylistMgr", function() {
+    TWM.reqres.setHandler('playlist:activePlaylistMgr', function() {
 
       return playlistManager;
     });
