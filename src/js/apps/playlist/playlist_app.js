@@ -155,7 +155,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
-        window.testes = track;
       });
     },
     playPlaylist: function(data) {
@@ -164,7 +163,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var startTime = data.startTime;
       // Account for any latency and get a fresh start time
       if(startTime === 0) {
-        playlist.resume();
+        playlist.startPlaylist();
       }
       else {
         var timeDiff = Playlist.API.calculateTimeDiff(startTime);

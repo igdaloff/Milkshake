@@ -7,19 +7,52 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.tracks = data.tracks || {};
       this.currentTrackIndex = null;
       this.isPlaying = false;
-      // Create a jQuery element that will contain our embed codes and append it to the body
+      // Create a jQuery element for each track that will contain the embedded player, create a Popcorn instance for each
       this.embedsId = 'playlist-embeds';
-      this.$embeds = $('<div></div>').attr('id', this.embedsId).appendTo('body');
+      for(i in this.tracks) {
+
+        var track = this.tracks[i];
+        var trackEmbedId = this.embedsId.toString() + '-' + i;
+        var $trackEmbed = $('<div></div>').attr('id', trackEmbedId).appendTo('body');
+        this.tracks[i].embed = this.initTrackEmbed(track, trackEmbedId);
+      }
     }
+
+    PlaylistManager.prototype.initTrackEmbed = function(track, domId) {
+
+      var pop = Popcorn.smart( '#' + domId, track.url);
+      pop.autoplay(false);
+      // Bind popcorn events to triggers on the 'this' object
+      pop.on('ended', $.proxy(function(){
+
+        $(this).trigger('ended:track');
+        this.next()
+      }, this));
+      pop.on('playing', $.proxy(function(){
+
+        $(this).trigger('playing:track');
+        this.isPlaying = true;
+      }, this));
+      pop.on('pause', $.proxy(function(){
+
+        $(this).trigger('pause:track');
+        this.isPlaying = false;
+      }, this));
+      pop.on('timeupdate', $.proxy(function(){
+
+        $(this).trigger('timeupdate:track', pop.currentTime());
+      }, this));
+      return pop;
+    };
 
     PlaylistManager.prototype.startPlaylist = function() {
 
       this.playTrack(0);
-      $(this).on('ended:track', this.next);
     };
 
     PlaylistManager.prototype.stopPlaylist = function() {
 
+      this.stopAll();
       $(this).unbind();
     };
 
@@ -27,25 +60,36 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       var requestedTrack = this.getTrackFromTotalTime(startTime);
 
-      this.onTrackReady(requestedTrack.trackIndex, function(pop) {
+      this.onTrackReady(requestedTrack.trackIndex, function(track) {
 
-        pop.currentTime(requestedTrack.trackTime);
-        pop.on( 'canplayall', function( event ) {
+        track.embed.currentTime(requestedTrack.trackTime);
+        track.embed.on( 'canplayall', function( event ) {
           
-          callback(pop);
+          callback(track);
         });
       });
     }
 
     PlaylistManager.prototype.playTrack = function(trackIndex, trackTime) {
       
+      var _this = this;
       if(typeof trackTime === "undefined") {
         trackTime = 0;
       }
-      this.onTrackReady(trackIndex, function(popcorn) {
+      this.onTrackReady(trackIndex, function(track) {
 
-        popcorn.play(trackTime);
+        track.embed.play(trackTime);
+        _this.setCurrentTrackIndex(trackIndex);
       });
+    };
+
+    PlaylistManager.prototype.stopAll = function() {
+
+      for(i in this.tracks) {
+
+        var trackEmbed = this.tracks[i].embed;
+        trackEmbed.pause();
+      }
     };
 
     PlaylistManager.prototype.onTrackReady = function(trackIndex, callback) {
@@ -56,23 +100,18 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         return;
       }
       var track = this.getTrackData(trackIndex);
-      this.emptyEmbedsEl();
-      var pop = this.getPopcorn(track.url, true);
       if(track.source == 'soundcloud') {
-        pop.on( 'canplayall', function( event ) {
+        track.embed.on( 'canplayall', function( event ) {
           
-          callback(pop);
+          callback(track);
         });
       }
       else {
 
-        callback();
+        callback(track);
       }
-      this.isPlaying = true;
-      this.pop = pop;
-      this.setCurrentTrackIndex(trackIndex);
       return this.pop;
-    },
+    };
 
     PlaylistManager.prototype.getTrackData = function(trackIndex) {
 
@@ -83,7 +122,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       else {
         return null;
       }
-    }
+    };
 
     PlaylistManager.prototype.getCurrentTrackData = function() {
 
@@ -94,24 +133,24 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       else {
         return null;
       }
-    }
+    };
 
     PlaylistManager.prototype.getCurrentTrackIndex = function() {    
 
       return this.currentTrackIndex;
-    }
+    };
     
     PlaylistManager.prototype.setCurrentTrackIndex = function(trackIndex) {    
 
       this.currentTrackIndex = trackIndex;
       return this.getTrackData(trackIndex);
-    }
+    };
 
     PlaylistManager.prototype.pause = function() {
 
-      if(typeof this.pop.pause === "function") {
-        this.pop.pause();
-        return this.getTrackData(this.getCurrentTrackIndex());
+      var track = this.getCurrentTrackData();
+      if(typeof track.embed.pause === "function") {
+        track.embed.pause();
       }
       else{
         return false;
@@ -120,17 +159,9 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.resume = function() {
 
-      this.pop.play();
-      return this.getTrackData(this.getCurrentTrackIndex());
+      var track = this.getCurrentTrackData();
+      track.embed.play();
     };
-
-    PlaylistManager.prototype.stop = function() {
-
-      this.pop.destroy();
-      this.setCurrentTrackIndex(null);
-      this.isPlaying = false;
-      this.emptyEmbedsEl();
-    }
 
     PlaylistManager.prototype.emptyEmbedsEl = function() {
       
@@ -161,7 +192,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.next = function() {
 
       var nextTrackIndex = this.getCurrentTrackIndex() + 1;
-      this.stop();
+      this.stopAll();
       if(nextTrackIndex + 1 <= this.tracks.length) {
 
         this.playTrack(nextTrackIndex);
@@ -213,7 +244,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         var track = this.tracks[i];
         prevTrackDurations += track.duration;
       }
-      return prevTrackDurations + this.pop.currentTime();
+      return prevTrackDurations + this.getCurrentTrackData().embed.currentTime();
     }
 
     PlaylistManager.prototype.getTrackFromTotalTime = function(totalTime) {
@@ -240,32 +271,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         trackTime: requestedTrackTime
       };
     }
-
-    PlaylistManager.prototype.getPopcorn = function(trackUrl) {
-
-      var pop = Popcorn.smart( '#' + this.embedsId, trackUrl);
-      pop.autoplay(false);
-      // Bind popcorn events to triggers on the 'this' object
-      pop.on('ended', $.proxy(function(){
-
-        $(this).trigger('ended:track');
-      }, this));
-      pop.on('playing', $.proxy(function(){
-
-        $(this).trigger('playing:track');
-        this.isPlaying = true;
-      }, this));
-      pop.on('pause', $.proxy(function(){
-
-        $(this).trigger('pause:track');
-        this.isPlaying = false;
-      }, this));
-      pop.on('timeupdate', $.proxy(function(){
-
-        $(this).trigger('timeupdate:track', pop.currentTime());
-      }, this));
-      return pop;
-    };
 
     return PlaylistManager;
 
