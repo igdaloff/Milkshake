@@ -63,21 +63,32 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.onTrackReady(requestedTrack.trackIndex, function(track) {
 
         track.embed.currentTime(requestedTrack.trackTime);
-        callback(track);
+        // We'll add a litle delay because youtube can be slow
+        window.setTimeout(function() {
+
+          callback(track);
+        }, 1000);
       });
     }
 
-    PlaylistManager.prototype.playTrack = function(trackIndex, trackTime) {
+    PlaylistManager.prototype.playTrack = function(trackIndex, trackTime, wait) {
       
-      var _this = this;
       if(typeof trackTime === 'undefined') {
         trackTime = 0;
       }
-      this.onTrackReady(trackIndex, function(track) {
+      if(typeof wait === 'undefined') {
+        wait = false;
+      }
+      this.setCurrentTrackIndex(trackIndex);
+      if(wait) {
+        this.onTrackReady(trackIndex, function(track) {
 
-        track.embed.play(trackTime);
-        _this.setCurrentTrackIndex(trackIndex);
-      });
+          track.play(trackTime);
+        });
+      }
+      else {
+        this.tracks[trackIndex].embed.play(trackTime)
+      }
     };
 
     PlaylistManager.prototype.stopAll = function() {
@@ -97,17 +108,11 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         return;
       }
       var track = this.getTrackData(trackIndex);
-      if(track.source == 'soundcloud') {
-        track.embed.on('canplayall', function(e) {
-          
-          callback(track);
-          track.embed.off('canplayall');
-        });
-      }
-      else {
-
+      track.embed.on('canplaythrough', function(e) {
+        
         callback(track);
-      }
+        track.embed.off('canplaythrough');
+      });
       return this.pop;
     };
 
