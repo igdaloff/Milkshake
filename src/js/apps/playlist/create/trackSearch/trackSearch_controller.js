@@ -62,16 +62,26 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
           $el.val(trackModel.get(field));
         }
 
-        $el.siblings("p").html(trackModel.get('title'));
-        $el.siblings(".chosen-track-art").find("img").attr("src", trackModel.get('artwork'));
+        $el.siblings("p").html(trackModel.get("title"));
+        $el.parents("li").addClass("has-selection");
+
+        //Load default artwork image if track has no artwork url
+        var artworkUrl;
+        if( !trackModel.get("artwork") ){
+          artworkUrl = "/img/artwork-placehold.jpg";
+        } else {
+          artworkUrl = trackModel.get("artwork");
+        }
+
+        $el.siblings(".chosen-track-art").find("img").attr("src", artworkUrl);
       }
 
       //Detect whether all 3 tracks have been selected and show Create Track button
-      var trackEmpty = $('.chosen-tracks li').find(".track-info-id").filter(function() {
-          return this.value === "";
+      var trackEmpty = $(".chosen-tracks li").find(".track-info-id").filter(function() {
+        return this.value === "";
       });
       if(!trackEmpty.length) {
-        $('.playlist-create-title-container').fadeIn();
+        $(".playlist-create-title-container").fadeIn();
       }
     }
   }

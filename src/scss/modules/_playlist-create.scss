@@ -63,12 +63,13 @@
 	width: 100%;
 	padding-bottom: calc(100% - 2px); //2px of vertical border space
 	border: 1px solid $grey;
-	z-index: -1;
+	pointer-events: none;
 
 	img{
 		position: absolute;
 		display: block;
 		width: 100%;
+		z-index: -1;
 	}
 
 	img[src=""]{

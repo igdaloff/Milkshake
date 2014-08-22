@@ -12,7 +12,9 @@
               <!-- Track {{ i }} -->
               <input data-index="{{ i }}" class="playlist-track-select" type="radio" name="track[]" id="playlist-track-{{ i }}" {% if i == 0 %}checked="checked"{% endif %}>
               <label for="playlist-track-{{ i }}"></label>
-              <div class="chosen-track-art"><img src="" alt="Track {{ i }} album art" /></div>
+              <div class="chosen-track-art">
+                <img src="" alt="Track {{ i }} album art" />
+              </div>
               <p></p>
               <input type="hidden" id="track-{{ i }}-title" name="track{{ i }}title" class="track-info-title">
               <input type="hidden" id="track-{{ i }}-id" name="track{{ i }}id" class="track-info-id">
