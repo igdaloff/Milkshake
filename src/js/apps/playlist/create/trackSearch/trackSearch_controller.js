@@ -83,6 +83,9 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       if(!trackEmpty.length) {
         $(".playlist-create-title-container").fadeIn();
       }
+
+      //Advance track selection to next one
+      $el.parents('li:has(input:checked)').next('li').children('.playlist-track-select').prop("checked", true);
     }
   }
 
