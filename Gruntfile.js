@@ -4,25 +4,25 @@ module.exports = function(grunt){
     pkg: grunt.file.readJSON("package.json"),
     watch: {
       compass: {
-        files: "./src/scss/**/*.scss",
+        files: "./assets/scss/**/*.scss",
         tasks: "compass:dist",
         options: {
           interrupt: true
         }
       },
       concat_app: {
-        files: "./src/js/**/*",
+        files: "./assets/js/**/*",
         tasks: "concat:app"
       },
       templates: {
-        files: "./src/templates/**/*",
+        files: "./assets/templates/**/*",
         tasks: "jsttojs:templates"
       }
     },
     compass: {
       dist: {
         options: {
-          sassDir: './src/scss/',
+          sassDir: './assets/scss/',
           cssDir: './public/css/',
           imagesDir: './public/img/'
         }
@@ -31,23 +31,23 @@ module.exports = function(grunt){
     concat: {
       vendor: {
         src: [
-          "./src/lib/modernizr/modernizr.js",
-          "./src/lib/jquery/dist/jquery.js",
-          "./src/lib/underscore/underscore.js",
-          "./src/lib/backbone/backbone.js",
-          "./src/lib/backbone.marionette/lib/backbone.marionette.js",
-          "./src/lib/ejs/ejs.js",
-          "./src/popcorn-complete.min.js"
+          "./assets/lib/modernizr/modernizr.js",
+          "./assets/lib/jquery/dist/jquery.js",
+          "./assets/lib/underscore/underscore.js",
+          "./assets/lib/backbone/backbone.js",
+          "./assets/lib/backbone.marionette/lib/backbone.marionette.js",
+          "./assets/lib/ejs/ejs.js",
+          "./assets/popcorn-complete.min.js"
           ],
         dest: "./public/js/vendors.js"
       },
       app: {
-        src: "./src/js/**/*.js",
+        src: "./assets/js/**/*.js",
         dest: "./public/js/app.js"
       }
     },
     jsttojs: {
-      root: "src/templates",
+      root: "./assets/templates",
       output: "public/js/templates.js",
       ext: "ejs",
       name: "TWM.templates",
@@ -62,4 +62,5 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-jsttojs");
 
   grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist"]);
+  grunt.registerTask("default", ["build", "watch"]);
 }
