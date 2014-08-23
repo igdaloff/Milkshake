@@ -13,8 +13,11 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     * Convert seconds to human-readable minutes
     */
     secondsToMinutes: function(seconds){
-      var minutes = Math.floor(seconds / 60);
-      var remainderSeconds = Math.round(seconds - minutes * 60);
+      var minutes = Math.floor(seconds / 60).toString();
+      var remainderSeconds = Math.round(seconds - minutes * 60).toString();
+      if(remainderSeconds.length < 2) {
+        remainderSeconds = "0" + remainderSeconds;
+      }
       return minutes + ":" + remainderSeconds;
     }
   });
