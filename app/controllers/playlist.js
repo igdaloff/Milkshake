@@ -1,4 +1,4 @@
-var Playlist = require('../models/playlist.js');
+var Playlist = require(config.root + 'app/models/playlist.js');
 
 exports.new_playlist = function(req, res){
 

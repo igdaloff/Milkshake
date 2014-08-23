@@ -1,6 +1,6 @@
 exports.search_by_string = function(req, res){
 
-  var api = require("../modules/api.js");
+  var api = require(config.root + "lib/api.js");
   var url = require("url");
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;

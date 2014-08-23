@@ -3,15 +3,21 @@
 Dependencies
 ============================================
 */
-var routes = require("./routes");
 var swig = require('swig');
+var express = require("express");
+
+
+var env = process.env.NODE_ENV || 'development'
+var config = require('./config/config').Config;
+
+global.config = config;
+
 
 /*
 ============================================
 Server
 ============================================
 */
-var express = require("express");
 var app = express();
 var server = app.listen(3000);
 console.log("Express server listening on port 3000");
@@ -21,7 +27,7 @@ app.configure(function(){
   // Set up the template engine
   app.engine('html', swig.renderFile);
   app.set('view engine', 'html');
-  app.set('views', __dirname + '/views');
+  app.set('views', __dirname + '/app/views');
   app.set('view cache', false);
   swig.setDefaults({ cache: false });
   // Serve static files from /public
@@ -29,14 +35,6 @@ app.configure(function(){
   // Use URLencoded for post data
   app.use(express.urlencoded());
 });
-/*
-============================================
-Routes
-============================================
-*/
 
-app.get("/", routes.home.home);
-app.get("/search", routes.search.search_by_string);
-app.get("/new-playlist", routes.playlist.new_playlist);
-app.post("/process-new-playlist/", routes.playlist.process_new_playlist);
-app.get("/playlist/:id", routes.playlist.playlist);
+
+var routes = require("./config/routes")(app);
