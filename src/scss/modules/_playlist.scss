@@ -16,7 +16,8 @@
 
 .progress-bar{
   height: 10px;
-  background: #ccc;
+  background: $grey;
+
   .current-progress{
     background: red;
     height: 10px;
@@ -24,35 +25,4 @@
     width: 0;
     font-size: .5em;
   }
-}
-
-//TRACK $SEARCH RESULTS
-.track-search-results{
-
-  li{
-    padding: 1em;
-    @extend .clearfix;
-  }
-
-  li:nth-child(odd){
-    background: #f7f7f7;
-  }
-}
-
-.track-search-result-actions{
-  float: right;
-}
-
-.track-search-result-title{
-  margin-bottom: 0.5em;
-  font-style: italic;
-}
-
-.track-search-result-duration{
-  font-weight: bold;
-}
-
-.track-search-result-meta{
-  width: 66.666666667%;
-  float: left;
 }

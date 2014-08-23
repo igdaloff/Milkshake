@@ -10,9 +10,9 @@
             {% for i in [0, 1, 2] %}
             <li>
               <!-- Track {{ i }} -->
-              <span class="track-number-label">Track {{ i+1 }}</span>
               <input data-index="{{ i }}" class="playlist-track-select" type="radio" name="track[]" id="playlist-track-{{ i }}" {% if i == 0 %}checked="checked"{% endif %}>
               <label for="playlist-track-{{ i }}"></label>
+              <span class="track-number-label">Track {{ i+1 }}</span>
               <div class="chosen-track-art">
                 <img src="" alt="Track {{ i }} album art" />
               </div>

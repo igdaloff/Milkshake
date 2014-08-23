@@ -122,23 +122,23 @@ a {
 }
 
 /* line 7, ../../src/scss/common/_classes.scss */
-.clearfix:before, .track-search-results li:before, .chosen-tracks:before, .track-search:before, .clearfix:after, .track-search-results li:after, .chosen-tracks:after, .track-search:after {
+.clearfix:before, .chosen-tracks:before, .track-search:before, .track-search-results li:before, .clearfix:after, .chosen-tracks:after, .track-search:after, .track-search-results li:after {
   display: table;
   content: "";
   visibility: hidden;
 }
 /* line 12, ../../src/scss/common/_classes.scss */
-.clearfix:after, .track-search-results li:after, .chosen-tracks:after, .track-search:after {
+.clearfix:after, .chosen-tracks:after, .track-search:after, .track-search-results li:after {
   clear: both;
 }
 
 /* line 21, ../../src/scss/common/_classes.scss */
-.transition, .input-field, .input-field:focus, .btn {
-  -webkit-transition: 0.2s all ease;
-  -moz-transition: 0.2s all ease;
-  -o-transition: 0.2s all ease;
-  -ms-transition: 0.2s all ease;
-  transition: 0.2s all ease;
+.transition, .input-field, .input-field:focus, .btn, .chosen-tracks input[type=radio]:checked ~ label ~ .chosen-track-art, .chosen-tracks input[type=radio]:checked ~ label ~ .chosen-track-art:after, .chosen-tracks input[type=radio]:checked ~ label ~ .track-number-label {
+  -webkit-transition: 0.1s all ease;
+  -moz-transition: 0.1s all ease;
+  -o-transition: 0.1s all ease;
+  -ms-transition: 0.1s all ease;
+  transition: 0.1s all ease;
 }
 
 /* line 6, ../../src/scss/common/_icons.scss */
@@ -192,7 +192,7 @@ a {
 }
 /* line 14, ../../src/scss/common/_form-elements.scss */
 .input-field:focus {
-  border-color: tomato;
+  border-color: #222222;
   outline: none;
 }
 /* line 19, ../../src/scss/common/_form-elements.scss */
@@ -220,7 +220,7 @@ a {
   height: 2.5em;
   font-size: 1.5em;
   line-height: 2;
-  background: tomato;
+  background: #222222;
   color: white;
   border-radius: 1px;
   border: 0;
@@ -228,7 +228,13 @@ a {
 }
 /* line 49, ../../src/scss/common/_form-elements.scss */
 .btn:hover {
-  background: #ff8e7a;
+  background: white;
+  border: 1px solid #222222;
+  color: #222222;
+}
+/* line 55, ../../src/scss/common/_form-elements.scss */
+.btn:focus {
+  outline: none;
 }
 
 /* line 4, ../../src/scss/layout/_layout.scss */
@@ -276,46 +282,15 @@ a {
 /* line 17, ../../src/scss/modules/_playlist.scss */
 .progress-bar {
   height: 10px;
-  background: #ccc;
+  background: #cccccc;
 }
-/* line 20, ../../src/scss/modules/_playlist.scss */
+/* line 21, ../../src/scss/modules/_playlist.scss */
 .progress-bar .current-progress {
   background: red;
   height: 10px;
   color: white;
   width: 0;
   font-size: .5em;
-}
-
-/* line 32, ../../src/scss/modules/_playlist.scss */
-.track-search-results li {
-  padding: 1em;
-}
-/* line 37, ../../src/scss/modules/_playlist.scss */
-.track-search-results li:nth-child(odd) {
-  background: #f7f7f7;
-}
-
-/* line 42, ../../src/scss/modules/_playlist.scss */
-.track-search-result-actions {
-  float: right;
-}
-
-/* line 46, ../../src/scss/modules/_playlist.scss */
-.track-search-result-title {
-  margin-bottom: 0.5em;
-  font-style: italic;
-}
-
-/* line 51, ../../src/scss/modules/_playlist.scss */
-.track-search-result-duration {
-  font-weight: bold;
-}
-
-/* line 55, ../../src/scss/modules/_playlist.scss */
-.track-search-result-meta {
-  width: 66.666666667%;
-  float: left;
 }
 
 /* line 4, ../../src/scss/modules/_playlist-create.scss */
@@ -349,12 +324,12 @@ a {
   border: 1px solid transparent;
   cursor: pointer;
 }
-/* line 39, ../../src/scss/modules/_playlist-create.scss */
-.chosen-tracks input[type=radio]:checked + label + .chosen-track-art {
-  border-color: tomato;
+/* line 40, ../../src/scss/modules/_playlist-create.scss */
+.chosen-tracks input[type=radio]:checked ~ label ~ .chosen-track-art {
+  border-color: #222222;
 }
-/* line 42, ../../src/scss/modules/_playlist-create.scss */
-.chosen-tracks input[type=radio]:checked + label + .chosen-track-art:after {
+/* line 44, ../../src/scss/modules/_playlist-create.scss */
+.chosen-tracks input[type=radio]:checked ~ label ~ .chosen-track-art:after {
   content: '';
   position: absolute;
   left: 50%;
@@ -364,10 +339,14 @@ a {
   margin-left: -0.85em;
   border-left: 0.85em solid transparent;
   border-right: 0.85em solid transparent;
-  border-top: 0.85em solid tomato;
+  border-top: 0.85em solid #222222;
+}
+/* line 59, ../../src/scss/modules/_playlist-create.scss */
+.chosen-tracks input[type=radio]:checked ~ label ~ .track-number-label {
+  color: #222222;
 }
 
-/* line 58, ../../src/scss/modules/_playlist-create.scss */
+/* line 67, ../../src/scss/modules/_playlist-create.scss */
 .track-number-label {
   position: absolute;
   font-size: 3em;
@@ -380,17 +359,17 @@ a {
   font-weight: bold;
   z-index: -1;
 }
-/* line 70, ../../src/scss/modules/_playlist-create.scss */
+/* line 79, ../../src/scss/modules/_playlist-create.scss */
 .has-selection .track-number-label {
   display: none;
 }
 
-/* line 75, ../../src/scss/modules/_playlist-create.scss */
+/* line 84, ../../src/scss/modules/_playlist-create.scss */
 .playlist-track-select {
   display: none;
 }
 
-/* line 79, ../../src/scss/modules/_playlist-create.scss */
+/* line 88, ../../src/scss/modules/_playlist-create.scss */
 .chosen-track-art {
   position: relative;
   width: 100%;
@@ -398,52 +377,76 @@ a {
   border: 1px solid #cccccc;
   pointer-events: none;
 }
-/* line 86, ../../src/scss/modules/_playlist-create.scss */
+/* line 95, ../../src/scss/modules/_playlist-create.scss */
 .chosen-track-art img {
   position: absolute;
   display: block;
   width: 100%;
   z-index: -1;
 }
-/* line 93, ../../src/scss/modules/_playlist-create.scss */
+/* line 102, ../../src/scss/modules/_playlist-create.scss */
 .chosen-track-art img[src=""] {
   display: none;
 }
 
-/* line 102, ../../src/scss/modules/_playlist-create.scss */
+/* line 111, ../../src/scss/modules/_playlist-create.scss */
 .track-search {
   padding: 2em;
   border: 1px solid #cccccc;
   margin-top: 2em;
 }
 
-/* line 109, ../../src/scss/modules/_playlist-create.scss */
+/* line 118, ../../src/scss/modules/_playlist-create.scss */
 .track-search-input-container {
   float: left;
   width: 66.6666667%;
   padding-right: 5px;
 }
 
-/* line 115, ../../src/scss/modules/_playlist-create.scss */
+/* line 124, ../../src/scss/modules/_playlist-create.scss */
 .track-search-submit-container {
   float: left;
   width: 33.3333333%;
   padding-left: 5px;
 }
 
-/* line 125, ../../src/scss/modules/_playlist-create.scss */
+/* line 135, ../../src/scss/modules/_playlist-create.scss */
+.playlist-create-title-container {
+  display: none;
+}
+
+/* line 139, ../../src/scss/modules/_playlist-create.scss */
+.new-playlist-title {
+  margin: 1em 0;
+}
+
+/* line 5, ../../src/scss/modules/_search-results.scss */
 .track-search-results {
   display: inline-block;
   width: 100%;
   margin-top: 2em;
   text-align: left;
 }
-/* line 131, ../../src/scss/modules/_playlist-create.scss */
+/* line 11, ../../src/scss/modules/_search-results.scss */
 .track-search-results:empty {
   display: none;
 }
+/* line 15, ../../src/scss/modules/_search-results.scss */
+.track-search-results li {
+  padding: 1em;
+}
+/* line 19, ../../src/scss/modules/_search-results.scss */
+.track-search-results li:nth-child(odd) {
+  background: #f3f3f3;
+}
 
-/* line 138, ../../src/scss/modules/_playlist-create.scss */
+/* line 25, ../../src/scss/modules/_search-results.scss */
+.track-search-result-meta {
+  width: 66.666666667%;
+  float: left;
+}
+
+/* line 32, ../../src/scss/modules/_search-results.scss */
 .track-search-result-title,
 .track-search-result-duration,
 .track-search-result-source {
@@ -455,21 +458,23 @@ a {
   white-space: nowrap;
 }
 
-/* line 147, ../../src/scss/modules/_playlist-create.scss */
+/* line 41, ../../src/scss/modules/_search-results.scss */
 .track-search-result-title {
   width: 60%;
+  margin-bottom: 0.5em;
+  font-style: italic;
 }
-/* line 149, ../../src/scss/modules/_playlist-create.scss */
+/* line 46, ../../src/scss/modules/_search-results.scss */
 .track-search-result-title a {
-  color: tomato;
+  color: #222222;
 }
 
-/* line 158, ../../src/scss/modules/_playlist-create.scss */
-.playlist-create-title-container {
-  display: none;
+/* line 51, ../../src/scss/modules/_search-results.scss */
+.track-search-result-duration {
+  font-weight: bold;
 }
 
-/* line 162, ../../src/scss/modules/_playlist-create.scss */
-.new-playlist-title {
-  margin: 1em 0;
+/* line 55, ../../src/scss/modules/_search-results.scss */
+.track-search-result-actions {
+  float: right;
 }

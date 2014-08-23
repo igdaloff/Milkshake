@@ -12,7 +12,7 @@
 	@extend .transition;
 
 	&:focus{
-		border-color: tomato;
+		border-color: $black;
 		outline: none;
 		@extend .transition;
 
@@ -39,7 +39,7 @@
 	height: 2.5em;
 	font-size: 1.5em;
 	line-height: 2;
-	background: tomato;
+	background: $black;
 	color: white;
 	border-radius: 1px;
 	border: 0;
@@ -47,6 +47,12 @@
 	@extend .transition;
 
 	&:hover{
-		background: lighten(tomato, 10%);
+		background: white;
+		border: 1px solid $black;
+		color: $black;
+	}
+
+	&:focus{
+		outline: none;
 	}
 }
