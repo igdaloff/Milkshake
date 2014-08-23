@@ -309,11 +309,10 @@ a {
 
 /* line 51, ../../src/scss/modules/_playlist.scss */
 .track-search-result-duration {
-  margin-right: 1em;
   font-weight: bold;
 }
 
-/* line 56, ../../src/scss/modules/_playlist.scss */
+/* line 55, ../../src/scss/modules/_playlist.scss */
 .track-search-result-meta {
   width: 66.666666667%;
   float: left;
@@ -330,17 +329,18 @@ a {
 }
 /* line 16, ../../src/scss/modules/_playlist-create.scss */
 .chosen-tracks li {
+  position: relative;
   width: 33.33333%;
   float: left;
   padding: 0 5px;
 }
-/* line 21, ../../src/scss/modules/_playlist-create.scss */
+/* line 22, ../../src/scss/modules/_playlist-create.scss */
 .chosen-tracks li p {
   margin-top: 1em;
   font-size: 0.9em;
   font-style: italic;
 }
-/* line 28, ../../src/scss/modules/_playlist-create.scss */
+/* line 29, ../../src/scss/modules/_playlist-create.scss */
 .chosen-tracks label {
   display: inline-block;
   width: 100%;
@@ -349,11 +349,11 @@ a {
   border: 1px solid transparent;
   cursor: pointer;
 }
-/* line 38, ../../src/scss/modules/_playlist-create.scss */
+/* line 39, ../../src/scss/modules/_playlist-create.scss */
 .chosen-tracks input[type=radio]:checked + label + .chosen-track-art {
   border-color: tomato;
 }
-/* line 41, ../../src/scss/modules/_playlist-create.scss */
+/* line 42, ../../src/scss/modules/_playlist-create.scss */
 .chosen-tracks input[type=radio]:checked + label + .chosen-track-art:after {
   content: '';
   position: absolute;
@@ -367,12 +367,30 @@ a {
   border-top: 0.85em solid tomato;
 }
 
-/* line 57, ../../src/scss/modules/_playlist-create.scss */
+/* line 58, ../../src/scss/modules/_playlist-create.scss */
+.track-number-label {
+  position: absolute;
+  font-size: 3em;
+  color: #cccccc;
+  top: 40%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  font-weight: bold;
+  z-index: -1;
+}
+/* line 70, ../../src/scss/modules/_playlist-create.scss */
+.has-selection .track-number-label {
+  display: none;
+}
+
+/* line 75, ../../src/scss/modules/_playlist-create.scss */
 .playlist-track-select {
   display: none;
 }
 
-/* line 61, ../../src/scss/modules/_playlist-create.scss */
+/* line 79, ../../src/scss/modules/_playlist-create.scss */
 .chosen-track-art {
   position: relative;
   width: 100%;
@@ -380,74 +398,78 @@ a {
   border: 1px solid #cccccc;
   pointer-events: none;
 }
-/* line 68, ../../src/scss/modules/_playlist-create.scss */
+/* line 86, ../../src/scss/modules/_playlist-create.scss */
 .chosen-track-art img {
   position: absolute;
   display: block;
   width: 100%;
   z-index: -1;
 }
-/* line 75, ../../src/scss/modules/_playlist-create.scss */
+/* line 93, ../../src/scss/modules/_playlist-create.scss */
 .chosen-track-art img[src=""] {
   display: none;
 }
 
-/* line 84, ../../src/scss/modules/_playlist-create.scss */
+/* line 102, ../../src/scss/modules/_playlist-create.scss */
 .track-search {
   padding: 2em;
   border: 1px solid #cccccc;
   margin-top: 2em;
 }
 
-/* line 91, ../../src/scss/modules/_playlist-create.scss */
+/* line 109, ../../src/scss/modules/_playlist-create.scss */
 .track-search-input-container {
   float: left;
   width: 66.6666667%;
   padding-right: 5px;
 }
 
-/* line 97, ../../src/scss/modules/_playlist-create.scss */
+/* line 115, ../../src/scss/modules/_playlist-create.scss */
 .track-search-submit-container {
   float: left;
   width: 33.3333333%;
   padding-left: 5px;
 }
 
-/* line 107, ../../src/scss/modules/_playlist-create.scss */
+/* line 125, ../../src/scss/modules/_playlist-create.scss */
 .track-search-results {
   display: inline-block;
   width: 100%;
   margin-top: 2em;
   text-align: left;
 }
-/* line 113, ../../src/scss/modules/_playlist-create.scss */
+/* line 131, ../../src/scss/modules/_playlist-create.scss */
 .track-search-results:empty {
   display: none;
 }
 
-/* line 120, ../../src/scss/modules/_playlist-create.scss */
+/* line 138, ../../src/scss/modules/_playlist-create.scss */
 .track-search-result-title,
 .track-search-result-duration,
 .track-search-result-source {
   float: left;
-  margin-right: 1em;
-  max-width: 25%;
+  padding-right: 1em;
+  width: 20%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* line 129, ../../src/scss/modules/_playlist-create.scss */
+/* line 147, ../../src/scss/modules/_playlist-create.scss */
 .track-search-result-title {
-  width: 50%;
+  width: 60%;
+}
+/* line 149, ../../src/scss/modules/_playlist-create.scss */
+.track-search-result-title a {
+  color: tomato;
 }
 
-/* line 137, ../../src/scss/modules/_playlist-create.scss */
+/* line 158, ../../src/scss/modules/_playlist-create.scss */
 .playlist-create-title-container {
   display: none;
 }
 
-/* line 141, ../../src/scss/modules/_playlist-create.scss */
+/* line 162, ../../src/scss/modules/_playlist-create.scss */
 .new-playlist-title {
   margin: 1em 0;
 }
