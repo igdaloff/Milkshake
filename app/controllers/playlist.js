@@ -57,30 +57,30 @@ io.sockets.on('connection', function (socket) {
 
   // Add the user to a room based on the playlist ID and tell the client what time they should load
   // the playlist from (based on any other users in the room)
-  socket.on('joinRoom', function (roomId) {
+  socket.on('joinRoom', function (playlistId) {
 
-    socket.roomId = roomId;
+    socket.roomId = playlistId;
     console.log('User joined room');
-    socket.join(roomId);
+    socket.join(playlistId);
 
     var clientsInRoom = io.sockets.clients(socket.roomId);
 
-    // Check if this is a reconnect event and the loadPlaylistFrom timestamp was set before
-    for(var i = 0; i < clientsInRoom.length; i++) {
+    // Check if this is a reconnect event and the startTime timestamp was set before
+    Playlist.findById(playlistId, 'startTime', function(err, docs) {
 
-      var user = clientsInRoom[i];
-
-      if(user.id !== socket.id && typeof user.playlistStartTime !== 'undefined') {
-
-        playlistStartTime = user.playlistStartTime;
+      if (err){
+        console.log(err);
+        return err;
       }
-    }
-
-    // Emit the loadPlaylistFrom event telling the new client where to load from
-    // If this is a first time request load from 0
-    console.log('Emit the loadPlaylistFrom event');
-    socket.emit('loadPlaylistFrom', {
-      startTime: playlistStartTime
+      if(typeof docs.startTime !== "undefined") {
+        playlistStartTime = docs.startTime;
+      }
+      // Emit the loadPlaylistFrom event telling the new client where to load from
+      // If this is a first time request load from 0
+      console.log('Emit the loadPlaylistFrom event');
+      socket.emit('loadPlaylistFrom', {
+        startTime: playlistStartTime
+      });
     });
   });
 
@@ -126,12 +126,23 @@ io.sockets.on('connection', function (socket) {
         // Set the playlistStartTime to be now (current UNIX timestamp) if this is the first play
         if(playlistStartTime === 0) {
 
-          var clientsInRoom = io.sockets.clients(socket.roomId);
-          for(var i = 0; i < clientsInRoom.length; i++) {
-            
-            var user = clientsInRoom[i];
-            user.playlistStartTime = Math.round(new Date().getTime() / 1000);
-          }
+          var unixTS = Math.round(new Date().getTime() / 1000);
+
+          // Save the start time to the database instance of this playlist
+          Playlist.update({
+            _id: socket.roomId
+          }, {
+            startTime: unixTS
+          }, {
+            multi: false
+          }, function(err, numAffected) {
+
+            console.log('rows updated:', numAffected);
+            if (err){
+              console.log(err);
+              return err;
+            }
+          });
         }
       }
     }  
@@ -156,6 +167,10 @@ exports.playlist = function(req, res){
       console.log(err);
       return err;
     }
+
+    // Check to see if the playlist has already finished
+    var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+    playlist.hasFinished = typeof playlist.startTime !== "undefined" && playlist.startTime + playlist.totalDuration < currentUnixTime;
     playlist.host = req.headers.host.split(':')[0];
     res.render('playlist', playlist);
   });

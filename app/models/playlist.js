@@ -5,6 +5,7 @@ var schema = new mongoose.Schema({
   title: String,
   created: Date,
   totalDuration: Number,
+  startTime: Number,
   tracks: [{
     trackId: String,
     source: String,

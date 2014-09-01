@@ -1,5 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
+{% if hasFinished %}
+<p>Sorry, this playlist has now finished. Go <a href="/new-playlist/">make a new one</a>.</p>
+{% endif %}
 <h1>{{ title }}</h1>
 <section class="playlist">
   <ul class="playlist-track-list">
@@ -23,7 +26,9 @@ bootstrap = [{{ tracks|raw }}];
 </script>
 {% endblock %}
 
+
 {% block scripts %}
+{% if !hasFinished %}
 <script src="http://{{ host }}:1337/socket.io/socket.io.js"></script>
 <script>
 $(function() {
@@ -35,4 +40,5 @@ $(function() {
   });
 });
 </script>
+{% endif %}
 {% endblock %}

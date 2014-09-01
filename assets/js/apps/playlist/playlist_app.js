@@ -147,7 +147,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         startTime = Playlist.API.calculateTimeDiff(startTime);
         if(startTime > playlist.getPlaylistDuration()) {
 
-          alert("The playlist is already over lol");
           return false;
         }
       }
