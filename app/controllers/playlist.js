@@ -155,6 +155,15 @@ io.sockets.on('connection', function (socket) {
     io.sockets.in(socket.roomId).emit('userLeft');
     console.log('other user disconnected');
   });
+
+  // Message handling
+  socket.on('newMessage', function(data) {
+
+    io.sockets.in(socket.roomId).emit('newMessage', {
+      content: data,
+      sender: socket.id
+    });
+  });
 });
 
 // End socket stuff

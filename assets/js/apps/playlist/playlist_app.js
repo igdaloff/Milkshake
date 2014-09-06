@@ -134,6 +134,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('playPlaylist', this.playPlaylist);
       // When the other user disconnects
       socket.on('userLeft', this.onUserLeft);
+
+      // Start the chat module
+      Playlist.Chat.start();
     },
     loadPlaylistFrom: function(data) {
 

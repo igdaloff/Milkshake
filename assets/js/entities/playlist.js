@@ -51,39 +51,22 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       }
     }
   });
-
-  var API = {
-    /**
-    * New Track Search
-    *
-    * Create a new trackSearchResults object, set the query term if there is one and return the object
-    * @param query (string) - Optional string to use as the query term for the new search results
-    */
-    newTrackSearch: function(query){
-
-      var trackSearchResults = new Entities.TrackSearchResults();
-      if(typeof(query) == "string"){
-        trackSearchResults.setQuery(query);
-      }
-      return trackSearchResults;
-    },
-    newPlaylist: function(models){
-
-      var playlist = new Entities.Playlist(models);
-      return playlist;
-    }
-  }
-
+  
   // Set our req/res handlers
 
   TWM.reqres.setHandler("newTrackSearch:entities", function(query){ 
     
-    return API.newTrackSearch(query);
+    var trackSearchResults = new Entities.TrackSearchResults();
+    if(typeof(query) == "string"){
+      trackSearchResults.setQuery(query);
+    }
+    return trackSearchResults;
   });
 
   TWM.reqres.setHandler("newPlaylist:entities", function(models){ 
-    
-    return API.newPlaylist(models);
+
+    var playlist = new Entities.Playlist(models);
+    return playlist;
   });
 
 });
