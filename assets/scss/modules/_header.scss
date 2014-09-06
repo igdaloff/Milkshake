@@ -2,7 +2,7 @@
 // $Header
 // =======================
 .main-header{
-	margin: 2em 0 4em;
+	margin: 4em 0;
 	text-align: center;
 
 	a{
@@ -10,4 +10,17 @@
 		text-decoration: none;
 		font-weight: bold;
 	}
+}
+
+.logo{
+	width: 85px;
+	margin: 0 auto;
+}
+
+.intro-text{
+	margin-bottom: 1em;
+	font-size: 2em;
+	color: $grey;
+	font-family: $sans-light;
+	line-height: 1.4;
 }

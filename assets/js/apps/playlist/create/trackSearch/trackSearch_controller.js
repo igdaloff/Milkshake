@@ -54,27 +54,44 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
       var trackIndex = $(".playlist-track-select:checked").data("index");
       var fields = ["id", "source", "title", "url", "artwork", "duration"];
+      var $el = $("#chosen-track-" + trackIndex);
 
       for(var i = 0; i < fields.length; i++){
         var field = fields[i];
-        var $el = $("#track-" + trackIndex + "-" + field);
-        if(trackModel.get(field) && $el.length){
-          $el.val(trackModel.get(field));
+        var $field = $("#track-" + trackIndex + "-" + field);
+
+        if(trackModel.get(field) && $field.length){
+          $field.val(trackModel.get(field));
         }
-
-        $el.siblings("p").html(trackModel.get("title"));
-        $el.parents("li").addClass("has-selection");
-
-        //Load default artwork image if track has no artwork url
-        var artworkUrl;
-        if( !trackModel.get("artwork") ){
-          artworkUrl = "/img/artwork-placehold.jpg";
-        } else {
-          artworkUrl = trackModel.get("artwork");
-        }
-
-        $el.siblings(".chosen-track-art").find("img").attr("src", artworkUrl);
       }
+
+      $el.find("p").html(trackModel.get("title"));
+      $el.addClass("has-selection");
+
+      //Load default artwork image if track has no artwork url
+      var artworkUrl;
+      if( !trackModel.get("artwork") ){
+        artworkUrl = "/img/artwork-placehold.jpg";
+      } else {
+        artworkUrl = trackModel.get("artwork");
+      }
+
+      var $artworkImg = $el.find(".chosen-track-art img");
+      $artworkImg.attr("src", artworkUrl);
+
+      setTimeout(function(){
+        if ($artworkImg.width() > $artworkImg.height()){
+          console.log($artworkImg.width()+","+$artworkImg.height())
+          $artworkImg.addClass('landscape');
+        } else {
+          $artworkImg.removeClass('landscape');
+        }
+      }, 100);
+
+
+      //Advance track selection to next one
+      $('li:has(input:checked)').next('li').children('.playlist-track-select').prop("checked", true);
+
 
       //Detect whether all 3 tracks have been selected and show Create Track button
       var trackEmpty = $(".chosen-tracks li").find(".track-info-id").filter(function() {
@@ -83,9 +100,6 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       if(!trackEmpty.length) {
         $(".playlist-create-title-container").fadeIn();
       }
-
-      //Advance track selection to next one
-      $el.parents('li:has(input:checked)').next('li').children('.playlist-track-select').prop("checked", true);
     }
   }
 

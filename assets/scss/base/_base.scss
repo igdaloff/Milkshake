@@ -1,6 +1,11 @@
 // =======================
 // $Base Styles
 // =======================
+body{
+	font-family: $sans;
+	color: #222;
+}
+
 hr{
 	margin: 1em 0;
 	width: 100%;

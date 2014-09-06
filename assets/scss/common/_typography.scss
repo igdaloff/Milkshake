@@ -2,7 +2,8 @@
 // $Typography
 // =======================
 
-$sans: helvetica, sans-serif;
+$sans: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$sans-light: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 
 h1, h2, h3, h4, h5, h6{
 	font-weight: normal;

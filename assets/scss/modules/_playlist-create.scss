@@ -10,19 +10,24 @@
 
 //Chosen Tracks
 .chosen-tracks{
-	margin: 0 -5px;
+	margin: 0 -2.5%;
 	@extend .clearfix;
 
   li{
   	position: relative;
   	width: 33.33333%;
   	float: left;
-  	padding: 0 5px;
+  	padding: 0 2.5%;
+  	margin-bottom: 2em;
 
   	p{
   		margin-top: 1em;
   		font-size: 0.9em;
   		font-style: italic;
+
+  		&:empty{
+  			display: none;
+  		}
   	}
   }
 
@@ -31,34 +36,34 @@
   	width: 100%;
   	padding-bottom: 100%;
   	margin-bottom: -100%;
-  	border: 1px solid transparent;
   	cursor: pointer;
   }
 
   input[type=radio]:checked{
-  	&~ label ~{
-  		.chosen-track-art{
-	  		border-color: $black;
-	  		@extend .transition;
-
-	  		&:after{
-					content: '';
-					position: absolute;
-					left: 50%;
-					bottom: -0.85em;
-					width: 0;
-					height: 0;
-					margin-left: -0.85em;
-					border-left: 0.85em solid transparent;
-					border-right: 0.85em solid transparent;
-					border-top: 0.85em solid $black;
-					@extend .transition;
-				}
+  	&~ label{
+  		&:after{
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: -66px;
+				width: 0;
+				height: 0;
+				margin-left: -1.25em;
+				border-left: 1.25em solid transparent;
+				border-right: 1.25em solid transparent;
+				border-bottom: 1.25em solid $green;
 			}
 
-			.track-number-label{
-				color: $black;
-				@extend .transition;
+  		&~ .chosen-track-art{
+  			border: 0;
+
+  			.chosen-track-art-inner{
+	  			border: 4px solid $green;
+	  		}
+			}
+
+			&~ .track-number-label{
+				color: $green;
 			}
   	}
   }
@@ -66,14 +71,15 @@
 
 .track-number-label{
 	position: absolute;
-	font-size: 3em;
+	height: 1em;
+	font-size: 5em;
+	font-family: $sans-light;
 	color: $grey;
-	top: 40%;
+	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
 	margin: auto;
-	font-weight: bold;
 	z-index: -1;
 
 	.has-selection &{
@@ -86,10 +92,14 @@
 }
 
 .chosen-track-art{
+	border: 1px solid $grey;
+}
+
+.chosen-track-art-inner{
 	position: relative;
 	width: 100%;
-	padding-bottom: calc(100% - 2px); //2px of vertical border space
-	border: 1px solid $grey;
+	padding-bottom: calc(100% - 8px); //8px of vertical border space
+	border: 4px solid transparent;
 	pointer-events: none;
 
 	img{
@@ -99,9 +109,18 @@
 		z-index: -1;
 	}
 
+	.landscape{ //Youtube aspect ratio is 1.3333 repeating, of course
+		height: 100%;
+		width: 133.33333%;
+	}
+
 	img[src=""]{
 		display: none;
 	}
+}
+
+.chosen-track-inner{
+	overflow: hidden;
 }
 
 
@@ -109,22 +128,15 @@
 
 //Search
 .track-search{
-	padding: 2em;
-	border: 1px solid $grey;
 	margin-top: 2em;
-	@extend .clearfix;
 }
 
 .track-search-input-container{
-	float: left;
-	width: 66.6666667%;
-	padding-right: 5px;
-}
+	width: 100%;
 
-.track-search-submit-container{
-	float: left;
-	width: 33.3333333%;
-	padding-left: 5px;
+	input{
+		border: 4px solid $green;
+	}
 }
 
 
