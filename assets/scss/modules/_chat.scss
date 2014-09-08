@@ -1,0 +1,6 @@
+.remote-user-is-typing {
+  display: none;
+  .incoming & {
+    display: block;
+  }
+}

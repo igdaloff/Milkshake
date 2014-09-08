@@ -51,6 +51,8 @@ var io = require('socket.io').listen(1337);
 
 io.sockets.on('connection', function (socket) {
 
+  socket.emit("newConnectionId", socket.id);
+
   var playlistStartTime = 0;
 
   console.log('someone connected! Users now:', io.sockets.clients().length, 'socket url:', socket.handshake.url);
@@ -161,6 +163,21 @@ io.sockets.on('connection', function (socket) {
 
     io.sockets.in(socket.roomId).emit('newMessage', {
       content: data,
+      sender: socket.id
+    });
+  });
+
+  // User typing handling
+  socket.on('userTyping', function() {
+
+    io.sockets.in(socket.roomId).emit('userTyping', {
+      sender: socket.id
+    });
+  });
+
+  socket.on('userNotTyping', function() {
+
+    io.sockets.in(socket.roomId).emit('userNotTyping', {
       sender: socket.id
     });
   });

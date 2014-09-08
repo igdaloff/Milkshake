@@ -30,5 +30,9 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
     // When a new message is received
     socket.on("newMessage", Chat.Controller.displayNewMessage);
+    // When a user typing notification is received
+    socket.on("userTyping", Chat.Controller.remoteUserTyping);
+    // When a user not typing notification is received
+    socket.on("userNotTyping", Chat.Controller.remoteUserNotTyping);
   })
 });
