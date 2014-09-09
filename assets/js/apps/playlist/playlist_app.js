@@ -121,19 +121,26 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
      */
     onUserConnect: function(socket) {
 
-      // Set a request handler so we can get the active socket in future
-      TWM.reqres.setHandler("playlist:activeSocket", function() {
+      // Pick up the socket ID when the server sends it to us
+      socket.on('newConnectionId', function(socketId) {
 
-        return socket;
+        socket.id = socketId;
       });
-      var playlist = TWM.request('playlist:activePlaylistMgr');
-
       // When the server tells us when to start loading the playlist from
       socket.on('loadPlaylistFrom', this.loadPlaylistFrom);
       // When the server sends the play event
       socket.on('playPlaylist', this.playPlaylist);
       // When the other user disconnects
       socket.on('userLeft', this.onUserLeft);
+
+      // Set a request handler so we can get the active socket in future
+      TWM.reqres.setHandler("playlist:activeSocket", function() {
+
+        return socket;
+      });
+
+      // Start the chat module
+      Playlist.Chat.start();
     },
     loadPlaylistFrom: function(data) {
 
