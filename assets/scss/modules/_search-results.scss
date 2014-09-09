@@ -7,41 +7,46 @@
 	width: 100%;
 	margin-top: 2em;
 	text-align: left;
+  border-top: 1px solid $black;
 
 	&:empty{
 		display: none;
 	}
 
   li{
-    padding: 1em;
+    padding: 1.2em 0 1em;
+    border-bottom: 1px solid $black;
     @extend .clearfix;
-
-    &:nth-child(odd){
-   		background: $light-grey;
-  	}
   }
 }
 
 .track-search-result-meta{
-  width: 66.666666667%;
+  width: 90%;
   float: left;
 }
 
+.track-search-result-artwork,
 .track-search-result-title,
 .track-search-result-duration,
 .track-search-result-source{
 	float: left;
-	padding-right: 1em;
-	width: 20%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+}
+
+.track-search-result-artwork{
+  width: 50px;
+  margin-right: 1em;
+
+  img{
+    width: 100%;
+  }
 }
 
 .track-search-result-title{
-	width: 60%;
-  margin-bottom: 0.5em;
+	width: 80%;
   font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   a{
   	color: $black;
@@ -54,4 +59,5 @@
 
 .track-search-result-actions{
   float: right;
+  width: 10%;
 }

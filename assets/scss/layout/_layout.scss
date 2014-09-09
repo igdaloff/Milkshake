@@ -4,4 +4,8 @@
 .wrapper{
 	width: 50%;
 	margin: 0 auto;
+
+	@include smaller-than(extra-large){
+		width: 80%;
+	}
 }
