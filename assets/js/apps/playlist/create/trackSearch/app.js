@@ -5,7 +5,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
   // Declare a region to display our results in
   var resultsRegion = new Marionette.Region({
-    el: ".track-search-results"
+    el: ".track-search-results-container"
   });
 
   var newSearchQuery = function(query){

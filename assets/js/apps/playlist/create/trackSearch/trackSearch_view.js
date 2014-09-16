@@ -2,8 +2,8 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
   TrackSearch.SearchResult = Marionette.ItemView.extend({
     template: "track-search-result",
-    tagName: "tr",
-    className: "track-search-result",
+    tagName: "table",
+    className: "track-search-results",
     events: {
       "click .preview-track": "previewTrack",
       "click .track-search-result-add": "addTrack"
