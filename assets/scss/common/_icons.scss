@@ -5,13 +5,16 @@
 // Global Icon Styles
 .icon:before {
 	font-family: 'icomoon';
-	position: relative;
-	content: attr(data-icon);
 	speak: none;
+	font-style: normal;
 	font-weight: normal;
 	font-variant: normal;
 	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 // To accompany all icons so screen readers communicate what icons mean.
@@ -25,19 +28,11 @@
 
 
 
-// Individual Icons
-.icon-add-music:before{
-	content: 'm';
+// Social media icons
+.icon-soundcloud:before{
+	content: '\f1be';
 }
 
-.icon-login:before{
-	content: 'l';
-}
-
-.icon-menu:before{
-	content: '=';
-}
-
-.icon-about:before{
-	content: '?'
+.icon-youtube:before{
+	content: '\f166';
 }

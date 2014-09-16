@@ -3,50 +3,50 @@
 // =======================
 
 .track-search-results{
-	display: inline-block;
 	width: 100%;
+  table-layout: fixed;
 	margin-top: 2em;
-	text-align: left;
+  text-align: left;
   border-top: 1px solid $black;
 
 	&:empty{
 		display: none;
 	}
+}
 
-  li{
-    padding: 1.2em 0 1em;
-    border-bottom: 1px solid $black;
-    @extend .clearfix;
+.track-search-result{
+  width: 100%;
+  border-bottom: 1px solid $black;
+
+  td{
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0.3em 1em 0.2em 0;
   }
 }
 
-.track-search-result-meta{
-  width: 90%;
-  float: left;
-}
-
-.track-search-result-artwork,
-.track-search-result-title,
-.track-search-result-duration,
-.track-search-result-source{
-	float: left;
+.track-search-result-add{
+  display: inline-block;
+  width: 100%;
 }
 
 .track-search-result-artwork{
   width: 50px;
-  margin-right: 1em;
-
   img{
-    width: 100%;
+    width: 50px;
+    height: 50px;
   }
 }
 
 .track-search-result-title{
-	width: 80%;
-  font-style: italic;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+  h5{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    max-width: 400px;
+  }
 
   a{
   	color: $black;
@@ -54,10 +54,14 @@
 }
 
 .track-search-result-duration{
-  font-weight: bold;
+
 }
 
-.track-search-result-actions{
-  float: right;
-  width: 10%;
+.track-search-result-source{
+  text-align: center;
+  font-size: 1.6em;
+}
+
+td.track-search-result-actions{
+  padding: 0;
 }

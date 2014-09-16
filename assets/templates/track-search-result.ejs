@@ -1,12 +1,13 @@
-<div class="track-search-result-meta">
-	<div class="track-search-result-artwork artwork">
-		<img src="<%= artwork %>" alt="Album artwork" />
-	</div>
-	<div class="track-search-result-add">Add track</div>
-	<h5 class="track-search-result-title"><a target="_blank" href="<%= url %>"><%= title %></a></h5>
-	<span class="track-search-result-duration"><%= minutes %></span>
-	<span class="track-search-result-source"><%= source %></span>
-</div>
-<div class="track-search-result-actions">
+<td class="track-search-result-artwork artwork">
+	<img src="<%= artwork %>" alt="Album artwork" />
+</td>
+<td class="track-search-result-title">
+	<h5><a target="_blank" href="<%= url %>"><%= title %></a></h5>
+</td>
+<td class="track-search-result-duration"><%= minutes %></td>
+<td class="track-search-result-source">
+	<a class="icon icon-<%= source %>" target="_blank" href="<%= url %>"></a>
+</td>
+<td class="track-search-result-actions">
 	<button class="preview-track">Preview</button>
-</div>
+</td>
