@@ -19,7 +19,6 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       TrackSearch.Controller.stopTrackPreview(this.pop);
     },
     addTrack: function(e){
-
       e.preventDefault();
       TrackSearch.Controller.addTrack(this.model);
     }
@@ -28,7 +27,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
   TrackSearch.SearchResults = Marionette.CollectionView.extend({
     itemView: TrackSearch.SearchResult,
     tagName: "table",
-    className: "track-search-results"    
+    className: "track-search-results"
   });
 
 });

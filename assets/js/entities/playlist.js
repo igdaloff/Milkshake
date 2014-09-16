@@ -51,11 +51,11 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       }
     }
   });
-  
+
   // Set our req/res handlers
 
-  TWM.reqres.setHandler("newTrackSearch:entities", function(query){ 
-    
+  TWM.reqres.setHandler("newTrackSearch:entities", function(query){
+
     var trackSearchResults = new Entities.TrackSearchResults();
     if(typeof(query) == "string"){
       trackSearchResults.setQuery(query);
@@ -63,7 +63,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     return trackSearchResults;
   });
 
-  TWM.reqres.setHandler("newPlaylist:entities", function(models){ 
+  TWM.reqres.setHandler("newPlaylist:entities", function(models){
 
     var playlist = new Entities.Playlist(models);
     return playlist;

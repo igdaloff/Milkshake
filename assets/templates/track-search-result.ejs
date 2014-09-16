@@ -1,15 +1,14 @@
-<tr class="track-search-result">
-	<td class="track-search-result-artwork artwork">
-		<img src="<%= artwork %>" alt="Album artwork" />
-	</td>
-	<td class="track-search-result-title">
-		<h5><a target="_blank" href="<%= url %>"><%= title %></a></h5>
-	</td>
-	<td class="track-search-result-duration"><%= minutes %></td>
-	<td class="track-search-result-source">
-		<a class="icon icon-<%= source %>" target="_blank" href="<%= url %>"></a>
-	</td>
-	<td class="track-search-result-actions">
-		<button class="preview-track">Preview</button>
-	</td>
-</tr>
+<td class="track-search-result-artwork artwork track-search-result-add">
+	<img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
+</td>
+<td class="track-search-result-title track-search-result-add">
+	<h5><a target="_blank" href="<%= url %>"><%= title %></a></h5>
+</td>
+<td class="track-search-result-duration track-search-result-add"><%= minutes %></td>
+<td class="track-search-result-source">
+	<a class="icon icon-<%= source %>" target="_blank" href="<%= url %>"></a>
+</td>
+<td class="track-search-result-actions">
+	<span class="preview-track icon icon-play"></span>
+	<span class="screen-reader-text">Preview</span>
+</td>

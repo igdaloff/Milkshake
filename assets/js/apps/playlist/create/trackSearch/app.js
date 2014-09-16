@@ -27,6 +27,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var query = $(this).find(".track-search-query").val();
       newSearchQuery(query);
     });
+
   });
 
 });
