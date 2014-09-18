@@ -20,7 +20,8 @@
   <div class="messages"></div>
 </section>
 <script>
-bootstrap = [{{ tracks|raw }}];
+var bootstrap = [{{ tracks|raw }}];
+var playlist_id = "{{ id }}";
 </script>
 {% endblock %}
 
@@ -34,7 +35,7 @@ $(function() {
   TWM.Playlist.start();
   socket.on('connect', function (data) {
     TWM.Playlist.API.onUserConnect(socket);
-    socket.emit('joinRoom', "{{id}}");
+    TWM.Playlist.API.joinRoom();
   });
 });
 </script>

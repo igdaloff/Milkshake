@@ -126,6 +126,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         socket.id = socketId;
       });
+      // If the room is full, perform an action to notify the user
+      socket.on('roomFull', this.waitForRoom);
       // When the server tells us when to start loading the playlist from
       socket.on('loadPlaylistFrom', this.loadPlaylistFrom);
       // When the server sends the play event
@@ -141,6 +143,23 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Start the chat module
       Playlist.Chat.start();
+    },
+    joinRoom: function() {
+      
+      var socket = TWM.request("playlist:activeSocket");
+      socket.emit('joinRoom', playlist_id);
+    },
+    /*
+     * Wait for room
+     * If there are too many people in the room, notify the user and listen for other users disconnecting
+     * When someone disconnects we will check how many users are still on and attempt a reconnect if it is only 1
+     */
+    waitForRoom: function() {
+
+      var socket = TWM.request("playlist:activeSocket");
+      alert('Room is full, waiting for space');
+      socket.on('userLeft', this.joinRoom);
+
     },
     loadPlaylistFrom: function(data) {
 
@@ -179,7 +198,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     onUserLeft: function() {
 
-      console.log("Other user left but fuck 'em");
+      // Do something here to notify the user when their partner has left
     },
     calculateTimeDiff: function(startTime) {
 

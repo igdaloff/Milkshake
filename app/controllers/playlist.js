@@ -55,17 +55,24 @@ io.sockets.on('connection', function (socket) {
 
   var playlistStartTime = 0;
 
-  console.log('someone connected! Users now:', io.sockets.clients().length, 'socket url:', socket.handshake.url);
-
   // Add the user to a room based on the playlist ID and tell the client what time they should load
   // the playlist from (based on any other users in the room)
   socket.on('joinRoom', function (playlistId) {
 
+    var clientsInRoom = io.sockets.clients(socket.roomId);
+    console.log(clientsInRoom.length);
+    
+    // If there are already more than two users connected, reject this connection
+    if(clientsInRoom.length > 2) {
+
+      socket.emit('roomFull');
+      return false;
+    }
+    
+    // Otherwise proceed with adding the user
     socket.roomId = playlistId;
     console.log('User joined room');
     socket.join(playlistId);
-
-    var clientsInRoom = io.sockets.clients(socket.roomId);
 
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
