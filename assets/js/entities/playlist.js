@@ -2,6 +2,9 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   // Search result
   Entities.Track = Backbone.Model.extend({
+    defaults: {
+      isPlaying: false
+    },
     /*
     * Parse the response and add a human-readable 'minutes' value for the duration
     */

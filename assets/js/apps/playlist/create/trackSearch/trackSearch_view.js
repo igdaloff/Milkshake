@@ -4,19 +4,39 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     template: "track-search-result",
     tagName: "tr",
     className: "track-search-result",
+    trackPreviewLength: 5,
     events: {
-      "click .preview-track": "previewTrack",
-      "click .track-search-result-add": "addTrack"
+      "click .preview-track": "toggleTrackPreview",
+      "click .track-search-result-add": "addTrack",
     },
-    previewTrack: function(e){
+    modelEvents: {
+      "change:isPlaying": "togglePreviewButtonState"
+    },
+    toggleTrackPreview: function(e){
 
       e.preventDefault();
-      this.pop = TrackSearch.Controller.previewTrack(this.model, 15);
-    },
-    stopPreview: function(e){
+      // If the preview is already playing, stop it
+      if(this.model.get("isPlaying")) {
 
-      e.preventDefault();
-      TrackSearch.Controller.stopTrackPreview(this.pop);
+        TrackSearch.Controller.stopTrackPreview(this.model);
+      }
+      // Otherwise start a preview
+      else {
+
+        TrackSearch.Controller.previewTrack(this.model, this.trackPreviewLength);
+      }
+    },
+    togglePreviewButtonState: function() {
+
+      var $button = this.$(".preview-track");
+      if(this.model.get("isPlaying")) {
+
+        $button.addClass("playing").text("Stop");
+      }
+      else {
+
+        $button.removeClass("playing").text("Preview");
+      }      
     },
     addTrack: function(e){
       e.preventDefault();
