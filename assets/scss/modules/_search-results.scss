@@ -68,12 +68,32 @@ td.track-search-result-title{
 
 td.track-search-result-actions{
   width: 5%;
-  cursor: pointer;
+}
+
+.track-search-link {
+  &.soundcloud {
+    @include icomoon("soundcloud");
+  }
+  &.youtube {
+    @include icomoon("youtube");
+  }
 }
 
 .preview-track {
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+  display: block;
+  line-height: 1.5em;
   @include icomoon("play");
   &.playing {
     @include icomoon("pause");
+  }
+  &.loading {
+    background: url('../img/preview-loading.gif') no-repeat 50% 50%;
+    background-size: 80%;
+    &:before {
+      content: '';
+    }
   }
 }

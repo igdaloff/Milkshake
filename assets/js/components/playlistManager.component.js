@@ -87,18 +87,22 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       });
     }
 
-    PlaylistManager.prototype.playTrackSnippet = function(trackIndex, startTime, endTime, callback) {
+    PlaylistManager.prototype.playTrackSnippet = function(trackIndex, startTime, endTime, startCallback, endCallback) {
 
       var wait = this.tracks[trackIndex].source === "soundcloud";
       this.playTrack(trackIndex, startTime, wait, _.bind(function(track) {
 
+        // Call the startCallback if it exists
+        if(typeof startCallback === "function") {
+          startCallback(track);
+        }
         // Listen for the endtime and stop the track when we reach it
         track.pop.cue(endTime, function() {
 
           track.pop.pause();
-          // Call the callback if it exists
-          if(typeof callback === "function") {
-            callback(track);
+          // Call the endCallback if it exists
+          if(typeof endCallback === "function") {
+            endCallback(track);
           }
         });
       }, this));
@@ -106,29 +110,34 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.playTrack = function(trackIndex, trackTime, wait, callback) {
       
+      var track = this.getTrackData(trackIndex);
+
       if(typeof trackTime === 'undefined') {
         trackTime = 0;
       }
       if(typeof wait === 'undefined') {
         wait = false;
       }
+
+      // When the track was successfully jumped to the start time, call the callback if it exists
+      if(typeof callback === "function") {
+        
+        track.pop.on("seeked", function() {
+
+          callback(track);
+          track.pop.off("seeked");
+        });
+      }
+
       this.setCurrentTrackIndex(trackIndex);
       if(wait) {
         this.onTrackReady(trackIndex, function(track) {
 
           track.pop.play(trackTime);
-          // Call the callback if it exists
-          if(typeof callback === "function") {
-            callback(track);
-          }
         });
       }
       else {
-        this.tracks[trackIndex].pop.play(trackTime);
-        // Call the callback if it exists
-        if(typeof callback === "function") {
-          callback(this.tracks[trackIndex]);
-        }
+        track.pop.play(trackTime);
       }
     };
 

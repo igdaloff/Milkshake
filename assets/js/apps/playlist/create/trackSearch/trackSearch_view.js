@@ -15,6 +15,9 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     toggleTrackPreview: function(e){
 
       e.preventDefault();
+      var $button = $(e.currentTarget);
+      // Add the loading class to show some kind of loading indicator
+      $button.addClass("loading");
       // If the preview is already playing, stop it
       if(this.model.get("isPlaying")) {
 
@@ -29,6 +32,8 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     togglePreviewButtonState: function() {
 
       var $button = this.$(".preview-track");
+      // Regardless of new state, remove the loading class
+      $button.removeClass("loading");
       if(this.model.get("isPlaying")) {
 
         $button.addClass("playing");

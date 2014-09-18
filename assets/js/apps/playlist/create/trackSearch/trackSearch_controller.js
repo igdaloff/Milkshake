@@ -8,16 +8,18 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       // First, stop any existing previews that are playing
       TrackSearch.Controller.stopTrackPreview(trackModel);
 
-      // Set isPlaying to true
-      trackModel.set("isPlaying", true);
-
       playlistManager = TWM.request('playlistManager:components', {
         tracks: [trackModel.attributes]
       });
 
       playlistManager.playTrackSnippet(0, 30, 45, function() {
 
-        // On finish, set isPlaying to false
+        // On start playing, set isPlaying to true
+        trackModel.set("isPlaying", true);
+
+      },function() {
+
+        // On finish playing, set isPlaying to false
         trackModel.set("isPlaying", false);
       });
     },
