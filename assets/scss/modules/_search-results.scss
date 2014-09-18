@@ -70,3 +70,10 @@ td.track-search-result-actions{
   width: 5%;
   cursor: pointer;
 }
+
+.preview-track {
+  @include icomoon("play");
+  &.playing {
+    @include icomoon("pause");
+  }
+}

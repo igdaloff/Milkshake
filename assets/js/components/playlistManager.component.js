@@ -89,8 +89,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.playTrackSnippet = function(trackIndex, startTime, endTime, callback) {
 
-      var startTime, endtime, callback;
-      this.playTrack(trackIndex, startTime, true, _.bind(function(track) {
+      var wait = this.tracks[trackIndex].source === "soundcloud";
+      this.playTrack(trackIndex, startTime, wait, _.bind(function(track) {
 
         // Listen for the endtime and stop the track when we reach it
         track.pop.cue(endTime, function() {

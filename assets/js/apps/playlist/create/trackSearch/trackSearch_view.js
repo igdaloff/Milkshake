@@ -31,11 +31,11 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var $button = this.$(".preview-track");
       if(this.model.get("isPlaying")) {
 
-        $button.addClass("playing").text("Stop");
+        $button.addClass("playing");
       }
       else {
 
-        $button.removeClass("playing").text("Preview");
+        $button.removeClass("playing");
       }      
     },
     addTrack: function(e){

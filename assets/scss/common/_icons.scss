@@ -2,19 +2,33 @@
 // $Icons
 // =======================
 
-// Global Icon Styles
-.icon:before {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+// Global Icon Mixin
+@mixin icomoon($icon, $position: "before", $replace: false, $fs: $body_fs) {
+  // If we're replacing the text, set font-size to 0
+  @if $replace {
+    font-size: 0;
+    @include appearance(none);
+    border: none;
+    background: none;
+  }
+  // Pseudo-element properties
+  -webkit-font-smoothing: antialiased;
+  &:#{$position} {
+    @extend .icon-#{$icon};
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    @if $replace {
+      font-size: $fs * 1px;
+      line-height: $fs * 1px;
+      vertical-align: middle;
+    }
+    @content;
+  }
 }
 
 // To accompany all icons so screen readers communicate what icons mean.
@@ -25,26 +39,20 @@
 	left: -9999px;
 }
 
-
-
-
 // Social media icons
-.icon-soundcloud:before{
+.icon-soundcloud{
 	content: '\f1be';
 }
 
-.icon-youtube:before{
+.icon-youtube{
 	content: '\f166';
 }
 
-
-
-
 // Player icons
-.icon-play:before{
+.icon-play{
 	content: '\e601';
 }
 
-.icon-pause:before{
+.icon-pause{
 	content: '\e600';
 }
