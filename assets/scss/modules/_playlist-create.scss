@@ -140,9 +140,13 @@
 	}
 }
 
-
-
-
+.track-search-query {
+  &.loading {
+    background-image: url("../img/preview-loading.gif");
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+  }
+}
 
 //Playlist Title
 .playlist-create-title-container{

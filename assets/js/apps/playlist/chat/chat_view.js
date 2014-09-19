@@ -27,8 +27,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
   Chat.ChatContainer = Marionette.CompositeView.extend({
     template: "chat-container",
-    itemView: Chat.MessageItem,
-    itemViewContainer: ".message-list",
+    childView: Chat.MessageItem,
+    childViewContainer: ".message-list",
     events: {
       "keyup .new-message-field": "onKeyup"
     },

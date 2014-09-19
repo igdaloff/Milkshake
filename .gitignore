@@ -1,6 +1,5 @@
 .DS_Store
 public/css/
 node_modules/
-src/lib/
 .sass-cache/
 bower_components

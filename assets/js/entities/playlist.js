@@ -57,12 +57,9 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   // Set our req/res handlers
 
-  TWM.reqres.setHandler("newTrackSearch:entities", function(query){
+  TWM.reqres.setHandler("newTrackSearch:entities", function(models){
 
-    var trackSearchResults = new Entities.TrackSearchResults();
-    if(typeof(query) == "string"){
-      trackSearchResults.setQuery(query);
-    }
+    var trackSearchResults = new Entities.TrackSearchResults(models);
     return trackSearchResults;
   });
 

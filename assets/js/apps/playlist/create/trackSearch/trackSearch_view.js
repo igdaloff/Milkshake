@@ -49,10 +49,38 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     }
   });
 
-  TrackSearch.SearchResults = Marionette.CollectionView.extend({
-    itemView: TrackSearch.SearchResult,
-    tagName: "table",
-    className: "track-search-results"
+  TrackSearch.SearchForm = Marionette.CompositeView.extend({
+    childView: TrackSearch.SearchResult,
+    childViewContainer: ".track-search-results",
+    tagName: "form",
+    className: "track-search",
+    template: "track-search-form",
+    events: {
+      "submit": "searchTracks"
+    },
+    onRender: function() {
+
+      // On render, display the current query in the search input
+      if(typeof this.collection.query === "string") {
+
+        this.$(".track-search-query").val(this.collection.query); 
+      }
+    },
+    searchTracks: function(e) {
+
+      e.preventDefault();
+      var $form = $(e.currentTarget);
+      var query = this.$(".track-search-query").val();
+      
+      // Add the loading class to the input
+      this.$(".track-search-query").addClass("loading");
+      // Execute the query
+      TrackSearch.Controller.searchTracks(this.collection, query, _.bind(function() {
+
+        // Remove the loading class on completion
+        this.$(".track-search-query").removeClass("loading");
+      }, this));
+    }
   });
 
 });

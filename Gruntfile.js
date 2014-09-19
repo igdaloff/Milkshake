@@ -31,12 +31,12 @@ module.exports = function(grunt){
     concat: {
       vendor: {
         src: [
-          "./assets/lib/modernizr/modernizr.js",
-          "./assets/lib/jquery/dist/jquery.js",
-          "./assets/lib/underscore/underscore.js",
-          "./assets/lib/backbone/backbone.js",
-          "./assets/lib/backbone.marionette/lib/backbone.marionette.js",
-          "./assets/lib/ejs/ejs.js",
+          "./assets/bower_components/modernizr/modernizr.js",
+          "./assets/bower_components/jquery/dist/jquery.js",
+          "./assets/bower_components/underscore/underscore.js",
+          "./assets/bower_components/backbone/backbone.js",
+          "./assets/bower_components/backbone.marionette/lib/backbone.marionette.js",
+          "./assets/bower_components/ejs/ejs.js",
           "./assets/popcorn-complete.min.js"
           ],
         dest: "./public/js/vendors.js"

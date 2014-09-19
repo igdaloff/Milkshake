@@ -1,10 +1,9 @@
 {
   "name": "houston",
   "version": "0.0.0",
-  "componentsDirectory": "assets/bower_components",
   "dependencies": {
     "jquery": "~2.1.0",
-    "backbone.marionette": "~2.1.0",
+    "backbone.marionette": "~2.2.0",
     "modernizr": "~2.7.1",
     "ejs": "~0.8.5",
     "popcornjs": "~1.5.5",
