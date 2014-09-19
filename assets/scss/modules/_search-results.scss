@@ -81,13 +81,29 @@ td.track-search-result-actions{
 
 .preview-track {
   cursor: pointer;
-  width: 1.5em;
-  height: 1.5em;
+  width: 2em;
+  height: 2em;
   display: block;
-  line-height: 1.5em;
+  line-height: 2em;
+  border: 1px solid $black;
+  @include border-radius(50%);
   @include icomoon("play");
+  &:hover {
+    border-color: $grey;
+    color: $grey;
+  }
+  &:before {
+    margin-left: .2em;
+  }
+  &.playing,
+  &.loading {
+    &:before {
+      margin-left: 0;
+    }
+  }
   &.playing {
     @include icomoon("pause");
+
   }
   &.loading {
     background: url('../img/preview-loading.gif') no-repeat 50% 50%;
