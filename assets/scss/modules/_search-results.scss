@@ -7,7 +7,7 @@
 	width: 100%;
 	margin-top: 2em;
   text-align: left;
-  border-top: 1px solid $black;
+  border-top: 1px solid $light-grey;
 
 	&:empty{
 		display: none;
@@ -16,13 +16,16 @@
 
 .track-search-result{
   width: 100%;
-  border-bottom: 1px solid $black;
+  border-bottom: 1px solid $light-grey;
+  color: $black;
 
   &:hover{
-    background: $green;
+    background: $light-grey;
+    color: black;
   }
 
   td{
+    width: 7.5%;
     vertical-align: middle;
     padding: 0.3em 0 0.2em 0;
   }
@@ -59,22 +62,17 @@ td.track-search-result-title{
   }
 }
 
-.track-search-result-duration{
-  width: 7.5%;
-}
-
 .track-search-result-source{
-  width: 5%;
   text-align: center;
   font-size: 1.6em;
 
   &:hover{
-    color: white;
+    color: $green;
   }
 }
 
 td.track-search-result-actions{
-  width: 5%;
+  padding-right: 0.5em;
   text-align: right;
 }
 
@@ -88,16 +86,19 @@ td.track-search-result-actions{
 }
 
 .preview-track {
-  display: block;
+  display: inline-block;
   width: 2em;
   height: 2em;
-  padding-right: 0.5em;
   line-height: 2em;
   cursor: pointer;
+  font-size: 0.7em;
+  border: 1px solid;
+  border-radius: 100%;
+  text-align: center;
   @include icomoon('play');
 
   &:hover{
-    color: white;
+    color: $green;
   }
 
   &:before {
