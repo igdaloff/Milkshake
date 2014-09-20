@@ -1,5 +1,5 @@
 {
-  "name": "track-with-me",
+  "name": "Milkshake",
   "version": "0.0.0",
   "description": "twm ===",
   "main": "index.js",
@@ -30,15 +30,15 @@
   "scripts": {
     "start-prod": "NODE_ENV=production node app.js",
     "start-dev": "NODE_ENV=development node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-staging": "NODE_ENV=staging node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jshakes/twm.git"
+    "url": "https://github.com/igdaloff/Milkshake.git"
   },
   "author": "Nathan Igdaloff and James Shakespeare",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/jshakes/twm/issues"
+    "url": "https://github.com/igdaloff/Milkshake/issues"
   }
 }
