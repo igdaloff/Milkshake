@@ -1,5 +1,4 @@
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1/twm');
 var shortId = require('shortid');
 
 var schema = new mongoose.Schema({

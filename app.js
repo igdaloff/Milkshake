@@ -24,6 +24,13 @@ if (config.app.httpAuth) {
   });
   app.use(auth.connect(basic));
 }
+/*
+============================================
+Database
+============================================
+*/
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://127.0.0.1/milkshake');
 
 /*
 ============================================
