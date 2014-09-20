@@ -30,7 +30,8 @@ module.exports = {
       port: 3000,
       httpAuth: false,
       sessionName: "mkshh",
-      sessionSecret: "xyixmpgzifksqpvsczavphglaz"
+      sessionSecret: "xyixmpgzifksqpvsczavphglaz",
+      databaseUrl: 'mongodb://127.0.0.1/milkshake',
     },
     root: root
   }

@@ -30,7 +30,7 @@ Database
 ============================================
 */
 var mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1/milkshake');
+mongoose.connect(typeof MONGO_URL !== "undefined" ? MONGO_URL : config.app.databaseUrl);
 
 /*
 ============================================
