@@ -30,7 +30,7 @@ Database
 ============================================
 */
 var mongoose = require('mongoose')
-mongoose.connect(typeof process.env.MONGO_URL !== "undefined" ? process.env.MONGO_URL : config.app.databaseUrl);
+mongoose.connect(config.app.databaseUrl);
 
 /*
 ============================================

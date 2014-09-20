@@ -5,10 +5,11 @@ module.exports = {
     app: {
       baseUrl: "http://milkshake.mu",
       alternativeUrls: ["www.milkshake.mu"],
-      port: 80,
+      port: process.env.PORT,
       httpAuth: false,
       sessionName: "mkshh",
-      sessionSecret: "njxmumfmtwfddjymypoy5hfkhn"
+      sessionSecret: "njxmumfmtwfddjymypoy5hfkhn",
+      databaseUrl: process.env.MONGO_URL
     },
     root: root
   },
@@ -16,10 +17,11 @@ module.exports = {
     app: {
       baseUrl: "http://staging.milkshake.mu",
       alternativeUrls: ["staging.milkshake.mu"],
-      port: 80,
+      port: process.env.PORT,
       httpAuth: true,
       sessionName: "mkshh",
-      sessionSecret: "vgehkehkvlnbgynnuufghxptjx"
+      sessionSecret: "vgehkehkvlnbgynnuufghxptjx",
+      databaseUrl: process.env.MONGO_URL
     },
     root: root
   },
