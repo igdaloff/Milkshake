@@ -2,10 +2,10 @@
 // Basic $Layout Elements
 // =======================
 .wrapper{
-	width: 66.6666667%;
+	width: 50%;
 	margin: 0 auto;
 
-	@include smaller-than(extra-large){
+	@include smaller-than(large){
 		width: 80%;
 	}
 }
