@@ -1,1 +1,1 @@
-web: grunt build && npm start-prod
+web: grunt build && npm run-script start-prod
