@@ -1,1 +1,1 @@
-web: grunt build --force && npm run-script start-prod
+web: bundle install && grunt build --force && npm run-script start-prod
