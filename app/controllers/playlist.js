@@ -161,12 +161,12 @@ io.sockets.on('connection', function (socket) {
   });
 
   // Message handling
-  socket.on('newMessage', function(data) {
+  socket.on('newMessage', function(messageModel) {
 
-    io.sockets.in(socket.roomId).emit('newMessage', {
-      content: data,
-      sender: socket.id
-    });
+    // Add the sender information
+    messageModel['sender'] = socket.id;
+    // Emit the message to all connected users
+    io.sockets.in(socket.roomId).emit('newMessage', messageModel);
   });
 
   // User typing handling
