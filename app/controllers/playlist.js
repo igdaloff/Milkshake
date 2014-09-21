@@ -1,10 +1,5 @@
 var Playlist = require(config.root + 'app/models/playlist.js');
 
-exports.new_playlist = function(req, res){
-
-  res.render('new-playlist');
-};
-
 exports.process_new_playlist = function(req, res){
   console.log(req.body);
   // Build the new playlist object from the POST data

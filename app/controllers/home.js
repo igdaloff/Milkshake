@@ -1,4 +1,11 @@
 exports.home = function(req, res){
 
-  res.render('index');
+  // Show the splash page if this is Production
+  if(process.env.NODE_ENV === "development") {
+
+    res.render('splash');  
+  }
+  else {
+    res.render('new-playlist');
+  }
 };

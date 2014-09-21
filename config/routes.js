@@ -10,7 +10,7 @@ Routes
 
 module.exports = function (app) {
 
-  app.get("/", playlist.new_playlist);
+  app.get("/", home.home);
   app.get("/search", search.search_by_string);
   app.post("/process-new-playlist/", playlist.process_new_playlist);
   app.get("/playlist/:id", playlist.playlist);

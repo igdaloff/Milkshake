@@ -1,0 +1,28 @@
+.splash-page {
+  .page-content {
+    display: table;
+    width: 20%;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 300px;
+  }
+
+  .splash-content {
+
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    .logo {
+      margin: 0 0 1em;
+      width: 100%;
+      img {
+        width: 100%;
+      }
+    }
+    .release-date {
+      font-size: 3em;
+    }
+  }
+}
