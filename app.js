@@ -7,7 +7,6 @@ var swig = require('swig');
 var express = require("express");
 var auth = require('http-auth');
 var app = express();
-console.log(process.env);
 var env = process.env.NODE_ENV || 'development'
 var config = require('./config/config').Config;
 
