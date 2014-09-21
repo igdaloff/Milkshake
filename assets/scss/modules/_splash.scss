@@ -11,6 +11,10 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    display: none;
+    &.active {
+      display: block;
+    }
     @include smaller-than(medium) {
       left: -5%;
       top: -5%;
