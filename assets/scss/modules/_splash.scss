@@ -1,5 +1,35 @@
 .splash-page {
+  color: white;
+  .background-image {
+    position: fixed;
+    z-index: 1;
+    left: -2.5%;
+    top: -2.5%;
+    @include filter(blur(10px));
+    width: 105%;
+    height: 105%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &.sugarlumps {
+      background-image: url('../img/splash/sugarlumps.gif');
+    }
+    &.thriller {
+      background-image: url('../img/splash/thriller.gif');
+    }
+    &.kelis {
+      background-image: url('../img/splash/kelis.gif');
+    }
+    &.gangnam {
+      background-image: url('../img/splash/gangnam.gif');
+    }
+    &.hammer {
+      background-image: url('../img/splash/hammer.gif');
+    }
+  }
   .page-content {
+    position: relative;
+    z-index: 2;
     display: table;
     width: 20%;
     height: 100%;
