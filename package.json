@@ -28,6 +28,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "start": "node app.js",
     "start-prod": "NODE_ENV=production node app.js",
     "start-dev": "NODE_ENV=development node app.js",
     "start-staging": "NODE_ENV=staging node app.js"

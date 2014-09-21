@@ -6,7 +6,8 @@ Dependencies
 var swig = require('swig');
 var express = require("express");
 var auth = require('http-auth');
-
+var app = express();
+console.log(process.env);
 var env = process.env.NODE_ENV || 'development'
 var config = require('./config/config').Config;
 
@@ -38,7 +39,6 @@ Server
 ============================================
 */
 var port = config.app.port || 3000;
-var app = express();
 var server = app.listen(port);
 console.log('Express app started on port', port, 'under"', env, '" environment.');
 
