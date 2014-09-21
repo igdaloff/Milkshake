@@ -1,1 +1,1 @@
-web: bundle install && grunt build --force && npm run-script start-prod
+web: bundle install && bower install --allow-root && grunt build --force && npm start
