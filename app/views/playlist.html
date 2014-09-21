@@ -28,7 +28,6 @@ var playlist_id = "{{ id }}";
 
 {% block scripts %}
 {% if !hasFinished %}
-<script src="http://{{ host }}:1337/socket.io/socket.io.js"></script>
 <script>
 $(function() {
   var socket = io.connect('http://{{ host }}:1337');
