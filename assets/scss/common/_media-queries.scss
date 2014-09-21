@@ -1,37 +1,27 @@
-// =======================
-// $Media Queries
-// =======================
-$small: 				20em; 	/*  320px  */
-$medium: 				37.5em; /*  600px  */
-$large:					50em;		/*  800px  */
-$extra-large:		62.5em;	/*  1000px */
+// =========================
+// Media Query Definitions
+// =========================
 
-@mixin larger-than($width) {
-  @if $width == small {
-    @media (min-width: $small) { @content; }
-  }
-  @else if $width == medium {
-    @media (min-width: $medium) { @content; }
-  }
-  @else if $width == large {
-    @media (min-width: $large)  { @content; }
-  }
-  @else if $width == extra-large {
-    @media (min-width: $extra-large)  { @content; }
+$mqs: (
+  small: 25em,
+  medium: 40em,
+  large: 50em,
+  extra-large: 65em,
+  huge: 100em
+);
+
+@mixin smaller-than($size) {
+
+  $width: map-get($mqs, $size);
+  @media (max-width: $width) {
+    @content;
   }
 }
 
-@mixin smaller-than($width) {
-  @if $width == small {
-    @media (max-width: $small) { @content; }
-  }
-  @else if $width == medium {
-    @media (max-width: $medium) { @content; }
-  }
-  @else if $width == large {
-    @media (max-width: $large)  { @content; }
-  }
-  @else if $width == extra-large {
-    @media (max-width: $extra-large)  { @content; }
+@mixin larger-than($size) {
+
+  $width: map-get($mqs, $size);
+  @media (min-width: $width) {
+    @content;
   }
 }

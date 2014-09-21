@@ -11,6 +11,12 @@
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    @include smaller-than(medium) {
+      left: -5%;
+      top: -5%;
+      width: 110%;
+      height: 110%;
+    }
     &.sugarlumps {
       background-image: url('../img/splash/sugarlumps.gif');
     }
@@ -53,6 +59,9 @@
     }
     .release-date {
       font-size: 3em;
+      @include smaller-than(medium) {
+        font-size: 2em;
+      }
     }
   }
 }
