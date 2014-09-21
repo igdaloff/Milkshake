@@ -15,7 +15,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         var track = this.tracks[i];
         var trackEmbedId = this.popsId.toString() + '-' + i;
-        var $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', popsClass).appendTo('body');
+        var $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
         // Save the Popcorn instance
         this.tracks[i].pop = this.initTrackEmbed(track, trackEmbedId);
         // Save the DOM element

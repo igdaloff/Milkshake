@@ -1,13 +1,16 @@
 TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
   var isTyping = false;
+  var docTitle = document.title;
+  var notifierInterval;
+
   Chat.Controller = {
     displayNewMessage: function(messageData) {
 
       var messageCollection = TWM.request("chat:messageCollection");
       var socket = TWM.request("playlist:activeSocket");
       if(messageData.sender !== socket.id) {
-        messageData.remote = true;
+        messageData['remote'] = true;
         messageCollection.add(messageData);
       }
     },
@@ -55,6 +58,20 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       if(data.sender !== socket.id) {
         TWM.trigger("chat:remoteUserNotTyping");
       }
+    },
+    startNotifier: function() {
+
+      // Flash the <title> every three seconds
+      notifierInterval = window.setInterval(function() {
+
+        document.title = (document.title === docTitle) ? "New message" : docTitle;
+      }, 3000);
+    },
+    stopNotifier: function() {
+
+      // Reset the title and kill the interval
+      document.title = docTitle;
+      window.clearInterval(notifierInterval);
     }
   }  
 });
