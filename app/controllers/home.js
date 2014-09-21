@@ -1,7 +1,7 @@
 exports.home = function(req, res){
 
   // Show the splash page if this is Production
-  if(true) {
+  if(process.env.NODE_ENV === "production") {
 
     res.render('splash');  
   }

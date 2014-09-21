@@ -21,6 +21,12 @@
       width: 110%;
       height: 110%;
     }
+    @include smaller-than(small) {
+      left: -10%;
+      top: -10%;
+      width: 120%;
+      height: 120%;
+    }
     &.sugarlumps {
       background-image: url('../img/splash/sugarlumps.gif');
     }
