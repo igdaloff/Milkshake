@@ -54,6 +54,34 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       {
         artist: "Daft Punk",
         image: "daft-punk-guy-manuel.jpg"
+      },
+      {
+        artist: "Donna Summer",
+        image: "donna-summer.jpg"
+      },
+      {
+        artist: "Ian Curtis",
+        image: "ian-curtis.jpg"
+      },
+      {
+        artist: "Thom Yorke",
+        image: "thom-yorke.jpg"
+      },
+      {
+        artist: "Marc Bolan",
+        image: "marc-bolan.jpg"
+      },
+      {
+        artist: "The Notorious B.I.G.",
+        image: "biggie.jpg"
+      },
+      {
+        artist: "Elvis Presley",
+        image: "elvis-presley.jpg"
+      },
+      {
+        artist: "Kelis",
+        image: "kelis.jpg"
       }];
 
       var randArtist = Math.floor(Math.random() * artists.length);
