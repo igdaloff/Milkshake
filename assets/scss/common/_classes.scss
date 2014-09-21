@@ -25,3 +25,11 @@
 	-ms-transition: 		0.1s all ease;
 	transition: 				0.1s all ease;
 }
+
+.transition-slow{
+	-webkit-transition: 0.6s all ease;
+	-moz-transition:		0.6s all ease;
+	-o-transition: 			0.6s all ease;
+	-ms-transition: 		0.6s all ease;
+	transition: 				0.6s all ease;
+}

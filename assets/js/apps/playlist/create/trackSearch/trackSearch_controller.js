@@ -39,19 +39,19 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         trackModel.set("isPlaying", false);
       });
     },
-    /* 
+    /*
      * Stop Track Preview
      * To stop any existing previews we will destroy the playlistManager if it was already set up
      */
     stopTrackPreview: function(trackModel){
 
       if(typeof trackModel !== "undefined") {
-        
+
         // Set isPlaying to false on all models
         trackModel.collection.setAll("isPlaying", false);
       }
       if(typeof playlistManager === "object") {
-       
+
         playlistManager.destroy();
         playlistManager = false;
       }
@@ -108,6 +108,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       });
       if(!trackEmpty.length) {
         $(".playlist-create-title-container").fadeIn();
+        $('.track-search-container').fadeOut();
       }
     }
   }

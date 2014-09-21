@@ -10,11 +10,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.isPlaying = false;
       // Create a jQuery element for each track that will contain the embedded player, create a Popcorn instance for each
       this.popsId = 'playlist-embeds';
+      this.popsClass = 'playlist-embed';
       for(i in this.tracks) {
 
         var track = this.tracks[i];
         var trackEmbedId = this.popsId.toString() + '-' + i;
-        var $trackEmbed = $('<div></div>').attr('id', trackEmbedId).appendTo('body');
+        var $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', popsClass).appendTo('body');
         // Save the Popcorn instance
         this.tracks[i].pop = this.initTrackEmbed(track, trackEmbedId);
         // Save the DOM element
@@ -109,7 +110,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     }
 
     PlaylistManager.prototype.playTrack = function(trackIndex, trackTime, wait, callback) {
-      
+
       var track = this.getTrackData(trackIndex);
 
       if(typeof trackTime === 'undefined') {
@@ -121,7 +122,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       // When the track was successfully jumped to the start time, call the callback if it exists
       if(typeof callback === "function") {
-        
+
         track.pop.on("seeked", function() {
 
           callback(track);
@@ -159,7 +160,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       }
       var track = this.getTrackData(trackIndex);
       track.pop.on('canplaythrough', function(e) {
-        
+
         callback(track);
         track.pop.off('canplaythrough');
       });
@@ -188,12 +189,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       }
     };
 
-    PlaylistManager.prototype.getCurrentTrackIndex = function() {    
+    PlaylistManager.prototype.getCurrentTrackIndex = function() {
 
       return this.currentTrackIndex;
     };
-    
-    PlaylistManager.prototype.setCurrentTrackIndex = function(trackIndex) {    
+
+    PlaylistManager.prototype.setCurrentTrackIndex = function(trackIndex) {
 
       this.currentTrackIndex = trackIndex;
       return this.getTrackData(trackIndex);
@@ -285,7 +286,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       var currentTrackIndex = this.getCurrentTrackIndex();
       var prevTrackDurations = 0;
-      
+
       // Loop over previous tracks and add up the time
       for(var i = 0; i < currentTrackIndex; i++) {
 
@@ -324,8 +325,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
   })();
 
-  TWM.reqres.setHandler('playlistManager:components', function(data){ 
-    
+  TWM.reqres.setHandler('playlistManager:components', function(data){
+
     return new Components.PlaylistManager(data);
   });
 

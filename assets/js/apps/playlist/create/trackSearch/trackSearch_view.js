@@ -41,7 +41,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       else {
 
         $button.removeClass("playing");
-      }      
+      }
     },
     addTrack: function(e){
       e.preventDefault();
@@ -63,7 +63,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       // On render, display the current query in the search input
       if(typeof this.collection.query === "string") {
 
-        this.$(".track-search-query").val(this.collection.query); 
+        this.$(".track-search-query").val(this.collection.query);
       }
     },
     searchTracks: function(e) {
@@ -71,7 +71,8 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       e.preventDefault();
       var $form = $(e.currentTarget);
       var query = this.$(".track-search-query").val();
-      
+      var $searchResultsContainer = $('.track-search-results-container');
+
       // Add the loading class to the input
       this.$(".track-search-query").addClass("loading");
       // Execute the query
@@ -79,6 +80,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
         // Remove the loading class on completion
         this.$(".track-search-query").removeClass("loading");
+        $searchResultsContainer.addClass("visible");
       }, this));
     }
   });

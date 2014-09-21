@@ -1,11 +1,26 @@
 // =======================
 // Track Search Results
 // =======================
+.track-search-container{
+  margin: 2em 0 6em;
+}
+
+.track-search-results-container{
+  position: relative;
+  top: -1em;
+  opacity: 0;
+  @extend .transition-slow;
+
+  &.visible{
+    top: 0;
+    opacity: 1;
+  }
+}
 
 .track-search-results{
   table-layout: fixed;
 	width: 100%;
-	margin-top: 2em;
+  margin-top: 2em;
   text-align: left;
   border-top: 1px solid $light-grey;
 

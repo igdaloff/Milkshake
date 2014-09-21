@@ -128,18 +128,6 @@
 
 
 //Search
-.track-search{
-	margin-top: 2em;
-}
-
-.track-search-input-container{
-	width: 100%;
-
-	input{
-		border: 4px solid $green;
-	}
-}
-
 .track-search-query {
   &.loading {
     background-image: url("../img/preview-loading.gif");
@@ -151,8 +139,5 @@
 //Playlist Title
 .playlist-create-title-container{
 	display: none;
-}
-
-.new-playlist-title{
-	margin: 1em 0;
+	margin-top: 2em;
 }
