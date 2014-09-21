@@ -80,6 +80,8 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
         // Remove the loading class on completion
         this.$(".track-search-query").removeClass("loading");
+
+        // Add class for results transition
         $searchResultsContainer.addClass("visible");
       }, this));
     }

@@ -12,8 +12,8 @@
   @extend .transition-slow;
 
   &.visible{
-    top: 0;
     opacity: 1;
+    top: 0;
   }
 }
 
