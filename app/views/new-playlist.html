@@ -11,13 +11,14 @@
               <div class="chosen-track-inner">
                 <!-- Track {{ i }} -->
                 <input data-index="{{ i }}" class="playlist-track-select" type="radio" name="track[]" id="playlist-track-{{ i }}" {% if i == 0 %}checked="checked"{% endif %}>
-                <label for="playlist-track-{{ i }}"></label>
+                <label for="playlist-track-{{ i }}" class="chosen-track-label"></label>
                 <span class="track-number-label">{{ i+1 }}</span>
                 <div class="chosen-track-art artwork">
                   <div class="chosen-track-art-inner">
                     <img src="" alt="Track {{ i }} album art" />
                   </div>
                 </div>
+                <span class="change-track-button btn-rounded">Change Track</span>
                 <input type="hidden" id="track-{{ i }}-title" name="track{{ i }}title" class="track-info-title">
                 <input type="hidden" id="track-{{ i }}-id" name="track{{ i }}id" class="track-info-id">
                 <input type="hidden" id="track-{{ i }}-source" name="track{{ i }}source">
@@ -25,14 +26,14 @@
                 <input type="hidden" id="track-{{ i }}-artwork" name="track{{ i }}artwork">
                 <input type="hidden" id="track-{{ i }}-duration" name="track{{ i }}duration">
               </div>
-              <p></p>
+              <p class="chosen-track-title"></p>
             </li>
             {% endfor %}
           </ul>
         </div>
         <div class="playlist-create-title-container">
           <input type="submit" class="btn playlist-create-submit" value="Create Playlist">
-          <input type="text" class="new-playlist-title input-field" name="title" placeholder="Title">
+          <input type="text" class="new-playlist-title input-field" name="title" placeholder="Give a title to your playlist">
         </div>
       </form>
 

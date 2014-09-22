@@ -70,10 +70,26 @@
   		}
 		}
 
+		.change-track-button{
+			display: none;
+		}
+
 		.track-number-label{
 			color: $green;
 		}
   }
+}
+
+.has-track-selection{
+	&:hover{
+		.change-track-button{
+			opacity: 1;
+		}
+	}
+
+	.chosen-track-inner{
+		cursor: pointer;
+	}
 }
 
 .chosen-track-inner{
@@ -132,7 +148,23 @@
 	}
 }
 
-
+.change-track-button{
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 10%;
+	right: 10%;
+	bottom: 0;
+	height: 2.5em;
+	margin: auto;
+	line-height: 2.4;
+	border-radius: 2em;
+	font-size: 0.8em;
+	color: $black;
+	background: $green;
+	cursor: pointer;
+	@extend .transition;
+}
 
 
 //Search

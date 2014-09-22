@@ -56,7 +56,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         playlistManager = false;
       }
     },
-    addTrack: function(trackModel){
+    addTrack: function(trackModel, event){
 
       var trackIndex = $(".playlist-track-select:checked").data("index");
       var fields = ["id", "source", "title", "url", "artwork", "duration"];
@@ -77,7 +77,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       //Load default artwork image if track has no artwork url
       var artworkUrl;
       if( !trackModel.get("artwork") ){
-        artworkUrl = "/img/artwork-placehold.jpg";
+        artworkUrl = "/img/artwork-placehold.gif";
       } else {
         artworkUrl = trackModel.get("artwork");
       }
@@ -110,6 +110,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       if(!trackEmpty.length) {
         $('.track-search-container').fadeOut();
         $(".playlist-create-title-container").delay(500).fadeIn();
+        $(".chosen-tracks li").removeClass("selected");
       }
     }
   }
