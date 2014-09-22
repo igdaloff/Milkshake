@@ -28,10 +28,10 @@ var playlist_id = "{{ id }}";
 
 {% block scripts %}
 {% if !hasFinished %}
-<script src="http://{{ host }}/socket.io/socket.io.js"></script>
+<script src="http://{{ host }}:1337/socket.io/socket.io.js"></script>
 <script>
 $(function() {
-  var socket = io.connect('http://{{ host }}');
+  var socket = io.connect('http://{{ host }}:1337');
   TWM.Playlist.start();
   socket.on('connect', function (data) {
     TWM.Playlist.API.onUserConnect(socket);

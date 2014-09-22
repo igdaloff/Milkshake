@@ -42,7 +42,7 @@ exports.process_new_playlist = function(req, res){
 
 // Socket stuff here
 
-var io = require('socket.io').listen(80);
+var io = require('socket.io').listen(1337);
 
 io.sockets.on('connection', function (socket) {
 
