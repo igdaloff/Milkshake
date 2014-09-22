@@ -30,12 +30,21 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     childView: Chat.MessageItem,
     childViewContainer: ".message-list",
     events: {
+      "focus .new-message-field": "stopNotifier",
       "keyup .new-message-field": "onKeyup"
     },
     initialize: function() {
 
       this.listenTo(TWM, "chat:remoteUserTyping", this.remoteUserTyping);
       this.listenTo(TWM, "chat:remoteUserNotTyping", this.remoteUserNotTyping);
+      this.listenTo(this.collection, "add", function(model) {
+
+        // When a new message is received, check it's remote and if the input field is blurred, start the notifier
+        if(model.get("remote") && !$(".new-message-field").is(":focus")) {
+
+          Chat.Controller.startNotifier();
+        }
+      });
     },
     onKeyup: function(e) {
 
@@ -65,6 +74,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     remoteUserNotTyping: function() {
 
       this.$el.removeClass("incoming");
+    },
+    stopNotifier: function() {
+
+      Chat.Controller.stopNotifier();
     }
   });
 });

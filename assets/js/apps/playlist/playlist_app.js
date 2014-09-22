@@ -140,9 +140,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         return socket;
       });
-
-      // Start the chat module
-      Playlist.Chat.start();
     },
     joinRoom: function() {
       
@@ -195,6 +192,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
       }
+      
+      // Start the chat module
+      Playlist.Chat.start();
     },
     onUserLeft: function() {
 
