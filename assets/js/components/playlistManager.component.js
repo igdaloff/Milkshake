@@ -304,7 +304,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       var minutes = Math.floor(divisor_for_minutes / 60);
       var divisor_for_seconds = divisor_for_minutes % 60;
       var seconds = Math.ceil(divisor_for_seconds);
-      
+
       var timeStr = "";
       if(hours > 0) {
         timeStr += hours + ":";
