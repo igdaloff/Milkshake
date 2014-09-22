@@ -84,8 +84,6 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         // Add class for results transition
         $searchResultsContainer.addClass("visible");
       }, this));
-
-      $searchResultsContainer.addClass('visible');
     }
   });
 
