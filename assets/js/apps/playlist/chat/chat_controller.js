@@ -62,6 +62,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     startNotifier: function() {
 
       // Flash the <title> every three seconds
+      window.clearInterval(notifierInterval);
       notifierInterval = window.setInterval(function() {
 
         document.title = (document.title === docTitle) ? "New message" : docTitle;
