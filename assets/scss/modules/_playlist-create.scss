@@ -22,8 +22,8 @@
 
   	p{
   		position: absolute;
-  		left: 7.5%;
   		right: 7.5%;
+  		left: 7.5%;
   		margin-top: 1em;
   		font-size: 0.9em;
   		font-style: italic;
@@ -139,5 +139,21 @@
 //Playlist Title
 .playlist-create-title-container{
 	display: none;
+	position: relative;
 	margin-top: 2em;
+}
+
+.new-playlist-title{
+	position: relative;
+}
+
+.playlist-create-submit{
+	position: absolute;
+	top: 0;
+	@extend .transition;
+
+	&.active{
+		top: 3em;
+		top: calc(3em - 4px);
+	}
 }

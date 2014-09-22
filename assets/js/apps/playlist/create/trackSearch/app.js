@@ -18,4 +18,12 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     searchFormContainer.show(searchForm);
   });
 
+  //Show playlist create button once a user has entered a character into input field
+  var $playlistTitleInput = $('.new-playlist-title'),
+      $playlistCreateButton = $('.playlist-create-submit');
+
+  $playlistTitleInput.keyup( function(){
+    $playlistCreateButton.addClass('active');
+  });
+
 });

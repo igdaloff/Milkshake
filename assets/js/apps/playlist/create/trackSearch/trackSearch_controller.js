@@ -106,9 +106,10 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var trackEmpty = $(".chosen-tracks li").find(".track-info-id").filter(function() {
         return this.value === "";
       });
+
       if(!trackEmpty.length) {
-        $(".playlist-create-title-container").fadeIn();
         $('.track-search-container').fadeOut();
+        $(".playlist-create-title-container").delay(500).fadeIn();
       }
     }
   }

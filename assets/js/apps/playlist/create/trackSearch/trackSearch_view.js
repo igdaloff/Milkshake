@@ -7,7 +7,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     trackPreviewLength: 5,
     events: {
       "click .preview-track": "toggleTrackPreview",
-      "click .track-search-result-add": "addTrack",
+      "click .track-search-result-add": "addTrack"
     },
     modelEvents: {
       "change:isPlaying": "togglePreviewButtonState"
