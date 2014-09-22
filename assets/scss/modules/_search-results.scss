@@ -40,9 +40,10 @@
   }
 
   td{
-    width: 7.5%;
-    vertical-align: middle;
+    width: 45px;
     padding: 0.3em 0 0.2em 0;
+    vertical-align: middle;
+    text-align: center;
   }
 }
 
@@ -53,6 +54,7 @@
 td.track-search-result-artwork{
   width: 55px;
   padding-left: 0.5em;
+  text-align: left;
 
   img{
     width: 50px;
@@ -62,6 +64,7 @@ td.track-search-result-artwork{
 
 td.track-search-result-title{
   width: 60%;
+  text-align: left;
 
   h5{
     max-width: 100%;
@@ -84,11 +87,6 @@ td.track-search-result-title{
   &:hover{
     color: $green;
   }
-}
-
-td.track-search-result-actions{
-  padding-right: 0.5em;
-  text-align: right;
 }
 
 .track-search-link {
