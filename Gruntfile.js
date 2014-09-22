@@ -37,8 +37,7 @@ module.exports = function(grunt){
           "./assets/bower_components/backbone/backbone.js",
           "./assets/bower_components/backbone.marionette/lib/backbone.marionette.js",
           "./assets/bower_components/ejs/ejs.js",
-          "./assets/popcorn-complete.min.js",
-          "./assets/socket.io.js"
+          "./assets/popcorn-complete.min.js"
           ],
         dest: "./public/js/vendors.js"
       },
