@@ -285,6 +285,9 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.getCurrentTotalTime = function() {
 
       var currentTrackIndex = this.getCurrentTrackIndex();
+      if(currentTrackIndex === null) {
+        return false;
+      }
       var prevTrackDurations = 0;
 
       // Loop over previous tracks and add up the time

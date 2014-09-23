@@ -46,8 +46,10 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       $(".playback-track").removeClass("current");
       $(".playback-track").eq(currentTrackIndex).addClass("current");
     },
-    updateTimer: function(e, currentTime) {
+    updateTimer: function() {
 
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var currentTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
       if(typeof currentTime !== "number" || currentTime == 0) {
         return false;
@@ -105,6 +107,8 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
       }
 
+      // Bind the Playlist UI
+      Playlist.Controller.bindPlaylistUi();
       // Start the chat module
       Playlist.Chat.start();
     },

@@ -50,8 +50,5 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       return playlistManager;
     });
-
-    // bind the UI
-    Playlist.Controller.bindPlaylistUi();
   });
 });
