@@ -39,3 +39,102 @@
 	padding-left: 1.5em;
 	font-family: $sans-light;
 }
+
+
+
+
+//Chat
+.message-list{
+	padding: 2em 1em;
+	margin-top: 2em;
+	max-height: 20em;
+	overflow: auto;
+	background: $light-grey;
+}
+
+.chat-message{
+	position: relative;
+	width: 100%;
+	margin-bottom: 1em;
+
+	&.remote{
+		text-align: right;
+	}
+}
+
+.chat-avatar-and-time{
+	position: absolute;
+	bottom: -30px;
+	left: 0;
+	width: 32px;
+
+	.remote &{
+		left: auto;
+		right: 0;
+	}
+}
+
+.chat-message-avatar{
+	width: 32px;
+	height: 32px;
+	border-radius: 100%;
+}
+
+.chat-message-timestamp{
+	display: inline-block;
+	width: 100%;
+	margin-top: 5px;
+	font-size: 0.65em;
+	text-align: center;
+	color: $dark-grey;
+}
+
+.chat-message-content{
+	position: relative;
+	display: inline-block;
+	max-width: 50%;
+	padding: 0.5em 0.75em 0.6em;
+	margin-left: 50px;
+	font-size: 0.85em;
+	color: $off-black;
+	background: white;
+	border: 1px solid $grey;
+
+	&:before, &:after{
+		content: '';
+		position: absolute;
+		top: 15px;
+		left: -10px;
+		bottom: 0;
+		border-bottom: 13px solid white;
+		border-left: 12px solid transparent;
+		border-right: 0 solid transparent;
+	}
+
+	&:before{
+		top: 16px;
+		left: -12px;
+		bottom: -1px;
+		border-bottom: 13px solid $grey;
+		border-left-width: 12px;
+	}
+
+	.remote &{
+		margin-right: 50px;
+		text-align: left;
+
+		&:before, &:after{
+			right: -10px;
+			left: auto;
+			border-right: 12px solid transparent;
+			border-left: 0 solid transparent;
+		}
+
+		&:before{
+			right: -12px;
+			left: auto;
+			border-right-width: 12px;
+			border-left: 0 solid transparent;
+		}
+	}
+}
