@@ -43,8 +43,8 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-      $(".playlist-track").removeClass("current");
-      $(".playlist-track").eq(currentTrackIndex).addClass("current");
+      $(".playback-track").removeClass("current");
+      $(".playback-track").eq(currentTrackIndex).addClass("current");
     },
     updateTimer: function(e, currentTime) {
 
@@ -57,29 +57,6 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     updateProgressBar: function(currentTime) {
 
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-        
-      var trackIndex = playlistManager.getCurrentTrackIndex();
-      var trackData = playlistManager.getTrackData(trackIndex);
-      $('.playlist-track').each(function(i) {
-
-        var $progressBar = $(this).find('.current-progress');
-        // Set the previous tracks duration to 100%
-        if(i < trackIndex) {
-          $progressBar.width('100%');
-        }
-        // Update the current track's progress
-        else if(i == trackIndex) {
-
-          var trackProgress = currentTime / trackData.duration * 100;
-          $progressBar.width(trackProgress + '%');
-        }
-        // Everything else should be 0
-        else {
-
-          $progressBar.width(0);
-        }
-      });
     },
     /*
      * Wait for room
