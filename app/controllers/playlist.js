@@ -1,4 +1,5 @@
 var Playlist = require(config.root + 'app/models/playlist.js');
+var Time = require(config.root + 'lib/Time.js');
 
 exports.process_new_playlist = function(req, res){
   console.log(req.body);
@@ -195,11 +196,14 @@ exports.playlist = function(req, res){
       console.log(err);
       return err;
     }
-
     // Check to see if the playlist has already finished
     var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+    // Pass this in as a bool
     playlist.hasFinished = typeof playlist.startTime !== "undefined" && playlist.startTime + playlist.totalDuration < currentUnixTime;
+    // Send the address and port that the client should use to connect to Socket.io
     playlist.socketAddress = req.headers.host.split(':')[0] + ":" + config.app.socketPort;
+    // Pass in the total time as a human-readable string
+    playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
     res.render('playlist', playlist);
   });
 }

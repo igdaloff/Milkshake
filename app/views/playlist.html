@@ -1,3 +1,4 @@
+{% set title = title %}
 {% extends 'layout.html' %}
 {% block content %}
 {% if hasFinished %}
@@ -5,6 +6,9 @@
 {% endif %}
 <h1>{{ title }}</h1>
 <section class="playlist">
+  <div class="playlist-time">
+    <span class="current-time">0:00</span> / <span class="total-time">{{ totalTime }}</span>
+  </div>
   <ul class="playlist-track-list">
   {% for track in tracks %}
     <li class="playlist-track" style="width: {{ track.duration / totalDuration * 100 }}%">

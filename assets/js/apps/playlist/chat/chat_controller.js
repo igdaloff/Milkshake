@@ -19,10 +19,11 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       // Create a new message model by adding some data to the message collection
       var messageCollection = TWM.request("chat:messageCollection");
       var playlist = TWM.request('playlist:activePlaylistMgr');
-      var playlistTime = playlist.getCurrentTotalTimeString();
+      var playlistTime = playlist.getCurrentTotalTime();
+      var playlistTimeString = TWM.Lib.secondsToMinutes(playlistTime);
       var messageModel = messageCollection.add({
         content: content,
-        playlistTime: playlistTime
+        playlistTime: playlistTimeString
       });
       // Get the currently active socket object
       var socket = TWM.request("playlist:activeSocket");

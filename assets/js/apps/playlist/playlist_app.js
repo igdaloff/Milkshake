@@ -32,6 +32,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     // Bind time updates to the progress bars
     $(playlistManager).on('timeupdate:track', function(event, currentTime){
 
+      // Update the time in the header
+      $(".current-time").text(TWM.Lib.secondsToMinutes(currentTime));
+
       var trackIndex = playlistManager.getCurrentTrackIndex();
       var trackData = playlistManager.getTrackData(trackIndex);
       $('.playlist-track').each(function(i) {
@@ -192,7 +195,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
       }
-      
+
       // Start the chat module
       Playlist.Chat.start();
     },
