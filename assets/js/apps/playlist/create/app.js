@@ -13,7 +13,6 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
   //Edit track
   $(document).on("click", ".has-track-selection *", function(event){
 	  var $el = $(event.target).parents("li");
-	  console.log($el);
 	  var $chosenTrackArtwork = $el.find(".chosen-track-art img");
 	  var $chosenTrackTitle = $el.find(".chosen-track-title");
 	  var $chosenTrackSelect = $el.find(".playlist-track-select");

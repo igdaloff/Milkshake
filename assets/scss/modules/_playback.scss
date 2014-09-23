@@ -1,0 +1,41 @@
+// ========================
+// Playlist Playback
+// ========================
+.playback-header{
+	text-align: center;
+
+	h1{
+		margin-bottom: 0.25em;
+		font-size: 1.6em;
+	}
+}
+
+.total-time{
+	color: $grey;
+}
+
+.playback-track{
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	margin-top: 2em;
+	vertical-align: middle;
+}
+
+.playback-track-artwork{
+	display: table-cell;
+	width: 20%;
+	vertical-align: middle;
+
+	img{
+		width: 100%;
+	}
+}
+
+.playback-track-title{
+	display: table-cell;
+	width: 80%;
+	vertical-align: middle;
+	padding-left: 1.5em;
+	font-family: $sans-light;
+}

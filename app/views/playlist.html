@@ -1,28 +1,35 @@
 {% set title = title %}
 {% extends 'layout.html' %}
 {% block content %}
-{% if hasFinished %}
-<p>Sorry, this playlist has now finished. Go <a href="/">make a new one</a>.</p>
-{% endif %}
-<h1>{{ title }}</h1>
-<section class="playlist">
-  <div class="playlist-time">
-    <span class="current-time">0:00</span> / <span class="total-time">{{ totalTime }}</span>
-  </div>
-  <ul class="playlist-track-list">
-  {% for track in tracks %}
-    <li class="playlist-track" style="width: {{ track.duration / totalDuration * 100 }}%">
-      <h3 class="track-title">{{ track.title }}</h3>
-      <img class="track-artwork" src="{{ track.artwork }}" href="{{ track.title }}">
-      <div class="progress-bar">
-        <div class="current-progress"></div>
-        <canvas class="progress-circle" width="250" height="250"></canvas>
-      </div>
-    </li>
-  {% endfor %}
-  </ul>
-  <div class="messages"></div>
-</section>
+
+<div class="wrapper">
+  <header class="playback-header">
+    <h1>{{ title }}</h1>
+    <time><span class="current-time">0:00</span> / <span class="total-time">{{ totalTime }}</span></time>
+  </header>
+  <section class="playlist">
+    <ul class="playlist-track-list">
+    {% for track in tracks %}
+      <li class="playback-track">
+        <div class="playback-track-artwork">
+          <img src="{{ track.artwork }}" />
+        </div>
+        <h2 class="playback-track-title">{{ track.title }}</h2>
+<!--         <div class="progress-bar">
+          <div class="current-progress"></div>
+          <canvas class="progress-circle" width="250" height="250"></canvas>
+        </div> -->
+      </li>
+    {% endfor %}
+    </ul>
+    <div class="messages"></div>
+  </section>
+
+  {% if hasFinished %}
+  <p>Sorry, this playlist has now finished. Go <a href="/">make a new one</a>.</p>
+  {% endif %}
+</div>
+
 <script>
 var bootstrap = [{{ tracks|raw }}];
 var playlist_id = "{{ id }}";
