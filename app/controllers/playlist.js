@@ -42,7 +42,7 @@ exports.process_new_playlist = function(req, res){
 
 // Socket stuff here
 
-var io = require('socket.io').listen(1337);
+var io = require('socket.io').listen(config.app.socketPort);
 
 io.sockets.on('connection', function (socket) {
 
@@ -199,7 +199,7 @@ exports.playlist = function(req, res){
     // Check to see if the playlist has already finished
     var currentUnixTime =  Math.round(new Date().getTime() / 1000);
     playlist.hasFinished = typeof playlist.startTime !== "undefined" && playlist.startTime + playlist.totalDuration < currentUnixTime;
-    playlist.host = req.headers.host.split(':')[0];
+    playlist.socketAddress = req.headers.host.split(':')[0] + ":" + config.app.socketPort;
     res.render('playlist', playlist);
   });
 }

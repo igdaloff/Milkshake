@@ -9,7 +9,8 @@ module.exports = {
       httpAuth: false,
       sessionName: "mkshh",
       sessionSecret: "njxmumfmtwfddjymypoy5hfkhn",
-      databaseUrl: process.env.MONGO_URL
+      databaseUrl: process.env.MONGO_URL,
+      socketPort: 1337
     },
     root: root
   },
@@ -21,7 +22,8 @@ module.exports = {
       httpAuth: true,
       sessionName: "mkshh",
       sessionSecret: "vgehkehkvlnbgynnuufghxptjx",
-      databaseUrl: process.env.MONGO_URL
+      databaseUrl: process.env.MONGO_URL,
+      socketPort: 1337
     },
     root: root
   },
@@ -34,6 +36,7 @@ module.exports = {
       sessionName: "mkshh",
       sessionSecret: "xyixmpgzifksqpvsczavphglaz",
       databaseUrl: 'mongodb://127.0.0.1/milkshake',
+      socketPort: 1338
     },
     root: root
   }
