@@ -1,15 +1,14 @@
 {% set title = title %}
 {% extends 'layout.html' %}
 {% block content %}
-
 <div class="wrapper">
   <header class="playback-header">
-    <h1>{{ title }}</h1>
-    <time><span class="current-time">0:00</span> / <span class="total-time">{{ totalTime }}</span></time>
+    <h1>{{ playlist.title }}</h1>
+    <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
   </header>
   <section class="playlist">
     <ul class="playlist-track-list">
-    {% for track in tracks %}
+    {% for track in playlist.tracks %}
       <li class="playback-track">
         <div class="playback-track-artwork">
           <img src="{{ track.artwork }}" />
@@ -31,8 +30,11 @@
 </div>
 
 <script>
-var bootstrap = [{{ tracks|raw }}];
-var playlist_id = "{{ id }}";
+var bootstrap = {
+  tracks: [{{ playlist.tracks|raw }}],
+  messages: [{{ conversation.messages|raw }}]
+};
+var playlist_id = "{{ playlist.id }}";
 </script>
 {% endblock %}
 

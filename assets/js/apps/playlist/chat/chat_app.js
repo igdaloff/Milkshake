@@ -10,11 +10,12 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
   Chat.on("start", function() {
 
+    var messages = bootstrap.messages || [];
     // Get the currently active socket object
     var socket = TWM.request("playlist:activeSocket");
 
     // Create a new message collection
-    var messageCollection = TWM.request("newMessageCollection:entities");
+    var messageCollection = TWM.request("newMessageCollection:entities", messages);
 
     var messageList = new Chat.ChatContainer({
       collection: messageCollection

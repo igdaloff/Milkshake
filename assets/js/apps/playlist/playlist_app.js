@@ -39,7 +39,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
   Playlist.on('start', function(){
 
-    var tracks = bootstrap || {};
+    var tracks = bootstrap.tracks || [];
     var playlist = TWM.request('newPlaylist:entities', tracks);
 
     // create a new playlist manager from the API.loadPlayer method

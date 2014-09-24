@@ -1,4 +1,5 @@
 var Playlist = require(config.root + 'app/models/playlist.js');
+var Conversation = require(config.root + 'app/models/conversation.js');
 var Time = require(config.root + 'lib/Time.js');
 
 exports.process_new_playlist = function(req, res){
@@ -31,12 +32,20 @@ exports.process_new_playlist = function(req, res){
   // Write it to the database, then redirect to that track page
   var playlistRow = new Playlist(newPlaylist);
 
-  playlistRow.save(function (err) {
+  playlistRow.save(function(err, playlist) {
 
     if (err){
       console.log(err);
       return err;
     }
+
+    // Create a new conversation for the playlist
+    var conversation = new Conversation({
+      playlistId: playlist._id
+    });
+
+    conversation.save();
+
     res.redirect('/playlist/' + playlistRow._id);
   });
 }
@@ -166,6 +175,17 @@ io.sockets.on('connection', function (socket) {
 
     // Add the sender information
     messageModel['sender'] = socket.id;
+    // Save the message to the Conversation in the DB
+    Conversation.findOneAndUpdate({
+      playlistId: socket.roomId
+    }, {
+      '$push': {
+        messages: messageModel
+      }
+    }, function(err, model) {
+
+      console.log(model);
+    });
     // Emit the message to all connected users
     io.sockets.in(socket.roomId).emit('newMessage', messageModel);
   });
@@ -196,14 +216,28 @@ exports.playlist = function(req, res){
       console.log(err);
       return err;
     }
-    // Check to see if the playlist has already finished
-    var currentUnixTime =  Math.round(new Date().getTime() / 1000);
-    // Pass this in as a bool
-    playlist.hasFinished = typeof playlist.startTime !== "undefined" && playlist.startTime + playlist.totalDuration < currentUnixTime;
-    // Send the address and port that the client should use to connect to Socket.io
-    playlist.socketAddress = req.headers.host.split(':')[0] + ":" + config.app.socketPort;
-    // Pass in the total time as a human-readable string
-    playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
-    res.render('playlist', playlist);
+    // Retreieve the conversation
+    Conversation.findOne({
+      playlistId: req.params.id
+    }, '-messages._id -messages.timestamp', function(err, conversation) {
+
+      if (err){
+        console.log(err);
+      }
+      // Check to see if the playlist has already finished
+      var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+      // Send the address and port that the client should use to connect to Socket.io
+      var socketAddress = req.headers.host.split(':')[0] + ":" + config.app.socketPort;
+      // Pass this in as a bool
+      playlist.hasFinished = typeof playlist.startTime !== "undefined" && playlist.startTime + playlist.totalDuration < currentUnixTime;
+      // Pass in the total time as a human-readable string
+      playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
+
+      res.render('playlist', {
+        playlist: playlist,
+        conversation: conversation,
+        socketAddress: socketAddress
+      });
+    });
   });
 }

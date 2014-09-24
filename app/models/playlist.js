@@ -1,7 +1,8 @@
 var mongoose = require('mongoose')
 var shortId = require('shortid');
+var Schema = mongoose.Schema;
 
-var schema = new mongoose.Schema({
+var schema = new Schema({
   _id: {
     type: String,
     unique: true,
