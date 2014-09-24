@@ -35,6 +35,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     },
     initialize: function() {
 
+      // Create a model that will contain the avatar information for passing into the template
+      this.model = new Backbone.Model({
+        avatar: this.collection.avatar
+      });
       this.listenTo(TWM, "chat:remoteUserTyping", this.remoteUserTyping);
       this.listenTo(TWM, "chat:remoteUserNotTyping", this.remoteUserNotTyping);
       this.listenTo(this.collection, "add", function(model) {

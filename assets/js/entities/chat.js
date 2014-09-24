@@ -37,63 +37,63 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     pickAvatar: function() {
 
       var artists = [{
-        artist: "Cam'ron",
+        name: "Cam'ron",
         image: "camron.jpg"
       },
       {
-        artist: "David Bowie",
+        name: "David Bowie",
         image: "david-bowie.jpg"
       },
       {
-        artist: "Johann Sebastian Bach",
+        name: "Johann Sebastian Bach",
         image: "js-bach.jpg"
       },
       {
-        artist: "Lady Gaga",
+        name: "Lady Gaga",
         image: "lady-gaga.jpg"
       },
       {
-        artist: "Michael Jackson",
+        name: "Michael Jackson",
         image: "michael-jackson.jpg"
       },
       {
-        artist: "John Lennon",
+        name: "John Lennon",
         image: "john-lennon.jpg"
       },
       {
-        artist: "Daft Punk",
+        name: "Daft Punk",
         image: "daft-punk-thomas.jpg"
       },
       {
-        artist: "Daft Punk",
+        name: "Daft Punk",
         image: "daft-punk-guy-manuel.jpg"
       },
       {
-        artist: "Donna Summer",
+        name: "Donna Summer",
         image: "donna-summer.jpg"
       },
       {
-        artist: "Ian Curtis",
+        name: "Ian Curtis",
         image: "ian-curtis.jpg"
       },
       {
-        artist: "Thom Yorke",
+        name: "Thom Yorke",
         image: "thom-yorke.jpg"
       },
       {
-        artist: "Marc Bolan",
+        name: "Marc Bolan",
         image: "marc-bolan.jpg"
       },
       {
-        artist: "The Notorious B.I.G.",
+        name: "The Notorious B.I.G.",
         image: "biggie.jpg"
       },
       {
-        artist: "Elvis Presley",
+        name: "Elvis Presley",
         image: "elvis-presley.jpg"
       },
       {
-        artist: "Kelis",
+        name: "Kelis",
         image: "kelis.jpg"
       }];
 
