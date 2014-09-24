@@ -30,9 +30,22 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   Entities.MessageCollection = Backbone.Collection.extend({
     model: Entities.Message,
-    initialize: function() {
+    initialize: function(models) {
 
       this.pickAvatar();
+      // Loop through any models used to initialize the collection and find the right avatar
+      for(var i = 0; i < models.length; i++) {
+
+        var model = models[i];
+
+        if(model.remote !== true && typeof model.avatar !== "undefined") {
+
+          // Set the avatar on the collection
+          this.avatar = model.avatar;
+          // Now we've got the avatar we can stop looping
+          break;
+        }
+      };
     },
     pickAvatar: function() {
 
