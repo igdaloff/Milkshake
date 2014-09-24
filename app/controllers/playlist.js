@@ -212,8 +212,14 @@ exports.playlist = function(req, res){
 
     if (err){
       console.log(err);
-      return err;
     }
+
+    if(playlist === null) {
+
+      res.status(404);
+      return res.render('404');
+    }
+
     // Retreieve the conversation
     Conversation.findOne({
       playlistId: req.params.id
@@ -231,7 +237,7 @@ exports.playlist = function(req, res){
       // Pass in the total time as a human-readable string
       playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
 
-      res.render('playlist', {
+      return res.render('playlist', {
         playlist: playlist,
         conversation: conversation,
         socketAddress: socketAddress
