@@ -37,8 +37,9 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       for(var i = 0; i < models.length; i++) {
 
         var model = models[i];
-
-        if(model.remote !== true && typeof model.avatar !== "undefined") {
+        var socketIds = TWM.request('playlist:socketIdHistory');
+        var isRemote = socketIds.indexOf(model.sender) === -1;
+        if(!isRemote && model.remote !== true && typeof model.avatar !== "undefined") {
 
           // Set the avatar on the collection
           this.avatar = model.avatar;
