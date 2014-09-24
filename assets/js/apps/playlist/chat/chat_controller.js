@@ -68,14 +68,21 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         TWM.trigger("chat:remoteUserNotTyping");
       }
     },
+    /**
+     * Start notifier
+     * Flash the document.title every n seconds and immediately once the method is called
+     */
     startNotifier: function() {
 
-      // Flash the <title> every three seconds
-      window.clearInterval(notifierInterval);
-      notifierInterval = window.setInterval(function() {
+      function toggleTitle() {
 
-        document.title = (document.title === docTitle) ? "New message" : docTitle;
-      }, 3000);
+        document.title = (document.title === docTitle) ? "͡° ͜ʖ ͡° _/ New message!" : docTitle;
+      }
+      toggleTitle();
+      
+      window.clearInterval(notifierInterval);
+      notifierInterval = window.setInterval(toggleTitle, 2000);
+
     },
     stopNotifier: function() {
 

@@ -30,7 +30,6 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     childView: Chat.MessageItem,
     childViewContainer: ".message-list",
     events: {
-      "focus .new-message-field": "stopNotifier",
       "keyup .new-message-field": "isUserTyping",
       "keydown .new-message-field": "sendOnEnter",
       "click .new-message-button": "onClickSend"
@@ -51,6 +50,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
           Chat.Controller.startNotifier();
         }
       });
+      // Stop the notifier when the window is focused
+      $(window).on('focus', Chat.Controller.stopNotifier);
     },
     isUserTyping: function(e) {
 
@@ -95,10 +96,6 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     remoteUserNotTyping: function() {
 
       this.$el.removeClass("incoming");
-    },
-    stopNotifier: function() {
-
-      Chat.Controller.stopNotifier();
     }
   });
 });
