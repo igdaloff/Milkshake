@@ -9,13 +9,16 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
       var messageCollection = TWM.request("chat:messageCollection");
       var socket = TWM.request("playlist:activeSocket");
+      // Stops messages being displayed twice by being added to the collection again
       if(messageData.sender !== socket.id) {
-        messageData['remote'] = true;
+        
         messageCollection.add(messageData);
       }
     },
     sendNewMessage: function(content) {
 
+      // Get the currently active socket object
+      var socket = TWM.request("playlist:activeSocket");
       // Create a new message model by adding some data to the message collection
       var messageCollection = TWM.request("chat:messageCollection");
       var playlist = TWM.request('playlist:activePlaylistMgr');
@@ -23,10 +26,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       var playlistTimeString = TWM.Lib.secondsToMinutes(playlistTime);
       var messageModel = messageCollection.add({
         content: content,
-        playlistTime: playlistTimeString
+        playlistTime: playlistTimeString,
+        remote: false,
+        sender: socket.id
       });
-      // Get the currently active socket object
-      var socket = TWM.request("playlist:activeSocket");
       socket.emit("newMessage", messageModel);
       Chat.Controller.userIsNotTyping();
     },

@@ -16,10 +16,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     onUserConnect: function(socket) {
 
       // Pick up the socket ID when the server sends it to us
-      socket.on('newConnectionId', function(socketId) {
-
-        socket.id = socketId;
-      });
+      socket.on('newConnectionId', Playlist.Controller.saveSocketId);
       // If the room is full, perform an action to notify the user
       socket.on('roomFull', Playlist.Controller.waitForRoom);
       // When the server tells us when to start loading the playlist from
@@ -49,6 +46,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     TWM.reqres.setHandler('playlist:activePlaylistMgr', function() {
 
       return playlistManager;
+    });
+
+    // Set a handler to return the array of socket IDs in the user's connection history
+    TWM.reqres.setHandler('playlist:socketIdHistory', function() {
+
+      return Playlist.Controller.getSocketHistory();
     });
   });
 });

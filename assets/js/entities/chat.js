@@ -11,7 +11,20 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       if(typeof this.get("avatar") === "undefined" && typeof this.collection !== "undefined") {
 
         this.set("avatar", this.collection.avatar);
-      }
+      } 
+      
+      this.set("remote", this.isRemote());
+    },
+    /**
+     * Is remote
+     * Detect whether the sender of the message is the client by checking in the local storage for saved 
+     * socket IDs (ie, check the history of connections from this browser to figure out who sent this message)
+     @return bool
+     */
+    isRemote: function() {
+
+      var socketIds = TWM.request('playlist:socketIdHistory');
+      return socketIds.indexOf(this.get("sender")) === -1;
     }
   });
 

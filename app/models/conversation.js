@@ -7,11 +7,11 @@ var schema = new Schema({
   created: Date,
   playlistId: String,
   messages: [{
-    senderId: String,
+    sender: String,
     content: String,
     timestamp: Date,
     playlistTime: String,
-    avatar: String
+    avatar: Object
   }]
 })
 

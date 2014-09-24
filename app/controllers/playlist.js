@@ -173,8 +173,6 @@ io.sockets.on('connection', function (socket) {
   // Message handling
   socket.on('newMessage', function(messageModel) {
 
-    // Add the sender information
-    messageModel['sender'] = socket.id;
     // Save the message to the Conversation in the DB
     Conversation.findOneAndUpdate({
       playlistId: socket.roomId

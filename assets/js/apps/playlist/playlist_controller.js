@@ -1,6 +1,7 @@
 TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
   
   Playlist.Controller = {
+
     /**
     * Load Player
     *
@@ -38,6 +39,52 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
+    },
+    /** 
+     * Save Socket ID
+     * Set the ID returned from the server on the socket model and persist it to the localStorage array of
+     * socket IDs that this user has connected with (each new page load will generate +1)
+     */
+    saveSocketId: function(socketId) {
+
+      var socket = TWM.request("playlist:activeSocket");
+      socket.id = socketId;
+      // Save it to local storage if client supports it
+      if (Modernizr.localstorage) {
+        var socketIdsStr = localStorage.getItem("socketIds");
+        // Parse the stringify'd array
+        var socketIds = JSON.parse(socketIdsStr);
+        // If the socketIds array has not yet been created, add it in there
+        if(typeof socketIds === "undefined" || socketIds === null) {
+
+          socketIds = new Array();
+        }
+        socketIds.push(socketId)
+        // Stringify the array again so we can save it in local storage
+        socketIdsStr = JSON.stringify(socketIds);
+        localStorage.setItem("socketIds", socketIdsStr);
+      }
+    },
+    /**
+     * Get socket history
+     * Fetch the socketIds array from local storage if it exists, otherwise just return an array with the current 
+     * socket ID so we at least know the current socket connection
+     */
+    getSocketHistory: function() {
+
+      var socketIds;
+      if (Modernizr.localstorage) {
+        var socketIdsStr = localStorage.getItem("socketIds");
+        // Parse the stringify'd array
+        var socketIds = JSON.parse(socketIdsStr);
+      }
+      // If client doesn't support local storage or the socketIds array is empty for whatever reason, make one
+      if(typeof socketIds === "undefined" || socketIds === null) {
+        
+        var socket = TWM.request("playlist:activeSocket");
+        socketIds = new Array(socket.id);
+      }
+      return socketIds;
     },
     setActiveTrackClass: function() {
 
