@@ -11,9 +11,14 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       var socket = TWM.request("playlist:activeSocket");
       // Stops messages being displayed twice by being added to the collection again
       if(messageData.sender !== socket.id) {
-        
+
         messageCollection.add(messageData);
       }
+
+      //Keep scroll position at bottom after each message is sent
+      var messageContainer = $(".message-list")[0];
+      messageContainer.scrollTop = messageContainer.scrollHeight;
+
     },
     sendNewMessage: function(content) {
 
@@ -34,7 +39,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       Chat.Controller.userIsNotTyping();
     },
     userIsTyping: function() {
-      
+
       var socket = TWM.request("playlist:activeSocket");
       if(!isTyping) {
         socket.emit("userTyping");
@@ -78,5 +83,5 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       document.title = docTitle;
       window.clearInterval(notifierInterval);
     }
-  }  
+  }
 });

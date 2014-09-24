@@ -31,7 +31,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     childViewContainer: ".message-list",
     events: {
       "focus .new-message-field": "stopNotifier",
-      "keyup .new-message-field": "onKeyup"
+      "keyup .new-message-field": "onKeyup",
+      "click .new-message-button": "onKeyup"
     },
     initialize: function() {
 
