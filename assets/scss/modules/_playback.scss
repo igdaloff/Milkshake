@@ -47,7 +47,7 @@
 .message-list{
 	padding: 2em 1em;
 	margin-top: 2em;
-	max-height: 20em;
+	height: 20em;
 	overflow: auto;
 	background: $light-grey;
 }
@@ -56,21 +56,22 @@
 	position: relative;
 	width: 100%;
 	margin-bottom: 1em;
+	text-align: right;
 
 	&.remote{
-		text-align: right;
+		text-align: left;
 	}
 }
 
 .chat-avatar-and-time{
 	position: absolute;
 	bottom: -30px;
-	left: 0;
+	right: 0;
 	width: 32px;
 
 	.remote &{
-		left: auto;
-		right: 0;
+		left: 0;
+		right: auto;
 	}
 }
 
@@ -94,9 +95,10 @@
 	display: inline-block;
 	max-width: 50%;
 	padding: 0.5em 0.75em 0.6em;
-	margin-left: 50px;
+	margin-right: 50px;
 	font-size: 0.85em;
 	color: $off-black;
+	text-align: left;
 	background: white;
 	border: 1px solid $grey;
 
@@ -104,37 +106,35 @@
 		content: '';
 		position: absolute;
 		top: 15px;
-		left: -10px;
 		bottom: 0;
 		border-bottom: 13px solid white;
-		border-left: 12px solid transparent;
-		border-right: 0 solid transparent;
+		right: -10px;
+		border-right: 12px solid transparent;
+		border-left: 0 solid transparent;
 	}
 
 	&:before{
 		top: 16px;
-		left: -12px;
 		bottom: -1px;
 		border-bottom: 13px solid $grey;
-		border-left-width: 12px;
+		right: -12px;
+		border-right-width: 12px;
+		border-left: 0 solid transparent;
 	}
 
 	.remote &{
-		margin-right: 50px;
-		text-align: left;
+		margin-left: 50px;
 
 		&:before, &:after{
-			right: -10px;
-			left: auto;
-			border-right: 12px solid transparent;
-			border-left: 0 solid transparent;
+			left: -10px;
+			right: auto;
+			border-left: 12px solid transparent;
+			border-right: 0 solid transparent;
 		}
 
 		&:before{
-			right: -12px;
-			left: auto;
-			border-right-width: 12px;
-			border-left: 0 solid transparent;
+			left: -12px;
+			border-left-width: 12px;
 		}
 	}
 }
