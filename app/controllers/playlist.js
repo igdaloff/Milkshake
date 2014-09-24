@@ -2,7 +2,7 @@ var Playlist = require(config.root + 'app/models/playlist.js');
 var Conversation = require(config.root + 'app/models/conversation.js');
 var Time = require(config.root + 'lib/Time.js');
 
-exports.process_new_playlist = function(req, res){
+exports.processNewPlaylist = function(req, res){
   console.log(req.body);
   // Build the new playlist object from the POST data
   var newPlaylist = {
@@ -46,7 +46,7 @@ exports.process_new_playlist = function(req, res){
 
     conversation.save();
 
-    res.redirect('/playlist/' + playlistRow._id);
+    res.redirect('/' + playlistRow._id);
   });
 }
 

@@ -11,9 +11,9 @@ Routes
 module.exports = function (app) {
 
   app.get("/", home.home);
-  app.get("/search", search.search_by_string);
-  app.post("/process-new-playlist/", playlist.process_new_playlist);
-  app.get("/playlist/:id", playlist.playlist);
+  app.get("/search", search.searchByString);
+  app.post("/process-new-playlist/", playlist.processNewPlaylist);
+  app.get("/:id", playlist.playlist);
   app.use(function(req, res, next){
     res.status(404);
 

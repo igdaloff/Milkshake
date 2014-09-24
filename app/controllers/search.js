@@ -1,4 +1,4 @@
-exports.search_by_string = function(req, res){
+exports.searchByString = function(req, res){
 
   var api = require(config.root + "lib/api.js");
   var url = require("url");
