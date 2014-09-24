@@ -31,8 +31,9 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     childViewContainer: ".message-list",
     events: {
       "focus .new-message-field": "stopNotifier",
-      "keyup .new-message-field": "onKeyup",
-      "click .new-message-button": "onKeyup"
+      "keyup .new-message-field": "isUserTyping",
+      "keydown .new-message-field": "sendOnEnter",
+      "click .new-message-button": "onClickSend"
     },
     initialize: function() {
 
@@ -51,7 +52,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         }
       });
     },
-    onKeyup: function(e) {
+    isUserTyping: function(e) {
 
       var content = $(e.currentTarget).val();
       if(content.trim().length === 0) {
@@ -59,17 +60,32 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         Chat.Controller.userIsNotTyping();
       }
       else {
-        // If enter key was pressed, send the message
-        if(e.which === 13) {
 
-          e.preventDefault();
-          Chat.Controller.sendNewMessage(content);
-          $(e.currentTarget).val("");
-        }
-        else {
+        Chat.Controller.userIsTyping();
+      }
+    },
+    sendOnEnter: function(e) {
 
-          Chat.Controller.userIsTyping();
-        }
+      // If enter key was pressed, send the message
+      if(e.which === 13) {
+
+        e.preventDefault();
+        this.sendMessage();
+      }
+    },
+    onClickSend: function(e) {
+
+      e.preventDefault();
+      this.sendMessage();
+    },
+    sendMessage: function() {
+
+      var $newMessageField = $('.new-message-field');
+      var content = $newMessageField.val();
+      if(content.trim().length > 0) {
+        
+        Chat.Controller.sendNewMessage($newMessageField.val());
+        $newMessageField.val("").focus();
       }
     },
     remoteUserTyping: function() {

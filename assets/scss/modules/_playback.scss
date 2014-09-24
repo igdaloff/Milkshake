@@ -218,6 +218,7 @@
 	color: white;
 	border: 1px solid $green;
 	cursor: pointer;
+	outline: 0;
 	@extend .transition;
 
 	&:hover{
