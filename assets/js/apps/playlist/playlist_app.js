@@ -4,11 +4,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   this.startWithParent = false;
 
   Playlist.API = {
-    joinRoom: function() {
-      
-      var socket = TWM.request("playlist:activeSocket");
-      socket.emit('joinRoom', playlist_id);
-    },
     /*
      * On User Connect
      * Handle the sending and receiving of socket messages
@@ -31,8 +26,42 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         return socket;
       });
+      
+      // Request to join the room
+      Playlist.Controller.joinRoom();
     }
   }
+
+  Playlist.on('before:start', function() {
+
+    // Don't do anything if this playlist is already open in another tab/window, ie stop the module
+    // Check every n seconds in case the window is closed and we should try again
+    if(Playlist.Controller.playlistIsOpen(playlistId)) {
+
+      console.log('playlist open in another tab/window, waiting for it to close');
+      Playlist.stop();
+      var closedPlaylistPoller = window.setInterval(function() {
+
+        console.log('still waiting...');
+        if(!Playlist.Controller.playlistIsOpen(playlistId)) {
+
+          Playlist.start();
+          window.clearInterval(closedPlaylistPoller);
+        }
+      }, 1000);
+    }
+    else {
+
+      // Add this playlist Id to the locally stored open playlists array
+      Playlist.Controller.saveOpenPlaylistToLocal(playlistId);
+
+      // If the user leaves this page, remove the playlist ID from the openplaylists local array
+      window.addEventListener("beforeunload", function(e){
+        
+        Playlist.Controller.removeOpenPlaylistFromLocal(playlistId);
+      }, false);
+    }
+  });
 
   Playlist.on('start', function(){
 

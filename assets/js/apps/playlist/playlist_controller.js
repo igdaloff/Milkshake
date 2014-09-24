@@ -1,7 +1,15 @@
 TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
   
   Playlist.Controller = {
-
+    /**
+     * Join room
+     * Emit the request event to join playlist room to the server via socket
+     */
+    joinRoom: function() {
+      
+      var socket = TWM.request("playlist:activeSocket");
+      socket.emit('joinRoom', playlistId);
+    },
     /**
     * Load Player
     *
@@ -53,7 +61,9 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       if (Modernizr.localstorage) {
         var socketIdsStr = localStorage.getItem("socketIds");
         // Parse the stringify'd array
-        var socketIds = JSON.parse(socketIdsStr);
+        if(socketIdsStr !== null && socketIdsStr.length) {
+          var socketIds = JSON.parse(socketIdsStr);
+        }
         // If the socketIds array has not yet been created, add it in there
         if(typeof socketIds === "undefined" || socketIds === null) {
 
@@ -63,6 +73,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         // Stringify the array again so we can save it in local storage
         socketIdsStr = JSON.stringify(socketIds);
         localStorage.setItem("socketIds", socketIdsStr);
+        return socketIds;
       }
     },
     /**
@@ -76,7 +87,9 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       if (Modernizr.localstorage) {
         var socketIdsStr = localStorage.getItem("socketIds");
         // Parse the stringify'd array
-        var socketIds = JSON.parse(socketIdsStr);
+        if(socketIdsStr !== null && socketIdsStr.length) {
+          var socketIds = JSON.parse(socketIdsStr);
+        }
       }
       // If client doesn't support local storage or the socketIds array is empty for whatever reason, make one
       if(typeof socketIds === "undefined" || socketIds === null) {
@@ -85,6 +98,97 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         socketIds = new Array(socket.id);
       }
       return socketIds;
+    },
+    /**
+     * Save open playlist to local
+     * Add this playlist ID to a locally stored array of IDs. This way we know if a user opens the same playlist
+     * in another tab/window and can stop it playing.
+     */
+    saveOpenPlaylistToLocal: function(playlistId) {
+
+      var openPlaylists;
+      if (Modernizr.localstorage) {
+        
+        var openPlaylistsStr = localStorage.getItem("openPlaylists");
+        // Parse the stringify'd array
+        if(openPlaylistsStr !== null && openPlaylistsStr.length) {
+          var openPlaylists = JSON.parse(openPlaylistsStr);
+        }
+        // If the openPlaylists array has not yet been created, add it in there
+        if(typeof openPlaylists === "undefined" || openPlaylists === null) {
+
+          openPlaylists = new Array();
+        }
+        openPlaylists.push(playlistId)
+        // Stringify the array again so we can save it in local storage
+        openPlaylistsStr = JSON.stringify(openPlaylists);
+        localStorage.setItem("openPlaylists", openPlaylistsStr);
+        return openPlaylists;
+      }
+    },
+    /**
+     * Remove open playlist from local
+     * Removes a playlist ID from the locally stored open playlist ID array
+     * To be triggered on playlist close so we don't stop users legitimately listening to a playlist
+     */
+    removeOpenPlaylistFromLocal: function(playlistId) {
+
+      var openPlaylists;
+      if (Modernizr.localstorage) {
+        
+        var openPlaylistsStr = localStorage.getItem("openPlaylists");
+        // Parse the stringify'd array
+        if(openPlaylistsStr !== null && openPlaylistsStr.length) {
+          var openPlaylists = JSON.parse(openPlaylistsStr);
+        }
+        // Check openPlaylists is an array and contains the ID we want to remove
+        if(typeof openPlaylists === "undefined" || openPlaylists === null || openPlaylists.indexOf(playlistId) === -1) {
+
+          return false;
+        }
+        else {
+
+          // Find where playlistId is in the array and remove it
+          var arrIndex = openPlaylists.indexOf(playlistId);
+          openPlaylists.splice(arrIndex, 1);
+        }
+        
+        // Stringify the array again so we can save it in local storage
+        openPlaylistsStr = JSON.stringify(openPlaylists);
+        localStorage.setItem("openPlaylists", openPlaylistsStr);
+        return openPlaylists;
+      }
+    },
+    /**
+     * Get open playlists
+     * Retrieve the array of open playlists from local storage
+     */
+    getOpenPlaylists: function() {
+
+      var openPlaylists;
+      if (Modernizr.localstorage) {
+        var openPlaylistsStr = localStorage.getItem("openPlaylists");
+        // Parse the stringify'd array
+        if(openPlaylistsStr !== null && openPlaylistsStr.length) {
+          var openPlaylists = JSON.parse(openPlaylistsStr);
+        }
+      }
+      // Just return an empty array if openPlaylists was never set
+      if(typeof openPlaylists === "undefined" || openPlaylists === null) {
+        
+        return new Array();
+      }
+      return openPlaylists;
+    },
+    /**
+     * Playlist is open
+     * Check the local storage to see if the user already has this playlist open in another window/tab
+     * @return bool
+     */
+    playlistIsOpen: function(playlistId) {
+
+      var openPlaylists = Playlist.Controller.getOpenPlaylists();
+      return openPlaylists.indexOf(playlistId) > -1;
     },
     setActiveTrackClass: function() {
 
