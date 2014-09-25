@@ -10,14 +10,12 @@
     <ul class="playlist-track-list">
     {% for track in playlist.tracks %}
       <li class="playback-track">
-        <div class="playback-track-artwork">
-          <img src="{{ track.artwork }}" />
-        </div>
-        <h2 class="playback-track-title">{{ track.title }}</h2>
-<!--         <div class="progress-bar">
-          <div class="current-progress"></div>
-          <canvas class="progress-circle" width="250" height="250"></canvas>
-        </div> -->
+        <a href="{{ track.url }}" target="_blank">
+          <div class="playback-track-artwork">
+              <img src="{{ track.artwork }}" />
+          </div>
+          <h2 class="playback-track-title">{{ track.title }}</h2>
+        </a>
       </li>
     {% endfor %}
     </ul>
