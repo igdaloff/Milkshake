@@ -22,6 +22,12 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
         this.$el.addClass("remote");
       }
+    },
+    onShow: function() {
+
+      //Keep scroll position at bottom after each message is sent
+      var messageContainer = this.el.parentNode;
+      messageContainer.scrollTop = messageContainer.scrollHeight;
     }
   });
 

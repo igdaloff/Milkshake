@@ -14,11 +14,6 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
         messageCollection.add(messageData);
       }
-
-      //Keep scroll position at bottom after each message is sent
-      var messageContainer = $(".message-list")[0];
-      messageContainer.scrollTop = messageContainer.scrollHeight;
-
     },
     sendNewMessage: function(content) {
 
