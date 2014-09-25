@@ -104,11 +104,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
 
       //Detect whether all 3 tracks have been selected and show Create Track button
-      var trackEmpty = $(".chosen-tracks li").find(".track-info-id").filter(function() {
-        return this.value === "";
-      });
-
-      if(!trackEmpty.length) {
+      if($(".has-track-selection").length === 3) {
         $('.track-search-container').fadeOut();
         $(".playlist-create-title-container").delay(500).fadeIn();
         $(".chosen-tracks li").removeClass("selected");
