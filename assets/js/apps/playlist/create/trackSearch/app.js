@@ -12,10 +12,17 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
     // Create a collection to hold our results and pass them into a search form view
     var resultsCollection = TWM.request("newTrackSearch:entities");
+
     var searchForm = new TrackSearch.SearchForm({
       collection: resultsCollection
     });
     searchFormContainer.show(searchForm);
+
+    // Set up a request handler to get the resutls collection
+    TWM.reqres.setHandler("trackSearch:resultsCollection", function() {
+
+      return resultsCollection;
+    });
   });
 
   //Show playlist create button once a user has entered a character into input field

@@ -3,11 +3,12 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
   var playlistManager;
 
   TrackSearch.Controller = {
-    searchTracks: function(trackCollection, query, callback) {
+    searchTracks: function(query) {
 
-      trackCollection.query = query;
-      trackCollection.fetch({
-        complete: callback
+      resultsCollection = TWM.request("trackSearch:resultsCollection");
+      resultsCollection.query = query;
+      resultsCollection.fetch({
+        reset: true
       });
     },
     previewTrack: function(trackModel, previewDuration){

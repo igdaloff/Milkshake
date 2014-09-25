@@ -71,19 +71,20 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       e.preventDefault();
       var $form = $(e.currentTarget);
       var query = this.$(".track-search-query").val();
-      var $searchResultsContainer = $('.track-search-results-container');
+      // Remove class for results so we can transition in new ones
+      $(this.childViewContainer).parent().removeClass("visible");
 
       // Add the loading class to the input
       this.$(".track-search-query").addClass("loading");
       // Execute the query
-      TrackSearch.Controller.searchTracks(this.collection, query, _.bind(function() {
+      TrackSearch.Controller.searchTracks(query);
+    },
+    onRenderCollection: function() {
 
-        // Remove the loading class on completion
-        this.$(".track-search-query").removeClass("loading");
-
-        // Add class for results transition
-        $searchResultsContainer.addClass("visible");
-      }, this));
+      // Add class for results transition
+      $(this.childViewContainer).parent().addClass("visible");
+      // Remove the loading class on completion
+      this.$(".track-search-query").removeClass("loading");
     }
   });
 
