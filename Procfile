@@ -1,1 +1,1 @@
-web: bundle install && bower install --allow-root && grunt build --force && npm start
+web: bundle install && bower install --allow-root && grunt build --force && supervisor app
