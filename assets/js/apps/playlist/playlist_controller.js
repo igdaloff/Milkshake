@@ -222,6 +222,24 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         });
       }
     },
+    /* 
+     * Fill complete progress bars
+     * We call this when the playlist first starts playing to set any completed tracks' progress bars to 100%
+     */
+    fillCompletedProgressBars: function() {
+
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var trackIndex = playlistManager.currentTrackIndex;
+      if(trackIndex > 0) {
+
+        for(var i = 0; i < trackIndex; i++) {
+
+          $('.current-progress').eq(i).css({
+            width: "100%"
+          });
+        }
+      }
+    },
     /*
      * Wait for room
      * If there are too many people in the room, notify the user and listen for other users disconnecting
@@ -267,6 +285,8 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
         var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
+        // Fill out completed tracks' progress bars
+        Playlist.Controller.fillCompletedProgressBars();
       }
 
       // Bind the Playlist UI
