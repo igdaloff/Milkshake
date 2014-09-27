@@ -70,6 +70,9 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         if(trackModel.get(field) && $field.length){
           $field.val(trackModel.get(field));
         }
+        else {
+          $field.val("");
+        }
       }
 
       $el.find("p").html(trackModel.get("title"));

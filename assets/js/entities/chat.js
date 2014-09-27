@@ -76,12 +76,28 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         image: "john-lennon.jpg"
       },
       {
-        name: "Daft Punk",
-        image: "daft-punk-thomas.jpg"
+        name: "Johnny Cash",
+        image: "johnny-cash.jpg"
       },
       {
-        name: "Daft Punk",
-        image: "daft-punk-guy-manuel.jpg"
+        name: "Morrissey",
+        image: "morrissey.jpg"
+      },
+      {
+        name: "Andre 3000",
+        image: "andre-3000.jpg"
+      },
+      {
+        name: "Bjork",
+        image: "bjork.jpg"
+      },
+      {
+        name: "Beck",
+        image: "beck.jpg"
+      },
+      {
+        name: "Leonard Cohen",
+        image: "leonard-cohen.jpg"
       },
       {
         name: "Donna Summer",
