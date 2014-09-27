@@ -94,6 +94,11 @@ td.track-search-result-title{
 }
 
 .track-search-link {
+
+  &:before{
+    font-size: 0.8em;
+  }
+
   &.soundcloud {
     @include icomoon('soundcloud');
   }

@@ -14,6 +14,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       }
 
       this.set("remote", this.isRemote());
+
     },
     /**
      * Is remote
