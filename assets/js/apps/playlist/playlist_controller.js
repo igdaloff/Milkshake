@@ -1,12 +1,12 @@
 TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
-  
+
   Playlist.Controller = {
     /**
      * Join room
      * Emit the request event to join playlist room to the server via socket
      */
     joinRoom: function() {
-      
+
       var socket = TWM.request("playlist:activeSocket");
       socket.emit('joinRoom', playlistId);
     },
@@ -48,7 +48,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
     },
-    /** 
+    /**
      * Save Socket ID
      * Set the ID returned from the server on the socket model and persist it to the localStorage array of
      * socket IDs that this user has connected with (each new page load will generate +1)
@@ -78,7 +78,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     /**
      * Get socket history
-     * Fetch the socketIds array from local storage if it exists, otherwise just return an array with the current 
+     * Fetch the socketIds array from local storage if it exists, otherwise just return an array with the current
      * socket ID so we at least know the current socket connection
      */
     getSocketHistory: function() {
@@ -93,7 +93,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       }
       // If client doesn't support local storage or the socketIds array is empty for whatever reason, make one
       if(typeof socketIds === "undefined" || socketIds === null) {
-        
+
         var socket = TWM.request("playlist:activeSocket");
         socketIds = new Array(socket.id);
       }
@@ -108,7 +108,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var openPlaylists;
       if (Modernizr.localstorage) {
-        
+
         var openPlaylistsStr = localStorage.getItem("openPlaylists");
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
@@ -135,7 +135,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var openPlaylists;
       if (Modernizr.localstorage) {
-        
+
         var openPlaylistsStr = localStorage.getItem("openPlaylists");
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
@@ -152,7 +152,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
           var arrIndex = openPlaylists.indexOf(playlistId);
           openPlaylists.splice(arrIndex, 1);
         }
-        
+
         // Stringify the array again so we can save it in local storage
         openPlaylistsStr = JSON.stringify(openPlaylists);
         localStorage.setItem("openPlaylists", openPlaylistsStr);
@@ -175,7 +175,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       }
       // Just return an empty array if openPlaylists was never set
       if(typeof openPlaylists === "undefined" || openPlaylists === null) {
-        
+
         return new Array();
       }
       return openPlaylists;
@@ -209,6 +209,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       $(".current-time").text(TWM.Lib.secondsToMinutes(currentTime));
     },
     updateProgressBar: function(currentTime) {
+      var $progressBar = $('.current-progress');
 
     },
     /*

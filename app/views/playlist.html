@@ -6,13 +6,20 @@
     <h1>{{ playlist.title }}</h1>
     <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
   </header>
+  <div class="scrub">
+    <div class="current-progress"></div>
+  </div>
   <section class="playlist">
     <ul class="playlist-track-list">
     {% for track in playlist.tracks %}
       <li class="playback-track">
         <a href="{{ track.url }}" target="_blank">
           <div class="playback-track-artwork">
-              <img src="{{ track.artwork }}" />
+            {% if track.artwork %}
+              <img src="{{ track.artwork }}" alt="Album artwork"/>
+            {% else %}
+              <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
+            {% endif %}
           </div>
           <h2 class="playback-track-title">{{ track.title }}</h2>
         </a>
