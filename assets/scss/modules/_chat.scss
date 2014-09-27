@@ -2,11 +2,11 @@
 .messages{
 	position: relative;
 	font-family: $sans-light;
+	margin-top: 2em;
 }
 
 .message-list{
 	padding: 1em 1em 2em;
-	margin-top: 2em;
 	height: 20em;
 	overflow: auto;
 	border-top: 1px solid $grey;
