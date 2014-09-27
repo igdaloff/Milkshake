@@ -3,10 +3,12 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
   var $chosenTrack = $('.chosen-tracks li');
 
   $chosenTrack.first().addClass('selected');
+  $chosenTrack.first().find('.playlist-track-select').attr("checked", true);
 
   $chosenTrack.on('click', function(){
   	$chosenTrack.removeClass('selected');
   	$(this).addClass('selected');
+  	$(this).find('.playlist-track-select').attr("checked", true);
   });
 
 
@@ -35,11 +37,15 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
     	if( $chosenTrack.prev("li").length ){
     		$chosenTrack.prev("li").addClass("selected");
     		$chosenTrack.removeClass("selected");
+    		$chosenTrack.find('.playlist-track-select').attr("checked", false);
+    		$chosenTrack.prev("li").find('.playlist-track-select').attr("checked", true);
     	}
     } else if(e.keyCode == 39) { // right
     	if( $chosenTrack.next("li").length ){
     		$chosenTrack.next("li").addClass("selected");
     		$chosenTrack.removeClass("selected");
+    		$chosenTrack.find('.playlist-track-select').attr("checked", false);
+    		$chosenTrack.next("li").find('.playlist-track-select').attr("checked", true);
     	}
     }
   });
