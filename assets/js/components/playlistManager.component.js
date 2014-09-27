@@ -39,6 +39,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       var pop = Popcorn.smart( '#' + domId, track.url);
       pop.autoplay(false);
+      pop.mute();
       // Bind popcorn events to triggers on the 'this' object
       pop.on('ended', $.proxy(function(){
 
@@ -77,7 +78,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.loadFromTotalTime = function(startTime, callback) {
 
       var requestedTrack = this.getTrackFromTotalTime(startTime);
-
       this.onTrackReady(requestedTrack.trackIndex, function(track) {
 
         track.pop.currentTime(requestedTrack.trackTime);
@@ -164,6 +164,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       var track = this.getTrackData(trackIndex);
       track.pop.on('canplaythrough', function(e) {
 
+        track.pop.unmute();
         callback(track);
         track.pop.off('canplaythrough');
       });
