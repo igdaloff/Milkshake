@@ -86,7 +86,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       this.listenTo(this.collection, 'add', function(model) {
 
         // When a new message is received, check it's remote and if the input field is blurred, start the notifier
-        if(model.get('remote') && !$('.new-message-field').is(':focus')) {
+        if(model.get('remote') && !$('.new-message-field').is(':focus') && model.get('type') === 'chat') {
 
           Chat.Controller.startNotifier();
         }
