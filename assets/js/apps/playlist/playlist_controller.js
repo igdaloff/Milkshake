@@ -209,8 +209,18 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       $(".current-time").text(TWM.Lib.secondsToMinutes(currentTime));
     },
     updateProgressBar: function(currentTime) {
-      var $progressBar = $('.current-progress');
 
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var trackIndex = playlistManager.currentTrackIndex;
+      var $currentProgressBar = $('.current-progress').eq(trackIndex);
+      var currentTrackData = playlistManager.getCurrentTrackData();
+      if(currentTrackData !== null) {
+        var currentTime = currentTrackData.pop.currentTime();
+        var progress = currentTime / currentTrackData.duration * 100;
+        $currentProgressBar.css({
+          width: progress.toString() + "%"
+        });
+      }
     },
     /*
      * Wait for room
