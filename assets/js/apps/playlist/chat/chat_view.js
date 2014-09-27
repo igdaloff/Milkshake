@@ -25,6 +25,17 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     },
     onShow: function() {
 
+      this.parseLinks();
+      this.scrollChatToBottom();
+    },
+    parseLinks: function() {
+
+      var chatText = $('.chat-message-content').text();
+      var linkedChatText = Autolinker.link( chatText, { className: "chat-message-link" } );
+      $('.chat-message-content').html(linkedChatText);
+    },
+    scrollChatToBottom: function(){
+
       //Keep scroll position at bottom after each message is sent
       var messageContainer = this.el.parentNode;
       messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -90,7 +101,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       var $newMessageField = $('.new-message-field');
       var content = $newMessageField.val();
       if(content.trim().length > 0) {
-        
+
         Chat.Controller.sendNewMessage($newMessageField.val());
         $newMessageField.val("").focus();
       }
