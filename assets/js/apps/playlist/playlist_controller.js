@@ -47,6 +47,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
+      // Listen to track ending and make sure the correct time is shown
+      $(playlistManager).on('track:ended', this.setTrackTimeOnEnd);
     },
     /**
      * Save Socket ID
@@ -220,6 +222,22 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         $currentProgressBar.css({
           width: progress.toString() + '%'
         });
+      }
+    },
+    /*
+     * Set track time on end
+     * We can't rely on time updates to update the track timer in the header when a track finishes, 
+     * sometimes it may end on one second off which looks weird. So we'll run this instead so that when the playlist
+     * finishes the current time equals the total time
+     */
+    setTrackTimeOnEnd: function() {
+
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      
+      // If this is the last track...
+      if(playlistManager.getCurrentTrackIndex() === 2){
+
+        $('.current-time').text($('.total-time').text());
       }
     },
     /* 
