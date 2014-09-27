@@ -64,21 +64,21 @@ io.sockets.on('connection', function (socket) {
   // the playlist from (based on any other users in the room)
   socket.on('joinRoom', function (playlistId) {
 
-    var clientsInRoom = io.sockets.in(socket.roomId);
-    var numConnected = clientsInRoom.server.eio.clientsCount || 0;
+    socket.join(playlistId);
+    socket.roomId = playlistId;
 
-    console.log('User joined room', socket.roomId, ', number in room now:', numConnected);
+    var usersInRoom = io.sockets.adapter.rooms[playlistId];
+    var numUsersInRoom = Object.keys(usersInRoom).length;
+
+    console.log('User joined room', socket.roomId, ', number in room now:', numUsersInRoom);
     
     // If there are already more than two users connected, reject this connection
-    if(numConnected > 2) {
+    if(numUsersInRoom > 2) {
 
       socket.emit('roomFull');
+      socket.disconnect();
       return false;
-    }
-    
-    // Otherwise proceed with adding the user
-    socket.roomId = playlistId;
-    socket.join(playlistId);
+    }    
 
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
@@ -104,7 +104,7 @@ io.sockets.on('connection', function (socket) {
     socket.isReady = true;
 
     var usersReady = 0;
-    var clientsInRoom = io.sockets.in(socket.roomId);
+    var usersInRoom = io.sockets.adapter.rooms[socket.roomId];
 
     // If we've already started the playlist, just send the new user the go event
     if(playlistStartTime !== 0) {
@@ -116,14 +116,13 @@ io.sockets.on('connection', function (socket) {
       socket.playlistStartTime = playlistStartTime;
     }
 
-
     // Otherwise, check if both users are ready and if so emit the go event to everyone
     else {
 
       // Loop over the clients in this room and see who else is ready
-      for(socketId in clientsInRoom.connected) {
+      for(var user in usersInRoom) {
 
-        var client = clientsInRoom.connected[socketId];
+        var client = io.sockets.connected[user];
 
         if(client.isReady) {
 
@@ -134,7 +133,7 @@ io.sockets.on('connection', function (socket) {
       if(usersReady === 2) {
 
         console.log('emit playPlaylist event to everyone');
-        clientsInRoom.emit('playPlaylist', {
+        io.sockets.in(socket.roomId).emit('playPlaylist', {
           startTime: playlistStartTime
         });
 
