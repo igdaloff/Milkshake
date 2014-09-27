@@ -1,4 +1,4 @@
-TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
+TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
   Playlist.Controller = {
     /**
@@ -7,7 +7,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
      */
     joinRoom: function() {
 
-      var socket = TWM.request("playlist:activeSocket");
+      var socket = TWM.request('playlist:activeSocket');
       socket.emit('joinRoom', playlistId);
     },
     /**
@@ -55,24 +55,24 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
      */
     saveSocketId: function(socketId) {
 
-      var socket = TWM.request("playlist:activeSocket");
+      var socket = TWM.request('playlist:activeSocket');
       socket.id = socketId;
       // Save it to local storage if client supports it
       if (Modernizr.localstorage) {
-        var socketIdsStr = localStorage.getItem("socketIds");
+        var socketIdsStr = localStorage.getItem('socketIds');
         // Parse the stringify'd array
         if(socketIdsStr !== null && socketIdsStr.length) {
           var socketIds = JSON.parse(socketIdsStr);
         }
         // If the socketIds array has not yet been created, add it in there
-        if(typeof socketIds === "undefined" || socketIds === null) {
+        if(typeof socketIds === 'undefined' || socketIds === null) {
 
           socketIds = new Array();
         }
         socketIds.push(socketId)
         // Stringify the array again so we can save it in local storage
         socketIdsStr = JSON.stringify(socketIds);
-        localStorage.setItem("socketIds", socketIdsStr);
+        localStorage.setItem('socketIds', socketIdsStr);
         return socketIds;
       }
     },
@@ -85,16 +85,16 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var socketIds;
       if (Modernizr.localstorage) {
-        var socketIdsStr = localStorage.getItem("socketIds");
+        var socketIdsStr = localStorage.getItem('socketIds');
         // Parse the stringify'd array
         if(socketIdsStr !== null && socketIdsStr.length) {
           var socketIds = JSON.parse(socketIdsStr);
         }
       }
       // If client doesn't support local storage or the socketIds array is empty for whatever reason, make one
-      if(typeof socketIds === "undefined" || socketIds === null) {
+      if(typeof socketIds === 'undefined' || socketIds === null) {
 
-        var socket = TWM.request("playlist:activeSocket");
+        var socket = TWM.request('playlist:activeSocket');
         socketIds = new Array(socket.id);
       }
       return socketIds;
@@ -109,20 +109,20 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       var openPlaylists;
       if (Modernizr.localstorage) {
 
-        var openPlaylistsStr = localStorage.getItem("openPlaylists");
+        var openPlaylistsStr = localStorage.getItem('openPlaylists');
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
           var openPlaylists = JSON.parse(openPlaylistsStr);
         }
         // If the openPlaylists array has not yet been created, add it in there
-        if(typeof openPlaylists === "undefined" || openPlaylists === null) {
+        if(typeof openPlaylists === 'undefined' || openPlaylists === null) {
 
           openPlaylists = new Array();
         }
         openPlaylists.push(playlistId)
         // Stringify the array again so we can save it in local storage
         openPlaylistsStr = JSON.stringify(openPlaylists);
-        localStorage.setItem("openPlaylists", openPlaylistsStr);
+        localStorage.setItem('openPlaylists', openPlaylistsStr);
         return openPlaylists;
       }
     },
@@ -136,13 +136,13 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
       var openPlaylists;
       if (Modernizr.localstorage) {
 
-        var openPlaylistsStr = localStorage.getItem("openPlaylists");
+        var openPlaylistsStr = localStorage.getItem('openPlaylists');
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
           var openPlaylists = JSON.parse(openPlaylistsStr);
         }
         // Check openPlaylists is an array and contains the ID we want to remove
-        if(typeof openPlaylists === "undefined" || openPlaylists === null || openPlaylists.indexOf(playlistId) === -1) {
+        if(typeof openPlaylists === 'undefined' || openPlaylists === null || openPlaylists.indexOf(playlistId) === -1) {
 
           return false;
         }
@@ -155,7 +155,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
         // Stringify the array again so we can save it in local storage
         openPlaylistsStr = JSON.stringify(openPlaylists);
-        localStorage.setItem("openPlaylists", openPlaylistsStr);
+        localStorage.setItem('openPlaylists', openPlaylistsStr);
         return openPlaylists;
       }
     },
@@ -167,14 +167,14 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var openPlaylists;
       if (Modernizr.localstorage) {
-        var openPlaylistsStr = localStorage.getItem("openPlaylists");
+        var openPlaylistsStr = localStorage.getItem('openPlaylists');
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
           var openPlaylists = JSON.parse(openPlaylistsStr);
         }
       }
       // Just return an empty array if openPlaylists was never set
-      if(typeof openPlaylists === "undefined" || openPlaylists === null) {
+      if(typeof openPlaylists === 'undefined' || openPlaylists === null) {
 
         return new Array();
       }
@@ -194,19 +194,19 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-      $(".playback-track").removeClass("current");
-      $(".playback-track").eq(currentTrackIndex).addClass("current");
+      $('.playback-track').removeClass('current');
+      $('.playback-track').eq(currentTrackIndex).addClass('current');
     },
     updateTimer: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
-      if(typeof currentTime !== "number" || currentTime == 0) {
+      if(typeof currentTime !== 'number' || currentTime == 0) {
         return false;
       }
       // Update the time in the header
-      $(".current-time").text(TWM.Lib.secondsToMinutes(currentTime));
+      $('.current-time').text(TWM.Lib.secondsToMinutes(currentTime));
     },
     updateProgressBar: function(currentTime) {
 
@@ -218,7 +218,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         var currentTime = currentTrackData.pop.currentTime();
         var progress = currentTime / currentTrackData.duration * 100;
         $currentProgressBar.css({
-          width: progress.toString() + "%"
+          width: progress.toString() + '%'
         });
       }
     },
@@ -235,7 +235,7 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
         for(var i = 0; i < trackIndex; i++) {
 
           $('.current-progress').eq(i).css({
-            width: "100%"
+            width: '100%'
           });
         }
       }
@@ -247,16 +247,16 @@ TWM.module("Playlist", function(Playlist, TWM, Backbone, Marionette, $, _){
      */
     waitForRoom: function() {
 
-      var socket = TWM.request("playlist:activeSocket");
+      var socket = TWM.request('playlist:activeSocket');
       alert('Room is full, waiting for space');
       socket.on('userLeft', Playlist.API.joinRoom);
 
     },
     loadPlaylistFrom: function(data) {
 
-      var socket = TWM.request("playlist:activeSocket");
+      var socket = TWM.request('playlist:activeSocket');
       var playlist = TWM.request('playlist:activePlaylistMgr');
-      var startTime = typeof data.startTime !== "undefined" ? data.startTime : 0;
+      var startTime = typeof data.startTime !== 'undefined' ? data.startTime : 0;
       // work out if we are starting from the start (0) or resuming, and if resuming calculate where to resume from
       // based on what the server returned to us
       if(startTime !== 0) {

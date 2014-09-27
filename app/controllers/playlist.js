@@ -80,6 +80,9 @@ io.sockets.on('connection', function (socket) {
       return false;
     }    
 
+    // Notify other members that a user joined
+    io.sockets.in(playlistId).emit('userJoined');
+
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
 

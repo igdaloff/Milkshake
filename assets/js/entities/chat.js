@@ -3,7 +3,8 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   Entities.Message = Backbone.Model.extend({
     defaults: {
       timestamp: new Date().getTime(),
-      playlistTime: ""
+      playlistTime: "",
+      type: "chat"
     },
     initialize: function() {
 
