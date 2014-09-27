@@ -42,7 +42,14 @@
 	padding-left: 1.5em;
 }
 
-
+.loading-message {
+	font-family: $sans-special;
+	font-size: 2em;
+	text-align: center;
+	.loading-indicator {
+		margin: 1em 0;
+	}
+}
 
 .playlist,
 .loading-message,

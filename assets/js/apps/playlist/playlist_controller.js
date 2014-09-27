@@ -12,7 +12,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     userJoinedRoom: function(numUsersInRoom) {
 
-      if(numUsersInRoom === 1) {
+      if(numUsersInRoom === 1 && bootstrap.startTime.length === 0) {
 
         $('body').addClass('playlist-waiting');
       }

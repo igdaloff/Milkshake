@@ -2,22 +2,23 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="wrapper">
-  <header class="playback-header">
-    <h1>{{ playlist.title }}</h1>
-    <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
-  </header>
 
   <div class="welcome-message">
-    <p>Your playlist is ready. Send the link below to a friend and we'll get started when they join.</p>
+    <h2>It takes two to tango, baby.</h2>
+    <p>Copy this link and send to a friend. Bach Bangerz will begin once your friend has joined the room</p>
     <input type="text" class="share-link" value="{{ permalink }}">
   </div>
-
+  
   <div class="loading-message">
-    <p>Loading tracks</p>
+    <p>Loading tracks...</p>
     <img src="/img/preview-loading.gif" class="loading-indicator">
   </div>
-  
+
   <div class="playlist">
+    <header class="playback-header">
+      <h1>{{ playlist.title }}</h1>
+      <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
+    </header>
     <div class="progress-bars">
       {% for track in playlist.tracks %}
       <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
@@ -54,7 +55,8 @@
 <script>
 var bootstrap = {
   tracks: [{{ playlist.tracks|raw }}],
-  messages: [{{ conversation.messages|raw }}]
+  messages: [{{ conversation.messages|raw }}],
+  startTime: '{{ playlist.startTime }}'
 };
 var playlistId = "{{ playlist.id }}";
 </script>
