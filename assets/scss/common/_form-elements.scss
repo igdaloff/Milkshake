@@ -13,18 +13,22 @@
 
 	&::-webkit-input-placeholder {
 		font-family: $sans-light;
+		color: $grey;
 	}
 
 	&:-moz-placeholder {
 		font-family: $sans-light;
+		color: $grey;
 	}
 
 	&::-moz-placeholder {
 		font-family: $sans-light;
+		color: $grey;
 	}
 
 	&:-ms-input-placeholder {
 		font-family: $sans-light;
+		color: $grey;
 	}
 
 	&:focus{
