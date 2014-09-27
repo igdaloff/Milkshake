@@ -7,12 +7,10 @@
     <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
   </header>
 
-  {% if !playlist.startTime %}
   <div class="welcome-message">
     <p>Your playlist is ready. Send the link below to a friend and we'll get started when they join.</p>
     <input type="text" class="share-link" value="{{ permalink }}">
   </div>
-  {% endif %}
 
   <div class="loading-message">
     <p>Loading tracks</p>
