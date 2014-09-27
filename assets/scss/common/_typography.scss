@@ -4,10 +4,11 @@
 
 $sans: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 $sans-light: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+$sans-special: "Inconsolata", $sans-light;
 
 h1, h2, h3, h4, h5, h6{
 	font-weight: normal;
-	font-family: "Inconsolata", $sans-light;
+	font-family: $sans-special;
 }
 
 h1{
