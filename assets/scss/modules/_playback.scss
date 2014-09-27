@@ -1,6 +1,7 @@
 // ========================
 // Playlist Playback
 // ========================
+
 .playback-header{
 	text-align: center;
 	font-family: $sans-special;
@@ -39,4 +40,32 @@
 	width: 80%;
 	vertical-align: middle;
 	padding-left: 1.5em;
+}
+
+
+
+.playlist,
+.loading-message,
+.welcome-message {
+	display: none;
+}
+
+// Playback states
+
+.playlist-waiting {
+	.welcome-message {
+		display: block;
+	}
+}
+
+.playlist-loading {
+	.loading-message {
+		display: block;
+	}
+}
+
+.playlist-playing {
+	.playlist {
+		display: block;
+	}
 }

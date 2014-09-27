@@ -18,8 +18,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('loadPlaylistFrom', Playlist.Controller.loadPlaylistFrom);
       // When the server sends the play event
       socket.on('playPlaylist', Playlist.Controller.playPlaylist);
-      // When the other user disconnects
-      socket.on('userLeft', Playlist.Controller.onUserLeft);
+      // When a user (including this client) joins a room
+      socket.on('userJoined', Playlist.Controller.userJoinedRoom);
 
       // Set a request handler so we can get the active socket in future
       TWM.reqres.setHandler("playlist:activeSocket", function() {

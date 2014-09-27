@@ -10,6 +10,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var socket = TWM.request('playlist:activeSocket');
       socket.emit('joinRoom', playlistId);
     },
+    userJoinedRoom: function(numUsersInRoom) {
+
+      if(numUsersInRoom === 1) {
+
+        $('body').addClass('playlist-waiting');
+      }
+    },
     /**
     * Load Player
     *
@@ -272,6 +279,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     loadPlaylistFrom: function(data) {
 
+      // Add the loading class to the body
+      $('body').addClass('playlist-loading');
       var socket = TWM.request('playlist:activeSocket');
       var playlist = TWM.request('playlist:activePlaylistMgr');
       var startTime = typeof data.startTime !== 'undefined' ? data.startTime : 0;
@@ -289,10 +298,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
+        // Remove the loading and waiting class from the body
+        $('body').removeClass('playlist-loading')
       });
     },
     playPlaylist: function(data) {
 
+      // Add the playing class to the body and remove the waiting and loading classes
+      $('body').addClass('playlist-playing').removeClass('playlist-waiting playlist-loading');
       var playlist = TWM.request('playlist:activePlaylistMgr');
       var startTime = data.startTime;
       // Account for any latency and get a fresh start time
@@ -311,10 +324,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       Playlist.Controller.bindPlaylistUi();
       // Start the chat module
       Playlist.Chat.start();
-    },
-    onUserLeft: function() {
-
-      // Do something here to notify the user when their partner has left
     },
     calculateTimeDiff: function(startTime) {
 

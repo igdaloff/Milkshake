@@ -6,32 +6,47 @@
     <h1>{{ playlist.title }}</h1>
     <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
   </header>
-  <div class="progress-bars">
-    {% for track in playlist.tracks %}
-    <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
-      <div class="current-progress"></div>
-    </div>
-    {% endfor %}
+
+  {% if !playlist.startTime %}
+  <div class="welcome-message">
+    <p>Your playlist is ready. Send the link below to a friend and we'll get started when they join.</p>
+    <input type="text" class="share-link" value="{{ permalink }}">
   </div>
-  <section class="playlist">
-    <ul class="playlist-track-list">
-    {% for track in playlist.tracks %}
-      <li class="playback-track">
-        <a href="{{ track.url }}" target="_blank">
-          <div class="playback-track-artwork">
-            {% if track.artwork %}
-              <img src="{{ track.artwork }}" alt="Album artwork"/>
-            {% else %}
-              <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
-            {% endif %}
-          </div>
-          <h2 class="playback-track-title">{{ track.title }}</h2>
-        </a>
-      </li>
-    {% endfor %}
-    </ul>
-    <div class="messages"></div>
-  </section>
+  {% endif %}
+
+  <div class="loading-message">
+    <p>Loading tracks</p>
+    <img src="/img/preview-loading.gif" class="loading-indicator">
+  </div>
+  
+  <div class="playlist">
+    <div class="progress-bars">
+      {% for track in playlist.tracks %}
+      <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
+        <div class="current-progress"></div>
+      </div>
+      {% endfor %}
+    </div>
+    <section class="playlist-tracks">
+      <ul class="playlist-track-list">
+      {% for track in playlist.tracks %}
+        <li class="playback-track">
+          <a href="{{ track.url }}" target="_blank">
+            <div class="playback-track-artwork">
+              {% if track.artwork %}
+                <img src="{{ track.artwork }}" alt="Album artwork"/>
+              {% else %}
+                <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
+              {% endif %}
+            </div>
+            <h2 class="playback-track-title">{{ track.title }}</h2>
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+      <div class="messages"></div>
+    </section>
+  </div>
 
   {% if hasFinished %}
   <p>Sorry, this playlist has now finished. Go <a href="/">make a new one</a>.</p>

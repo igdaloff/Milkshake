@@ -81,7 +81,7 @@ io.sockets.on('connection', function (socket) {
     }    
 
     // Notify other members that a user joined
-    io.sockets.in(playlistId).emit('userJoined');
+    io.sockets.in(socket.roomId).emit('userJoined', numUsersInRoom);
 
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
@@ -231,6 +231,7 @@ exports.playlist = function(req, res){
       if (err){
         console.log(err);
       }
+      // Create the permalink to send to the page
       // Check to see if the playlist has already finished
       var currentUnixTime =  Math.round(new Date().getTime() / 1000);
       // Send the address and port that the client should use to connect to Socket.io
@@ -241,6 +242,7 @@ exports.playlist = function(req, res){
       playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
 
       return res.render('playlist', {
+        permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
         playlist: playlist,
         conversation: conversation,
         socketAddress: socketAddress
