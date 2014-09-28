@@ -49,22 +49,4 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
     	}
     }
   });
-
-  //Copy playlist url to clipboard
-  var $copyButton = $(".copy-button");
-  var client = new ZeroClipboard($copyButton);
-
-  client.on( "ready", function( readyEvent ) {
-    console.log( "ZeroClipboard SWF is ready!" );
-
-    var shareUrl = $(".share-link").val();
-    $copyButton.attr("data-clipboard-text", shareUrl);
-
-    client.on( "aftercopy", function( event ) {
-      // `this` === `client`
-      // `event.target` === the element that was clicked
-      console.log("Copied text to clipboard: " + event.data["text/plain"] );
-      $copyButton.html("Link copied!")
-    });
-  });
 });

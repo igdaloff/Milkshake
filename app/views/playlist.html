@@ -9,7 +9,7 @@
       <p>Copy this link and send to a friend. &ldquo;{{ playlist.title }}&rdquo; will begin once your friend has joined the room</p>
     </div>
     <input type="text" class="share-link input-field" value="{{ permalink }}">
-    <button class="btn copy-button" data-clipboard-text="">Copy Link</button>
+    <button class="btn copy-button" data-clipboard-text="{{ permalink }}">Copy Link</button>
   </div>
 
   <div class="loading-message">

@@ -9,6 +9,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var socket = TWM.request('playlist:activeSocket');
       socket.emit('joinRoom', playlistId);
+      Playlist.Controller.initCopyLinkField();
     },
     userJoinedRoom: function(numUsersInRoom) {
 
@@ -331,6 +332,23 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var currentUnixTime =  Math.round(new Date().getTime() / 1000);
       var timeDiff = currentUnixTime - startTime;
       return timeDiff;
+    },
+    initCopyLinkField: function() {
+
+      //Copy playlist url to clipboard
+      var $copyButton = $(".copy-button");
+      var client = new ZeroClipboard($copyButton[0]);
+
+      client.on( "ready", function( readyEvent ) {
+        console.log( "ZeroClipboard SWF is ready!" );
+
+        client.on( "aftercopy", function( event ) {
+          // `this` === `client`
+          // `event.target` === the element that was clicked
+          console.log("Copied text to clipboard: " + event.data["text/plain"] );
+          $copyButton.html("Link copied &#10003;")
+        });
+      });
     }
   }
 });
