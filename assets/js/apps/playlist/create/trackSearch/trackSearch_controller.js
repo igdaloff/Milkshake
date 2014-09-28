@@ -89,13 +89,15 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var $artworkImg = $el.find(".artwork img");
       $artworkImg.attr("src", artworkUrl);
 
+      $artworkImg.removeClass('landscape');
+      $artworkImg.hide();
+
       setTimeout(function(){
         if ($artworkImg.width() > $artworkImg.height()){
           $artworkImg.addClass('landscape');
-        } else {
-          $artworkImg.removeClass('landscape');
         }
-      }, 100);
+        $artworkImg.fadeIn();
+      }, 50);
 
 
       //Advance track selection to next one

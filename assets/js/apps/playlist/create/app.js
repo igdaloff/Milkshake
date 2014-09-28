@@ -20,7 +20,7 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
 	  var $chosenTrackSelect = $el.find(".playlist-track-select");
 
 	  $el.removeClass("has-track-selection");
-	  $chosenTrackArtwork.attr("src", "");
+	  $chosenTrackArtwork.attr("src", "").hide();
 	  $chosenTrackTitle.html("");
 	  $chosenTrackSelect.prop("checked", true);
 
