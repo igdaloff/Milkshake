@@ -29,6 +29,11 @@
 	font-size: .8em;
 	padding: 1em 0;
 	color: $dark-grey;
+	.log-message-content,
+	.log-message-timestamp {
+		display: block;
+		line-height: 1.4;
+	}
 }
 
 .chat-avatar-and-time{

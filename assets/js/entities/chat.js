@@ -15,7 +15,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       }
 
       this.set("remote", this.isRemote());
-
+      this.setPlaylistTime();
     },
     /**
      * Is remote
@@ -27,6 +27,16 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
       var socketIds = TWM.request('playlist:socketIdHistory');
       return socketIds.indexOf(this.get("sender")) === -1;
+    },
+    setPlaylistTime: function() {
+
+      var playlist = TWM.request('playlist:activePlaylistMgr');
+      if(typeof playlist !== 'undefined') {
+
+        var playlistTime = playlist.getCurrentTotalTime();
+        var playlistTimeString = TWM.Lib.secondsToMinutes(playlistTime);
+        this.set('playlistTime', playlistTimeString);
+      }
     }
   });
 
