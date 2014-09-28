@@ -21,13 +21,9 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       var socket = TWM.request('playlist:activeSocket');
       // Create a new message model by adding some data to the message collection
       var messageCollection = TWM.request('chat:messageCollection');
-      var playlist = TWM.request('playlist:activePlaylistMgr');
-      var playlistTime = playlist.getCurrentTotalTime();
-      var playlistTimeString = TWM.Lib.secondsToMinutes(playlistTime);
       var messageModel = messageCollection.add({
         type: 'chat',
         content: content,
-        playlistTime: playlistTimeString,
         remote: false,
         sender: socket.id
       });
@@ -86,7 +82,13 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       document.title = docTitle;
       window.clearInterval(notifierInterval);
     },
-    remoteUserDisconnected: function() {
+    remoteUserDisconnected: function(numUsersInRoom) {
+
+      // Perform no action if there are already two or more people in the room
+      if(numUsersInRoom > 1) {
+
+        return false;
+      }
 
       // Cancel the user typing sign
       TWM.trigger('chat:remoteUserNotTyping');
@@ -99,7 +101,13 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       // Add a disconnected class to the body
       $('body').addClass('remote-user-disconnected');
     },
-    remoteUserConnected: function() {
+    remoteUserConnected: function(numUsersInRoom) {
+
+      // Perform no action if there are already two people in the room
+      if(numUsersInRoom > 2) {
+
+        return false;
+      }
 
       // Add a connected message to the collection
       var messageCollection = TWM.request('chat:messageCollection');

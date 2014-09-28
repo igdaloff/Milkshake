@@ -169,8 +169,10 @@ io.sockets.on('connection', function (socket) {
   // Notify the other users when someone disconnects
   socket.on('disconnect', function() {
 
-    io.sockets.in(socket.roomId).emit('userLeft');
-    console.log('other user disconnected');
+    var usersInRoom = io.sockets.adapter.rooms[socket.roomId];
+    var numUsersInRoom = Object.keys(usersInRoom).length;
+
+    io.sockets.in(socket.roomId).emit('userLeft', numUsersInRoom);
   });
 
   // Message handling

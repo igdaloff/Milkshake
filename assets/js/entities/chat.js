@@ -15,7 +15,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       }
 
       this.set("remote", this.isRemote());
-
+      this.setPlaylistTime();
     },
     /**
      * Is remote
@@ -27,6 +27,16 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
       var socketIds = TWM.request('playlist:socketIdHistory');
       return socketIds.indexOf(this.get("sender")) === -1;
+    },
+    setPlaylistTime: function() {
+
+      var playlist = TWM.request('playlist:activePlaylistMgr');
+      if(typeof playlist !== 'undefined') {
+
+        var playlistTime = playlist.getCurrentTotalTime();
+        var playlistTimeString = TWM.Lib.secondsToMinutes(playlistTime);
+        this.set('playlistTime', playlistTimeString);
+      }
     }
   });
 
@@ -127,7 +137,44 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       {
         name: "Kelis",
         image: "kelis.jpg"
-      }];
+      },
+      {
+        name: "Prince",
+        image: "prince.jpg"
+      },
+      {
+        name: "Madonna",
+        image: "madonna.jpg"
+      },
+      {
+        name: "David Byrne",
+        image: "david-byrne.jpg"
+      },
+      {
+        name: "Wolfgang Amadeus Mozart",
+        image: "mozart.jpg"
+      },
+      {
+        name: "Ludwig van Beethoven",
+        image: "beethoven.jpg"
+      },
+      {
+        name: "Franz List",
+        image: "liszt.jpg"
+      },
+      {
+        name: "Murdoc",
+        image: "gorillaz-murdoc.jpg"
+      },
+      {
+        name: "Billie Holiday",
+        image: "billie-holiday.jpg"
+      },
+      {
+        name: "Miles Davis",
+        image: "miles-davis.jpg"
+      }
+      ];
 
       var randArtist = Math.floor(Math.random() * artists.length);
       this.avatar = artists[randArtist];
