@@ -273,9 +273,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     waitForRoom: function() {
 
       var socket = TWM.request('playlist:activeSocket');
-      alert('Room is full, waiting for space');
-      socket.on('userLeft', Playlist.API.joinRoom);
-
+      alert('Room is full, fuck off');
+      Playlist.stop();
     },
     loadPlaylistFrom: function(data) {
 
