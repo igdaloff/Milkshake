@@ -155,23 +155,23 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         image: "mozart.jpg"
       },
       {
-        name; "Ludwig van Beethoven",
+        name: "Ludwig van Beethoven",
         image: "beethoven.jpg"
       },
       {
-        name; "Franz List",
+        name: "Franz List",
         image: "liszt.jpg"
       },
       {
-        name; "Murdoc",
+        name: "Murdoc",
         image: "gorillaz-murdoc.jpg"
       },
       {
-        name; "Billie Holiday",
+        name: "Billie Holiday",
         image: "billie-holiday.jpg"
       },
       {
-        name; "Miles Davis",
+        name: "Miles Davis",
         image: "miles-davis.jpg"
       }
       ];
