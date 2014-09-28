@@ -194,11 +194,9 @@ io.sockets.on('connection', function (socket) {
   });
 
   // User typing handling
-  socket.on('userTyping', function() {
+  socket.on('userTyping', function(data) {
 
-    io.sockets.in(socket.roomId).emit('userTyping', {
-      sender: socket.id
-    });
+    io.sockets.in(socket.roomId).emit('userTyping', data);
   });
 
   socket.on('userNotTyping', function() {

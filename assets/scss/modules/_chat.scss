@@ -120,22 +120,6 @@
 	}
 }
 
-.remote-user-is-typing{
-	position: absolute;
-	bottom: 20px;
-	left: 20px;
-	background: url(/img/user-is-typing-1.gif) no-repeat;
-	width: 24px;
-	height: 24px;
-	background-size: 100%;
-	display: none;
-	.incoming &{
-		display: block;
-	}
-}
-
-
-
 //New message
 .new-message-container{
 	position: absolute;

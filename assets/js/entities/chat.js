@@ -4,7 +4,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     defaults: {
       timestamp: new Date().getTime(),
       playlistTime: "",
-      type: "chat"
+      type: "chat",
     },
     initialize: function() {
 

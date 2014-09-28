@@ -33,8 +33,16 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     userIsTyping: function() {
 
       var socket = TWM.request('playlist:activeSocket');
+      var messageCollection = TWM.request('chat:messageCollection');
       if(!isTyping) {
-        socket.emit('userTyping');
+        var data = {
+          type: 'inbound',
+          remote: false,
+          content: "...",
+          sender: socket.id,
+          avatar: messageCollection.avatar
+        };
+        socket.emit('userTyping', data);
       }
       isTyping = true;
     },
@@ -49,14 +57,23 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     remoteUserTyping: function(data) {
 
       var socket = TWM.request('playlist:activeSocket');
+      var messageCollection = TWM.request('chat:messageCollection');
       if(data.sender !== socket.id) {
+
+        messageCollection.add(data);
         TWM.trigger('chat:remoteUserTyping');
       }
     },
     remoteUserNotTyping: function(data) {
 
       var socket = TWM.request('playlist:activeSocket');
+      var messageCollection = TWM.request('chat:messageCollection');
       if(data.sender !== socket.id) {
+
+        var inboundMessage = messageCollection.findWhere({
+          type: 'inbound'
+        });
+        messageCollection.remove(inboundMessage);
         TWM.trigger('chat:remoteUserNotTyping');
       }
     },

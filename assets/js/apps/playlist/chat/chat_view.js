@@ -17,10 +17,37 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     },
     onRender: function() {
 
+      var _this = this;
+
       // If the message is from the other user, add a class to the el
       if(this.model.get('remote')) {
 
         this.$el.addClass('remote');
+      }
+
+      // If this as incoming message, animate the dots
+      if(this.model.get('type') === 'inbound') {
+
+        var animate = window.setInterval(function() {
+
+          var newContent;
+          var content = _this.$('.chat-message-content').text();
+          if(content === '...') {
+
+            newContent = '.';
+          }
+          else {
+
+            newContent = content + '.';
+          }
+          _this.$('.chat-message-content').text(newContent);
+        }, 500);
+
+        // Stop the animation interval when this view is destroyed
+        this.listenTo(this, 'destroy', function() {
+
+          window.clearTimeout(animate);
+        });
       }
     },
     onShow: function() {
