@@ -26,7 +26,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         return socket;
       });
-      
+
       // Request to join the room
       Playlist.Controller.joinRoom();
     }
@@ -57,7 +57,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // If the user leaves this page, remove the playlist ID from the openplaylists local array
       window.addEventListener("beforeunload", function(e){
-        
+
         Playlist.Controller.removeOpenPlaylistFromLocal(playlistId);
       }, false);
     }

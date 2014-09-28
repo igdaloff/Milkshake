@@ -3,12 +3,15 @@
 {% block content %}
 <div class="wrapper">
 
-  <div class="welcome-message">
-    <h2>It takes two to tango, baby.</h2>
-    <p>Copy this link and send to a friend. Bach Bangerz will begin once your friend has joined the room</p>
-    <input type="text" class="share-link" value="{{ permalink }}">
+  <div class="share-playlist-url">
+    <div class="intro-text">
+      <h1>It takes two to tango, baby.</h1>
+      <p>Copy this link and send to a friend. &ldquo;{{ playlist.title }}&rdquo; will begin once your friend has joined the room</p>
+    </div>
+    <input type="text" class="share-link input-field" value="{{ permalink }}">
+    <button class="btn copy-button" data-clipboard-text="">Copy Link</button>
   </div>
-  
+
   <div class="loading-message">
     <p>Loading tracks...</p>
     <img src="/img/preview-loading.gif" class="loading-indicator">

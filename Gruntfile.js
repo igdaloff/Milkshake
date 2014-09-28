@@ -38,13 +38,18 @@ module.exports = function(grunt){
           "./assets/bower_components/backbone.marionette/lib/backbone.marionette.js",
           "./assets/bower_components/ejs/ejs.js",
           "./assets/popcorn-complete.min.js",
-          "./assets/bower_components/Autolinker.js/dist/Autolinker.js"
+          "./assets/bower_components/Autolinker.js/dist/Autolinker.js",
+          "./assets/bower_components/zeroclipboard/dist/ZeroClipboard.js"
           ],
         dest: "./public/js/vendors.js"
       },
       app: {
         src: "./assets/js/**/*.js",
         dest: "./public/js/app.js"
+      },
+      deps: {
+        src: "./assets/bower_components/zeroclipboard/dist/ZeroClipboard.swf",
+        dest: "./public/js/ZeroClipboard.swf"
       }
     },
     jsttojs: {
@@ -62,6 +67,6 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-jsttojs");
 
-  grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist"]);
+  grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist", "concat:deps"]);
   grunt.registerTask("default", ["build", "watch"]);
 }

@@ -233,21 +233,21 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     /*
      * Set track time on end
-     * We can't rely on time updates to update the track timer in the header when a track finishes, 
+     * We can't rely on time updates to update the track timer in the header when a track finishes,
      * sometimes it may end on one second off which looks weird. So we'll run this instead so that when the playlist
      * finishes the current time equals the total time
      */
     setTrackTimeOnEnd: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      
+
       // If this is the last track...
       if(playlistManager.getCurrentTrackIndex() === 2){
 
         $('.current-time').text($('.total-time').text());
       }
     },
-    /* 
+    /*
      * Fill complete progress bars
      * We call this when the playlist first starts playing to set any completed tracks' progress bars to 100%
      */
@@ -306,6 +306,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Add the playing class to the body and remove the waiting and loading classes
       $('body').addClass('playlist-playing').removeClass('playlist-waiting playlist-loading');
+      $('.share-playlist-url').slideUp();
+
       var playlist = TWM.request('playlist:activePlaylistMgr');
       var startTime = data.startTime;
       // Account for any latency and get a fresh start time
