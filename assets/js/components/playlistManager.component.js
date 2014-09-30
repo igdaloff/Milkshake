@@ -256,6 +256,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       else {
 
         this.stopPlaylist();
+        $(this).trigger('playlist:ended');
         return null;
       }
     }

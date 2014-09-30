@@ -56,8 +56,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
       // Listen to track ending and make sure the correct time is shown
-      $(playlistManager).on('track:ended', this.setTrackTimeOnEnd);
-      $(playlistManager).on('track:ended', this.playlistFinished);
+      $(playlistManager).on('playlist:ended', this.setTrackTimeOnEnd);
+      $(playlistManager).on('playlist:ended', this.playlistFinished);
     },
     /**
      * Save Socket ID
@@ -240,14 +240,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
      * finishes the current time equals the total time
      */
     setTrackTimeOnEnd: function() {
-
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-
-      // If this is the last track...
-      if(playlistManager.getCurrentTrackIndex() === 2){
-
-        $('.current-time').text($('.total-time').text());
-      }
+        
+      $('.current-time').text($('.total-time').text());
     },
     /*
      * Fill complete progress bars
@@ -352,14 +346,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       });
     },
     playlistFinished: function() {
-      
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
 
-      // If this is the last track...
-      if(playlistManager.getCurrentTrackIndex() === 2){
-
-        $('.playlist-tracks').html('go away');
-      }
+      $('.playlist-tracks').html('go away');
     }
   }
 });
