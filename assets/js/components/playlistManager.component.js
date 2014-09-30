@@ -25,9 +25,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.destroy = function() {
 
+      this.stopAll();
       for(i in this.tracks) {
 
         var track = this.tracks[i];
+        // Unlisten to all events
+        track.pop.off();
         // Destroy the popcorn object
         track.pop.destroy();
         // Remove the DOM element
@@ -39,7 +42,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       var pop = Popcorn.smart( '#' + domId, track.url);
       pop.autoplay(false);
-      pop.mute();
       // Bind popcorn events to triggers on the 'this' object
       pop.on('ended', $.proxy(function(){
 
@@ -102,6 +104,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         track.pop.cue(endTime, function() {
 
           track.pop.pause();
+          track.pop.off();
           // Call the endCallback if it exists
           if(typeof endCallback === "function") {
             endCallback(track);
@@ -164,7 +167,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       var track = this.getTrackData(trackIndex);
       track.pop.on('canplaythrough', function(e) {
 
-        track.pop.unmute();
         callback(track);
         track.pop.off('canplaythrough');
       });
