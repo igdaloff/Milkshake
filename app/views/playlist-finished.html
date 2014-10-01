@@ -1,0 +1,56 @@
+{% set title = playlist.title + " - " %}
+{% extends 'layout.html' %}
+{% block content %}
+<div class="wrapper">
+
+  <p>Sorry, this playlist has now finished. Go <a href="/">make a new one</a>.</p>
+
+  <div class="playlist finished">
+    <header class="playback-header">
+      <h1>{{ playlist.title }}</h1>
+      <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
+    </header>
+    <div class="progress-bars">
+      {% for track in playlist.tracks %}
+      <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
+        <div class="current-progress"></div>
+      </div>
+      {% endfor %}
+    </div>
+    <section class="playlist-tracks">
+      <ul class="playlist-track-list">
+      {% for track in playlist.tracks %}
+        <li class="playback-track">
+          <a href="{{ track.url }}" target="_blank">
+            <div class="playback-track-artwork">
+              {% if track.artwork %}
+                <img src="{{ track.artwork }}" alt="Album artwork"/>
+              {% else %}
+                <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
+              {% endif %}
+            </div>
+            <h2 class="playback-track-title">{{ track.title }}</h2>
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+    </section>
+    <div class="messages">
+      <ul class="message-list" id="message-list">
+        {% for message in conversation.messages %}
+        <li class="chat-message {% if message.sender != conversation.messages[0].sender %}remote{% endif %}">
+          <div class="chat-avatar-and-time">
+            <img class="chat-message-avatar" src="/img/avatars/{{ message.avatar.image }}" title="{{ message.avatar.name }}">
+            <span class="chat-message-timestamp">{{ message.playlistTime }}</span>
+          </div>
+
+          <span class="chat-message-content">{{ message.content }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}{% endblock %}

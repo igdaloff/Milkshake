@@ -23,6 +23,10 @@
 	&.current{
 		display: table;
 	}
+	.finished & {
+		display: block;
+		margin: 0 0 1em;
+	}
 }
 
 .playback-track-artwork{
@@ -55,6 +59,10 @@
 .loading-message,
 .welcome-message {
 	display: none;
+}
+
+.playlist.finished {
+	display: block;
 }
 
 // Playback states

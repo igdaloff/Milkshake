@@ -241,12 +241,26 @@ exports.playlist = function(req, res){
       // Pass in the total time as a human-readable string
       playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
 
-      return res.render('playlist', {
-        permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
-        playlist: playlist,
-        conversation: conversation,
-        socketAddress: socketAddress
-      });
+      // If the playlist is not over, render the normal playlist page
+      if(!playlist.hasFinished) {
+
+        return res.render('playlist', {
+          permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
+          playlist: playlist,
+          conversation: conversation,
+          socketAddress: socketAddress
+        });
+      }
+      // Otherwise render the playlist finished template
+      else {
+
+        return res.render('playlist-finished', {
+          permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
+          playlist: playlist,
+          conversation: conversation
+        });
+
+      }
     });
   });
 }
