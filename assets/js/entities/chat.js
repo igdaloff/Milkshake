@@ -33,7 +33,15 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       var playlist = TWM.request('playlist:activePlaylistMgr');
       if(typeof playlist !== 'undefined') {
 
-        var playlistTime = playlist.getCurrentTotalTime();
+        var playlistTime;
+        // If the playlist has finished, use the total time
+        if(playlist.isFinished() === true) {
+
+          playlistTime = playlist.getPlaylistDuration()
+        }
+        else {
+          playlistTime = playlist.getCurrentTotalTime();
+        }
         var playlistTimeString = TWM.Lib.secondsToMinutes(playlistTime);
         this.set('playlistTime', playlistTimeString);
       }

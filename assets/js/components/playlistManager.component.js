@@ -8,6 +8,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.trackElements = [];
       this.currentTrackIndex = null;
       this.isPlaying = false;
+      this.finished = false;
       // Create a jQuery element for each track that will contain the embedded player, create a Popcorn instance for each
       this.popsId = 'playlist-embeds';
       this.popsClass = 'playlist-embed';
@@ -55,6 +56,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         $(this).trigger('track:playing');
         this.isPlaying = true;
+        this.finished = false;
       }, this));
       pop.on('pause', $.proxy(function(){
 
@@ -261,6 +263,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         this.stopPlaylist();
         $(this).trigger('playlist:ended');
+        this.finished = true;
         return null;
       }
     }
@@ -363,7 +366,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         trackIndex: startTrack,
         trackTime: requestedTrackTime
       };
-    }
+    };
+
+    PlaylistManager.prototype.isFinished = function() {
+
+      return typeof this.finished !== 'undefined' && this.finished === true;
+    };
 
     return PlaylistManager;
 
