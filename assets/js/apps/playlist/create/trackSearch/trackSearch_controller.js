@@ -117,10 +117,23 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
       //Detect whether all 3 tracks have been selected and show Create Track button
       if($(".has-track-selection").length === 3) {
-        $('.track-search-container').fadeOut();
-        $(".playlist-create-title-container").delay(500).fadeIn();
-        $(".chosen-tracks li").removeClass("selected");
+
+        TrackSearch.Controller.showTitleField();
       }
+    },
+    showTitleField: function() {
+
+      // Stop any previews from playing
+      if(typeof playlistManager !== "undefined") {
+
+        TrackSearch.Controller.stopTrackPreview();
+      }
+      // Fade out the search container
+      $('.track-search-container').fadeOut();
+      // Fade in the title container
+      $(".playlist-create-title-container").delay(500).fadeIn();
+      // Remove selected class from chose tracks
+      $(".chosen-tracks li").removeClass("selected");
     }
-  }
+  };
 });
