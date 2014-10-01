@@ -79,7 +79,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.stopPlaylist = function() {
 
       this.stopAll();
-      $(this).unbind();
     };
 
     PlaylistManager.prototype.loadFromTotalTime = function(startTime, callback) {
