@@ -31,22 +31,25 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
 
   //Navigate between tracks with arrow keys
   $("body").keydown(function(e) {
-  	var $chosenTrack = $(".selected");
 
-    if(e.keyCode == 37) { // left
-    	if( $chosenTrack.prev("li").length ){
-    		$chosenTrack.prev("li").addClass("selected");
-    		$chosenTrack.removeClass("selected");
-    		$chosenTrack.find('.playlist-track-select').attr("checked", false);
-    		$chosenTrack.prev("li").find('.playlist-track-select').attr("checked", true);
-    	}
-    } else if(e.keyCode == 39) { // right
-    	if( $chosenTrack.next("li").length ){
-    		$chosenTrack.next("li").addClass("selected");
-    		$chosenTrack.removeClass("selected");
-    		$chosenTrack.find('.playlist-track-select').attr("checked", false);
-    		$chosenTrack.next("li").find('.playlist-track-select').attr("checked", true);
-    	}
+    if( !$(".track-search-query").is(":focus") ){
+      var $chosenTrack = $(".selected");
+
+      if(e.keyCode == 37) { // left
+        if( $chosenTrack.prev("li").length ){
+          $chosenTrack.prev("li").addClass("selected");
+          $chosenTrack.removeClass("selected");
+          $chosenTrack.find('.playlist-track-select').attr("checked", false);
+          $chosenTrack.prev("li").find('.playlist-track-select').attr("checked", true);
+        }
+      } else if(e.keyCode == 39) { // right
+        if( $chosenTrack.next("li").length ){
+          $chosenTrack.next("li").addClass("selected");
+          $chosenTrack.removeClass("selected");
+          $chosenTrack.find('.playlist-track-select').attr("checked", false);
+          $chosenTrack.next("li").find('.playlist-track-select').attr("checked", true);
+        }
+      }
     }
   });
 });
