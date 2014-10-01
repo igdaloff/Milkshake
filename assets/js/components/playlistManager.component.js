@@ -15,7 +15,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         var track = this.tracks[i];
         var trackEmbedId = this.popsId.toString() + '-' + i;
-        var $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
+        // Create the track embed container if it doesn't exist
+        var $trackEmbed = $('#' + trackEmbedId);
+        if($trackEmbed.length === 0) {
+
+          $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
+        }
         // Save the Popcorn instance
         this.tracks[i].pop = this.initTrackEmbed(track, trackEmbedId);
         // Save the DOM element
@@ -33,8 +38,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         track.pop.off();
         // Destroy the popcorn object
         track.pop.destroy();
-        // Remove the DOM element
-        track.el.remove();
       }
     };
 
@@ -167,8 +170,9 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       var track = this.getTrackData(trackIndex);
       track.pop.on('canplaythrough', function(e) {
 
-        callback(track);
+        e.stopPropagation();
         track.pop.off('canplaythrough');
+        callback(track);
       });
       return this.pop;
     };
