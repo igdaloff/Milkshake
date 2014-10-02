@@ -2,12 +2,7 @@
 // Basic $Layout Elements
 // =======================
 .wrapper{
-	width: 50%;
+	position: relative;
+	width: 600px;
 	margin: 0 auto;
-	max-width: 800px;
-	min-width: 400px;
-
-	@include smaller-than(large){
-		width: 80%;
-	}
 }

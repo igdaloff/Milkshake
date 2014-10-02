@@ -8,8 +8,14 @@
       <h1>It takes two to tango, baby.</h1>
       <p>Copy this link and send to a friend. &ldquo;{{ playlist.title }}&rdquo; will begin once your friend has joined the room</p>
     </div>
-    <input type="text" class="share-link input-field" value="{{ permalink }}">
-    <button class="btn copy-button" data-clipboard-text="{{ permalink }}">Copy Link</button>
+    <input type="text" class="share-link input-field" onClick="this.select();" value="{{ permalink }}">
+  </div>
+
+  <div class="playlist-finished-message">
+    <div class="intro-text">
+      <p>All good things come to an end. Lucky for you, more good things are just a click away.</p>
+      <a class="btn" href="/">Create a new playlist</a>
+    </div>
   </div>
 
   <div class="loading-message">
@@ -47,12 +53,8 @@
       {% endfor %}
       </ul>
     </section>
-    <div class="messages"></div>
   </div>
-
-  {% if hasFinished %}
-  <p>Sorry, this playlist has now finished. Go <a href="/">make a new one</a>.</p>
-  {% endif %}
+  <div class="messages"></div>
 </div>
 
 <script>

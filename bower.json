@@ -8,7 +8,6 @@
     "ejs": "~0.8.5",
     "popcornjs": "~1.5.5",
     "socket.io": "~0.9.15",
-    "Autolinker.js": "~0.11.2",
-    "zeroclipboard": "~2.1.6"
+    "Autolinker.js": "~0.11.2"
   }
 }

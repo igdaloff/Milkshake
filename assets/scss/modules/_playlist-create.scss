@@ -49,7 +49,7 @@
 			border: 0;
 
 			.chosen-track-art-inner{
-  			border: 4px solid $green;
+  			border: 3px solid $green;
   		}
 		}
 
@@ -109,8 +109,8 @@
 
 .chosen-track-art-inner{
 	width: 100%;
-	padding-bottom: calc(100% - 8px); //8px of vertical border space
-	border: 4px solid transparent;
+	padding-bottom: calc(100% - 6px); //6px of vertical border space
+	border: 3px solid transparent;
 	pointer-events: none;
 
 	img{
@@ -197,7 +197,7 @@
 
 	&.active{
 		top: 3em;
-		top: calc(3em - 4px);
+		top: calc(3em - 3px);
 	}
 }
 
@@ -205,12 +205,6 @@
 
 
 //Share Playlist Link
-.share-playlist-url{
-	.btn{
-		margin-top: -4px;
-	}
-}
-
 .share-link{
 	font-size: 1.2em;
 	text-align: center;

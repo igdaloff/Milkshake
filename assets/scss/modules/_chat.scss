@@ -7,9 +7,9 @@
 
 .message-list{
 	padding: 1em 1em 2em;
-	height: 20em;
+	height: 15em;
 	overflow: auto;
-	border-top: 1px solid $grey;
+	border: 1px solid $grey;
 	background: $light-grey;
 }
 
@@ -29,6 +29,7 @@
 	font-size: .8em;
 	padding: 1em 0;
 	color: $dark-grey;
+
 	.log-message-content,
 	.log-message-timestamp {
 		display: block;
@@ -45,6 +46,7 @@
 	.remote &{
 		left: 0;
 		right: auto;
+
 		.remote-user-disconnected & .chat-message-avatar{
 			opacity: .5;
 		}

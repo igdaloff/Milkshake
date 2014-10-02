@@ -1,6 +1,15 @@
 // ========================
 // Playlist Playback
 // ========================
+.playlist{
+	height: 250px;
+	@extend .transition;
+
+	&.finished{
+		opacity: 0;
+		pointer-events: none;
+	}
+}
 
 .playback-header{
 	text-align: center;
@@ -61,9 +70,8 @@
 	display: none;
 }
 
-.playlist.finished {
-	display: block;
-}
+
+
 
 // Playback states
 
@@ -85,6 +93,5 @@
 .playlist-playing {
 	.playlist {
 		display: block;
-		padding-bottom: 8em;
 	}
 }
