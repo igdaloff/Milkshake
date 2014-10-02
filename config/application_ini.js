@@ -19,7 +19,7 @@ module.exports = {
       baseUrl: "http://staging.milkshake.mu",
       alternativeUrls: ["staging.milkshake.mu"],
       port: process.env.PORT,
-      httpAuth: true,
+      httpAuth: false,
       sessionName: "mkshh",
       sessionSecret: "vgehkehkvlnbgynnuufghxptjx",
       databaseUrl: process.env.MONGO_URL,
