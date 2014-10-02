@@ -1,0 +1,21 @@
+// =======================
+// Post-playback
+// =======================
+.playlist-finished-message{
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 250px;
+	background: white;
+	pointer-events: none;
+	@extend .transition-slow;
+
+	&.visible{
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	.intro-text{
+		margin: 0;
+	}
+}
