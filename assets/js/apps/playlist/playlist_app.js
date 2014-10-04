@@ -13,7 +13,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Pick up the socket ID when the server sends it to us
       socket.on('newConnectionId', Playlist.Controller.saveSocketId);
       // If the room is full, perform an action to notify the user
-      socket.on('roomFull', Playlist.Controller.waitForRoom);
+      socket.on('roomFull', Playlist.Controller.roomFull);
       // When the server tells us when to start loading the playlist from
       socket.on('loadPlaylistFrom', Playlist.Controller.loadPlaylistFrom);
       // When the server sends the play event

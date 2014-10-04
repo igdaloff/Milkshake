@@ -66,14 +66,21 @@
 
 .playlist,
 .loading-message,
-.welcome-message {
+.welcome-message,
+.playlist-full-message {
 	display: none;
 }
 
-
-
-
 // Playback states
+
+.playlist-full {
+	.playlist-full-message {
+		display: block;
+	}
+	.loading-message {
+		display: none !important;
+	}
+}
 
 .playlist-waiting {
 	.welcome-message {

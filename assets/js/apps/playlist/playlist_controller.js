@@ -261,14 +261,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       }
     },
     /*
-     * Wait for room
-     * If there are too many people in the room, notify the user and listen for other users disconnecting
-     * When someone disconnects we will check how many users are still on and attempt a reconnect if it is only 1
+     * roomFull
+     * If there are too many people in the room, notify the user and stop the module
      */
-    waitForRoom: function() {
+    roomFull: function() {
 
       var socket = TWM.request('playlist:activeSocket');
-      alert('Room is full, fuck off');
+      $('body').addClass('playlist-full');
       Playlist.stop();
     },
     loadPlaylistFrom: function(data) {
