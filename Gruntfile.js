@@ -46,10 +46,6 @@ module.exports = function(grunt){
       app: {
         src: "./assets/js/**/*.js",
         dest: "./public/js/app.js"
-      },
-      deps: {
-        src: "./assets/bower_components/zeroclipboard/dist/ZeroClipboard.swf",
-        dest: "./public/js/ZeroClipboard.swf"
       }
     },
     jsttojs: {
@@ -67,6 +63,6 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-jsttojs");
 
-  grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist", "concat:deps"]);
+  grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist"]);
   grunt.registerTask("default", ["build", "watch"]);
 }

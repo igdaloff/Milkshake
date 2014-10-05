@@ -82,10 +82,10 @@
 	&:after, &:before{
 		content: '';
 		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		top: 1px;
+		right: 1px;
+		bottom: 1px;
+		left: 1px;
 		border-radius: 100%;
 	}
 
@@ -98,11 +98,8 @@
 	}
 
 	&:after{
-		width: 100%;
-		height: 100%;
 		z-index: -10;
 		background: $off-white;
-		border: 1px solid white;
 	}
 }
 

@@ -4,12 +4,13 @@
 .input-field{
 	width: 100%;
 	height: 3em;
-	padding: 1em;
+	padding: 0 1em;
 	background: white;
 	border: 3px solid $green;
 	font-family: $sans-light;
 	font-size: 1.5em;
 	outline: none;
+	font-weight: 300;
 
 	&::-webkit-input-placeholder {
 		font-family: $sans-light;
