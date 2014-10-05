@@ -53,13 +53,20 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     onShow: function() {
 
       this.trigger('show');
+      // Ordering of these is important
       this.parseLinks();
+      this.parseNewLines();
     },
     parseLinks: function() {
 
       var chatText = this.model.get('content');
       var linkedChatText = Autolinker.link( chatText, { className: 'chat-message-link' } );
       this.$('.chat-message-content').html(linkedChatText);
+    },
+    parseNewLines: function() {
+
+      var $content = this.$('.chat-message-content');
+      $content.html($content.text().replace(/(?:\r\n|\r|\n)/g, '<br>'))
     }
   });
 
@@ -135,8 +142,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     },
     sendOnEnter: function(e) {
 
-      // If enter key was pressed, send the message
-      if(e.which === 13) {
+      // If enter key was pressed and shift key is not pressed, send the message
+      if(e.which === 13 && !e.shiftKey) {
 
         e.preventDefault();
         this.sendMessage();
