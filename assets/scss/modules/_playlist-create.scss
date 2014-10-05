@@ -78,6 +78,31 @@
 .chosen-track-inner{
 	position: relative;
 	overflow: hidden;
+
+	&:after, &:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		border-radius: 100%;
+	}
+
+	&:before{
+		width: 33.33333333%;
+		height: 33.33333333%;
+		margin: auto;
+		z-index: -1;
+		background: white;
+	}
+
+	&:after{
+		width: 100%;
+		height: 100%;
+		z-index: -10;
+		background: $off-white;
+	}
 }
 
 .track-number-label{
