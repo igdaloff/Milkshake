@@ -29,6 +29,42 @@
 	}
 }
 
+@-webkit-keyframes highlight-flash {
+  0% {
+    background: $green;
+  }
+  100% {
+    background: none;
+  }
+}
+
+@-ms-keyframes highlight-flash {
+  0% {
+    background: $green;
+  }
+  100% {
+    background: none;
+  }
+}
+
+@-o-keyframes highlight-flash {
+  0% {
+    background: $green;
+  }
+  100% {
+    background: none;
+  }
+}
+
+@keyframes highlight-flash {
+  0% {
+    background: $green;
+  }
+  100% {
+    background: none;
+  }
+}
+
 .track-search-result{
   width: 100%;
   border-bottom: 1px solid $light-grey;
@@ -48,6 +84,13 @@
     padding: 0.5em 0 0.4em 0;
     vertical-align: middle;
     text-align: center;
+  }
+
+  &.highlight{
+    -webkit-animation: highlight-flash 2s;
+    -moz-animation: highlight-flash 2s;
+    -o-animation: highlight-flash 2s;
+    animation: highlight-flash 2s;
   }
 }
 

@@ -43,9 +43,19 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         $button.removeClass("playing");
       }
     },
+    highlightAddedTrack: function(e){
+      var $searchResultRow = $(e.target).parents('.track-search-result');
+
+      $searchResultRow.addClass('highlight');
+
+      setTimeout(function(){
+        $searchResultRow.removeClass('highlight');
+      }, 2000)
+    },
     addTrack: function(e){
       e.preventDefault();
       TrackSearch.Controller.addTrack(this.model);
+      this.highlightAddedTrack(e);
     }
   });
 
