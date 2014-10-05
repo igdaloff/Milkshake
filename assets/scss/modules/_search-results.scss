@@ -151,9 +151,8 @@ td.track-search-result-title{
   display: none;
 }
 
-.no-results-message {
+.no-results-message{
   display: none;
-  .no-results & {
-    display: block;
-  }
+  margin-top: 2.5em;
+  font-size: 1.5em;
 }

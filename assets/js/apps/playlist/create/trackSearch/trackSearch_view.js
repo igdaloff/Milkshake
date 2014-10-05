@@ -107,12 +107,12 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       this.$(".search-term").text(this.collection.query);
       // remove the loading class
       this.$(".track-search-query").removeClass("loading");
-      // add the no-results class
-      this.$el.addClass("no-results");
-      // Remove it again as soon as new results are added
+      // show the no results message
+      $(".no-results-message").fadeIn();
+      // hide the message as soon as new results are added
       this.listenToOnce(this.collection, "reset", function() {
 
-        this.$el.removeClass("no-results");
+        $(".no-results-message").hide();
       });
     }
   });
