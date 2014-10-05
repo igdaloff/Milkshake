@@ -1,8 +1,11 @@
-<td class="track-search-result-add"><span class="screen-reader-text">Add this track to playlist</span></td>
 <td class="track-search-result-artwork artwork">
 	<img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
+	<a href="" class="preview-track icon icon-play track-search-result-preview"></a><span class="screen-reader-text">Preview</span>
 </td>
-<td class="track-search-result-title"><h5><a target="_blank" href="<%= url %>"><%= title %></a></h5></td>
+<td class="track-search-result-title">
+	<span class="track-search-result-add"><h5><%= title %></h5></span><a href="<%= url %>" class="track-search-result-source"><i><% if(source === 'soundcloud'){ %> SoundCloud <% } else { %>YouTube<% } %></i></a>
+</td>
 <td class="track-search-result-duration"><%= minutes %></td>
-<td class="track-search-result-source"><a class="icon <%= source %> track-search-link" target="_blank" href="<%= url %>"></a></td>
-<td class="track-search-result-actions"><a href="" class="preview-track icon icon-play"></a><span class="screen-reader-text">Preview</span></td>
+<td class="track-search-actions">
+	<a class="track-search-result-add add-track-icon"><span class="screen-reader-text">Add this track to playlist</span></a>
+</td>

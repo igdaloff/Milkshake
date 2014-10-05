@@ -69,6 +69,10 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var trackIndex = $(".playlist-track-select:checked").data("index");
       var fields = ["id", "source", "title", "url", "artwork", "duration"];
       var $el = $("#chosen-track-" + trackIndex);
+      var $addTrackIcon = $(this).find('.track-search-result-add');
+
+      //Change add track icon to indicate track was added
+      $addTrackIcon.addClass('icon-checkmark');
 
       for(var i = 0; i < fields.length; i++){
         var field = fields[i];
