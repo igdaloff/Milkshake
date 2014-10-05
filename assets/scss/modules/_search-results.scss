@@ -48,12 +48,17 @@
 }
 
 .track-search-result-add{
+  font-size: 1.5em;
   cursor: pointer;
+  @include icomoon('plus');
+
+  &:hover{
+    color: $green;
+  }
 }
 
 td.track-search-result-artwork{
   width: 55px;
-  padding-left: 0.5em;
   text-align: left;
 
   img{
@@ -73,6 +78,10 @@ td.track-search-result-title{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
+
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   a{
