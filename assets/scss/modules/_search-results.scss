@@ -89,9 +89,8 @@ td.track-search-result-artwork{
 
   &.playing,
   &.loading {
-    &:before {
-      margin-left: 0;
-    }
+    opacity: 1;
+    text-indent: 1px;
   }
 
   &.playing {
