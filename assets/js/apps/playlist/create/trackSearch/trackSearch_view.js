@@ -59,6 +59,16 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     events: {
       "submit": "searchTracks"
     },
+    initialize: function() {
+
+      this.listenTo(this.collection, "reset", function() {
+
+        if(this.collection.length === 0) {
+
+          this.noResultsMessage();
+        }
+      });
+    },
     onRender: function() {
 
       // On render, display the current query in the search input
@@ -86,6 +96,24 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       $(this.childViewContainer).parent().addClass("visible");
       // Remove the loading class on completion
       this.$(".track-search-query").removeClass("loading");
+    },
+    /**
+     * No results message
+     * Display a message to notify the user that there are no results for their query
+     */
+    noResultsMessage: function() {
+
+      // Set the query string in the template
+      this.$(".search-term").text(this.collection.query);
+      // remove the loading class
+      this.$(".track-search-query").removeClass("loading");
+      // add the no-results class
+      this.$el.addClass("no-results");
+      // Remove it again as soon as new results are added
+      this.listenToOnce(this.collection, "add", function() {
+
+        this.$el.removeClass("no-results");
+      });
     }
   });
 

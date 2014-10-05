@@ -150,3 +150,10 @@ td.track-search-result-title{
 .playlist-embed{
   display: none;
 }
+
+.no-results-message {
+  display: none;
+  .no-results & {
+    display: block;
+  }
+}
