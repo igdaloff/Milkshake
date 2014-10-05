@@ -8,7 +8,7 @@ exports.processNewPlaylist = function(req, res){
   var newPlaylist = {
     title: req.body.title,
     created: Date.now()
-  }
+  };
   var totalDuration = 0;
   // Get the track info (0, 1, 2)
   var playlistTracks = [];
@@ -20,7 +20,7 @@ exports.processNewPlaylist = function(req, res){
       url: req.body['track' + i + 'url'],
       artwork: req.body['track' + i + 'artwork'],
       duration: parseFloat(req.body['track' + i + 'duration']),
-    }
+    };
     console.log(track.duration);
     totalDuration += track.duration;
     playlistTracks.push(track);
@@ -48,7 +48,7 @@ exports.processNewPlaylist = function(req, res){
 
     res.redirect('/' + playlistRow._id);
   });
-}
+};
 
 // Socket stuff here
 
@@ -263,4 +263,4 @@ exports.playlist = function(req, res){
       }
     });
   });
-}
+};

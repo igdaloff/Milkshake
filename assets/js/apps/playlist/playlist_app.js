@@ -30,7 +30,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Request to join the room
       Playlist.Controller.joinRoom();
     }
-  }
+  };
 
   Playlist.on('before:start', function() {
 

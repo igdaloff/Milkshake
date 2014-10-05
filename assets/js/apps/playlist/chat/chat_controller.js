@@ -135,5 +135,5 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       // Remove disconnected class from the body
       $('body').removeClass('remote-user-disconnected');
     }
-  }
+  };
 });

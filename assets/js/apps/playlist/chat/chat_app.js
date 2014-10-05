@@ -30,7 +30,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     TWM.reqres.setHandler('chat:messageCollection', function() {
 
       return messageCollection;
-    })
+    });
 
     // When a new message is received
     socket.on('newMessage', Chat.Controller.displayNewMessage);
@@ -42,5 +42,5 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     socket.on('userLeft', Chat.Controller.remoteUserDisconnected);
     // When the remote user re-connects
     socket.on('userJoined', Chat.Controller.remoteUserConnected);
-  })
+  });
 });

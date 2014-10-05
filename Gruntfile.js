@@ -17,7 +17,14 @@ module.exports = function(grunt){
       templates: {
         files: "./assets/templates/**/*",
         tasks: "jsttojs:templates"
+      },
+      jshint: {
+        files: ['Gruntfile.js', 'assets/js/**/*.js', 'app/**/*.js'],
+        tasks: 'jshint'
       }
+    },
+    jshint: {
+      all: ['Gruntfile.js', 'assets/js/**/*.js', 'app/**/*.js']
     },
     compass: {
       dist: {
@@ -43,6 +50,18 @@ module.exports = function(grunt){
           ],
         dest: "./public/js/vendors.js"
       },
+      uglify: {
+        vendors: {
+          files: {
+            './public/js/vendors.min.js': ['./public/js/vendors.js']
+          }
+        },
+        app: {
+          files: {
+            './public/js/app.min.js': ['./public/js/app.js']
+          }  
+        }
+      },
       app: {
         src: "./assets/js/**/*.js",
         dest: "./public/js/app.js"
@@ -57,6 +76,8 @@ module.exports = function(grunt){
     }
   });
 
+  grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-contrib-sass");
   grunt.loadNpmTasks("grunt-contrib-compass");
@@ -64,5 +85,6 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-jsttojs");
 
   grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist"]);
-  grunt.registerTask("default", ["build", "watch"]);
-}
+  grunt.registerTask("default", ["jshint", "build", "watch"]);
+  grunt.registerTask("prod", ["build", "uglify"]);
+};

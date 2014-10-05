@@ -8,7 +8,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     // Declare a region to contain our search form
     var searchFormContainer = new Marionette.Region({
       el: ".track-search-container"
-    })
+    });
 
     // Create a collection to hold our results and pass them into a search form view
     var resultsCollection = TWM.request("newTrackSearch:entities");

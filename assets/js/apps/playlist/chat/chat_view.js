@@ -66,7 +66,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     parseNewLines: function() {
 
       var $content = this.$('.chat-message-content');
-      $content.html($content.text().replace(/(?:\r\n|\r|\n)/g, '<br>'))
+      $content.html($content.text().replace(/(?:\r\n|\r|\n)/g, '<br>'));
     }
   });
 
@@ -97,7 +97,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     childEvents: function() {
       return {
         show: this.onChildShow
-      }
+      };
     },
     onChildShow: function() {
 

@@ -37,7 +37,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         // If the playlist has finished, use the total time
         if(playlist.isFinished() === true) {
 
-          playlistTime = playlist.getPlaylistDuration()
+          playlistTime = playlist.getPlaylistDuration();
         }
         else {
           playlistTime = playlist.getCurrentTotalTime();
@@ -66,7 +66,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
           // Now we've got the avatar we can stop looping
           break;
         }
-      };
+      }
     },
     pickAvatar: function() {
 

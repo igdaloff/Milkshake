@@ -9,7 +9,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     * Parse the response and add a human-readable 'minutes' value for the duration
     */
     parse: function(response){
-      response.minutes = this.secondsToMinutes(response.duration)
+      response.minutes = this.secondsToMinutes(response.duration);
       return response;
     },
     /*
@@ -28,7 +28,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   // Playlist (collection of tracks)
   Entities.Playlist = Backbone.Collection.extend({
     model: Entities.Track
-  })
+  });
 
   // Search result collection
   Entities.TrackSearchResults = Backbone.Collection.extend({

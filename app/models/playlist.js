@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
 var shortId = require('shortid');
 var Schema = mongoose.Schema;
 
@@ -20,6 +20,6 @@ var schema = new Schema({
     artwork: String,
     duration: Number
   }]
-})
+});
 
 module.exports = mongoose.model('Playlist', schema);

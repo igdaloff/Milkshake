@@ -28,7 +28,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     loadPlayer: function(playlist){
 
       var tracks = [];
-      for(key in playlist.models){
+      for(var key in playlist.models){
 
         var track = playlist.models[key];
         tracks.push(track.attributes);
@@ -47,7 +47,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     */
     bindPlaylistUi: function(playlistManager){
 
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      playlistManager = TWM.request('playlist:activePlaylistMgr');
 
       // Set the active track class ('current') when a track is playing or ends
       $(playlistManager).on('track:playing track:ended', this.setActiveTrackClass);
@@ -66,20 +66,21 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     saveSocketId: function(socketId) {
 
       var socket = TWM.request('playlist:activeSocket');
+      var socketIds;
       socket.id = socketId;
       // Save it to local storage if client supports it
       if (Modernizr.localstorage) {
         var socketIdsStr = localStorage.getItem('socketIds');
         // Parse the stringify'd array
         if(socketIdsStr !== null && socketIdsStr.length) {
-          var socketIds = JSON.parse(socketIdsStr);
+          socketIds = JSON.parse(socketIdsStr);
         }
         // If the socketIds array has not yet been created, add it in there
         if(typeof socketIds === 'undefined' || socketIds === null) {
 
-          socketIds = new Array();
+          socketIds = [];
         }
-        socketIds.push(socketId)
+        socketIds.push(socketId);
         // Stringify the array again so we can save it in local storage
         socketIdsStr = JSON.stringify(socketIds);
         localStorage.setItem('socketIds', socketIdsStr);
@@ -98,7 +99,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         var socketIdsStr = localStorage.getItem('socketIds');
         // Parse the stringify'd array
         if(socketIdsStr !== null && socketIdsStr.length) {
-          var socketIds = JSON.parse(socketIdsStr);
+          socketIds = JSON.parse(socketIdsStr);
         }
       }
       // If client doesn't support local storage or the socketIds array is empty for whatever reason, make one
@@ -122,14 +123,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         var openPlaylistsStr = localStorage.getItem('openPlaylists');
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
-          var openPlaylists = JSON.parse(openPlaylistsStr);
+          openPlaylists = JSON.parse(openPlaylistsStr);
         }
         // If the openPlaylists array has not yet been created, add it in there
         if(typeof openPlaylists === 'undefined' || openPlaylists === null) {
 
-          openPlaylists = new Array();
+          openPlaylists = [];
         }
-        openPlaylists.push(playlistId)
+        openPlaylists.push(playlistId);
         // Stringify the array again so we can save it in local storage
         openPlaylistsStr = JSON.stringify(openPlaylists);
         localStorage.setItem('openPlaylists', openPlaylistsStr);
@@ -149,7 +150,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         var openPlaylistsStr = localStorage.getItem('openPlaylists');
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
-          var openPlaylists = JSON.parse(openPlaylistsStr);
+          openPlaylists = JSON.parse(openPlaylistsStr);
         }
         // Check openPlaylists is an array and contains the ID we want to remove
         if(typeof openPlaylists === 'undefined' || openPlaylists === null || openPlaylists.indexOf(playlistId) === -1) {
@@ -180,13 +181,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         var openPlaylistsStr = localStorage.getItem('openPlaylists');
         // Parse the stringify'd array
         if(openPlaylistsStr !== null && openPlaylistsStr.length) {
-          var openPlaylists = JSON.parse(openPlaylistsStr);
+          openPlaylists = JSON.parse(openPlaylistsStr);
         }
       }
       // Just return an empty array if openPlaylists was never set
       if(typeof openPlaylists === 'undefined' || openPlaylists === null) {
 
-        return new Array();
+        return [];
       }
       return openPlaylists;
     },
@@ -212,7 +213,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
-      if(typeof currentTime !== 'number' || currentTime == 0) {
+      if(typeof currentTime !== 'number' || currentTime === 0) {
         return false;
       }
       // Update the time in the header
@@ -225,7 +226,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var $currentProgressBar = $('.current-progress').eq(trackIndex);
       var currentTrackData = playlistManager.getCurrentTrackData();
       if(currentTrackData !== null) {
-        var currentTime = currentTrackData.pop.currentTime();
+        currentTime = currentTrackData.pop.currentTime();
         var progress = currentTime / currentTrackData.duration * 100;
         $currentProgressBar.css({
           width: progress.toString() + '%'
@@ -292,7 +293,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
         // Remove the loading and waiting class from the body
-        $('body').removeClass('playlist-loading')
+        $('body').removeClass('playlist-loading');
       });
     },
     playPlaylist: function(data) {
@@ -344,5 +345,5 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       }
       return playlistManager.isMuted();
     }
-  }
+  };
 });

@@ -11,7 +11,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         reset: true
       });
     },
-    previewTrack: function(trackModel, previewDuration){
+    previewTrack: function(trackModel){
 
       var startTime = 30;
       var previewDuration = 15;
@@ -24,7 +24,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       });
 
       // Set the preview to be 0:30-0:45, unless the track is too short otherwise start at 0
-      var startTime = (trackModel.get("duration") > startTime + previewDuration) ? startTime : 0;
+      startTime = (trackModel.get("duration") > startTime + previewDuration) ? startTime : 0;
       // End time should be 15 seconds later unless track is too short, in which case finish one
       // second before it ends (to give events a chance to fire)
       var endTime = (trackModel.get("duration") > startTime + previewDuration) ? startTime + previewDuration : trackModel.get("duration") - 1;
