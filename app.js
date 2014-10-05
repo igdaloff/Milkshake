@@ -48,7 +48,12 @@ app.configure(function(){
   app.set('view engine', 'html');
   app.set('views', __dirname + '/app/views');
   app.set('view cache', false);
-  swig.setDefaults({ cache: false });
+  swig.setDefaults({ 
+    cache: false,
+    locals: {
+      env: env
+    }
+  });
   // Serve static files from /public
   app.use(express.static(__dirname + "/public"));
   // Use URLencoded for post data

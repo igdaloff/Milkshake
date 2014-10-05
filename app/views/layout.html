@@ -37,8 +37,13 @@
     </header>
     {% block content %}{% endblock %}
 
+    {% if env == 'production' %}
+    <script src="/js/vendors.min.js"></script>
+    <script src="/js/app.min.js"></script>
+    {% else %}
     <script src="/js/vendors.js"></script>
     <script src="/js/app.js"></script>
+    {% endif %}
     <script src="/js/templates.js"></script>
 
     <script>

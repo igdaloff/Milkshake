@@ -50,21 +50,21 @@ module.exports = function(grunt){
           ],
         dest: "./public/js/vendors.js"
       },
-      uglify: {
-        vendors: {
-          files: {
-            './public/js/vendors.min.js': ['./public/js/vendors.js']
-          }
-        },
-        app: {
-          files: {
-            './public/js/app.min.js': ['./public/js/app.js']
-          }  
-        }
-      },
       app: {
         src: "./assets/js/**/*.js",
         dest: "./public/js/app.js"
+      }
+    },
+    uglify: {
+      vendors: {
+        files: {
+          './public/js/vendors.min.js': ['./public/js/vendors.js']
+        }
+      },
+      app: {
+        files: {
+          './public/js/app.min.js': ['./public/js/app.js']
+        }  
       }
     },
     jsttojs: {
