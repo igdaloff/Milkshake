@@ -9,6 +9,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.currentTrackIndex = null;
       this.isPlaying = false;
       this.finished = false;
+      this.muted = false;
       // Create a jQuery element for each track that will contain the embedded player, create a Popcorn instance for each
       this.popsId = 'playlist-embeds';
       this.popsClass = 'playlist-embed';
@@ -370,6 +371,31 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.isFinished = function() {
 
       return typeof this.finished !== 'undefined' && this.finished === true;
+    };
+
+    PlaylistManager.prototype.isMuted = function() {
+
+      return this.muted;
+    }
+
+    PlaylistManager.prototype.muteAll = function() {
+
+      for(i in this.tracks) {
+
+        var track = this.tracks[i];
+        track.pop.mute();
+      }
+      this.muted = true;
+    };
+
+    PlaylistManager.prototype.unmuteAll = function() {
+
+      for(i in this.tracks) {
+
+        var track = this.tracks[i];
+        track.pop.unmute();
+      }
+      this.muted = false;
     };
 
     return PlaylistManager;

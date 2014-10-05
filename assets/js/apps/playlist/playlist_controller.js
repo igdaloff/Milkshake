@@ -330,6 +330,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       $('.playlist').addClass('finished');
       $('.playlist-finished-message').delay(500).addClass('visible');
+    },
+    muteToggle: function() {
+
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      if(playlistManager.isMuted()) {
+
+        playlistManager.unmuteAll();        
+      }
+      else {
+
+        playlistManager.muteAll();
+      }
+      return playlistManager.isMuted();
     }
   }
 });

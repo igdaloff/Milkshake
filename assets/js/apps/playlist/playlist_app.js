@@ -82,5 +82,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       return Playlist.Controller.getSocketHistory();
     });
+
+    // Initialize the controls view
+    var controlsView = new Playlist.Controls();
   });
 });
