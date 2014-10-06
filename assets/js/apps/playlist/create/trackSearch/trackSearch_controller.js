@@ -69,10 +69,6 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var trackIndex = $(".playlist-track-select:checked").data("index");
       var fields = ["id", "source", "title", "url", "artwork", "duration"];
       var $el = $("#chosen-track-" + trackIndex);
-      var $addTrackIcon = $(this).find('.track-search-result-add');
-
-      //Change add track icon to indicate track was added
-      $addTrackIcon.addClass('icon-checkmark');
 
       for(var i = 0; i < fields.length; i++){
         var field = fields[i];
@@ -100,30 +96,31 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       var $artworkImg = $el.find(".artwork img");
       $artworkImg.attr("src", artworkUrl);
 
-      $artworkImg.removeClass('landscape');
+      $artworkImg.removeClass("landscape");
       $artworkImg.hide();
 
       setTimeout(function(){
         if ($artworkImg.width() > $artworkImg.height()){
-          $artworkImg.addClass('landscape');
+          $artworkImg.addClass("landscape");
         }
         $artworkImg.fadeIn();
       }, 50);
-
-
-      //Advance track selection to next one
-      var $selectedTrack = $('.selected');
-      var $nextTrackToSelect = $selectedTrack.next('li');
-
-      $selectedTrack.removeClass('selected');
-      $nextTrackToSelect.addClass('selected').find('.playlist-track-select').prop("checked", true);
-
 
       //Detect whether all 3 tracks have been selected and show Create Track button
       if($(".has-track-selection").length === 3) {
 
         TrackSearch.Controller.showTitleField();
       }
+
+      this.advanceTrackSelection();
+    },
+    advanceTrackSelection: function(){
+      //Advance track selection to next one
+      var $selectedTrack = $(".selected");
+      var $nextTrackToSelect = $selectedTrack.next("li");
+
+      $selectedTrack.removeClass("selected");
+      $nextTrackToSelect.addClass("selected").find(".playlist-track-select").prop("checked", true);
     },
     showTitleField: function() {
 
