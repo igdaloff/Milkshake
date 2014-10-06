@@ -2,8 +2,9 @@
 // Playlist Playback
 // ========================
 .playlist{
-	height: 250px;
+	padding: 1.5em 0;
 	@extend .transition;
+	@extend .clearfix;
 
 	&.finished{
 		opacity: 0;
@@ -11,27 +12,21 @@
 	}
 }
 
-.playback-header{
-	text-align: center;
-	font-family: $sans-special;
-
-	h1{
-		margin-bottom: 0.25em;
-	}
-}
-
-.total-time{
-	opacity: 0.5;
+.playback-tracks{
+	float: left;
+	width: 50%;
+	padding-left: 1.5em;
 }
 
 .playback-track{
 	display: none;
 	table-layout: fixed;
-	width: 100%;
 	vertical-align: middle;
+
 	&.current{
 		display: table;
 	}
+
 	.finished & {
 		display: block;
 		margin: 0 0 1em;
@@ -40,7 +35,7 @@
 
 .playback-track-artwork{
 	display: table-cell;
-	width: 20%;
+	width: 60px;
 	vertical-align: middle;
 
 	img{
@@ -48,17 +43,72 @@
 	}
 }
 
+.playback-header{
+	position: relative;
+	float: right;
+	width: 50%;
+	padding: 5px 1.5em 0 0;
+	text-align: center;
+	font-family: $sans-special;
+
+	h1{
+		margin-bottom: 0.25em;
+	}
+}
+
+.playback-logo{
+	float: right;
+	width: 50px;
+
+	img{
+		width: 100%;
+	}
+}
+
+.playback-header-meta{
+	position: absolute;
+	right: 90px;
+	text-align: right;
+}
+
+.total-time{
+	opacity: 0.5;
+}
+
 .playback-track-title{
 	display: table-cell;
-	width: 80%;
 	vertical-align: middle;
-	padding-left: 1.5em;
+	padding-left: 10px;
+}
+
+.playlist-controls{
+	vertical-align: middle;
+	display: table-cell;
+	padding-left: 15px;
+}
+
+.mute-toggle{
+	@include icomoon('volume');
+	cursor: pointer;
+
+	button{
+		margin: 0;
+		padding: 0;
+		background: 0;
+		border: 0;
+		text-indent: -9999px;
+	}
+
+	&.muted{
+		@include icomoon('mute');
+	}
 }
 
 .loading-message {
 	font-family: $sans-special;
 	font-size: 2em;
 	text-align: center;
+
 	.loading-indicator {
 		margin: 1em 0;
 	}

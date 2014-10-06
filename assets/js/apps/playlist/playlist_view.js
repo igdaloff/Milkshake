@@ -9,7 +9,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var muted = Playlist.Controller.muteToggle();
       if(muted) {
-        
+
         $(e.currentTarget).addClass('muted');
       }
       else {

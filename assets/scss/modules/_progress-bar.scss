@@ -1,13 +1,14 @@
 .progress-bars {
   font-size: 0;
-  margin: 32px 0;
+
   .track-progress {
     display: inline-block;
     background: $light-green;
-    border-left: 3px solid white;
-    &:first-child {
-      border-left: none;
+
+    & + .track-progress{
+      border-left: 4px solid white;
     }
+
     .current-progress {
       background: $green;
       height: 8px;
