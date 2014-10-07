@@ -2,37 +2,38 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-
-  <!-- Pre-play message -->
-  <div class="share-playlist-url welcome-message">
-    <div class="intro-text">
-      <h1>It takes two to tango, baby.</h1>
-      <p>Copy this link and send to a friend. &ldquo;{{ playlist.title }}&rdquo; will begin once your friend has joined the&nbsp;room</p>
+  <div class="wrapper">
+    <!-- Pre-play message -->
+    <div class="share-playlist-url welcome-message">
+      <div class="intro-text">
+        <h1>It takes two to tango, baby.</h1>
+        <p>Copy this link and send to a friend. &ldquo;{{ playlist.title }}&rdquo; will begin once your friend has joined the&nbsp;room</p>
+      </div>
+      <input type="text" class="share-link input-field" onClick="this.select();" value="{{ permalink }}">
     </div>
-    <input type="text" class="share-link input-field" onClick="this.select();" value="{{ permalink }}">
-  </div>
 
-  <!-- Post-play message -->
-  <div class="playlist-finished-message">
-    <div class="intro-text">
-      <p>All good things come to an end. Lucky for you, more good things are just a click away.</p>
-      <a class="btn" href="/">Create a new playlist</a>
+    <!-- Post-play message -->
+    <div class="playlist-finished-message wrapper">
+      <div class="intro-text">
+        <p>All good things come to an end. Lucky for you, more good things are just a click away.</p>
+        <a class="btn" href="/">Create a new playlist</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Room Full -->
-  <div class="playlist-full-message">
-    <div class="intro-text">
-      <h1>Two's company, three's a crowd.</h1>
-      <p>Sorry, This playlist already has two listeners. Maybe you should make a new one instead.</p>
-      <a class="btn" href="/">Create a new playlist</a>
+    <!-- Room Full -->
+    <div class="playlist-full-message">
+      <div class="intro-text">
+        <h1>Two's company, three's a crowd.</h1>
+        <p>Sorry, This playlist already has two listeners. Maybe you should make a new one instead.</p>
+        <a class="btn" href="/">Create a new playlist</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Loading -->
-  <div class="loading-message">
-    <p>Loading tracks...</p>
-    <img src="/img/preview-loading.gif" class="loading-indicator">
+    <!-- Loading -->
+    <div class="loading-message wrapper">
+      <p>Loading tracks...</p>
+      <img src="/img/preview-loading.gif" class="loading-indicator">
+    </div>
   </div>
 
   <!-- Playlist contents -->
