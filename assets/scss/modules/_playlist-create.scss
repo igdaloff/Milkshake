@@ -47,10 +47,6 @@
 
 		.chosen-track-art{
 			border: 0;
-
-			.chosen-track-art-inner{
-  			border: 3px solid $green;
-  		}
 		}
 
 		.change-track-button{
@@ -99,7 +95,10 @@
 
 	&:after{
 		z-index: -10;
-		background: $off-white;
+		background: $black;
+		.selected & {
+			background: $green;
+		}
 	}
 }
 
@@ -113,7 +112,7 @@
 	margin: auto;
 	font-family: $sans-special;
 	font-size: 2.5em;
-	color: $grey;
+	color: $black;
 	z-index: -1;
 
 	.has-track-selection &{

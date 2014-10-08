@@ -14,41 +14,41 @@
 
 	&::-webkit-input-placeholder {
 		font-family: $sans-light;
-		color: $grey;
+		color: $dark-grey;
 	}
 
 	&:-moz-placeholder {
 		font-family: $sans-light;
-		color: $grey;
+		color: $dark-grey;
 	}
 
 	&::-moz-placeholder {
 		font-family: $sans-light;
-		color: $grey;
+		color: $dark-grey;
 	}
 
 	&:-ms-input-placeholder {
 		font-family: $sans-light;
-		color: $grey;
+		color: $dark-grey;
 	}
 
 	&:focus{
 		outline: none;
 
 		&::-webkit-input-placeholder {
-		   color: rgba($light-grey, 0.6);
+		   color: rgba($dark-grey, 0.6);
 		}
 
 		&:-moz-placeholder {
-		   color: rgba($light-grey, 0.6);
+		   color: rgba($dark-grey, 0.6);
 		}
 
 		&::-moz-placeholder {
-		   color: rgba($light-grey, 0.6);
+		   color: rgba($dark-grey, 0.6);
 		}
 
 		&:-ms-input-placeholder {
-		   color: rgba($light-grey, 0.6);
+		   color: rgba($dark-grey, 0.6);
 		}
 	}
 }
