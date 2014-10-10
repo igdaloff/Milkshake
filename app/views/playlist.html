@@ -37,7 +37,7 @@
   </div>
 
   <!-- Playlist contents -->
-  <div class="playlist">
+  <div class="playlist large-wrapper">
     <div class="playback-tracks">
       <ul class="playback-track-list">
       {% for track in playlist.tracks %}
@@ -65,11 +65,11 @@
         <h2>{{ playlist.title }}</h2>
         <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
       </div>
-      <a href="/" class="playback-logo"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
+      <a href="/" target="_blank" class="playback-logo"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
     </header>
   </div>
 
-  <div class="playlist-progress">
+  <div class="playlist-progress large-wrapper">
     <div class="progress-bars">
       {% for track in playlist.tracks %}
       <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
@@ -79,7 +79,7 @@
     </div>
   </div>
 
-  <div class="wrapper">
+  <div class="large-wrapper">
     <div class="messages"></div>
   </div>
 

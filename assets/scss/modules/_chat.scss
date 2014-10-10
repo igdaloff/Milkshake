@@ -7,7 +7,7 @@
 
 .message-list{
 	padding: 1em 1em 2em;
-	height: 15em;
+	height: 25em;
 	overflow: auto;
 	border: 1px solid $grey;
 	background: $light-grey;
@@ -40,9 +40,9 @@
 
 .chat-avatar-and-time{
 	position: absolute;
-	bottom: -32px;
+	bottom: -40px;
 	right: 0;
-	width: 32px;
+	width: 40px;
 
 	.remote &{
 		left: 0;
@@ -55,8 +55,8 @@
 }
 
 .chat-message-avatar{
-	width: 32px;
-	height: 32px;
+	width: 40px;
+	height: 40px;
 	margin-bottom: -3px;
 	border-radius: 100%;
 }
@@ -74,8 +74,8 @@
 	display: inline-block;
 	max-width: 50%;
 	padding: 0.5em 0.75em 0.6em;
-	margin-right: 50px;
-	font-size: 0.85em;
+	margin-right: 60px;
+	font-size: 1em;
 	color: $off-black;
 	font-weight: 300;
 	text-align: left;
@@ -108,7 +108,7 @@
 	}
 
 	.remote &{
-		margin-left: 50px;
+		margin-left: 60px;
 
 		&:before, &:after{
 			left: -10px;
@@ -131,6 +131,7 @@
 	right: 0;
 	width: 100%;
 	height: 45px;
+	padding-left: 1em;
 	margin-top: 0.75em;
 }
 
@@ -143,7 +144,7 @@
 
 .new-message-field-container{
 	position: absolute;
-	left: 50px;
+	left: calc(1em + 50px);
 	right: 74px; //75px width of button - 1px so it overlaps
 	top: 0;
 	bottom: 0;
@@ -174,15 +175,8 @@
 	right: 0;
 	font-size: 1em;
 	font-family: $sans-light;
-	background: $green;
-	color: white;
-	border: 1px solid $green;
 	cursor: pointer;
 	outline: 0;
+	border: 0;
 	@extend .transition;
-
-	&:hover{
-		background: white;
-		color: $green;
-	}
 }

@@ -66,12 +66,20 @@
 	border: 3px solid $green;
 	cursor: pointer;
 
-	&:hover{
+	&:hover, &:focus{
 		background: white;
 		color: $green;
+		outline: none;
 	}
+}
 
-	&:focus{
+.btn-black{
+	background: $black;
+	color: $green;
+
+	&:hover, &:focus{
+		background: $green;
+		color: $black;
 		outline: none;
 	}
 }
