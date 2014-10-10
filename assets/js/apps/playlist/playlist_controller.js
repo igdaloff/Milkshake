@@ -205,11 +205,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-      $('.playback-track').removeClass('current');
-      $('.playback-track').eq(currentTrackIndex).addClass('current').css({
-        'left': (parseInt(currentTrackIndex) * 70) + 'px',
-        'display': 'table-cell'
-      });
+      var $playbackTrack = $('.playback-track');
+      var slideIncrement = $('.playback-track-artwork').width();
+
+      $playbackTrack.removeClass('current');
+      $playbackTrack.eq(currentTrackIndex).addClass('current').css('display', 'table-cell')
+      $playbackTrack.eq(currentTrackIndex).delay(200).queue(
+        function(next){
+          $(this).css('left', (parseInt(currentTrackIndex) * slideIncrement) + 'px');
+          next();
+        });
     },
     updateTimer: function() {
 

@@ -13,15 +13,23 @@
 	padding-left: 1em;
 }
 
+$playback-artwork-width: 70px;
+
 .playback-track{
 	display: none;
 	position: absolute;
 	table-layout: fixed;
 	vertical-align: middle;
 	padding-left: 1em;
+	@extend .transition;
+	left: 0;
 
 	&.current{
 		display: table;
+	}
+
+	&:last-child{ //This is so the last track slides from the second position on reveal, not the first. Probably a better way to do this.
+		left: $playback-artwork-width;
 	}
 
 	.finished & {
@@ -38,11 +46,11 @@
 
 .playback-track-artwork{
 	display: table-cell;
-	width: 60px;
 	vertical-align: middle;
+	width: $playback-artwork-width;
 
 	img{
-		width: 100%;
+		width: 60px;
 	}
 }
 
