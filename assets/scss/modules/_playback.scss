@@ -149,6 +149,10 @@
 }
 
 .playlist-playing {
+	.main-header{
+		display: none;
+	}
+
 	.playlist, .playlist-progress {
 		display: block;
 	}

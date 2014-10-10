@@ -330,14 +330,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     playlistFinished: function() {
 
       $('.playlist').addClass('finished');
-      $('.playlist-finished-message').delay(500).addClass('visible');
+      $('.playlist-finished-message').slideDown();
+      $('body').addClass('playlist-finished').removeClass('playlist-playing');
     },
     muteToggle: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       if(playlistManager.isMuted()) {
 
-        playlistManager.unmuteAll();        
+        playlistManager.unmuteAll();
       }
       else {
 

@@ -30,6 +30,12 @@
 
   </head>
   <body>
+    <header class="main-header wrapper">
+      <h1 class="logo">
+        <a href="/"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
+      </h1>
+    </header>
+
     {% block content %}{% endblock %}
 
     {% if env == 'production' %}
