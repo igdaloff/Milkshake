@@ -79,6 +79,10 @@
 	display: table-cell;
 	vertical-align: middle;
 	padding-left: 10px;
+
+	&:hover{
+		text-decoration: underline;
+	}
 }
 
 .playlist-controls{
@@ -158,6 +162,6 @@
 	}
 
 	a#barometer_tab{
-		top: 80%;
+		top: 85%;
 	}
 }

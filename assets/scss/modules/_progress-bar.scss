@@ -6,12 +6,12 @@
     background: $light-green;
 
     & + .track-progress{
-      border-left: 4px solid white;
+      border-left: 5px solid white;
     }
 
     .current-progress {
       background: $green;
-      height: 8px;
+      height: 9px;
       width: 0;
     }
   }

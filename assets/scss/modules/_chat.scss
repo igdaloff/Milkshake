@@ -2,15 +2,14 @@
 .messages{
 	position: relative;
 	font-family: $sans-light;
-	margin-top: 2em;
+	margin: 1.5em 0 3em;
 }
 
 .message-list{
 	padding: 1em 1em 2em;
 	height: 25em;
 	overflow: auto;
-	border: 1px solid $grey;
-	background: $light-grey;
+	background: $off-white;
 }
 
 .chat-message{
@@ -80,7 +79,7 @@
 	font-weight: 300;
 	text-align: left;
 	background: white;
-	border: 1px solid $grey;
+	border: 1px solid $border-grey;
 
 	&:before, &:after{
 		content: '';
@@ -126,25 +125,16 @@
 
 //New message
 .new-message-container{
-	position: absolute;
-	left: 0;
-	right: 0;
+	position: relative;
 	width: 100%;
 	height: 45px;
 	padding-left: 1em;
 	margin-top: 0.75em;
 }
 
-.new-message-avatar{
-	width: 40px;
-	height: 40px;
-	margin-top: 2px;
-	border-radius: 100%;
-}
-
 .new-message-field-container{
 	position: absolute;
-	left: calc(1em + 50px);
+	left: 0;
 	right: 74px; //75px width of button - 1px so it overlaps
 	top: 0;
 	bottom: 0;
@@ -153,13 +143,11 @@
 .new-message-field{
 	width: 100%;
 	height: 100%;
-	padding: 0.5em 0.5em 0 0.8em;
-	line-height: 1.3;
-	font-size: 0.85em;
+	padding: 0 0.5em 0 0.8em;
+	font-size: 1em;
 	font-family: $sans-light;
 	font-weight: 300;
-	border: 1px solid $grey;
-	resize: none;
+	border: 1px solid $border-grey;
 	@extend .transition;
 
 	&:focus{

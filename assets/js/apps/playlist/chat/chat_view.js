@@ -163,6 +163,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         Chat.Controller.sendNewMessage($newMessageField.val());
         $newMessageField.val('').focus();
       }
+
+      this.removePlaceholder();
     },
     remoteUserTyping: function() {
 
@@ -171,6 +173,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     remoteUserNotTyping: function() {
 
       this.$el.removeClass('incoming');
+    },
+    removePlaceholder: function(){
+      var $newMessageField = $('.new-message-field');
+      $newMessageField.attr('placeholder', '');
     }
   });
 });
