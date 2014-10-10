@@ -1,9 +1,13 @@
 <td class="track-search-result-artwork artwork">
 	<img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
-	<a href="" class="preview-track icon icon-play track-search-result-preview"></a><span class="screen-reader-text">Preview</span>
 </td>
+<td class="preview-track icon icon-play track-search-result-preview"><a href=""></a></td>
 <td class="track-search-result-title">
-	<span class="track-search-result-add"><h5><%= title %></h5></span><a href="<%= url %>" target="_blank" class="track-search-result-source"><i>(<% if(source === 'soundcloud'){ %>SoundCloud<% } else { %>YouTube<% } %>)</i></a>
+	<span class="track-search-result-add">
+		<span class="screen-reader-text">Preview</span>
+		<h5><%= title %></h5>
+	</span>
+	<a href="<%= url %>" target="_blank" class="track-search-result-source"><i>(<% if(source === 'soundcloud'){ %>SoundCloud<% } else { %>YouTube<% } %>)</i></a>
 </td>
 <td class="track-search-result-duration"><%= minutes %></td>
 <td class="track-search-actions">

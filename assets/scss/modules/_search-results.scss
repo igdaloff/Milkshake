@@ -70,15 +70,6 @@
   border-bottom: 1px solid $light-grey;
   color: $black;
 
-  &:hover{
-    background: $light-grey;
-    color: black;
-
-    .preview-track{
-      opacity: 1;
-    }
-  }
-
   td{
     width: 45px;
     padding: 0.5em 0 0.4em 0;
@@ -96,7 +87,7 @@
 
 td.track-search-result-artwork{
   position: relative;
-  width: 50px;
+  width: 55px;
   text-align: left;
   padding-left: 10px;
 
@@ -106,42 +97,19 @@ td.track-search-result-artwork{
   }
 }
 
-.preview-track{
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 10px;
-  margin: auto;
-  width: 30px;
-  height: 30px;
-  line-height: 31px;
-  text-align: center;
-  border-radius: 100%;
-  opacity: 0;
+td.preview-track{
+  width: 20px;
+  padding: 0 5px 0 0;
   @include icomoon('play');
-  font-size: 0.7em;
-  text-indent: 3px;
-  background: $black;
-  color: $green;
-
-  &:hover{
-    background: $green;
-    color: $black;
-  }
-
-  &.playing,
-  &.loading {
-    opacity: 1;
-    text-indent: 1px;
-  }
+  font-size: 0.8em;
+  cursor: pointer;
 
   &.playing {
     @include icomoon('pause');
   }
 
   &.loading {
-    background: url('../img/preview-loading.gif') no-repeat 50% 50%;
+    background: url('../img/preview-loading.gif') no-repeat 25% 50%;
     background-size: 50%;
 
     &:before {
@@ -161,7 +129,7 @@ td.track-search-result-title{
   h5{
     max-width: 75%;
     float: left;
-    padding: 0 0.25em 0 1em;
+    padding-right: 0.25em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
