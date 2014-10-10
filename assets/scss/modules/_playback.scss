@@ -117,7 +117,8 @@
 .playlist,
 .loading-message,
 .welcome-message,
-.playlist-full-message {
+.playlist-full-message,
+.playlist-progress {
 	display: none;
 }
 
@@ -148,7 +149,7 @@
 }
 
 .playlist-playing {
-	.playlist {
+	.playlist, .playlist-progress {
 		display: block;
 	}
 }
