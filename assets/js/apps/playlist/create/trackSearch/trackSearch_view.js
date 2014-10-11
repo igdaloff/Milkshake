@@ -5,11 +5,12 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     tagName: "tr",
     className: "track-search-result",
     events: {
-      "click .preview-track": "toggleTrackPreview",
+      "click .toggle-track-preview": "toggleTrackPreview",
       "click .track-search-result-add": "addTrack"
     },
     modelEvents: {
-      "change:isPlaying": "togglePreviewButtonState"
+      "change:isPlaying": "togglePreviewButtonState",
+      "change:previewProgress": "updatePreviewProgress"
     },
     toggleTrackPreview: function(e){
 
@@ -31,7 +32,7 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     },
     togglePreviewButtonState: function() {
 
-      var $button = this.$(".preview-track");
+      var $button = this.$(".toggle-track-preview");
       // Regardless of new state, remove the loading class
       $button.removeClass("loading");
       if(this.model.get("isPlaying")) {
@@ -50,12 +51,51 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
 
       setTimeout(function(){
         $searchResultRow.removeClass('highlight');
-      }, 2000)
+      }, 2000);
     },
     addTrack: function(e){
       e.preventDefault();
       TrackSearch.Controller.addTrack(this.model);
       this.highlightAddedTrack(e);
+    },
+    /**
+     * Update preview progress
+     * Based on the percentage progress of the preview, calculate how much we should rotate
+     * the two pie halves by, based on 180 degrees each
+     */
+    updatePreviewProgress: function(e) {
+
+      var progress = this.model.get('previewProgress');
+      var firstHalf = 0, secondHalf = 0;
+      var $firstHalf = this.$('.pie.right');
+      var $secondHalf = this.$('.pie.left');
+      if(progress >= 50) {
+
+        firstHalf = 180;
+        secondHalf = (progress - 50) / 50 * 180;
+      }
+      else {
+
+        firstHalf = progress / 50 * 180;  
+        secondHalf = 0;
+      }
+      var firstHalfTransform = 'rotate(' + Math.floor(firstHalf) + 'deg)';
+      var secondHalfTransform = 'rotate(' + Math.floor(secondHalf) + 'deg)';
+
+      $firstHalf.css({
+        'transform': firstHalfTransform,
+        '-webkit-transform': firstHalfTransform,
+        '-moz-transform': firstHalfTransform,
+        '-ie-transform': firstHalfTransform,
+        '-o-transform': firstHalfTransform
+      });
+      $secondHalf.css({
+        'transform': secondHalfTransform,
+        '-webkit-transform': secondHalfTransform,
+        '-moz-transform': secondHalfTransform,
+        '-ie-transform': secondHalfTransform,
+        '-o-transform': secondHalfTransform
+      });
     }
   });
 

@@ -1,7 +1,6 @@
 <td class="track-search-result-artwork artwork">
 	<img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
 </td>
-<td class="preview-track icon icon-play track-search-result-preview"><a href=""></a></td>
 <td class="track-search-result-title">
 	<span class="track-search-result-add">
 		<span class="screen-reader-text">Preview</span>
@@ -10,6 +9,17 @@
 	<a href="<%= url %>" target="_blank" class="track-search-result-source"><i>(<% if(source === 'soundcloud'){ %>SoundCloud<% } else { %>YouTube<% } %>)</i></a>
 </td>
 <td class="track-search-result-duration"><%= minutes %></td>
+<td class="preview-track-container">
+  <div class="preview-button-outer">
+    <div class="half lt50">
+      <div class="pie right"></div>
+    </div>
+    <div class="half gt50">
+      <div class="pie left"></div>
+    </div>
+    <button class="toggle-track-preview preview-button-target" title="Play a preview of this track"></button>
+  </div>
+</td>
 <td class="track-search-actions">
 	<a class="track-search-result-add add-track-icon"><span class="screen-reader-text">Add this track to playlist</span></a>
 </td>

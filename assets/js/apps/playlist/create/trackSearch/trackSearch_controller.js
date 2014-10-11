@@ -40,6 +40,25 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
           playlistManager.stopAll();
         });
 
+        // Update the progress in percent as the preview plays
+        $(playlistManager).on('track:timeupdate', function(event) {
+
+          var currentTime = playlistManager.getCurrentTotalTime();
+          // Calculate the percentage
+          var progress = (currentTime - startTime) / previewDuration * 100;
+          // Don't go over 100
+          if(progress > 100) {
+
+            progress = 100;
+          }
+          trackModel.set('previewProgress', progress);
+          // Turn off the listner at end of preview
+          if(progress === 100) {
+
+            $(playlistManager).off('track:timeupdate');
+          }
+        });
+
       }, function() {
 
         // On finish playing, set isPlaying to false

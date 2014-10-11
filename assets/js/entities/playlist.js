@@ -3,7 +3,19 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   // Search result
   Entities.Track = Backbone.Model.extend({
     defaults: {
-      isPlaying: false
+      isPlaying: false,
+      previewProgress: 0
+    },
+    initialize: function() {
+
+      // When the track is not playing, set the previewProgress to 0
+      this.listenTo(this, 'change:isPlaying', function() {
+
+        if(!this.get('isPlaying')) {
+          
+          this.set('previewProgress', 0);
+        }
+      });
     },
     /*
     * Parse the response and add a human-readable 'minutes' value for the duration
