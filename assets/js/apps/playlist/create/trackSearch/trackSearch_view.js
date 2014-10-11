@@ -102,11 +102,10 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
   TrackSearch.SearchForm = Marionette.CompositeView.extend({
     childView: TrackSearch.SearchResult,
     childViewContainer: ".track-search-results",
-    tagName: "form",
     className: "track-search",
     template: "track-search-form",
     events: {
-      "submit": "searchTracks"
+      "submit form": "searchTracks"
     },
     initialize: function() {
 
