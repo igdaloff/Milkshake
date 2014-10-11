@@ -54,8 +54,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
       this.trigger('show');
       // Ordering of these is important
-      this.parseLinks();
       this.parseNewLines();
+      this.parseLinks();
     },
     parseLinks: function() {
 
