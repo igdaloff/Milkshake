@@ -143,12 +143,11 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       if(wait) {
         this.onTrackReady(trackIndex, function(track) {
 
-          track.pop.volume(1);
           track.pop.play(trackTime);
         });
       }
       else {
-        track.pop.volume(1);
+        
         track.pop.play(trackTime);
       }
     };
