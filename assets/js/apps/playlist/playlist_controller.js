@@ -54,7 +54,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
-      // Listen to track ending and make sure the correct time is shown
+      // Ensure progress bar is 100% width when a track ends
+      $(playlistManager).on('track:ended', this.fillProgressBar);
+      // Listen to track ending and make sure the correct time is shown;
       $(playlistManager).on('playlist:ended', this.setTrackTimeOnEnd);
       $(playlistManager).on('playlist:ended', this.playlistFinished);
     },
@@ -236,10 +238,23 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       if(currentTrackData !== null) {
         currentTime = currentTrackData.pop.currentTime();
         var progress = currentTime / currentTrackData.duration * 100;
+        progress = progress.toFixed(3);
         $currentProgressBar.css({
-          width: progress.toString() + '%'
+          width: progress + '%'
         });
       }
+    },
+    /*
+     * Fill progress bar
+     * When a track ends ensure that its progress bar is full, update time isn't reliable for this
+     */
+    fillProgressBar: function(event) {
+
+      var trackIndex = event.target.getCurrentTrackIndex();
+      var $currentProgressBar = $('.current-progress').eq(trackIndex);
+      $currentProgressBar.css({
+        width: '100%'
+      });
     },
     /*
      * Set track time on end

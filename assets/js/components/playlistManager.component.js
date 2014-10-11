@@ -50,18 +50,18 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       // Bind popcorn events to triggers on the 'this' object
       pop.on('ended', $.proxy(function(){
 
-        $(this).trigger('track:ended');
+        $(this).trigger('track:ended', event);
         this.next();
       }, this));
       pop.on('playing', $.proxy(function(){
 
-        $(this).trigger('track:playing');
+        $(this).trigger('track:playing', event);
         this.isPlaying = true;
         this.finished = false;
       }, this));
       pop.on('pause', $.proxy(function(){
 
-        $(this).trigger('track:pause');
+        $(this).trigger('track:pause', event);
         this.isPlaying = false;
       }, this));
       pop.on('timeupdate', $.proxy(function(){
