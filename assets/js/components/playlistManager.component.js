@@ -98,8 +98,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.playTrackSnippet = function(trackIndex, startTime, endTime, startCallback, endCallback) {
 
-      var wait = this.tracks[trackIndex].source === "soundcloud";
-      this.playTrack(trackIndex, startTime, wait, _.bind(function(track) {
+      this.playTrack(trackIndex, startTime, true, _.bind(function(track) {
 
         // Call the startCallback if it exists
         if(typeof startCallback === "function") {
