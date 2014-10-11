@@ -98,9 +98,10 @@ td.track-search-result-artwork{
 }
 
 .preview-track-container{
+  $button-width: 1.875;
+  $progress-weight: 3px;
   .preview-button-outer {
     display: inline-block;
-    $button-width: 1.875;
     position: relative;
     width: $button-width * 1em;
     height: $button-width * 1em;
@@ -141,28 +142,30 @@ td.track-search-result-artwork{
     .preview-button-target {
       position: absolute;
       z-index: 2;
-      left: 1px;
-      top: 1px;
+      left: $progress-weight;
+      top: $progress-weight;
       @include icomoon('play');
       color: $black;
-      width: ($button-width * $body_fs * 1px) - 2px;
-      height: ($button-width * $body_fs * 1px) - 2px;
+      width: ($button-width * $body_fs * 1px) - ($progress-weight * 2);
+      height: ($button-width * $body_fs * 1px) - ($progress-weight * 2);
       font-size: 1em;
       cursor: pointer;
       background: white;
       border-radius: 50%;
       border: none;
       outline: none;
+      &:hover {
+        color: $green;
+      }
       &.playing {
         @include icomoon('stop');
         &:before {
-          padding-left: 0;
-          line-height: $button-width * $body_fs * 1px;
+          padding-left: 1px;
         }
       }
       &:before {
         font-size: .8em;
-        line-height: $button-width * $body_fs * 1px;
+        line-height: ($button-width * $body_fs * 1px) - ($progress-weight * 2) !important;
         position: absolute;
         left: 0;
         top: 0;
