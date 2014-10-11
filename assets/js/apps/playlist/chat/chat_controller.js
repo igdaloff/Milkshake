@@ -137,6 +137,19 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       });
       // Remove disconnected class from the body
       $('body').removeClass('remote-user-disconnected');
+    },
+    /*
+     * New track message
+     * Display a log message when a track starts playing
+     */
+    newTrackMessage: function(event) {
+
+      var messageCollection = TWM.request('chat:messageCollection');
+      var trackData = event.target.getCurrentTrackData();
+      messageCollection.add({
+        type: 'log',
+        content: 'Now playing: \'' + trackData.title + '\''
+      });
     }
   };
 });

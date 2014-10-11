@@ -11,26 +11,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     });
   });
 
-  Chat.on('start', function() {
-
-    var messages = bootstrap.messages || [];
-    // Get the currently active socket object
-    var socket = TWM.request('playlist:activeSocket');
-
-    // Create a new message collection
-    var messageCollection = TWM.request('newMessageCollection:entities', messages);
-
-    var messageList = new Chat.ChatContainer({
-      collection: messageCollection
-    });
-
-    messagesRegion.show(messageList);
-
-    // Set up a handler to get the message collection
-    TWM.reqres.setHandler('chat:messageCollection', function() {
-
-      return messageCollection;
-    });
+  var bindSocketEvents = function(socket) {
 
     // When a new message is received
     socket.on('newMessage', Chat.Controller.displayNewMessage);
@@ -42,5 +23,44 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     socket.on('userLeft', Chat.Controller.remoteUserDisconnected);
     // When the remote user re-connects
     socket.on('userJoined', Chat.Controller.remoteUserConnected);
+  };
+
+  var bindPlaylistEvents = function(playlistManager) {
+
+    // When a new track starts
+    $(playlistManager).on('track:playing', Chat.Controller.newTrackMessage);
+  };
+
+  Chat.on('start', function() {
+
+    var messages = bootstrap.messages || [];
+    // Get the currently active socket object
+    var socket = TWM.request('playlist:activeSocket');
+    // Bind socket events to the controller
+    bindSocketEvents(socket);
+
+    // Create a new message collection
+    var messageCollection = TWM.request('newMessageCollection:entities', messages);
+
+    // Create a chat container view with the messages collection
+    var messageList = new Chat.ChatContainer({
+      collection: messageCollection
+    });
+
+    // Display the chat container view in the messages region
+    messagesRegion.show(messageList);
+
+    // Set up a handler to get the message collection
+    TWM.reqres.setHandler('chat:messageCollection', function() {
+
+      return messageCollection;
+    });
+
+    // Request the active playlist manager from the parent module so we can listen to events
+    var playlistManager = TWM.request('playlist:activePlaylistMgr');
+    if(typeof playlistManager !== 'undefined') {
+
+      bindPlaylistEvents(playlistManager);
+    }
   });
 });
