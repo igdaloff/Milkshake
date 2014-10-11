@@ -99,9 +99,15 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         show: this.onChildShow
       };
     },
-    onChildShow: function() {
+    onBeforeAddChild: function(childView) {
 
-      this.scrollChatToBottom();
+      // If we're fully scrolled to within n px of the bottom (tolerance), jump to the bottom of the new message when it shows
+      var messageContainer = this.$('.message-list')[0];
+      var tolerance = 50;
+      if($(messageContainer).outerHeight() + messageContainer.scrollTop >= messageContainer.scrollHeight - tolerance) {
+
+        this.listenToOnce(childView, 'show', this.scrollChatToBottom);
+      }
     },
     scrollChatToBottom: function(){
 
