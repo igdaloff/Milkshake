@@ -80,6 +80,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     /**
      * Start notifier
      * Flash the document.title every n seconds and immediately once the method is called
+     * Don't start if the window is already focused
      */
     startNotifier: function() {
 
@@ -89,9 +90,11 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       }
       toggleTitle();
       
-      window.clearInterval(notifierInterval);
-      notifierInterval = window.setInterval(toggleTitle, 2000);
-
+      if(!document.hasFocus()) {
+        
+        window.clearInterval(notifierInterval);
+        notifierInterval = window.setInterval(toggleTitle, 2000);
+      }
     },
     stopNotifier: function() {
 

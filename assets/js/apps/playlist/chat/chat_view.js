@@ -131,8 +131,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
           Chat.Controller.startNotifier();
         }
       });
-      // Stop the notifier when the window is focused
-      $(window).on('focus', Chat.Controller.stopNotifier);
+      // Stop the notifier when the window is focused, or any other action is performed
+      $(window).on('focus click keyup keydown', Chat.Controller.stopNotifier);
     },
     isUserTyping: function(e) {
 
