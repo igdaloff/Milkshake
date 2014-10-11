@@ -17,4 +17,16 @@
 	.intro-text{
 		margin: 0 0 4em;
 	}
+
+	.btn span{
+		position: relative;
+		padding-left: 1.5em;
+		@include icomoon(new-window);
+
+		&:before{
+			position: absolute;
+			left: 0;
+			top: 1px;
+		}
+	}
 }
