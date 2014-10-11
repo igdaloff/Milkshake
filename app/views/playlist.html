@@ -19,15 +19,15 @@
         <div class="post-playback-summary">
           <h1>You listened to:</h1>
           <h2>{{ playlist.title }}</h2>
-          <h3>Duration: {{ playlist.totalTime }}</h3>
+          <h3>{{ playlist.totalTime }}</h3>
           <ul>
             {% for track in playlist.tracks %}
             <li>{{ loop.index }}) <a href="{{ track.url }}" target="_blank">{{ track.title }}</a></li>
             {% endfor %}
           </ul>
-        </div>
 
-        <a class="btn btn-black" href="/" target="_blank"><span>Create another</span></a>
+          <a class="btn btn-black" href="/" target="_blank"><span>Create another</span></a>
+        </div>
       </div>
     </div>
 

@@ -37,26 +37,39 @@
 }
 
 .post-playback-summary{
-	margin-top: 2em;
+	width: 66.66666667%;
+	margin: 2em auto 0;
 	text-align: center;
 
 	h1{
-		display: inline-block;
 		padding-bottom: 0.5em;
 		margin-bottom: 0.5em;
-		border-bottom: 1px solid #cecece;
+		border-bottom: 1px solid $border-grey;
 		font-weight: 600;
 	}
 
 	h2{
 		font-weight: 600;
 	}
+
+	ul{
+		margin-top: 1em;
+	}
+
 	li{
+		padding: 0.4em 0.5em 0.5em;
 		margin: 0.5em;
 		font-family: $sans-special;
+		text-align: left;
+		background: $light-grey;
+		line-height: 1.2;
 	}
 
 	a:hover{
 		text-decoration: underline;
+	}
+
+	.btn{
+		width: 100%;
 	}
 }
