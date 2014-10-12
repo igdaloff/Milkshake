@@ -11,6 +11,7 @@ Routes
 module.exports = function (app) {
 
   app.get("/", home.home);
+  app.get("/robots.txt", home.robots);
   app.get("/search", search.searchByString);
   app.post("/process-new-playlist/", playlist.processNewPlaylist);
   app.get("/:id", playlist.playlist);
