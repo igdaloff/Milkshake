@@ -1,0 +1,28 @@
+// =======================
+// Mobile Warning
+// =======================
+.mobile-message{
+	display: none;
+
+	.user-on-mobile &{
+		display: block;
+
+		p{
+			padding: 0.5em 1em;
+		}
+
+		li{
+			margin-bottom: 0.5em;
+			font-size: 1.4em;
+			font-family: $sans-special;
+		}
+
+		a{
+			text-decoration: underline;
+		}
+	}
+}
+
+.user-on-mobile #barometer_tab{
+	display: none;
+}

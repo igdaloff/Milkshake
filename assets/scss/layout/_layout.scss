@@ -1,6 +1,15 @@
 // =======================
 // Basic $Layout Elements
 // =======================
+.main-content{
+	min-height: 100%;
+	margin: 0 auto -80px;
+
+	.user-on-mobile &{
+		display: none;
+	}
+}
+
 .wrapper{
 	position: relative;
 	width: 720px;

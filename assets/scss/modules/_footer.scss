@@ -15,7 +15,7 @@ $footer-height: 80px;
 	font-size: 14px;
 	color: $dark-grey;
 
-	.playlist-waiting &{
+	.user-on-mobile &, .playlist-waiting &{
 		display: none;
 	}
 
