@@ -27,6 +27,10 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
 	  $(".track-search-container").delay(500).fadeIn();
 	});
 
+  $('.track-form').on('submit', function() {
+
+    TWM.trigger('create:playlistCreate');
+  });
 
   //Navigate between tracks with arrow keys
   $("body").keydown(function(e) {
