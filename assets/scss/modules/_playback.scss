@@ -10,7 +10,6 @@
 .playback-tracks{
 	float: left;
 	width: 50%;
-	padding-left: 1em;
 }
 
 $playback-artwork-width: 60px;
@@ -21,9 +20,12 @@ $playback-artwork-width: 60px;
 	position: absolute;
 	width: 50%;
 	overflow: hidden;
-	padding-left: 1em;
 	@extend .transition-slow;
 	left: 0;
+
+	@include smaller-than(extra-large){
+		padding-left: 10px;
+	}
 
 	&.current{
 		visibility: visible;
@@ -81,9 +83,13 @@ $playback-artwork-width: 60px;
 	position: relative;
 	float: right;
 	width: 50%;
-	padding: 5px 10px 0 0;
+	padding-top: 5px;
 	text-align: center;
 	font-family: $sans-special;
+
+	@include smaller-than(extra-large){
+		padding-right: 10px;
+	}
 
 	h1{
 		margin-bottom: 0.25em;
@@ -101,8 +107,12 @@ $playback-artwork-width: 60px;
 
 .playback-header-meta{
 	position: absolute;
-	right: 90px;
+	right: 70px;
 	text-align: right;
+
+	@include smaller-than(extra-large){
+		right: 80px;
+	}
 
 	h2{
 		font-weight: 600;
