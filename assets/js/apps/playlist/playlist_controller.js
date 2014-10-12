@@ -216,10 +216,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Remove current class from previous tracks
       $('.playback-track.current').removeClass('current');
 
-      // Move tracks over
-      $('.playback-track').eq(currentTrackIndex).css({
-        left: (currentTrackIndex * slideIncrement) + 'px'
-      });
+      for(var i = 0; i <= currentTrackIndex; i++) {
+
+        $('.playback-track').eq(i).css({
+          left: (i * slideIncrement) + 'px'
+        });
+      }
 
       $('.playback-track').eq(currentTrackIndex).addClass('current');
     },
