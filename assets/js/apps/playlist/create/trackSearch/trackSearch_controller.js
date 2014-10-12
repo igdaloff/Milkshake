@@ -5,11 +5,12 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
   TrackSearch.Controller = {
     searchTracks: function(query) {
 
-      resultsCollection = TWM.request("trackSearch:resultsCollection");
+      var resultsCollection = TWM.request("trackSearch:resultsCollection");
       resultsCollection.query = query;
       resultsCollection.fetch({
         reset: true
       });
+      TWM.trigger("trackSearch:newSearch", query);
     },
     previewTrack: function(trackModel){
 
@@ -65,6 +66,8 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
         trackModel.set("isPlaying", false);
         trackModel.stopListening();
       });
+
+      TWM.trigger("trackSearch:previewTrack", trackModel.attributes);
     },
     /*
      * Stop Track Preview
@@ -132,6 +135,8 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       }
 
       this.advanceTrackSelection();
+
+      TWM.trigger('trackSearch:addTrack', trackModel.attributes);
     },
     advanceTrackSelection: function(){
       //Advance track selection to next one
