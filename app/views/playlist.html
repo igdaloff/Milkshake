@@ -15,17 +15,15 @@
     <!-- Post-play message -->
     <div class="playlist-finished-message wrapper">
       <div class="intro-text">
-
         <div class="post-playback-summary">
           <h1>You listened to:</h1>
           <h2>{{ playlist.title }}</h2>
           <h3>{{ playlist.totalTime }}</h3>
-          <ul>
+          <ol>
             {% for track in playlist.tracks %}
-            <li>{{ loop.index }}) <a href="{{ track.url }}" target="_blank">{{ track.title }}</a></li>
+            <li><span>{{ loop.index }}</span><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></li>
             {% endfor %}
-          </ul>
-
+          </ol>
           <a class="btn btn-black" href="/" target="_blank"><span>Create another</span></a>
         </div>
       </div>
@@ -63,7 +61,8 @@
             </a>
           </div>
           <div class="playlist-controls">
-            <span class="mute-toggle"><button>Mute</button></span>
+            <a class="mute-toggle"></a>
+            <span class="screen-reader-text">Mute</span>
           </div>
           <h2 class="playback-track-title"><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></h2>
           </a>

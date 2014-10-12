@@ -8,13 +8,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     muteToggle: function(e) {
 
       var muted = Playlist.Controller.muteToggle();
+      var $muteToggle = $('.mute-toggle');
+
       if(muted) {
 
-        $(e.currentTarget).addClass('muted');
+        $muteToggle.addClass('muted');
       }
       else {
 
-        $(e.currentTarget).removeClass('muted');
+        $muteToggle.removeClass('muted');
       }
     }
   });
