@@ -14,9 +14,9 @@ body{
 	-webkit-font-smoothing: antialiased;
 }
 
-hr{
-	margin: 1em 0;
-	width: 100%;
-	border: 0;
-	border-top: 1px solid #ccc;
+.main-content{
+	min-height: 100%;
+	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
+	height: 100%;
+	margin: 0 auto -80px;
 }

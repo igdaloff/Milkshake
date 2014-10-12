@@ -1,0 +1,59 @@
+// =======================
+// Footer
+// =======================
+$footer-height: 80px;
+
+.footer-push{
+	height: 200px;
+}
+
+.main-footer{
+	height: $footer-height;
+	padding: 10px 0;
+	text-align: center;
+	font-family: $sans-special;
+	font-size: 0.9em;
+
+	.playlist-waiting &{
+		display: none;
+	}
+
+	li{
+		display: inline-block;
+	}
+
+	a:hover{
+		text-decoration: underline;
+	}
+}
+
+.signup-form{
+	height: 2em;
+	display: inline-block;
+	margin-top: 1em;
+	line-height: 2;
+
+	.email, .btn{
+		float: left;
+		height: 100%;
+	}
+
+	.input-field{
+		width: 180px;
+		padding: 0.25em 0.25em 0.4em 0.5em;
+		margin-right: 0.25em;
+		border: 1px solid $border-grey;
+		font-size: 0.9em;
+
+		&:focus{
+			border-color: $dark-grey;
+		}
+	}
+
+	.btn{
+		width: auto;
+		padding: 0 1em 0.2em;
+		font-size: 0.9em;
+		line-height: 1.1;
+	}
+}

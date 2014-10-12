@@ -35,30 +35,34 @@
 
   </head>
   <body class="{{ bodyClass }}">
-    <header class="main-header wrapper">
-      <h1 class="logo">
-        <a href="/"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
-      </h1>
-    </header>
+    <div class="main-content">
+      <header class="main-header wrapper">
+        <h1 class="logo">
+          <a href="/"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
+        </h1>
+      </header>
 
-    {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
+
+      <div class="footer-push"></div>
+    </div>
 
     <footer class="main-footer">
-      <p class="credits">By <a target="_blank" href="https://twitter.com/igdaloff">Nathan Igdaloff</a>, <a target="_blank" href="https://twitter.com/jeshake">James Shakespeare</a> and <a target="_blank" href="https://twitter.com/spensertalks">Spenser Garden</a></p>
+      <ul>
+        <li>By <a target="_blank" href="https://twitter.com/igdaloff">Nathan Igdaloff</a>, </li>
+        <li><a target="_blank" href="https://twitter.com/jeshake">James Shakespeare</a> and</li>
+        <li><a target="_blank" href="https://twitter.com/spensertalks">Spenser Garden</a></li>
+      </ul>
       <div id="mc_embed_signup">
-        <form action="//milkshake.us9.list-manage.com/subscribe/post?u=7f08f98b3469fb34aeea7cc5b&amp;id=92c9f9f208" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-            <div id="mc_embed_signup_scroll">
-          <label for="mce-EMAIL">Subscribe for product updates</label>
-          <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
-            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-            <div style="position: absolute; left: -5000px;"><input type="text" name="b_7f08f98b3469fb34aeea7cc5b_92c9f9f208" tabindex="-1" value=""></div>
-            <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-            </div>
+        <form action="//milkshake.us9.list-manage.com/subscribe/post?u=7f08f98b3469fb34aeea7cc5b&amp;id=92c9f9f208" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate signup-form" target="_blank" novalidate>
+          <input type="email" value="" name="EMAIL" class="email input-field" id="mce-EMAIL" placeholder="email address" required>
+          <input type="submit" value="Keep in touch" name="subscribe" id="mc-embedded-subscribe" class="btn btn-black">
+
+          <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+          <div style="position: absolute; left: -5000px;"><input type="text" name="b_7f08f98b3469fb34aeea7cc5b_92c9f9f208" tabindex="-1" value=""></div>
         </form>
       </div>
     </footer>
-
-    <!--End mc_embed_signup-->
 
     {% if env == 'production' %}
     <script src="/js/vendors.min.js"></script>
