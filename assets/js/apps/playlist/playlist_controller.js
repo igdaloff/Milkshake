@@ -51,6 +51,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Set the active track class ('current') when a track is playing or ends
       $(playlistManager).on('track:playing track:ended', this.setActiveTrackClass);
+      // Display played and playing artwork
+      $(playlistManager).on('track:playing', this.displayPlayedTrackArtwork);
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
@@ -207,18 +209,39 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-      var $playbackTrack = $('.playback-track');
       var slideIncrement = $('.playback-track-artwork').width();
 
-      $playbackTrack.removeClass('current');
-      $playbackTrack.eq(currentTrackIndex).addClass('current').css('display', 'table-cell');
-      $playbackTrack.eq(currentTrackIndex).delay(200).queue(
-        function(next){
-          $(this).css('left', (parseInt(currentTrackIndex) * slideIncrement) + 'px');
-          next();
+      // Remove current class from previous tracks
+      $('.playback-track.current').removeClass('current');
+
+      // Move tracks over
+      for(var i = 0; i <= currentTrackIndex; i++) {
+
+        $('.playback-track').eq(i).css({
+          left: (i * slideIncrement) + 'px'
         });
+      }
+
+      $('.playback-track').eq(currentTrackIndex).addClass('current');
+    },
+    displayPlayedTrackArtwork: function() {
+
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var currentTrackIndex = playlistManager.getCurrentTrackIndex();
+
+      // Loop over played tracks and show the artwork
+      for(var i = 0; i < currentTrackIndex; i++) {
+
+        var $playbackTrack = $('.playback-track').eq(i);
+        $playbackTrack.css({
+          display: 'table-cell'
+        });
+<<<<<<< Updated upstream
 
       Playlist.Controller.detectTitleWidth();
+=======
+      }
+>>>>>>> Stashed changes
     },
     updateTimer: function() {
 
