@@ -354,6 +354,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Account for any latency and get a fresh start time
       if(startTime === 0) {
         playlist.startPlaylist();
+        TWM.trigger('playlist:playlistStart');
       }
       else {
         var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
@@ -380,6 +381,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('.playlist').addClass('finished');
       $('.playlist-finished-message').slideDown();
       $('body').addClass('playlist-finished').removeClass('playlist-playing');
+      TWM.trigger('playlist:playlistEnd');
     },
     muteToggle: function() {
 
