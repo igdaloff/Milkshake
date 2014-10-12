@@ -217,6 +217,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
           $(this).css('left', (parseInt(currentTrackIndex) * slideIncrement) + 'px');
           next();
         });
+
+      Playlist.Controller.detectTitleWidth();
     },
     updateTimer: function() {
 
@@ -343,6 +345,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       Playlist.Controller.bindPlaylistUi();
       // Start the chat module
       Playlist.Chat.start();
+
     },
     calculateTimeDiff: function(startTime) {
 
@@ -368,6 +371,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         playlistManager.muteAll();
       }
       return playlistManager.isMuted();
+    },
+    detectTitleWidth: function(){
+
+      $('.playback-track-title a').each(function(){
+        if( $(this).width() > $(this).parents('li').width() ){
+          $(this).addClass('marquee');
+          $(this).parents('li').addClass('marquee-container');
+        }
+      });
     }
   };
 });

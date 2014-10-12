@@ -18,14 +18,25 @@ $playback-artwork-width: 70px;
 .playback-track{
 	display: none;
 	position: absolute;
-	table-layout: fixed;
-	vertical-align: middle;
+	width: 50%;
+	overflow: hidden;
 	padding-left: 1em;
 	@extend .transition-slow;
 	left: 0;
 
 	&.current{
 		display: table;
+	}
+
+	&.marquee-container:after{
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: -3em;
+		width: 3em;
+		-webkit-box-shadow: -15px 0 30px white;
+		box-shadow: -15px 0 30px white;
 	}
 
 	&:last-child{ //This is so the last track slides from the second position on reveal, not the first. Probably a better way to do this.
@@ -90,13 +101,31 @@ $playback-artwork-width: 70px;
 	opacity: 0.5;
 }
 
+@-webkit-keyframes titleMarquee {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
 .playback-track-title{
 	display: none;
 	vertical-align: middle;
-	padding-left: 10px;
+	border-left: 10px solid white;
+	overflow: hidden;
 
 	&:hover{
 		text-decoration: underline;
+
+		.marquee{
+			-webkit-animation: titleMarquee 7s 1 linear;
+			-webkit-animation-delay: 0.5s;
+		}
+	}
+
+	a{
+		height: 1em;
+		line-height: 1em;
+		display: block;
+		white-space: nowrap;
 	}
 
 	.current &{

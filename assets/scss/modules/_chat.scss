@@ -10,6 +10,10 @@
 	height: 25em;
 	overflow: auto;
 	background: $light-grey;
+
+	.playlist-finished-static &{
+		background: white;
+	}
 }
 
 .chat-message{

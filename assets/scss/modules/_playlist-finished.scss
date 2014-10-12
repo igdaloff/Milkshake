@@ -19,7 +19,7 @@
 	}
 
 	.btn{
-		margin-top: 1.5em;
+		margin-top: 1.25em;
 
 		span{
 			position: relative;
@@ -34,6 +34,10 @@
 			}
 		}
 	}
+
+	.playlist-finished-static &{
+		display: block;
+	}
 }
 
 .post-playback-summary{
@@ -42,9 +46,7 @@
 	text-align: center;
 
 	h1{
-		padding-bottom: 0.5em;
-		margin-bottom: 0.5em;
-		border-bottom: 1px solid $border-grey;
+		margin-bottom: 1.2em;
 		font-weight: 600;
 	}
 
@@ -52,17 +54,34 @@
 		font-weight: 600;
 	}
 
-	ul{
-		margin-top: 1em;
+	h3{
+		margin: 0;
+	}
+
+	ol{
+		display: inline-block;
+		padding: 0 1em;
 	}
 
 	li{
-		padding: 0.4em 0.5em 0.5em;
-		margin: 0.5em;
+		margin: 0.5em 0 1em;
 		font-family: $sans-special;
 		text-align: left;
-		background: $light-grey;
 		line-height: 1.2;
+
+		span{
+			float: left;
+			width: 1.6em;
+			height: 1.6em;
+			margin-right: 0.5em;
+			background: $black;
+			border-radius: 100%;
+			font-size: 0.9em;
+			line-height: 1.65;
+			color: white;
+			text-align: center;
+			text-indent: -1px;
+		}
 	}
 
 	a:hover{
