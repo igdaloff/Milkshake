@@ -1,26 +1,26 @@
-TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, Marionette, $, _){
+TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, Marionette, $, _){
 
   TrackSearch.SearchResult = Marionette.ItemView.extend({
-    template: "track-search-result",
-    tagName: "tr",
-    className: "track-search-result",
+    template: 'track-search-result',
+    tagName: 'tr',
+    className: 'track-search-result',
     events: {
-      "click .toggle-track-preview": "toggleTrackPreview",
-      "click .track-search-result-add": "addTrack"
+      'click .toggle-track-preview': 'toggleTrackPreview',
+      'click .track-search-result-add': 'addTrack'
     },
     modelEvents: {
-      "change:isPlaying": "togglePreviewButtonState",
-      "change:previewProgress": "updatePreviewProgress"
+      'change:isPlaying': 'togglePreviewButtonState',
+      'change:previewProgress': 'updatePreviewProgress'
     },
     toggleTrackPreview: function(e){
 
       e.preventDefault();
       var $button = $(e.currentTarget);
       // Add the loading class to show some kind of loading indicator and remove other loading classes
-      $(".loading").removeClass("loading");
-      $button.addClass("loading");
+      $('.loading').removeClass('loading');
+      $button.addClass('loading');
       // If the preview is already playing, stop it
-      if(this.model.get("isPlaying")) {
+      if(this.model.get('isPlaying')) {
 
         TrackSearch.Controller.stopTrackPreview(this.model);
       }
@@ -32,16 +32,16 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     },
     togglePreviewButtonState: function() {
 
-      var $button = this.$(".toggle-track-preview");
+      var $button = this.$('.toggle-track-preview');
       // Regardless of new state, remove the loading class
-      $button.removeClass("loading");
-      if(this.model.get("isPlaying")) {
+      $button.removeClass('loading');
+      if(this.model.get('isPlaying')) {
 
-        $button.addClass("playing");
+        $button.addClass('playing');
       }
       else {
 
-        $button.removeClass("playing");
+        $button.removeClass('playing');
       }
     },
     highlightAddedTrack: function(e){
@@ -76,40 +76,36 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
       }
       else {
 
-        firstHalf = progress / 50 * 180;  
+        firstHalf = progress / 50 * 180;
         secondHalf = 0;
       }
       var firstHalfTransform = 'rotate(' + Math.floor(firstHalf) + 'deg)';
       var secondHalfTransform = 'rotate(' + Math.floor(secondHalf) + 'deg)';
 
       $firstHalf.css({
-        'transform': firstHalfTransform,
         '-webkit-transform': firstHalfTransform,
-        '-moz-transform': firstHalfTransform,
-        '-ie-transform': firstHalfTransform,
-        '-o-transform': firstHalfTransform
+        '-ms-transform': firstHalfTransform,
+        'transform': firstHalfTransform
       });
       $secondHalf.css({
-        'transform': secondHalfTransform,
         '-webkit-transform': secondHalfTransform,
-        '-moz-transform': secondHalfTransform,
-        '-ie-transform': secondHalfTransform,
-        '-o-transform': secondHalfTransform
+        '-ms-transform': secondHalfTransform,
+        'transform': secondHalfTransform
       });
     }
   });
 
   TrackSearch.SearchForm = Marionette.CompositeView.extend({
     childView: TrackSearch.SearchResult,
-    childViewContainer: ".track-search-results",
-    className: "track-search",
-    template: "track-search-form",
+    childViewContainer: '.track-search-results',
+    className: 'track-search',
+    template: 'track-search-form',
     events: {
-      "submit form": "searchTracks"
+      'submit form': 'searchTracks'
     },
     initialize: function() {
 
-      this.listenTo(this.collection, "reset", function() {
+      this.listenTo(this.collection, 'reset', function() {
 
         if(this.collection.length === 0) {
 
@@ -120,30 +116,30 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     onRender: function() {
 
       // On render, display the current query in the search input
-      if(typeof this.collection.query === "string") {
+      if(typeof this.collection.query === 'string') {
 
-        this.$(".track-search-query").val(this.collection.query);
+        this.$('.track-search-query').val(this.collection.query);
       }
     },
     searchTracks: function(e) {
 
       e.preventDefault();
       var $form = $(e.currentTarget);
-      var query = this.$(".track-search-query").val();
+      var query = this.$('.track-search-query').val();
       // Remove class for results so we can transition in new ones
-      $(this.childViewContainer).parent().removeClass("visible");
+      $(this.childViewContainer).parent().removeClass('visible');
 
       // Add the loading class to the input
-      this.$(".track-search-query").addClass("loading");
+      this.$('.track-search-query').addClass('loading');
       // Execute the query
       TrackSearch.Controller.searchTracks(query);
     },
     onRenderCollection: function() {
 
       // Add class for results transition
-      $(this.childViewContainer).parent().addClass("visible");
+      $(this.childViewContainer).parent().addClass('visible');
       // Remove the loading class on completion
-      this.$(".track-search-query").removeClass("loading");
+      this.$('.track-search-query').removeClass('loading');
     },
     /**
      * No results message
@@ -152,15 +148,15 @@ TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, M
     noResultsMessage: function() {
 
       // Set the query string in the template
-      this.$(".search-term").text(this.collection.query);
+      this.$('.search-term').text(this.collection.query);
       // remove the loading class
-      this.$(".track-search-query").removeClass("loading");
+      this.$('.track-search-query').removeClass('loading');
       // show the no results message
-      $(".no-results-message").fadeIn();
+      $('.no-results-message').fadeIn();
       // hide the message as soon as new results are added
-      this.listenToOnce(this.collection, "reset", function() {
+      this.listenToOnce(this.collection, 'reset', function() {
 
-        $(".no-results-message").hide();
+        $('.no-results-message').hide();
       });
     }
   });

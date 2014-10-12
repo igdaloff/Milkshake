@@ -38,24 +38,6 @@
   }
 }
 
-@-ms-keyframes highlight-flash {
-  0% {
-    background: $green;
-  }
-  100% {
-    background: none;
-  }
-}
-
-@-o-keyframes highlight-flash {
-  0% {
-    background: $green;
-  }
-  100% {
-    background: none;
-  }
-}
-
 @keyframes highlight-flash {
   0% {
     background: $green;
@@ -79,48 +61,54 @@
 
   &.highlight{
     -webkit-animation: highlight-flash 2s;
-    -moz-animation: highlight-flash 2s;
-    -o-animation: highlight-flash 2s;
     animation: highlight-flash 2s;
   }
 }
 
 td.track-search-result-artwork{
   position: relative;
-  width: 55px;
+  width: 50px;
   text-align: left;
   padding-left: 10px;
+  overflow: hidden;
 
   img{
-    width: 50px;
+    min-width: 100%;
     height: 50px;
   }
 }
 
-.preview-track-container{
+td.preview-track-container{
+  width: 30px;
   $button-width: 1.875;
   $progress-weight: 3px;
+
   .preview-button-outer {
     display: inline-block;
     position: relative;
     width: $button-width * 1em;
     height: $button-width * 1em;
+
     .half {
       position: absolute;
       z-index: 1;
       top: 0;
       width: 100%;
       height: 100%;
+
       &.lt50 {
         clip: rect(0, $button-width * 1em, $button-width * 1em, $button-width / 2 * 1em);
       }
+
       &.gt50 {
         clip: rect(0, $button-width / 2 * 1em, $button-width * 1em, 0);
       }
+
       .pie {
         @include transition(transform, .5s);
         width: 100%;
         height: 100%;
+
         &:before {
           content: '';
           display: block;
@@ -128,17 +116,20 @@ td.track-search-result-artwork{
           height: 100%;
           background: $green;
         }
+
         &.left:before {
           margin-left: $button-width / 2 * 1em;
           border-top-right-radius: $button-width / 2 * 1em;
           border-bottom-right-radius: $button-width / 2 * 1em;
         }
+
         &.right:before {
           border-top-left-radius: $button-width / 2 * 1em;
           border-bottom-left-radius: $button-width / 2 * 1em;
         }
       }
     }
+
     .preview-button-target {
       position: absolute;
       z-index: 2;
@@ -154,15 +145,18 @@ td.track-search-result-artwork{
       border-radius: 50%;
       border: none;
       outline: none;
+
       &:hover {
         color: $green;
       }
+
       &.playing {
         @include icomoon('stop');
         &:before {
           padding-left: 1px;
         }
       }
+
       &:before {
         font-size: .8em;
         line-height: ($button-width * $body_fs * 1px) - ($progress-weight * 2) !important;
@@ -173,6 +167,7 @@ td.track-search-result-artwork{
         height: 100%;
         padding-left: 2px;
       }
+
       &.loading {
         background: white url('../img/preview-loading.gif') no-repeat 50% 50%;
         background-size: 50%;

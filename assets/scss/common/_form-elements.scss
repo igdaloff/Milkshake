@@ -36,19 +36,19 @@
 		outline: none;
 
 		&::-webkit-input-placeholder {
-		   color: rgba($dark-grey, 0.6);
+		   color: rgba($dark-grey, 0.2);
 		}
 
 		&:-moz-placeholder {
-		   color: rgba($dark-grey, 0.6);
+		   color: rgba($dark-grey, 0.2);
 		}
 
 		&::-moz-placeholder {
-		   color: rgba($dark-grey, 0.6);
+		   color: rgba($dark-grey, 0.2);
 		}
 
 		&:-ms-input-placeholder {
-		   color: rgba($dark-grey, 0.6);
+		   color: rgba($dark-grey, 0.2);
 		}
 	}
 }

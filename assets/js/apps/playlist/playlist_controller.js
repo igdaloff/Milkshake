@@ -211,18 +211,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-      var slideIncrement = $('.playback-track-artwork').width();
+      var slideIncrement = $('.playback-track-artwork a').eq(currentTrackIndex).width() + 10;
 
       // Remove current class from previous tracks
       $('.playback-track.current').removeClass('current');
 
       // Move tracks over
-      for(var i = 0; i <= currentTrackIndex; i++) {
-
-        $('.playback-track').eq(i).css({
-          left: (i * slideIncrement) + 'px'
-        });
-      }
+      $('.playback-track').eq(currentTrackIndex).css({
+        left: (currentTrackIndex * slideIncrement) + 'px'
+      });
 
       $('.playback-track').eq(currentTrackIndex).addClass('current');
     },
@@ -236,9 +233,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         var $playbackTrack = $('.playback-track').eq(i);
         $playbackTrack.css({
-          display: 'table-cell'
+          visibility: 'visible'
         });
       }
+
+      Playlist.Controller.detectTitleWidth();
+      Playlist.Controller.setLandscapeImage();
     },
     updateTimer: function() {
 
@@ -398,6 +398,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         if( $(this).width() > $(this).parents('li').width() ){
           $(this).addClass('marquee');
           $(this).parents('li').addClass('marquee-container');
+        }
+      });
+    },
+    setLandscapeImage: function(){
+
+      var $playlistArtwork = $('.playback-track-artwork img');
+
+      $playlistArtwork.each(function(){
+        if ($(this).width() > $(this).height()){
+          $(this).addClass('landscape');
         }
       });
     }

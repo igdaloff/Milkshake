@@ -15,7 +15,7 @@
 
   li{
   	position: relative;
-  	width: 33.33333%;
+  	width: 33.333333333%;
   	float: left;
   	padding: 0 2.5%;
   	margin-bottom: 2em;
@@ -73,15 +73,18 @@
 
 .chosen-track-inner{
 	position: relative;
-	overflow: hidden;
+
+	.has-track-selection &{
+		overflow: hidden;
+	}
 
 	&:after, &:before{
 		content: '';
 		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+		top: 1px; //1px instead of 0 tucks the disc right inside the parent container preventing buggy overflow visibility due to border radius I think?
+		right: 1px;
+		bottom: 1px;
+		left: 1px;
 		border-radius: 100%;
 	}
 
@@ -164,9 +167,9 @@
 	margin: auto;
 	border-radius: 100%;
 	font-size: 1.5em;
-	line-height: 2em;
-	color: $green;
-	background: $black;
+	line-height: 2.1;
+	color: $black;
+	background: $green;
 	cursor: pointer;
 	@include icomoon('trashcan');
 	@extend .transition;
