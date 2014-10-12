@@ -51,7 +51,8 @@ app.configure(function(){
   swig.setDefaults({ 
     cache: false,
     locals: {
-      env: env
+      env: env,
+      baseUrl: config.app.baseUrl
     }
   });
   // Serve static files from /public
