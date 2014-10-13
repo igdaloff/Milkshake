@@ -1,8 +1,4 @@
 //Chat
-.messages{
-
-}
-
 .message-list{
 	position: fixed;
 	top: 0;
@@ -14,6 +10,10 @@
 	margin: $playlist-header-height 0 0;
 	overflow: hidden;
 	font-family: $sans-light;
+
+	.playlist-finished &, .playlist-finished-static &{
+		position: relative;
+	}
 }
 
 .chat-message{
@@ -144,14 +144,21 @@ $avatar-width: 50px;
 
 //New message
 .new-message-container{
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: $footer-height + 40px;
 	width: 100%;
 	height: $new-message-container-height;
-	padding-left: 1em;
-	margin-top: 0.75em;
+	margin-bottom: 4em;
+
+	.playlist-playing &{
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: $footer-height + 40px;
+		margin: 0;
+	}
+
+	.large-wrapper{
+		height: 100%;
+	}
 }
 
 .new-message-field-container{
