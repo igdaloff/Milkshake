@@ -3,7 +3,7 @@
 // =======================
 .main-content{
 	min-height: 100%;
-	margin: 0 auto -80px;
+	margin: 0 auto -60px; //60px footer height
 
 	.user-on-mobile &{
 		display: none;

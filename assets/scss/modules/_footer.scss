@@ -1,7 +1,7 @@
 // =======================
 // Footer
 // =======================
-$footer-height: 80px;
+$footer-height: 60px;
 
 .footer-push{
 	height: 150px;
@@ -9,7 +9,7 @@ $footer-height: 80px;
 
 .main-footer{
 	height: $footer-height;
-	padding: 10px 0;
+	padding: 10px 20px;
 	text-align: center;
 	font-family: $sans-special;
 	font-size: 14px;
@@ -17,6 +17,12 @@ $footer-height: 80px;
 
 	.user-on-mobile &, .playlist-waiting &{
 		display: none;
+	}
+
+	ul{
+		float: right;
+		height: 100%;
+		line-height: 2em;
 	}
 
 	li{
@@ -29,10 +35,12 @@ $footer-height: 80px;
 	}
 }
 
+#mc_embed_signup{
+	float: left;
+}
+
 .signup-form{
 	height: 2em;
-	display: inline-block;
-	margin-top: 1em;
 	line-height: 2;
 
 	.email, .email-submit-link{
