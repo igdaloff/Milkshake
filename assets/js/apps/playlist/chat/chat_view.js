@@ -3,7 +3,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
   Chat.ChatItem = Marionette.ItemView.extend({
     template: 'chat-message',
     tagName: 'li',
-    className: 'chat-message',
+    className: 'chat-message large-wrapper',
     initialize: function() {
 
       // Save a human-readable version of the timestamp to the model
