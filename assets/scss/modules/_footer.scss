@@ -1,10 +1,8 @@
 // =======================
 // Footer
 // =======================
-$footer-height: 60px;
-
 .footer-push{
-	height: 150px;
+	height: $footer-height;
 }
 
 .main-footer{
@@ -25,9 +23,7 @@ $footer-height: 60px;
 	}
 
 	ul{
-		float: right;
-		height: 100%;
-		line-height: 2em;
+		margin: 1em 0;
 	}
 
 	li{
@@ -40,11 +36,8 @@ $footer-height: 60px;
 	}
 }
 
-#mc_embed_signup{
-	float: left;
-}
-
 .signup-form{
+	display: inline-block;
 	height: 2em;
 	line-height: 2;
 
