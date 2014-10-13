@@ -8,6 +8,10 @@
 	.user-on-mobile &{
 		display: none;
 	}
+
+	.playlist-playing &{
+		background: $light-grey;
+	}
 }
 
 .wrapper{
@@ -17,6 +21,7 @@
 }
 
 .large-wrapper{
+	position: relative;
 	max-width: 1200px;
 	min-width: 800px;
 	margin: 0 auto;

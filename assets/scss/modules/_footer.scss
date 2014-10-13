@@ -9,11 +9,16 @@ $footer-height: 60px;
 
 .main-footer{
 	height: $footer-height;
-	padding: 10px 20px;
+	padding: 10px 0;
 	text-align: center;
 	font-family: $sans-special;
 	font-size: 14px;
 	color: $dark-grey;
+
+	@include smaller-than(extra-large){
+		padding-left: 20px;
+		padding-right: 20px;
+	}
 
 	.user-on-mobile &, .playlist-waiting &{
 		display: none;
