@@ -79,15 +79,15 @@
         <a href="/" class="playback-logo"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
       </header>
     </div>
-  </div>
 
-  <div class="playlist-progress">
-    <div class="progress-bars">
-      {% for track in playlist.tracks %}
-      <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
-        <div class="current-progress"></div>
+    <div class="playlist-progress">
+      <div class="progress-bars">
+        {% for track in playlist.tracks %}
+        <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
+          <div class="current-progress"></div>
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </div>
 

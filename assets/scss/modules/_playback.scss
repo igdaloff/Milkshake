@@ -1,14 +1,19 @@
 // ========================
 // Playlist Playback
 // ========================
+$playback-artwork-width: 60px;
+
 .playlist{
-	position: relative;
+	position: fixed;
+	width: 100%;
+	height: $playlist-header-height;
+	top: 0;
+	left: 0;
+	right: 0;
 	padding: 1.5em 0;
 	background: white;
 	@extend .clearfix;
 }
-
-$playback-artwork-width: 60px;
 
 .playback-track{
 	visibility: hidden;
