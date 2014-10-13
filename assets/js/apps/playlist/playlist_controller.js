@@ -399,7 +399,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     detectTitleWidth: function(){
 
       $('.playback-track-title a').each(function(){
-        if( $(this).width() > $(this).parents('li').width() ){
+        if( $(this).width() > $(this).parents('h2').width() ){
           $(this).addClass('marquee');
           $(this).parents('li').addClass('marquee-container');
         }
