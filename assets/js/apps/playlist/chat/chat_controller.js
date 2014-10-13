@@ -89,9 +89,9 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         document.title = (document.title === docTitle) ? '͡° ͜ʖ ͡° _/ New message!' : docTitle;
       }
       toggleTitle();
-      
+
       if(!document.hasFocus()) {
-        
+
         window.clearInterval(notifierInterval);
         notifierInterval = window.setInterval(toggleTitle, 2000);
       }
@@ -151,5 +151,13 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         content: 'Now playing: \'' + trackData.title + '\''
       });
     }
+    // playlistEndedMessage: function(event) {
+
+    //   var messageCollection = TWM.request('chat:messageCollection');
+    //   messageCollection.add({
+    //     type: 'log',
+    //     content: 'The playlist ended. Create a new one <a href="/" target="_blank">here</a>.'
+    //   });
+    // }
   };
 });

@@ -86,7 +86,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     // Initialize the controls view
     var controlsView = new Playlist.Controls();
 
-    // Post playback CTA 
+    // Post playback CTA
     $('.create-another-cta').on('click', function(e) {
 
       TWM.trigger('playlist:createAnotherPlaylist');

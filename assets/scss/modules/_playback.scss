@@ -7,19 +7,13 @@
 	@extend .clearfix;
 }
 
-.playback-tracks{
-	float: left;
-	width: 50%;
-}
-
 $playback-artwork-width: 60px;
 
 .playback-track{
 	visibility: hidden;
-	display: table;
+	display: inline-block;
 	position: absolute;
-	width: 50%;
-	overflow: hidden;
+	right: 50%;
 	@extend .transition-slow;
 	left: 0;
 
@@ -59,7 +53,7 @@ $playback-artwork-width: 60px;
 }
 
 .playback-track-artwork{
-	display: table-cell;
+	display: inline-block;
 	vertical-align: middle;
 	width: $playback-artwork-width;
 
@@ -138,26 +132,36 @@ $playback-artwork-width: 60px;
 	vertical-align: middle;
 	border-left: 10px solid white;
 	overflow: hidden;
+	position: absolute;
+	top: 0.8em;
+	height: 1em;
+	margin: 0;
+	left: 100px;
+	right: 0;
 
 	&:hover{
-		text-decoration: underline;
-
+		a{
+			text-decoration: underline;
+		}
 		.marquee{
 			-webkit-animation: titleMarquee 7s 1 linear;
 			animation: titleMarquee 7s 1 linear;
-			-webkit-animation-delay: 0.5s;
+			-webkit-animation-delay: 0.2s;
+			animation-delay: 0.2s;
 		}
 	}
 
 	a{
+		position: absolute;
 		height: 1em;
 		line-height: 1em;
 		display: block;
 		white-space: nowrap;
+		top: 0;
 	}
 
 	.current &{
-		display: table-cell;
+		display: inline-block;
 	}
 }
 
@@ -168,7 +172,7 @@ $playback-artwork-width: 60px;
 	padding-left: 15px;
 
 	.current &{
-		display: table-cell;
+		display: inline-block;
 	}
 }
 
