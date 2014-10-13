@@ -382,6 +382,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('.playlist-finished-message').slideDown();
       $('body').addClass('playlist-finished').removeClass('playlist-playing');
       TWM.trigger('playlist:playlistEnd');
+      $('.message-list').perfectScrollbar('destroy');
     },
     muteToggle: function() {
 
