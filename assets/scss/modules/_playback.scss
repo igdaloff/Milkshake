@@ -5,11 +5,11 @@ $playback-artwork-width: 60px;
 
 .playlist{
 	position: fixed;
-	width: 100%;
 	height: $playlist-header-height;
 	top: 0;
 	left: 0;
 	right: 0;
+	min-width: $fixed-element-min-width;
 	padding-top: 20px; //(100px header height - 60px album art height) / 2
 	background: white;
 	@extend .clearfix;
@@ -24,10 +24,6 @@ $playback-artwork-width: 60px;
 	left: 0;
 	margin-left: 20px;
 	@extend .transition-slow;
-
-	@include smaller-than(extra-large){
-		padding-left: 10px;
-	}
 
 	&.current{
 		visibility: visible;

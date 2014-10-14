@@ -7,6 +7,7 @@
   left: 0;
   top: $playlist-header-height;
   right: 0;
+  min-width: $fixed-element-min-width;
 }
 
 .progress-bars {

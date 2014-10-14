@@ -5,7 +5,7 @@
 	left: 0;
 	right: 0;
 	bottom: $playlist-header-height + $new-message-container-height + $footer-height;
-	width: 100%;
+	min-width: $fixed-element-min-width;
 	padding-top: $playlist-ended-message-height;
 	margin: $playlist-header-height 0 1em;
 	overflow: hidden;
