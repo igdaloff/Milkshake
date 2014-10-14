@@ -8,6 +8,7 @@
     "ejs": "~0.8.5",
     "popcornjs": "~1.5.5",
     "socket.io": "~0.9.15",
-    "Autolinker.js": "~0.11.2"
+    "Autolinker.js": "~0.11.2",
+    "perfect-scrollbar": "0.5.2"
   }
 }
