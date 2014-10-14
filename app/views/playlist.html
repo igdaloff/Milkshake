@@ -12,23 +12,6 @@
       <input type="text" class="share-link input-field" onClick="this.select();" value="{{ permalink }}" readonly >
     </div>
 
-    <!-- Post-play message -->
-    <div class="playlist-finished-message wrapper">
-      <div class="intro-text">
-        <div class="post-playback-summary">
-          <h1>You listened to:</h1>
-          <h2>{{ playlist.title }}</h2>
-          <h3>{{ playlist.totalTime }}</h3>
-          <ol>
-            {% for track in playlist.tracks %}
-            <li><span>{{ loop.index }}</span><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></li>
-            {% endfor %}
-          </ol>
-          <a class="btn btn-black create-another-cta" href="/" target="_blank"><span>Create another</span></a>
-        </div>
-      </div>
-    </div>
-
     <!-- Room Full -->
     <div class="playlist-full-message">
       <div class="intro-text">
@@ -91,7 +74,12 @@
     </div>
   </div>
 
+  <!-- Post-play message -->
+  <a class="playlist-finished-message" href="/" target="_blank">
+    <h2>Your playlist is over. Make another?</h2>
+  </a>
 
+  <!-- Chat container -->
   <div class="messages"></div>
 
 

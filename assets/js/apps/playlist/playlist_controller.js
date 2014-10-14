@@ -379,10 +379,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     playlistFinished: function() {
 
       $('.playlist').addClass('finished');
-      $('.playlist-finished-message').slideDown();
+      $('.playlist-finished-message').addClass('active');
       $('body').addClass('playlist-finished').removeClass('playlist-playing');
       TWM.trigger('playlist:playlistEnd');
-      $('.message-list').perfectScrollbar('destroy');
     },
     muteToggle: function() {
 

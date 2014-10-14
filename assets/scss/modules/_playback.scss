@@ -10,9 +10,10 @@ $playback-artwork-width: 60px;
 	top: 0;
 	left: 0;
 	right: 0;
-	padding-top: 1.2em;
+	padding-top: 20px; //(100px header height - 60px album art height) / 2
 	background: white;
 	@extend .clearfix;
+	z-index: 100;
 }
 
 .playback-track{
@@ -243,7 +244,11 @@ $playback-artwork-width: 60px;
 	}
 }
 
-.playlist-playing {
+.playlist-playing{
+	.main-content{
+		background: $light-grey;
+	}
+
 	.main-header{
 		display: none;
 	}

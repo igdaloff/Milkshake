@@ -4,16 +4,12 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: $new-message-container-height + $footer-height + 40px;
+	bottom: $playlist-header-height + $new-message-container-height + $footer-height;
 	width: 100%;
-	padding: 2em 0;
-	margin: $playlist-header-height 0 0;
+	padding-top: $playlist-ended-message-height;
+	margin: $playlist-header-height 0 1em;
 	overflow: hidden;
 	font-family: $sans-light;
-
-	.playlist-finished &, .playlist-finished-static &{
-		position: relative;
-	}
 }
 
 .chat-message{
@@ -144,17 +140,14 @@ $avatar-width: 50px;
 
 //New message
 .new-message-container{
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: $footer-height + 40px;
+	margin: 0;
 	width: 100%;
 	height: $new-message-container-height;
 	margin-bottom: 4em;
-
-	.playlist-playing &{
-		position: fixed;
-		left: 0;
-		right: 0;
-		bottom: $footer-height + 40px;
-		margin: 0;
-	}
 
 	.large-wrapper{
 		height: 100%;
