@@ -22,7 +22,7 @@ $playback-artwork-width: 60px;
 	position: absolute;
 	right: 55%;
 	left: 0;
-	margin-left: 10px;
+	margin-left: 20px;
 	@extend .transition-slow;
 
 	@include smaller-than(extra-large){
@@ -77,17 +77,16 @@ $playback-artwork-width: 60px;
 }
 
 .playback-header{
-	position: relative;
-	float: right;
+	display: table;
+	position: absolute;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	height: 100px;
 	width: 50%;
-	padding-top: 5px;
-	margin-right: 10px;
-	text-align: center;
+	vertical-align: middle;
+	margin-right: 20px;
 	font-family: $sans-special;
-
-	@include smaller-than(extra-large){
-		padding-right: 10px;
-	}
 
 	h1{
 		margin-bottom: 0.25em;
@@ -95,8 +94,13 @@ $playback-artwork-width: 60px;
 }
 
 .playback-logo{
-	float: right;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	height: 50px;
 	width: 50px;
+	margin: auto;
 
 	img{
 		width: 100%;
@@ -104,13 +108,11 @@ $playback-artwork-width: 60px;
 }
 
 .playback-header-meta{
-	position: absolute;
-	right: 70px;
+	display: table-cell;
+	position: relative;
+	padding: 0 70px 0 50px;
+	vertical-align: middle;
 	text-align: right;
-
-	@include smaller-than(extra-large){
-		right: 80px;
-	}
 
 	h2{
 		margin: 0.2em 0;
