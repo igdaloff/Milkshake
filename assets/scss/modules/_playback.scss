@@ -20,9 +20,10 @@ $playback-artwork-width: 60px;
 	visibility: hidden;
 	display: inline-block;
 	position: absolute;
-	right: 50%;
-	@extend .transition-slow;
+	right: 55%;
 	left: 0;
+	margin-left: 10px;
+	@extend .transition-slow;
 
 	@include smaller-than(extra-large){
 		padding-left: 10px;
@@ -45,11 +46,6 @@ $playback-artwork-width: 60px;
 
 	&:last-child{ //This is so the last track slides from the second position on reveal, not the first. Probably a better way to do this.
 		left: $playback-artwork-width;
-	}
-
-	.finished & {
-		display: block;
-		margin: 0 0 1em;
 	}
 
 	&:not(.current) .playback-track-artwork img{
@@ -85,6 +81,7 @@ $playback-artwork-width: 60px;
 	float: right;
 	width: 50%;
 	padding-top: 5px;
+	margin-right: 10px;
 	text-align: center;
 	font-family: $sans-special;
 
@@ -116,6 +113,7 @@ $playback-artwork-width: 60px;
 	}
 
 	h2{
+		margin: 0.2em 0;
 		font-weight: 600;
 	}
 }

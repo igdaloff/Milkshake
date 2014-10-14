@@ -1,7 +1,11 @@
+// =======================
+// Progress Bar
+// =======================
+
 .playlist-progress{
   position: absolute;
   left: 0;
-  bottom: 0;
+  top: $playlist-header-height;
   right: 0;
 }
 

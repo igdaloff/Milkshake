@@ -31,6 +31,7 @@
 	}
 
 	ul{
+		display: inline-block;
 		margin: 1em 0;
 	}
 
@@ -42,6 +43,14 @@
 		text-decoration: underline;
 		color: $black;
 	}
+}
+
+.feedback-link{
+	display: inline-block;
+}
+
+#barometer_tab{
+	display: none;
 }
 
 .signup-form{
@@ -88,6 +97,7 @@
 	padding: 0 1em 0 0.5em;
 	cursor: pointer;
 	color: $dark-grey;
+	font-weight: 700;
 	font-family: $sans-special;
 	text-decoration: underline;
 	@include icomoon('double-right-arrow', after);

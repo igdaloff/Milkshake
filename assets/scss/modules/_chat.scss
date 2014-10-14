@@ -10,6 +10,12 @@
 	margin: $playlist-header-height 0 1em;
 	overflow: hidden;
 	font-family: $sans-light;
+
+	.playlist-finished-static &{
+		position: relative;
+		background: $light-grey;
+		padding: 10px;
+	}
 }
 
 .chat-message{

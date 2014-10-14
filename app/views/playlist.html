@@ -30,47 +30,45 @@
 
   <!-- Playlist contents -->
   <div class="playlist">
-    <div class="large-wrapper">
-      <div class="playback-tracks">
-        <ul class="playback-track-list">
-        {% for track in playlist.tracks %}
-          <li class="playback-track">
-            <div class="playback-track-artwork">
-              <a href="{{ track.url }}" target="_blank">
-              {% if track.artwork %}
-                <img src="{{ track.artwork }}" alt="Album artwork"/>
-              {% else %}
-                <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
-              {% endif %}
-              </a>
-            </div>
-            <div class="playlist-controls">
-              <a class="mute-toggle"></a>
-              <span class="screen-reader-text">Mute</span>
-            </div>
-            <h2 class="playback-track-title"><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></h2>
+    <div class="playback-tracks">
+      <ul class="playback-track-list">
+      {% for track in playlist.tracks %}
+        <li class="playback-track">
+          <div class="playback-track-artwork">
+            <a href="{{ track.url }}" target="_blank">
+            {% if track.artwork %}
+              <img src="{{ track.artwork }}" alt="Album artwork"/>
+            {% else %}
+              <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
+            {% endif %}
             </a>
-          </li>
-        {% endfor %}
-        </ul>
-      </div>
-      <header class="playback-header">
-        <div class="playback-header-meta">
-          <h2>{{ playlist.title }}</h2>
-          <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
-        </div>
-        <a href="/" class="playback-logo"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
-      </header>
+          </div>
+          <div class="playlist-controls">
+            <a class="mute-toggle"></a>
+            <span class="screen-reader-text">Mute</span>
+          </div>
+          <h2 class="playback-track-title"><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></h2>
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
     </div>
-
-    <div class="playlist-progress">
-      <div class="progress-bars">
-        {% for track in playlist.tracks %}
-        <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
-          <div class="current-progress"></div>
-        </div>
-        {% endfor %}
+    <header class="playback-header">
+      <div class="playback-header-meta">
+        <h2>{{ playlist.title }}</h2>
+        <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
       </div>
+      <a href="/" class="playback-logo"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
+    </header>
+  </div>
+
+  <div class="playlist-progress">
+    <div class="progress-bars">
+      {% for track in playlist.tracks %}
+      <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
+        <div class="current-progress"></div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 
