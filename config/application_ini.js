@@ -10,7 +10,7 @@ module.exports = {
       sessionName: "mkshh",
       sessionSecret: "njxmumfmtwfddjymypoy5hfkhn",
       databaseUrl: process.env.MONGO_URL,
-      socketPort: 1337,
+      socketPort: 1338,
       splashPage: false
     },
     root: root
