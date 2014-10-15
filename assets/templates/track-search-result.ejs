@@ -1,5 +1,7 @@
 <td class="track-search-result-artwork artwork">
-	<img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
+  <div class="track-search-result-artwork-inner">
+	 <img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
+  </div>
 </td>
 <td class="track-search-result-title">
 	<span class="track-search-result-add">

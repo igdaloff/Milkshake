@@ -67,9 +67,12 @@
 
 td.track-search-result-artwork{
   position: relative;
-  width: 50px;
   text-align: left;
   padding-left: 10px;
+}
+
+.track-search-result-artwork-inner{
+  width: 50px;
   overflow: hidden;
 
   img{
