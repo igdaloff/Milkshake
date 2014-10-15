@@ -24,7 +24,7 @@ module.exports = {
       sessionName: "mkshh",
       sessionSecret: "vgehkehkvlnbgynnuufghxptjx",
       databaseUrl: process.env.MONGO_URL,
-      socketPort: 1337,
+      socketPort: 80,
       splashPage: false
     },
     root: root
