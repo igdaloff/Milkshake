@@ -3,6 +3,10 @@
 // ========================
 $playback-artwork-width: 60px;
 
+.playback-page {
+	overflow: hidden;
+}
+
 .playlist{
 	position: fixed;
 	height: $playlist-header-height;
