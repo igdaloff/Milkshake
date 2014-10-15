@@ -7,7 +7,7 @@
 	bottom: $playlist-header-height + $new-message-container-height + $footer-height;
 	min-width: $fixed-element-min-width;
 	padding: $playlist-ended-message-height 0 1em;
-	margin-top: $playlist-header-height ;
+	margin-top: $playlist-header-height + $progress-bar-height;
 	overflow: hidden;
 	font-family: $sans-light;
 
@@ -153,7 +153,6 @@ $avatar-width: 50px;
 	margin: 0;
 	width: 100%;
 	height: $new-message-container-height;
-	margin-bottom: 4em;
 
 	.large-wrapper{
 		height: 100%;
