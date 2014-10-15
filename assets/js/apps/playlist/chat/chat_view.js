@@ -103,7 +103,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     onShow: function() {
 
       //Scrollbar for chat window that doesn't have defined height
-      $('.message-list').perfectScrollbar({ includePadding: true });
+      $('.message-list').perfectScrollbar({
+        includePadding: true,
+        suppressScrollX: true
+      });
     },
     onBeforeAddChild: function(childView) {
 
