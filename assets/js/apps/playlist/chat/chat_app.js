@@ -64,6 +64,6 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     }
 
     //Scrollbar for chat window that doesn't have defined height
-    $('.message-list').perfectScrollbar();
+    $('.message-list').perfectScrollbar({ includePadding: true });
   });
 });
