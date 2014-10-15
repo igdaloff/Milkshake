@@ -3,7 +3,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
   Chat.ChatItem = Marionette.ItemView.extend({
     template: 'chat-message',
     tagName: 'li',
-    className: 'chat-message large-wrapper',
+    className: 'chat-message',
     initialize: function() {
 
       // Save a human-readable version of the timestamp to the model
@@ -78,6 +78,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
   Chat.ChatContainer = Marionette.CompositeView.extend({
     template: 'chat-container',
+    className: 'messages',
     getChildView: function(item) {
 
       // Return a message item if this is a chat message, a log item if it is of type 'log'
@@ -98,6 +99,11 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       return {
         show: this.onChildShow
       };
+    },
+    onShow: function() {
+
+      //Scrollbar for chat window that doesn't have defined height
+      $('.message-list').perfectScrollbar({ includePadding: true });
     },
     onBeforeAddChild: function(childView) {
 

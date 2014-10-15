@@ -7,7 +7,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
   Chat.on('before:start', function() {
     // Declare a region to display our messages in
     messagesRegion = new Marionette.Region({
-      el: '.messages'
+      el: '.messages-container'
     });
   });
 
@@ -62,8 +62,5 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
       bindPlaylistEvents(playlistManager);
     }
-
-    //Scrollbar for chat window that doesn't have defined height
-    $('.message-list').perfectScrollbar({ includePadding: true });
   });
 });
