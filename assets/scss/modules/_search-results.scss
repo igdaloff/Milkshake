@@ -172,8 +172,8 @@ td.preview-track-container{
       }
 
       &.loading {
-        background: white url('../img/preview-loading.gif') no-repeat 50% 50%;
-        background-size: 50%;
+        background: white url('../img/loading-fast.gif') no-repeat 50% 50%;
+        background-size: 100%;
         &:before {
           content: '';
         }
@@ -263,10 +263,6 @@ td.track-search-result-title{
     color: $black;
     background: $green;
   }
-}
-
-.add-track-icon{
-
 }
 
 .playlist-embed{

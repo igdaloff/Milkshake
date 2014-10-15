@@ -12,6 +12,21 @@
 
 	img{
 		display: block;
+		width: 100%;
+	}
+
+	.playlist-loading &{
+		.static-logo{
+			display: none;
+		}
+	}
+
+	.loading-logo{
+		display: none;
+
+		.playlist-loading &{
+			display: block;
+		}
 	}
 }
 
@@ -19,6 +34,7 @@
 	width: 85px;
 	margin: 0 auto;
 }
+
 
 .intro-text{
 	padding: 0 0.5em;
