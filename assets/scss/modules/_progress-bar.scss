@@ -25,7 +25,7 @@
     .current-progress {
       @include transition(width, .5s);
       background: $green;
-      height: 9px;
+      height: $progress-bar-height;
       width: 0;
     }
   }
