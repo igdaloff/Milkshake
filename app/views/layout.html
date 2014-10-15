@@ -2,8 +2,8 @@
 <!--[if lt IE 7]>    <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>     <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>     <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head prefix="og: http://ogp.me/ns#">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{{ title }}Milkshake</title>
@@ -11,9 +11,17 @@
     <meta name="author" content="Nathan Igdaloff, James Shakespeare, Spenser Garden">
     <meta name="viewport" content="width=device-width">
 
+    <link rel="canonical" href="http://milkshake.mu">
+
     <meta property="og:site_name" content="Milkshake">
     <meta property="og:image" content="{{ baseUrl }}/img/main-logo.png">
-    <meta property="og:title" content="{{ title }}Milkshake - Real-time playlists with friends">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:title" content="{{ title }}Real-time playlists with friends.">
+    <meta property="og:type" content="music.playlist">
+    <meta property="og:url" content="http://milkshake.mu">
+    <meta property="og:description" content="Create a three-track playlist, then listen and chat in real-time with a friend. Who will you share yours with?"
 
     <link rel="stylesheet" href="/css/screen.css">
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
@@ -21,7 +29,7 @@
     <!-- Google Webfonts -->
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
 
-    <!-- Google ANALytics -->
+    <!-- Google Analytics -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -35,7 +43,7 @@
     <script>
       //Detect if user is on mobile; show different content accordingly
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        
+
         var body = document.getElementsByTagName('body')[0];
         body.className = 'user-on-mobile';
       }
