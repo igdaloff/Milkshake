@@ -17,6 +17,7 @@
 	font-family: $sans-special;
 	font-size: 14px;
 	color: $dark-grey;
+	overflow: hidden;
 
 	@include smaller-than(extra-large){
 		padding-left: 20px;
