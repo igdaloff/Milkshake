@@ -39,16 +39,6 @@
       ga('create', 'UA-55198041-1', 'auto');
       ga('send', 'pageview');
     </script>
-
-    <script>
-      //Detect if user is on mobile; show different content accordingly
-      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-
-        var body = document.getElementsByTagName('body')[0];
-        body.className = 'user-on-mobile';
-      }
-    </script>
-
   </head>
   <body class="{{ bodyClass }}">
     <div class="main-content">
@@ -116,6 +106,11 @@
 
     <script>
       $(function() {
+        //Detect if user is on mobile; show different content accordingly
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+
+          $('body').addClass('user-on-mobile');
+        }
         TWM.start();
       });
     </script>
