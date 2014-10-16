@@ -105,7 +105,6 @@
 	color: $dark-grey;
 	font-weight: 700;
 	font-family: $sans-special;
-	text-decoration: underline;
 	@include icomoon('double-right-arrow', after);
 
 	&:hover, &:hover input{

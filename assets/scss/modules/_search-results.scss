@@ -173,7 +173,7 @@ td.preview-track-container{
 
       &.loading {
         background: white url('../img/loading-fast.gif') no-repeat 50% 50%;
-        background-size: 100%;
+        background-size: 30px 30px;
         &:before {
           content: '';
         }
