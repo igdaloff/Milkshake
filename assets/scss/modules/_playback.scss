@@ -49,9 +49,13 @@ $playback-artwork-width: 60px;
 	}
 
 	&:not(.current) .playback-track-artwork img{
-		-webkit-filter: grayscale(100%);
-		filter: grayscale(100%);
+		@include filter(grayscale(100%));
 		opacity: 0.5;
+
+		.playlist-finished &{
+			@include filter(grayscale(0));
+			opacity: 1;
+		}
 	}
 }
 
@@ -181,6 +185,10 @@ $playback-artwork-width: 60px;
 	.current &{
 		display: inline-block;
 	}
+
+	.playlist-finished &{
+		display: none;
+	}
 }
 
 .playlist-controls{
@@ -208,6 +216,10 @@ $playback-artwork-width: 60px;
 
 	&.muted{
 		@include icomoon('mute');
+	}
+
+	.playlist-finished &{
+		display: none;
 	}
 }
 

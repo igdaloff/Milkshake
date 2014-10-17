@@ -34,7 +34,7 @@
 		@extend .transition-slow;
 	}
 
-	.playlist-playing &{
+	.playlist-playing &, .playlist-finished &{
 		display: block;
 	}
 
