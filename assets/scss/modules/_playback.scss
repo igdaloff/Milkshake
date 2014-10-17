@@ -103,6 +103,20 @@ $playback-artwork-width: 60px;
 	}
 }
 
+.playback-logo-static{
+	display: none;
+}
+
+.playlist-finished{
+	.playback-logo-static{
+		display: block;
+	}
+
+	.playback-logo-animated{
+		display: none;
+	}
+}
+
 .playback-header-meta{
 	display: table-cell;
 	position: relative;

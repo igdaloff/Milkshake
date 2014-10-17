@@ -58,7 +58,10 @@
         <h2>{{ playlist.title }}</h2>
         <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
       </div>
-      <a href="/" class="playback-logo"><img src="/img/loading-slow.gif" alt="Milkshake logo" /></a>
+      <a href="/" class="playback-logo">
+        <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
+        <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
+      </a>
     </header>
   </div>
 
