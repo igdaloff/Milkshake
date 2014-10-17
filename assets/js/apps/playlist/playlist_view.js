@@ -1,9 +1,10 @@
 TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
   Playlist.Controls = Marionette.ItemView.extend({
-    el: '.playlist-controls',
+    el: '.playback-page',
     events: {
-      'click .mute-toggle': 'muteToggle'
+      'click .mute-toggle': 'muteToggle',
+      'click .close-finished-message': 'removeFinishedBanner'
     },
     muteToggle: function(e) {
 
@@ -18,6 +19,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         $muteToggle.removeClass('muted');
       }
+    },
+    removeFinishedBanner: function(e){
+      e.preventDefault();
+      $('.playlist-finished-message').removeClass('active');
     }
   });
 });

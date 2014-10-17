@@ -30,22 +30,28 @@
 	@extend .transition-slow;
 
 	&.active{
-		display: block;
 		top: $playlist-header-height;
 		@extend .transition-slow;
 	}
 
-	.playlist-playing &, .playlist-finished &, .playlist-finished-static &{
+	.playlist-playing &{
 		display: block;
 	}
 
 	&:hover{
 		text-decoration: underline;
 	}
+}
 
-	h2{
-		// @include icomoon('new-window', after);
-	}
+.close-finished-message{
+	position: absolute;
+	right: 20px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	height: 100%;
+	color: $green;
+	font-size: 1.8em;
 }
 
 .playlist-finished-static-message{
