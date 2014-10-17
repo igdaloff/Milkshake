@@ -197,16 +197,29 @@
 //Search
 .track-search-input-container{
 	position: relative;
+	@include icomoon(search);
+
+	&:before{
+		position: absolute;
+		right: 1em;
+		top: 0;
+		bottom: 0;
+		height: 1em;
+		margin: auto;
+		font-size: 1.75em;
+	}
 }
 
 .track-search-query {
 	padding-right: 120px;
 
   &.loading {
+  	position: relative;
     background-image: url("../img/loading-fast.gif");
     background-repeat: no-repeat;
-    background-position: 98% 50%;
+    background-position: 96.5% 50%;
     background-size: 30px 30px;
+    background-color: white;
   }
 }
 
