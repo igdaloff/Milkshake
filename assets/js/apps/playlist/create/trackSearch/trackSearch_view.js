@@ -101,7 +101,8 @@ TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, M
     className: 'track-search',
     template: 'track-search-form',
     events: {
-      'submit form': 'searchTracks'
+      'submit form': 'searchTracks',
+      'keyup .track-search-query': 'autoSearch'
     },
     initialize: function() {
 
@@ -158,7 +159,16 @@ TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, M
 
         $('.no-results-message').hide();
       });
-    }
+    },
+    autoSearch: _.throttle(function(e) {
+
+      var query = e.target.value.trim();
+      if(query.length && (typeof this.query === 'undefined' || this.query !== query)) {
+
+        this.$el.find('form').trigger('submit');
+        this.query = query;
+      }
+    }, 1000, {leading: false})
   });
 
 });
