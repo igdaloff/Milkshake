@@ -20,9 +20,8 @@
 .track-search-results{
   table-layout: fixed;
 	width: 100%;
-  margin-top: 2em;
+  margin-top: 1em;
   text-align: left;
-  border-top: 1px solid $light-grey;
 
 	&:empty{
 		display: none;

@@ -195,6 +195,7 @@
 
 
 //Search
+
 .track-search-input-container{
 	position: relative;
 	@include icomoon(search);
@@ -211,7 +212,7 @@
 }
 
 .track-search-query {
-	padding-right: 120px;
+	padding-right: 70px;
 
   &.loading {
   	position: relative;
