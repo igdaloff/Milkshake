@@ -4,7 +4,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     el: '.playback-page',
     events: {
       'click .mute-toggle': 'muteToggle',
-      'click .close-finished-message': 'removeFinishedBanner'
+      'click .close-banner-message': 'removeFinishedBanner'
     },
     muteToggle: function(e) {
 
