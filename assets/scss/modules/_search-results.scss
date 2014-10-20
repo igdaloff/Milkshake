@@ -20,9 +20,8 @@
 .track-search-results{
   table-layout: fixed;
 	width: 100%;
-  margin-top: 2em;
+  margin-top: 1em;
   text-align: left;
-  border-top: 1px solid $light-grey;
 
 	&:empty{
 		display: none;
@@ -81,10 +80,60 @@ td.track-search-result-artwork{
   }
 }
 
+td.track-search-result-title{
+  width: 60%;
+  text-align: left;
+  padding-left: 1em;
+  span{
+    display: inline;
+  }
+
+  h5{
+    max-width: 75%;
+    float: left;
+    padding-right: 0.25em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+  a{
+  	color: $black;
+  }
+}
+
+.track-search-result-source{
+  display: inline;
+  font-family: $sans-special;
+
+  i{
+    display: inline-block;
+    line-height: 1.4;
+    float: left;
+    color: $dark-grey;
+    font-size: 0.8em;
+
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
+
+.track-search-result-duration{
+  font-family: $sans-special;
+}
+
+$button-width: 1.875;
+$progress-weight: 3px;
+
 td.preview-track-container{
-  width: 30px;
-  $button-width: 1.875;
-  $progress-weight: 3px;
+  width: $button-width * 1em;
 
   .preview-button-outer {
     display: inline-block;
@@ -161,8 +210,8 @@ td.preview-track-container{
       }
 
       &:before {
-        font-size: .8em;
-        line-height: ($button-width * $body_fs * 1px) - ($progress-weight * 2) !important;
+        font-size: 0.8em;
+        line-height: 2 !important;
         position: absolute;
         left: 0;
         top: 0;
@@ -173,7 +222,12 @@ td.preview-track-container{
 
       &.loading {
         background: white url('../img/loading-fast.gif') no-repeat 50% 50%;
-        background-size: 30px 30px;
+        background-size: 100%;
+        width: $button-width * 1em;
+        height: $button-width * 1em;
+        top: 0;
+        left: 0;
+
         &:before {
           content: '';
         }
@@ -182,72 +236,10 @@ td.preview-track-container{
   }
 }
 
-td.track-search-result-title{
-  width: 60%;
-  text-align: left;
-  padding-left: 1em;
-  span{
-    display: inline;
-  }
-
-  h5{
-    max-width: 75%;
-    float: left;
-    padding-right: 0.25em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-    cursor: pointer;
-
-    &:hover{
-      text-decoration: underline;
-    }
-  }
-
-  a{
-  	color: $black;
-  }
-}
-
-.track-search-result-source{
-  display: inline;
-  font-family: $sans-special;
-
-  i{
-    display: inline-block;
-    line-height: 1.4;
-    float: left;
-    color: $dark-grey;
-    font-size: 0.8em;
-
-    &:hover{
-      text-decoration: underline;
-    }
-  }
-}
-
-.track-search-result-duration{
-  font-family: $sans-special;
-}
-
-.track-search-link{
-  &:before{
-    font-size: 0.8em;
-  }
-
-  &.soundcloud {
-    @include icomoon('soundcloud');
-  }
-  &.youtube {
-    @include icomoon('youtube');
-  }
-}
-
 .add-track-icon{
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: $button-width * 1rem;
+  height: $button-width * 1rem;
   @include icomoon('plus');
   font-size: 1.25em;
   line-height: 34px;

@@ -1,0 +1,60 @@
+// =======================
+// Browser Warning
+// =======================
+.mobile-message{
+	display: none;
+
+	.user-on-mobile &{
+		display: block;
+
+		p{
+			padding: 0.5em 1em;
+		}
+
+		li{
+			margin-bottom: 0.5em;
+			font-size: 1.4em;
+			font-family: $sans-special;
+		}
+
+		a{
+			text-decoration: underline;
+		}
+	}
+}
+
+.user-on-mobile #barometer_tab{
+	display: none;
+}
+
+.bad-browser-message{
+	display: none;
+
+	.bad-browser &{
+		display: block;
+		position: relative;
+		padding: 1em;
+		font-size: 0.8em;
+		text-align: center;
+		background: $light-grey;
+	}
+
+	p:before{
+		display: inline-block;
+		content: '!';
+		width: 1.25em;
+		height: 1.25em;
+		color: $light-grey;
+		border-radius: 100%;
+		margin-right: 0.5em;
+		line-height: 1.2em;
+		text-align: center;
+		font-weight: 600;
+		background: $black;
+	}
+
+	.close-banner-message{
+		color: $black;
+		line-height: 1.6;
+	}
+}
