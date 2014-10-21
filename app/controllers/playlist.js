@@ -1,6 +1,7 @@
 var Playlist = require(config.root + 'app/models/playlist.js');
 var Conversation = require(config.root + 'app/models/conversation.js');
 var Time = require(config.root + 'lib/Time.js');
+var sanitizeHtml = require('sanitize-html');
 
 exports.processNewPlaylist = function(req, res){
   console.log(req.body);
@@ -181,6 +182,9 @@ io.sockets.on('connection', function (socket) {
 
   // Message handling
   socket.on('newMessage', function(messageModel) {
+
+    var cleanMessage = sanitizeHtml(messageModel.content);
+    messageModel.content = cleanMessage;
 
     // Save the message to the Conversation in the DB
     Conversation.findOneAndUpdate({
