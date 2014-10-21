@@ -68,16 +68,12 @@
 	text-align: center;
 
 	h1{
-		margin-bottom: 1.2em;
+		margin-bottom: 1.25em;
 		font-weight: 600;
 	}
 
 	h2{
 		font-weight: 600;
-	}
-
-	h3{
-		margin: 0;
 	}
 
 	ol{
@@ -86,10 +82,13 @@
 	}
 
 	li{
-		margin: 0.7em 0 1em;
 		font-family: $sans-special;
 		text-align: left;
 		line-height: 1.2;
+
+		&+li{
+			margin-top: 1em;
+		}
 
 		span{
 			float: left;
