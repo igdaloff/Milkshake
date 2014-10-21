@@ -31,12 +31,14 @@
 	display: none;
 
 	.bad-browser &{
-		display: block;
-		position: relative;
-		padding: 1em;
-		font-size: 0.8em;
-		text-align: center;
-		background: $light-grey;
+		@include larger-than(large){
+			display: block;
+			position: relative;
+			padding: 1em;
+			font-size: 0.8em;
+			text-align: center;
+			background: $light-grey;
+		}
 	}
 
 	p:before{

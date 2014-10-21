@@ -22,7 +22,6 @@
   	width: 33.333333333%;
   	float: left;
   	padding: 0 2.5%;
-  	margin-bottom: 2em;
   }
 
   label{
@@ -40,7 +39,7 @@
 			content: '';
 			position: absolute;
 			left: 50%;
-			bottom: -66px;
+			bottom: -50px;
 			width: 0;
 			height: 0;
 			margin-left: -1em;
@@ -236,7 +235,7 @@
 .playlist-create-title-container{
 	display: none;
 	position: relative;
-	margin: 2em 0 10em;
+	margin: 3em 0 10em;
 }
 
 .new-playlist-title{
