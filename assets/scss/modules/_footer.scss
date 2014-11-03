@@ -26,10 +26,10 @@
 
 	.playlist-playing &{
 		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
 		min-width: $fixed-element-min-width;
+		margin: 0;
+		background: $light-grey;
+		border-top: 1px solid $border-grey;
 	}
 
 	.user-on-mobile &, .playlist-waiting &{

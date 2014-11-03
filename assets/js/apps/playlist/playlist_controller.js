@@ -211,18 +211,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-      var slideIncrement = $('.playback-track-artwork a').eq(currentTrackIndex).width() + 10;
 
       // Remove current class from previous tracks
       $('.playback-track.current').removeClass('current');
-
-      for(var i = 0; i <= currentTrackIndex; i++) {
-
-        $('.playback-track').eq(i).css({
-          left: (i * slideIncrement) + 'px'
-        });
-      }
-
       $('.playback-track').eq(currentTrackIndex).addClass('current');
     },
     displayPlayedTrackArtwork: function() {

@@ -4,28 +4,25 @@
 
 .playlist-progress{
   position: absolute;
-  left: 0;
-  top: $playlist-header-height;
+  left: $playback-artwork-width;
+  top: 0;
   right: 0;
-  min-width: $fixed-element-min-width;
+  bottom: 0;
   z-index: 1;
 }
 
 .progress-bars {
+  height: 100%;
   font-size: 0;
 
   .track-progress {
     display: inline-block;
-    background: $light-green;
-
-    & + .track-progress{
-      border-left: 5px solid white;
-    }
+    height: 100%;
 
     .current-progress {
       @include transition(width, .5s);
       background: $green;
-      height: $progress-bar-height;
+      height: 100%;
       width: 0;
     }
   }

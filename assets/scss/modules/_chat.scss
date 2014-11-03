@@ -2,10 +2,10 @@
 
 .messages-container {
 	position: fixed;
-	width: 100%;
-	height: 100%;
-	padding-top: $playlist-header-height + $progress-bar-height;
-	padding-bottom: $new-message-container-height + $footer-height;
+	top: 0;
+	left: $left-rail-width;
+	bottom: $new-message-container-height + $footer-height;
+	padding: 0 2em;
 
 	.messages {
 		@extend .large-wrapper;

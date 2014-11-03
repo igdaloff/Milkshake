@@ -1,6 +1,8 @@
 // ========================
 // Playlist Playback
 // ========================
+
+//Header
 $playback-artwork-width: 60px;
 
 .playback-page {
@@ -8,99 +10,26 @@ $playback-artwork-width: 60px;
 }
 
 .playlist{
-	position: fixed;
-	height: $playlist-header-height;
-	top: 0;
-	left: 0;
-	right: 0;
-	min-width: $fixed-element-min-width;
-	padding-top: 20px; //(100px header height - 60px album art height) / 2
+	width: $left-rail-width;
 	background: white;
-	@extend .clearfix;
-	z-index: 100;
-}
-
-.playback-track{
-	visibility: hidden;
-	display: inline-block;
-	position: absolute;
-	right: 55%;
-	left: 0;
-	margin-left: 20px;
-	@extend .transition-slow;
-
-	&.current{
-		visibility: visible;
-	}
-
-	&.marquee-container:after{
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		right: -3em;
-		width: 3em;
-		-webkit-box-shadow: -15px 0 30px white;
-		box-shadow: -15px 0 30px white;
-	}
-
-	&:last-child{ //This is so the last track slides from the second position on reveal, not the first. Probably a better way to do this.
-		left: $playback-artwork-width;
-	}
-
-	&:not(.current) .playback-track-artwork img{
-		@include filter(grayscale(100%));
-		opacity: 0.5;
-
-		.playlist-finished &{
-			@include filter(grayscale(0));
-			opacity: 1;
-		}
-	}
-}
-
-.playback-track-artwork{
-	display: inline-block;
-	vertical-align: middle;
-	width: $playback-artwork-width;
-
-	a{
-		display: block;
-		overflow: hidden;
-		width: $playback-artwork-width;
-	}
-
-	img{
-		width: $playback-artwork-width;
-
-		&.landscape{
-			width: $playback-artwork-width * 1.333333; //60px * 1.333333 (youtube aspect ratio)
-			margin-left: -10px;
-		}
-	}
 }
 
 .playback-header{
 	display: table;
-	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	height: 100px;
-	width: 50%;
-	vertical-align: middle;
-	margin-right: 20px;
+	height: 240px;
+	width: 100%;
+	padding: 0 1em;
 	font-family: $sans-special;
+	text-align: center;
+	background: white;
+	border-right: 1px solid $border-grey;
 }
 
 .playback-logo{
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	height: 50px;
-	width: 50px;
-	margin: auto;
+	display: inline-block;
+	height: 60px;
+	width: 60px;
+	margin: 0 auto;
 
 	img{
 		width: 100%;
@@ -111,95 +40,21 @@ $playback-artwork-width: 60px;
 	display: none;
 }
 
-.playlist-finished{
-	.playback-logo-static{
-		display: block;
-	}
-
-	.playback-logo-animated{
-		display: none;
-	}
-}
-
 .playback-header-meta{
-	display: table-cell;
-	position: relative;
-	padding: 0 70px 0 50px;
-	vertical-align: middle;
-	text-align: right;
-
 	h2{
-		margin: 0.2em 0;
-		font-weight: 700;
+		margin: 0.5em 0;
 	}
 }
 
-.total-time{
-	opacity: 0.5;
-}
-
-@-webkit-keyframes titleMarquee {
-  0%   { -webkit-transform: translate(0, 0); }
-  100% { -webkit-transform: translate(-100%, 0); }
-}
-
-@keyframes titleMarquee {
-  0%   { transform: translate(0, 0); }
-  100% { transform: translate(-100%, 0); }
-}
-
-.playback-track-title{
-	display: none;
+.playback-header-inner{
+	display: table-cell;
 	vertical-align: middle;
-	border-left: 10px solid white;
-	overflow: hidden;
-	position: absolute;
-	top: 0.8em;
-	height: 1em;
-	margin: 0;
-	left: 100px;
-	right: 0;
-
-	&:hover{
-		a{
-			text-decoration: underline;
-		}
-
-		.marquee{
-			-webkit-animation: titleMarquee 7s 1 linear;
-			animation: titleMarquee 7s 1 linear;
-			-webkit-animation-delay: 0.2s;
-			animation-delay: 0.2s;
-		}
-	}
-
-	a{
-		position: absolute;
-		height: 1em;
-		line-height: 1em;
-		display: block;
-		white-space: nowrap;
-		top: 0;
-	}
-
-	.current &{
-		display: inline-block;
-	}
-
-	.playlist-finished &{
-		display: none;
-	}
 }
 
 .playlist-controls{
-	display: none;
-	vertical-align: middle;
 	width: 10px;
-	padding-left: 15px;
-
-	.current &{
-		display: inline-block;
-	}
+	margin: 1em auto 0;
+	text-indent: -4px;
 }
 
 .mute-toggle{
@@ -217,11 +72,108 @@ $playback-artwork-width: 60px;
 	&.muted{
 		@include icomoon('mute');
 	}
+}
 
-	.playlist-finished &{
+//Playback tracks
+.playback-tracks{
+	position: absolute;
+	top: $playback-header-height;
+	bottom: 0;
+	width: $left-rail-width;
+	background: white;
+	border-top: 1px solid $border-grey;
+	border-right: 1px solid $border-grey;
+}
+
+.playback-track{
+	position: relative;
+	display: table;
+	width: 100%;
+	border-bottom: 1px solid $border-grey;
+
+	&.current{
+		background: $light-green;
+	}
+
+	&:not(.current) .playback-track-artwork img{
+		@include filter(grayscale(100%));
+		opacity: 0.5;
+
+		.playlist-finished &{
+			@include filter(grayscale(0));
+			opacity: 1;
+		}
+	}
+}
+
+.playback-track-artwork{
+	width: $playback-artwork-width;
+
+	a{
+		display: block;
+		overflow: hidden;
+		width: $playback-artwork-width;
+	}
+
+	img{
+		display: block;
+		width: $playback-artwork-width;
+
+		&.landscape{
+			width: $playback-artwork-width * 1.333333; //60px * 1.333333 (youtube aspect ratio)
+			margin-left: -10px;
+		}
+	}
+}
+
+.playlist-finished{
+	.playback-logo-static{
+		display: block;
+	}
+
+	.playback-logo-animated{
 		display: none;
 	}
 }
+
+
+.playback-track-title{
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 1em;
+	font-size: 0.9em;
+	z-index: 10;
+
+	&:hover{
+		a{
+			text-decoration: underline;
+		}
+	}
+}
+
+.add-playback-track{
+	position: relative;
+	background: $light-grey;
+	border-bottom: 1px solid $border-grey;
+
+	a{
+		display: block;
+		padding-left: $playback-artwork-width;
+		line-height: $playback-artwork-width;
+		color: $dark-grey;
+		@include icomoon('search');
+
+		&:before{
+			position: absolute;
+			top: 20px;
+			left: 22px;
+		}
+	}
+}
+
+
+
 
 .loading-message {
 	margin-top: 1.25em;
@@ -278,7 +230,7 @@ $playback-artwork-width: 60px;
 	}
 
 	.playlist, .playlist-progress {
-		display: block;
+		display: inline-block;
 	}
 
 	a#barometer_tab{

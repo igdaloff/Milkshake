@@ -30,10 +30,33 @@
 
   <!-- Playlist contents -->
   <div class="playlist">
+    <header class="playback-header">
+      <div class="playback-header-inner">
+        <a href="/" class="playback-logo">
+          <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
+          <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
+        </a>
+        <div class="playback-header-meta">
+          <h2>{{ playlist.title }}</h2>
+          <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
+        </div>
+        <div class="playlist-controls">
+          <a class="mute-toggle"></a>
+          <span class="screen-reader-text">Mute</span>
+        </div>
+      </div>
+    </header>
     <div class="playback-tracks">
       <ul class="playback-track-list">
       {% for track in playlist.tracks %}
         <li class="playback-track">
+          <div class="playlist-progress">
+            <div class="progress-bars">
+              <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
+                <div class="current-progress"></div>
+              </div>
+            </div>
+          </div>
           <div class="playback-track-artwork">
             <a href="{{ track.url }}" target="_blank">
             {% if track.artwork %}
@@ -43,44 +66,22 @@
             {% endif %}
             </a>
           </div>
-          <div class="playlist-controls">
-            <a class="mute-toggle"></a>
-            <span class="screen-reader-text">Mute</span>
-          </div>
           <h2 class="playback-track-title"><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></h2>
-          </a>
         </li>
       {% endfor %}
+        <li class="add-playback-track">
+          <a href="">Add a track</a>
+        </li>
       </ul>
-    </div>
-    <header class="playback-header">
-      <div class="playback-header-meta">
-        <h2>{{ playlist.title }}</h2>
-        <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
-      </div>
-      <a href="/" class="playback-logo">
-        <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
-        <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
-      </a>
-    </header>
-  </div>
-
-  <div class="playlist-progress">
-    <div class="progress-bars">
-      {% for track in playlist.tracks %}
-      <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
-        <div class="current-progress"></div>
-      </div>
-      {% endfor %}
     </div>
   </div>
 
   <!-- Post-play message -->
-  <div class="playlist-finished-message">
+<!--   <div class="playlist-finished-message">
     <h2><a href="/" target="_blank">Your playlist ended. Make another?</a></h2>
     <a class="close-banner-message" href="">&times;</a>
     <span class="screen-reader-text">Close banner message</span>
-  </div>
+  </div> -->
 
   <!-- Chat container -->
   <div class="messages-container"></div>
