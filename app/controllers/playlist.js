@@ -71,14 +71,14 @@ io.sockets.on('connection', function (socket) {
     var numUsersInRoom = Object.keys(usersInRoom).length;
 
     console.log('User joined room', socket.roomId, ', number in room now:', numUsersInRoom);
-    
+
     // If there are already more than two users connected, reject this connection
     if(numUsersInRoom > 2) {
 
       socket.emit('roomFull');
       socket.disconnect();
       return false;
-    }    
+    }
 
     // Notify other members that a user joined
     io.sockets.in(socket.roomId).emit('userJoined', numUsersInRoom);
@@ -162,7 +162,7 @@ io.sockets.on('connection', function (socket) {
           });
         }
       }
-    }  
+    }
 
   });
 
@@ -172,7 +172,7 @@ io.sockets.on('connection', function (socket) {
     var numUsersInRoom = 0;
     var usersInRoom = io.sockets.adapter.rooms[socket.roomId];
     if(typeof usersInRoom === 'object') {
-      
+
       numUsersInRoom = Object.keys(usersInRoom).length;
     }
 
@@ -246,25 +246,25 @@ exports.playlist = function(req, res){
       playlist.totalTime = Time.secondsToMinutes(playlist.totalDuration);
 
       // If the playlist is not over, render the normal playlist page
-      if(!playlist.hasFinished) {
+      // if(!playlist.hasFinished) {
 
-        return res.render('playlist', {
-          permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
-          playlist: playlist,
-          conversation: conversation,
-          socketAddress: socketAddress
-        });
-      }
-      // Otherwise render the playlist finished template
-      else {
+      //   return res.render('playlist', {
+      //     permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
+      //     playlist: playlist,
+      //     conversation: conversation,
+      //     socketAddress: socketAddress
+      //   });
+      // }
+      // // Otherwise render the playlist finished template
+      // else {
 
-        return res.render('playlist-finished', {
-          permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
-          playlist: playlist,
-          conversation: conversation
-        });
+      //   return res.render('playlist-finished', {
+      //     permalink: req.protocol + '://' + req.get('host') + req.originalUrl,
+      //     playlist: playlist,
+      //     conversation: conversation
+      //   });
 
-      }
+      // }
     });
   });
 };

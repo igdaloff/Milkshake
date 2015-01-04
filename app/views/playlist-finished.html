@@ -1,42 +1,7 @@
 {% set title = playlist.title + " - " %}
-{% set bodyClass = "playlist-finished-static" %}
 {% extends 'layout.html' %}
 {% block content %}
-<div class="wrapper">
-  <div class="intro-text">
-  	<!-- Post-play message -->
-  	<div class="playlist-finished-static-message wrapper">
-  	  <div class="intro-text">
-  	    <div class="post-playback-summary">
-  	      <h1>You listened to:</h1>
-  	      <h2>{{ playlist.title }}</h2>
-  	      <h3>{{ playlist.totalTime }}</h3>
-  	      <ol>
-  	        {% for track in playlist.tracks %}
-  	        <li><span>{{ loop.index }}</span><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></li>
-  	        {% endfor %}
-  	      </ol>
-  	      <a class="btn btn-black" href="/" target="_blank"><span>Create another</span></a>
-  	    </div>
-  	  </div>
 
-  	  <div class="messages">
-  	    <ul class="message-list" id="message-list">
-  	      {% for message in conversation.messages %}
-  	      <li class="chat-message {% if message.sender != conversation.messages[0].sender %}remote{% endif %}">
-  	        <div class="chat-avatar-and-time">
-  	          <img class="chat-message-avatar" src="/img/avatars/{{ message.avatar.image }}" title="{{ message.avatar.name }}">
-  	          <span class="chat-message-timestamp">{{ message.playlistTime }}</span>
-  	        </div>
-
-  	        <span class="chat-message-content">{{ message.content }}</span>
-  	      </li>
-  	      {% endfor %}
-  	    </ul>
-  	  </div>
-  	</div>
-  </div>
-</div>
 
 {% endblock %}
 {% block scripts %}{% endblock %}

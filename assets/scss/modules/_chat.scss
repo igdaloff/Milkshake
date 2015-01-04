@@ -21,14 +21,6 @@
 	font-family: $sans-light;
 	height: 100%;
 	position: relative;
-
-	.playlist-finished-static &{
-		position: relative;
-		min-width: 0;
-		width: 100%;
-		padding: 2em;
-		background: $light-grey;
-	}
 }
 
 .chat-message{

@@ -102,11 +102,6 @@ $playback-artwork-width: 60px;
 	&:not(.current) .playback-track-artwork img{
 		@include filter(grayscale(100%));
 		opacity: 0.5;
-
-		.playlist-finished &{
-			@include filter(grayscale(0));
-			opacity: 1;
-		}
 	}
 }
 
@@ -128,16 +123,6 @@ $playback-artwork-width: 60px;
 			width: $playback-artwork-width * 1.333333; //60px * 1.333333 (youtube aspect ratio)
 			margin-left: -10px;
 		}
-	}
-}
-
-.playlist-finished{
-	.playback-logo-static{
-		display: block;
-	}
-
-	.playback-logo-animated{
-		display: none;
 	}
 }
 
