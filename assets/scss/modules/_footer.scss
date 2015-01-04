@@ -49,6 +49,13 @@
 		text-decoration: underline;
 		color: $black;
 	}
+
+	a, input{
+		&:focus, &:active{
+			outline: none;
+			border: 1px solid $black;
+		}
+	}
 }
 
 .feedback-link{
