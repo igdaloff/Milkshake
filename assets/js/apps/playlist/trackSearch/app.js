@@ -1,4 +1,4 @@
-TWM.module("Playlist.Create.TrackSearch", function(TrackSearch, TWM, Backbone, Marionette, $, _){
+TWM.module("Playlist.TrackSearch", function(TrackSearch, TWM, Backbone, Marionette, $, _){
 
   // prevent starting with parent
   this.startWithParent = false;
