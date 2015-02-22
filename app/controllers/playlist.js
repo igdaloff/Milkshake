@@ -6,7 +6,7 @@ var sanitizeHtml = require('sanitize-html');
 exports.processNewPlaylist = function(req, res){
   console.log(req.body);
   // Build the new playlist object from the POST data
-  var newPlaylist = {
+  var playlistData = {
     title: req.body.title,
     created: Date.now()
   };
@@ -27,25 +27,10 @@ exports.processNewPlaylist = function(req, res){
     playlistTracks.push(track);
   }
 
-  newPlaylist.tracks = playlistTracks;
-  newPlaylist.totalDuration = totalDuration;
+  playlistData.tracks = playlistTracks;
+  playlistData.totalDuration = totalDuration;
 
-  // Write it to the database, then redirect to that track page
-  var playlistRow = new Playlist(newPlaylist);
-
-  playlistRow.save(function(err, playlist) {
-
-    if (err){
-      console.log(err);
-      return err;
-    }
-
-    // Create a new conversation for the playlist
-    var conversation = new Conversation({
-      playlistId: playlist._id
-    });
-
-    conversation.save();
+  addPlaylistRow(playlistData, function(playlistRow) {
 
     res.redirect('/' + playlistRow._id);
   });
@@ -301,5 +286,77 @@ exports.removeTrackFromPlaylist = function(req, res) {
   }, function(err, model) {
 
     console.log('Track saved');
+  });
+};
+
+exports.createDummyPlaylist = function(req, res) {
+
+  var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+  var playlistData = {
+    title: 'Testing, testing, 1 2 3 4',
+    startTime: currentUnixTime,
+    tracks: [
+      {
+        trackId: '',
+        source: 'youtube',
+        title: 'Haddaway - What is Love + Lyrics',
+        url: 'http://www.youtube.com/watch?v=K5G1FmU-ldg&feature=youtube_gdata',
+        artwork: 'http://i.ytimg.com/vi/K5G1FmU-ldg/default.jpg',
+        duration: 338
+      },
+      {
+        trackId: '',
+        source: 'youtube',
+        title: 'Luke Million - Arnold',
+        url: 'http://www.youtube.com/watch?v=XrvjwMIBtqA&feature=youtube_gdata',
+        artwork: 'http://i.ytimg.com/vi/XrvjwMIBtqA/default.jpg',
+        duration: 246
+      },
+      {
+        trackId: '',
+        source: 'youtube',
+        title: 'Leggy Blonde - Flight Of The Conchords (Lyrics)',
+        url: 'http://www.youtube.com/watch?v=7syyywL9JuM&feature=youtube_gdata',
+        artwork: 'http://i.ytimg.com/vi/7syyywL9JuM/default.jpg',
+        duration: 160
+      }
+    ],
+    totalDuration: 744
+  };
+
+  addPlaylistRow(playlistData, function(playlistRow) {
+
+    res.redirect('/' + playlistRow._id);
+  });
+};
+
+/* 
+ PRIVATE METHODS
+*/
+
+var addPlaylistRow = function(playlistData, cb) {
+
+  // Write it to the database, then redirect to that track page
+  var playlistRow = new Playlist(playlistData);
+
+  playlistRow.save(function(err, playlist) {
+
+    if (err){
+      console.log(err);
+      return err;
+    }
+
+    // Create a new conversation for the playlist
+    var conversation = new Conversation({
+      playlistId: playlist._id
+    });
+
+    conversation.save();
+
+    // Call the callback
+    if(typeof(cb) === 'function') {
+
+      cb(playlistRow);
+    }
   });
 };
