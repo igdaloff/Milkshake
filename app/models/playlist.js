@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var shortId = require('shortid');
 var Schema = mongoose.Schema;
 
-var schema = new Schema({
+var PlaylistSchema = new Schema({
   _id: {
     type: String,
     unique: true,
@@ -20,24 +20,19 @@ var schema = new Schema({
     artwork: String,
     duration: Number,
     rank: Number,
-  }],
-  methods: {
-    addTrackToPlaylist: function(trackData) {
-
-      var newRank = this.tracks.length + 1;
-      trackData.rank = newRank;
-      this.tracks.push(trackData);
-    },
-    removeTrackFromPlaylist: function(trackId) {
-
-      this.tracks.pull(trackId);
-    }
-  },
-  statics: {
-    reorderTracks: function(prevRank, newRank) {
-
-    }
-  }
+  }]
 });
 
-module.exports = mongoose.model('Playlist', schema);
+PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
+
+  var newRank = this.tracks.length + 1;
+  trackData.rank = newRank;
+  this.tracks.push(trackData);
+});
+
+PlaylistSchema.method('removeTrackFromPlaylist', function(trackId) {
+
+  this.tracks.pull(trackId);
+});
+
+module.exports = mongoose.model('Playlist', PlaylistSchema);
