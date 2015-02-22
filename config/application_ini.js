@@ -9,7 +9,9 @@ module.exports = {
       httpAuth: false,
       sessionName: "mkshh",
       sessionSecret: "njxmumfmtwfddjymypoy5hfkhn",
-      databaseUrl: process.env.MONGO_URL,
+      databaseUrl: "mongodb://milkshake:b76e497917c6da5662a628c0b070ff61@candidate.40.mongolayer.com:10318,candidate.43.mongolayer.com:10005/milkshake_prod",
+      databaseUser: "milkshake_prod",
+      databasePassword: "Nr.t-Xqs9]7xdZdsYjP-ALJK)ce~.&",
       socketPort: 1338,
       splashPage: false
     },

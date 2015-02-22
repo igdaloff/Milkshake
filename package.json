@@ -21,6 +21,7 @@
     "querystring": "~0.2.0",
     "relevancy": "~0.2.0",
     "require-directory": "~1.2.0",
+    "sanitize-html": "^1.4.3",
     "shortid": "^2.0.1",
     "socket.io": "^1.1.0",
     "soundclouder": "~0.7.10",

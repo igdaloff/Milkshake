@@ -66,7 +66,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     parseNewLines: function() {
 
       var $content = this.$('.chat-message-content');
-      $content.html($content.text().replace(/(?:\r\n|\r|\n)/g, '<br>'));
+      $content.html($content.html().replace(/(?:\r\n|\r|\n)/g, '<br>'));
     }
   });
 
@@ -173,13 +173,27 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
       var $newMessageField = $('.new-message-field');
       var content = $newMessageField.val();
+      var cleanString = this.sanitizeInput(content);
       if(content.trim().length > 0) {
 
-        Chat.Controller.sendNewMessage($newMessageField.val());
+        Chat.Controller.sendNewMessage(cleanString);
         $newMessageField.val('').focus();
       }
 
       this.removePlaceholder();
+    },
+    /** 
+     * Sanitize input
+     * Take a string, pass it into a DOM element and get it back out to ensure it ends up as a string, not tags
+     * @param input - the string to be sanitize
+     * @return cleaned - the sanitized string
+     */
+    sanitizeInput: function(input) {
+
+      $cleaner = $('<div/>').addClass('cleaner');
+      $cleaner.text(input);
+      var cleaned = $cleaner.html();
+      return cleaned;
     },
     remoteUserTyping: function() {
 
