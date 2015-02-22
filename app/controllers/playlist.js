@@ -272,3 +272,48 @@ exports.playlist = function(req, res){
     });
   });
 };
+
+exports.addTrackToPlaylist = function(req, res) {
+
+  var playlistId = req.params.playlistId;
+  var trackObj = {
+    trackId: req.params.trackId,
+    source: req.params.source,
+    title: req.params.title,
+    url: req.params.url,
+    artwork: req.params.artwork,
+    duration: req.params.duration
+  };
+
+  // Save the track to the Playlist in the DB
+  Playlist.findOneAndUpdate({
+    playlistId: playlistId
+  }, {
+    '$push': {
+      tracks: trackObj
+    }
+  }, function(err, model) {
+
+    console.log('Track saved');
+  });
+};
+
+exports.removeTrackFromPlaylist = function(req, res) {
+
+  var playlistId = req.params.playlistId;
+  var trackId = req.params.trackId;
+
+  // Save the track to the Playlist in the DB
+  Playlist.findOneAndUpdate({
+    playlistId: playlistId
+  }, {
+    '$pull': {
+      tracks: {
+        _id: trackId
+      }
+    }
+  }, function(err, model) {
+
+    console.log('Track saved');
+  });
+};

@@ -18,8 +18,26 @@ var schema = new Schema({
     title: String,
     url: String,
     artwork: String,
-    duration: Number
-  }]
+    duration: Number,
+    rank: Number,
+  }],
+  methods: {
+    addTrackToPlaylist: function(trackData) {
+
+      var newRank = this.tracks.length + 1;
+      trackData.rank = newRank;
+      this.tracks.push(trackData);
+    },
+    removeTrackFromPlaylist: function(trackId) {
+
+      this.tracks.pull(trackId);
+    }
+  },
+  statics: {
+    reorderTracks: function(prevRank, newRank) {
+
+    }
+  }
 });
 
 module.exports = mongoose.model('Playlist', schema);
