@@ -1,4 +1,4 @@
-TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, Marionette, $, _){
+TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionette, $, _){
 
   TrackSearch.SearchResult = Marionette.ItemView.extend({
     template: 'track-search-result',
@@ -101,11 +101,11 @@ TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, M
     className: 'track-search',
     template: 'track-search-form',
     events: {
-      'submit form': 'searchTracks',
-      'keyup .track-search-query': 'autoSearch'
+      'submit form': 'searchTracks'
     },
-    initialize: function() {
+    initialize: function(opts) {
 
+      var _this = this;
       this.listenTo(this.collection, 'reset', function() {
 
         if(this.collection.length === 0) {
@@ -113,6 +113,18 @@ TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, M
           this.noResultsMessage();
         }
       });
+
+      if(opts.autoSearch) {
+
+        this.listenTo(this, 'render', function() {
+
+          this.$('.track-search-query').off('keyup.autosearch');
+          this.$('.track-search-query').on('keyup.autosearch', function(e) {
+            
+            _this.autoSearch(e);
+          });
+        });
+      }
     },
     onRender: function() {
 

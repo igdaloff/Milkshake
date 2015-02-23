@@ -1,4 +1,4 @@
-TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, Marionette, $, _){
+TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionette, $, _){
 
   var playlistManager, currentSearch;
 
@@ -9,7 +9,7 @@ TWM.module('Playlist.Create.TrackSearch', function(TrackSearch, TWM, Backbone, M
       resultsCollection.query = query;
       // Abort existing search if there is one
       if(typeof currentSearch !== 'undefined' && currentSearch.abort === 'function') {
-        
+
         currentSearch.abort();
       }
       currentSearch = resultsCollection.fetch({
