@@ -1,21 +1,68 @@
 // =======================
 // Playback search
 // =======================
-.add-playback-track{
-	.track-search-query{
+li.add-playback-track{
+
+	.track-search-results-container{
+		opacity: 1;
+		position: fixed;
+		top: 100%;
+		width: $left-rail-width;
+		height: auto;
+		background: $black;
+		overflow: auto;
+		height: 100%;
+		z-index: 10;
+
+		&.visible{
+			top: $playback-header-height;
+		}
+	}
+
+	.track-search-results{
+		margin: 0;
+
+		td{
+			color: white;
+		}
+	}
+
+	.track-search-input-container{
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		right: 0;
 		height: 45px;
-		padding-left: 1em;
-		color: $dark-grey;
-		font-size: 0.9em;
-		border: 0;
-		border-top: 1px solid $border-grey;
+		z-index: 100;
+
+		.track-search-query{
+			height: 100%;
+			padding-left: 1em;
+			color: $dark-grey;
+			font-size: 0.9em;
+			border: 0;
+			border-top: 1px solid $border-grey;
+		}
+
+		.search-submit{
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 45px;
+			height: 100%;
+			@include icomoon(search);
+			font-size: 1em;
+			line-height: 45px;
+
+			&:hover, &:focus{
+				text-decoration: none;
+			}
+		}
 	}
 }
 
-.playback-search-results{
 
+.playback-search-results{
+	background: $black;
+	color: white;
 }
