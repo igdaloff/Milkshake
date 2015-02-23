@@ -247,6 +247,7 @@ exports.playlist = function(req, res){
 exports.addTrackToPlaylist = function(req, res) {
 
   var playlistId = req.params.playlist_id;
+  console.log(req.params);
   var trackObj = {
     trackId: req.params.trackId,
     source: req.params.source,
@@ -257,17 +258,17 @@ exports.addTrackToPlaylist = function(req, res) {
   };
 
   // Save the track to the Playlist in the DB
-  Playlist.findById(playlistId, function(err) {
+  Playlist.findById(playlistId, function(err, playlist) {
 
     if(err) {
 
       res.status(500).send('Error adding track to playlist');
     }
 
-    this.addTrackToPlaylist(trackObj, function(model) {
+    playlist.addTrackToPlaylist(trackObj, function(model) {
 
       var jsonResponse = {
-        status: success,
+        status: 'success',
         playlist: model
       };
       res.json(jsonResponse);
@@ -281,17 +282,17 @@ exports.removeTrackFromPlaylist = function(req, res) {
   var trackId = req.params.track_id;
 
   // Remove the track from the Playlist in the DB
-  Playlist.findById(playlistId, function(err) {
+  Playlist.findById(playlistId, function(err, playlist) {
 
     if(err) {
 
       res.status(500).send('Error adding track to playlist');
     }
 
-    this.removeTrackFromPlaylist(trackId, function(model) {
+    playlist.removeTrackFromPlaylist(trackId, function(model) {
 
       var jsonResponse = {
-        status: success,
+        status: 'success',
         playlist: model
       };
       res.json(jsonResponse);
