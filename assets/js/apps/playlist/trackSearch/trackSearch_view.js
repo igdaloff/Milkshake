@@ -101,10 +101,9 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     className: 'track-search',
     template: 'track-search-form',
     events: {
-      'submit form': 'searchTracks',
-      'keyup .track-search-query': 'autoSearch'
+      'submit form': 'searchTracks'
     },
-    initialize: function() {
+    initialize: function(opts) {
 
       this.listenTo(this.collection, 'reset', function() {
 
@@ -113,6 +112,10 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
           this.noResultsMessage();
         }
       });
+
+      if(opts.autoSearch) {
+        $('.track-search-query').on('keyup', console.log('butts'));
+      }
     },
     onRender: function() {
 

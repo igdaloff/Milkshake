@@ -195,41 +195,47 @@
 
 
 //Search
-.track-search-input-container{
-	position: relative;
-	@include icomoon(search);
-
-	&:before{
-		position: absolute;
-		right: 1em;
-		top: 0;
-		bottom: 0;
-		height: 1em;
-		margin: auto;
-		font-size: 1.75em;
+.playlist-create{
+	.track-search-container{
+	  margin: 2em 0;
 	}
-}
 
-.track-search-query {
-	padding-right: 70px;
+	.track-search-input-container{
+		position: relative;
+		@include icomoon(search);
 
-  &.loading {
-  	position: relative;
-    background-image: url("../img/loading-fast.gif");
-    background-repeat: no-repeat;
-    background-position: 96.5% 50%;
-    background-size: 30px 30px;
-    background-color: white;
-  }
-}
+		&:before{
+			position: absolute;
+			right: 1em;
+			top: 0;
+			bottom: 0;
+			height: 1em;
+			margin: auto;
+			font-size: 1.75em;
+		}
+	}
 
-.search-submit{
-	position: absolute;
-	top: 1px;
-	right: 3px;
-	bottom: 1px;
-	width: 120px;
-	height: auto;
+	.track-search-query{
+		padding-right: 70px;
+
+	  &.loading{
+	  	position: relative;
+	    background-image: url("../img/loading-fast.gif");
+	    background-repeat: no-repeat;
+	    background-position: 96.5% 50%;
+	    background-size: 30px 30px;
+	    background-color: white;
+	  }
+	}
+
+	.search-submit{
+		position: absolute;
+		top: 1px;
+		right: 3px;
+		bottom: 1px;
+		width: 120px;
+		height: auto;
+	}
 }
 
 //Playlist Title

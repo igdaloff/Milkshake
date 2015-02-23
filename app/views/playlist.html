@@ -70,9 +70,7 @@
         </li>
       {% endfor %}
         <li class="add-playback-track">
-          <form class="track-search-form">
-            <input type="text" class="input-field" placeholder="Add a track" />
-          </form>
+          <div class="track-search-container"></div>
         </li>
       </ul>
     </div>
@@ -94,6 +92,10 @@ var playlistId = "{{ playlist.id }}";
 
 
 {% block scripts %}
+<script>
+TWM.Playlist.TrackSearch.start()
+</script>
+
 {% if !hasFinished %}
 <script src="http://{{ socketAddress }}/socket.io/socket.io.js"></script>
 <script>

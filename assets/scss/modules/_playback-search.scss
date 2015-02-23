@@ -1,6 +1,21 @@
 // =======================
-// Playback search results
+// Playback search
 // =======================
+.add-playback-track{
+	.track-search-query{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 45px;
+		padding-left: 1em;
+		color: $dark-grey;
+		font-size: 0.9em;
+		border: 0;
+		border-top: 1px solid $border-grey;
+	}
+}
+
 .playback-search-results{
 
 }
