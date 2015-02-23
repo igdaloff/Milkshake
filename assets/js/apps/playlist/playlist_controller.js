@@ -402,6 +402,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
           $(this).addClass('landscape');
         }
       });
+    },
+    addTrackToPlaylist: function(trackData) {
+
+      var playlistCollection = TWM.request('playlist:playlistCollection');
+      playlistCollection.create(trackData);
     }
   };
 });

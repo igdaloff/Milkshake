@@ -54,8 +54,18 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       }, 2000);
     },
     addTrack: function(e){
+
       e.preventDefault();
-      TrackSearch.Controller.addTrack(this.model);
+      
+      // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
+      if($('.playlist-create').length) {
+        
+        TrackSearch.Controller.addTrack(this.model);
+      }
+      else {
+
+        TWM.Playlist.Controller.addTrackToPlaylist(this.model.attributes);
+      }
       this.highlightAddedTrack(e);
     },
     /**

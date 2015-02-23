@@ -39,7 +39,15 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   // Playlist (collection of tracks)
   Entities.Playlist = Backbone.Collection.extend({
-    model: Entities.Track
+    model: Entities.Track,
+    initialize: function(opts) {
+
+      this.id = playlistId;
+    },
+    url: function() {
+
+      return '/' + this.id;
+    }
   });
 
   // Search result collection

@@ -68,6 +68,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     var tracks = bootstrap.tracks || [];
     var playlist = TWM.request('newPlaylist:entities', tracks);
 
+    // Set a handler to get the playlist collection entity
+    TWM.reqres.setHandler('playlist:playlistCollection', function() {
+
+      return playlist;
+    });
+
     // create a new playlist manager from the API.loadPlayer method
     var playlistManager = Playlist.Controller.loadPlayer(playlist);
 
