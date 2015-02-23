@@ -105,6 +105,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     },
     initialize: function(opts) {
 
+      var _this = this;
       this.listenTo(this.collection, 'reset', function() {
 
         if(this.collection.length === 0) {
@@ -114,7 +115,15 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       });
 
       if(opts.autoSearch) {
-        $('.track-search-query').on('keyup', console.log('butts'));
+
+        this.listenTo(this, 'render', function() {
+
+          this.$('.track-search-query').off('keyup.autosearch');
+          this.$('.track-search-query').on('keyup.autosearch', function(e) {
+            
+            _this.autoSearch(e);
+          });
+        });
       }
     },
     onRender: function() {
