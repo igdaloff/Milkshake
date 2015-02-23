@@ -246,7 +246,7 @@ exports.playlist = function(req, res){
 
 exports.addTrackToPlaylist = function(req, res) {
 
-  var playlistId = req.params.playlistId;
+  var playlistId = req.params.playlist_id;
   var trackObj = {
     trackId: req.params.trackId,
     source: req.params.source,
@@ -257,35 +257,45 @@ exports.addTrackToPlaylist = function(req, res) {
   };
 
   // Save the track to the Playlist in the DB
-  Playlist.findOneAndUpdate({
-    playlistId: playlistId
-  }, {
-    '$push': {
-      tracks: trackObj
-    }
-  }, function(err, model) {
+  Playlist.findById(playlistId, function(err) {
 
-    console.log('Track saved');
+    if(err) {
+
+      res.status(500).send('Error adding track to playlist');
+    }
+
+    this.addTrackToPlaylist(trackObj, function(model) {
+
+      var jsonResponse = {
+        status: success,
+        playlist: model
+      };
+      res.json(jsonResponse);
+    });
   });
 };
 
 exports.removeTrackFromPlaylist = function(req, res) {
 
-  var playlistId = req.params.playlistId;
-  var trackId = req.params.trackId;
+  var playlistId = req.params.playlist_id;
+  var trackId = req.params.track_id;
 
-  // Save the track to the Playlist in the DB
-  Playlist.findOneAndUpdate({
-    playlistId: playlistId
-  }, {
-    '$pull': {
-      tracks: {
-        _id: trackId
-      }
+  // Remove the track from the Playlist in the DB
+  Playlist.findById(playlistId, function(err) {
+
+    if(err) {
+
+      res.status(500).send('Error adding track to playlist');
     }
-  }, function(err, model) {
 
-    console.log('Track saved');
+    this.removeTrackFromPlaylist(trackId, function(model) {
+
+      var jsonResponse = {
+        status: success,
+        playlist: model
+      };
+      res.json(jsonResponse);
+    });
   });
 };
 
