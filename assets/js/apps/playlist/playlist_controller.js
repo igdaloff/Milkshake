@@ -407,6 +407,20 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistCollection = TWM.request('playlist:playlistCollection');
       playlistCollection.add(trackData);
+    },
+    addTrackToPlaylist: function(trackModel) {
+
+      // If we didn't send the new track, add it to the playlist
+      var socket = TWM.request('playlist:activeSocket');
+      var playlistCollection = TWM.request('playlist:playlistCollection');
+      if(trackModel.sender !== socket.id) {
+
+        playlistCollection.add(trackModel);
+      }
+      else {
+
+
+      }
     }
   };
 });

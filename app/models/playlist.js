@@ -31,7 +31,7 @@ PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
   // Callback if there is one
   if(typeof(cb) === 'function') {
     
-    cb(this);
+    cb(trackData);
   }
 });
 

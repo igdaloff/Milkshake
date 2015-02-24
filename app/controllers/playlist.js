@@ -352,11 +352,11 @@ var addTrackToPlaylist = function(trackData, cb) {
       cb(response);
     }
 
-    playlist.addTrackToPlaylist(trackObj, function(model) {
+    playlist.addTrackToPlaylist(trackObj, function(newTrackModel) {
 
       var response = {
         status: 'success',
-        newTrackData: model
+        newTrackData: newTrackModel
       };
       cb(response);
     });

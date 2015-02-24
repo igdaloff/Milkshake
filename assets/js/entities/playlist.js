@@ -58,11 +58,11 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     /**
      * Save track to playlist
      * When a track is added, if this is an existing playlist, send the track data over socket to save
-     * it into the playlist model
+     * it into the playlist model. Do not send if a 'sender' attribute already exists on the track data
      */
     saveTrackToPlaylist: function(newTrackModel) {
 
-      if(typeof(this.id) !== 'string' || !this.id.length) {
+      if(typeof(this.id) !== 'string' || !this.id.length || typeof(newTrackModel.get('sender')) !== 'undefined') {
 
         return false;
       }

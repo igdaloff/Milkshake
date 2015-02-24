@@ -20,6 +20,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('playPlaylist', Playlist.Controller.playPlaylist);
       // When a user (including this client) joins a room
       socket.on('userJoined', Playlist.Controller.userJoinedRoom);
+      // A new track is added to the playlist
+      //socket.on('newTrack', Playlist.Controller.addTrackToPlaylist);
 
       // Set a request handler so we can get the active socket in future
       TWM.reqres.setHandler("playlist:activeSocket", function() {
