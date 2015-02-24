@@ -198,6 +198,15 @@ io.sockets.on('connection', function (socket) {
       sender: socket.id
     });
   });
+
+  socket.on('addTrack', function(newTrackData) {
+
+    addTrackToPlaylist(newTrackData, function(newTrackModel) {
+
+      io.sockets.in(socket.roomId).emit('newTrack', newTrackModel);
+    });
+  });
+  socket.on('removeTrack', removeTrackFromPlaylist);
 });
 
 // End socket stuff
@@ -240,62 +249,6 @@ exports.playlist = function(req, res){
         conversation: conversation,
         socketAddress: socketAddress
       });
-    });
-  });
-};
-
-exports.addTrackToPlaylist = function(req, res) {
-
-  var playlistId = req.params.playlist_id;
-  console.log(req.params);
-  var trackObj = {
-    trackId: req.params.trackId,
-    source: req.params.source,
-    title: req.params.title,
-    url: req.params.url,
-    artwork: req.params.artwork,
-    duration: req.params.duration
-  };
-
-  // Save the track to the Playlist in the DB
-  Playlist.findById(playlistId, function(err, playlist) {
-
-    if(err) {
-
-      res.status(500).send('Error adding track to playlist');
-    }
-
-    playlist.addTrackToPlaylist(trackObj, function(model) {
-
-      var jsonResponse = {
-        status: 'success',
-        playlist: model
-      };
-      res.json(jsonResponse);
-    });
-  });
-};
-
-exports.removeTrackFromPlaylist = function(req, res) {
-
-  var playlistId = req.params.playlist_id;
-  var trackId = req.params.track_id;
-
-  // Remove the track from the Playlist in the DB
-  Playlist.findById(playlistId, function(err, playlist) {
-
-    if(err) {
-
-      res.status(500).send('Error adding track to playlist');
-    }
-
-    playlist.removeTrackFromPlaylist(trackId, function(model) {
-
-      var jsonResponse = {
-        status: 'success',
-        playlist: model
-      };
-      res.json(jsonResponse);
     });
   });
 };
@@ -369,5 +322,68 @@ var addPlaylistRow = function(playlistData, cb) {
 
       cb(playlistRow);
     }
+  });
+};
+
+var addTrackToPlaylist = function(trackData, cb) {
+
+  console.log('track data to add:', trackData);
+  var playlistId = trackData.playlistId;
+  var response;
+  var trackObj = {
+    trackId: trackData.trackId,
+    source: trackData.source,
+    title: trackData.title,
+    url: trackData.url,
+    artwork: trackData.artwork,
+    duration: trackData.duration
+  };
+
+  // Save the track to the Playlist in the DB
+  Playlist.findById(playlistId, function(err, playlist) {
+
+    if(err) {
+
+      console.log('Error adding track to ' + playlistId);
+      response = {
+        status: 'error',
+        newTrackData: model
+      };
+      cb(response);
+    }
+
+    playlist.addTrackToPlaylist(trackObj, function(model) {
+
+      var response = {
+        status: 'success',
+        newTrackData: model
+      };
+      cb(response);
+    });
+  });
+};
+
+var removeTrackFromPlaylist = function(playlistId, trackId, cb) {
+
+  // Remove the track from the Playlist in the DB
+  Playlist.findById(playlistId, function(err, playlist) {
+
+    if(err) {
+
+      console.log('Error removeing track from ' + playlistId);
+      response = {
+        status: 'error'
+      };
+      cb(response);
+    }
+
+    playlist.removeTrackFromPlaylist(trackId, function(model) {
+
+      var response = {
+        status: 'success',
+        playlist: model
+      };
+      cb(response);
+    });
   });
 };

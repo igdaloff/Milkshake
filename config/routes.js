@@ -14,8 +14,6 @@ module.exports = function (app) {
   app.get('/robots.txt', home.robots);
   app.get('/search', search.searchByString);
   app.post('/process-new-playlist/', playlist.processNewPlaylist);
-  app.post('/:playlist_id', playlist.addTrackToPlaylist);
-  app.delete('/:playlist_id/:track_id', playlist.removeTrackFromPlaylist);
   app.get('/dummy', playlist.createDummyPlaylist);
   app.get('/:id', playlist.playlist);
   app.use(function(req, res, next){

@@ -403,10 +403,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         }
       });
     },
-    addTrackToPlaylist: function(trackData) {
+    sendTrackToPlaylist: function(trackData) {
 
       var playlistCollection = TWM.request('playlist:playlistCollection');
-      playlistCollection.create(trackData);
+      playlistCollection.add(trackData);
     }
   };
 });
