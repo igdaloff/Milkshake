@@ -51,8 +51,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Set the active track class ('current') when a track is playing or ends
       $(playlistManager).on('track:playing track:ended', this.setActiveTrackClass);
-      // Set up marquee on new track titles
-      $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
       // Display played and playing artwork
       $(playlistManager).on('track:playing', this.displayPlayedTrackArtwork);
       // Bind time updates to the time and progress bar
@@ -383,15 +381,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         playlistManager.muteAll();
       }
       return playlistManager.isMuted();
-    },
-    detectTitleWidth: function(){
-
-      $('.playback-track-title a').each(function(){
-        if( $(this).width() > $(this).parents('h2').width() ){
-          $(this).addClass('marquee');
-          $(this).parents('li').addClass('marquee-container');
-        }
-      });
     },
     setLandscapeImage: function(){
 

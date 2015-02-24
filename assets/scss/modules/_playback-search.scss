@@ -13,6 +13,7 @@ li.add-playback-track{
 		overflow: auto;
 		height: 100%;
 		z-index: 10;
+		border-right: 1px solid $border-grey;
 
 		&.visible{
 			top: $playback-header-height;
@@ -25,6 +26,10 @@ li.add-playback-track{
 		td{
 			color: white;
 		}
+	}
+
+	.track-search-result{
+		border-bottom: 1px solid $off-black;
 	}
 
 	.track-search-input-container{
@@ -53,16 +58,23 @@ li.add-playback-track{
 			@include icomoon(search);
 			font-size: 1em;
 			line-height: 45px;
+			border-top: 1px solid $off-black;
 
 			&:hover, &:focus{
 				text-decoration: none;
 			}
 		}
 	}
-}
 
+	.preview-track-container, .track-search-result-source{
+		display: none;
+	}
 
-.playback-search-results{
-	background: $black;
-	color: white;
+	.track-search-result-artwork-inner img{
+		display: block;
+	}
+
+	td.track-search-result-title h5{
+		max-width: 100%;
+	}
 }
