@@ -46,6 +46,7 @@
         </div>
       </div>
     </header>
+    <div class="track-search-container"></div>
     <div class="playback-tracks">
       <ul class="playback-track-list">
       {% for track in playlist.tracks %}
@@ -69,9 +70,6 @@
           <h2 class="playback-track-title"><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></h2>
         </li>
       {% endfor %}
-        <li class="add-playback-track">
-          <div class="track-search-container"></div>
-        </li>
       </ul>
     </div>
   </div>

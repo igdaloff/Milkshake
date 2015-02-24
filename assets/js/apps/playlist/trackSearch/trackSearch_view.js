@@ -56,10 +56,10 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     addTrack: function(e){
 
       e.preventDefault();
-      
+
       // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
       if($('.playlist-create').length) {
-        
+
         TrackSearch.Controller.addTrack(this.model);
       }
       else {
@@ -130,7 +130,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
 
           this.$('.track-search-query').off('keyup.autosearch');
           this.$('.track-search-query').on('keyup.autosearch', function(e) {
-            
+
             _this.autoSearch(e);
           });
         });

@@ -1,22 +1,19 @@
 // =======================
 // Playback search
 // =======================
-li.add-playback-track{
-
+.playback-page{
 	.track-search-results-container{
 		opacity: 1;
 		position: fixed;
-		top: 100%;
+		top: -100%;
 		width: $left-rail-width;
-		height: auto;
+		height: 100%;
 		background: $black;
 		overflow: auto;
-		height: 100%;
 		z-index: 10;
-		border-right: 1px solid $border-grey;
 
 		&.visible{
-			top: $playback-header-height;
+			top: $playback-header-height + $playback-search-height;
 		}
 	}
 
@@ -33,12 +30,10 @@ li.add-playback-track{
 	}
 
 	.track-search-input-container{
-		position: absolute;
-		bottom: 1em;
-		left: 0;
-		right: 0;
-		height: 45px;
+		position: relative;
+		height: $playback-search-height;
 		z-index: 100;
+		border: 1px solid $border-grey;
 
 		.track-search-query{
 			height: 100%;
@@ -46,8 +41,6 @@ li.add-playback-track{
 			color: $dark-grey;
 			font-size: 0.9em;
 			border: 0;
-			border-top: 1px solid $border-grey;
-			border-top: 1px solid $border-grey;
 		}
 
 		.search-submit{
@@ -59,7 +52,6 @@ li.add-playback-track{
 			@include icomoon(search);
 			font-size: 1em;
 			line-height: 45px;
-			border-top: 1px solid $off-black;
 
 			&:hover, &:focus{
 				text-decoration: none;
