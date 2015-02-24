@@ -4,7 +4,7 @@
 	position: fixed;
 	top: 0;
 	left: $left-rail-width;
-	bottom: $new-message-container-height + $footer-height;
+	bottom: 1em;
 	padding: 0 2em;
 
 	.messages {

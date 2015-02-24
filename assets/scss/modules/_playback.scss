@@ -78,7 +78,7 @@ $playback-artwork-width: 60px;
 .playback-tracks{
 	position: absolute;
 	top: $playback-header-height;
-	bottom: $footer-height;
+	bottom: 0;
 	width: $left-rail-width;
 	background: white;
 	border-top: 1px solid $border-grey;
