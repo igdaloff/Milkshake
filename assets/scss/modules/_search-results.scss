@@ -50,9 +50,12 @@
 
   td{
     width: 45px;
-    padding: 0.5em 0 0.4em 0;
     vertical-align: middle;
     text-align: center;
+  }
+
+  .playlist-create & td{
+    padding: 0.5em 0 0.4em 1em;
   }
 
   &.highlight{
@@ -64,7 +67,10 @@
 td.track-search-result-artwork{
   position: relative;
   text-align: left;
-  padding-left: 10px;
+
+  .playlist-create &{
+    padding-left: 10px;
+  }
 }
 
 .track-search-result-artwork-inner{
