@@ -26,11 +26,7 @@
 	}
 
 	.playlist-playing &{
-		position: fixed;
-		min-width: $fixed-element-min-width;
-		margin: 0;
-		background: $light-grey;
-		border-top: 1px solid $border-grey;
+		display: none;
 	}
 
 	.user-on-mobile &, .playlist-waiting &{
