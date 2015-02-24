@@ -28,21 +28,27 @@ PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
   var newRank = this.tracks.length + 1;
   trackData.rank = newRank;
   this.tracks.push(trackData);
-  // Callback if there is one
-  if(typeof(cb) === 'function') {
-    
-    cb(trackData);
-  }
+  this.save(function(err, updatedPlaylistModel) {
+
+    // Callback if there is one
+    if(typeof(cb) === 'function') {
+      
+      cb(updatedPlaylistModel);
+    }
+  });
 });
 
 PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
 
   this.tracks.pull(trackId);
-  // Callback if there is one
-  if(typeof(cb) === 'function') {
-    
-    cb(this);
-  }
+  this.save(function(err, updatedPlaylistModel) {
+
+    // Callback if there is one
+    if(typeof(cb) === 'function') {
+      
+      cb(updatedPlaylistModel);
+    }
+  });
 });
 
 module.exports = mongoose.model('Playlist', PlaylistSchema);
