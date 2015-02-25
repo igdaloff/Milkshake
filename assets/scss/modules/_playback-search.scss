@@ -56,19 +56,13 @@
 
 			&:hover, &:focus{
 				text-decoration: none;
+				background: $green;
+				color: $black;
 			}
 		}
 	}
 
 	.preview-track-container, .track-search-result-source{
 		display: none;
-	}
-
-	.track-search-result-artwork-inner img{
-		display: block;
-	}
-
-	td.track-search-result-title h5{
-		max-width: 100%;
 	}
 }

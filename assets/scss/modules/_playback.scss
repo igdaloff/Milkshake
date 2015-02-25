@@ -101,10 +101,21 @@ $playback-artwork-width: 60px;
 		background: $light-green;
 	}
 
-	&:not(.current) .playback-track-artwork img{
-		@include filter(grayscale(100%));
-		opacity: 0.5;
+	&.past{
+		color: rgba($off-black, 0.5);
+
+		img{
+			@include filter(grayscale(100%));
+			opacity: 0.5;
+		}
+
+		.playlist-progress{
+			@extend .transition;
+			opacity: 0;
+		}
 	}
+
+
 }
 
 .playback-track-artwork{

@@ -15,14 +15,7 @@
 }
 
 .track-search-results{
-  table-layout: fixed;
-	width: 100%;
   margin-top: 1em;
-  text-align: left;
-
-	&:empty{
-		display: none;
-	}
 }
 
 @-webkit-keyframes highlight-flash {
@@ -44,15 +37,7 @@
 }
 
 .track-search-result{
-  width: 100%;
-  border-bottom: 1px solid $light-grey;
-  color: $black;
-
-  td{
-    width: 45px;
-    vertical-align: middle;
-    text-align: center;
-  }
+  border-bottom-color: $light-grey;
 
   .playlist-create & td{
     padding: 0.5em 0 0.4em 1em;
@@ -61,53 +46,6 @@
   &.highlight{
     -webkit-animation: highlight-flash 2s;
     animation: highlight-flash 2s;
-  }
-}
-
-td.track-search-result-artwork{
-  position: relative;
-  text-align: left;
-
-  .playlist-create &{
-    padding-left: 10px;
-  }
-}
-
-.track-search-result-artwork-inner{
-  width: 50px;
-  overflow: hidden;
-
-  img{
-    min-width: 100%;
-    height: 50px;
-  }
-}
-
-td.track-search-result-title{
-  width: 60%;
-  text-align: left;
-  padding-left: 1em;
-  span{
-    display: inline;
-  }
-
-  h5{
-    max-width: 75%;
-    float: left;
-    padding-right: 0.25em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: inline-block;
-    cursor: pointer;
-
-    &:hover{
-      text-decoration: underline;
-    }
-  }
-
-  a{
-  	color: $black;
   }
 }
 
