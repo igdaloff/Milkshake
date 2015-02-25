@@ -8,6 +8,7 @@
 		top: -100%;
 		width: $left-rail-width;
 		height: 100%;
+		padding-bottom: $playback-header-height + $playback-search-height;
 		background: $black;
 		overflow: auto;
 		z-index: 10;
