@@ -1,6 +1,17 @@
 // =======================
 // Playback search
 // =======================
+
+.add-playback-track {
+	position: relative;
+	z-index: 2444;
+	background: #FFF;
+}
+
+.track-search-input-container {
+	position: relative;
+}
+
 .add-playback-track{
 	.track-search-query{
 		position: absolute;
