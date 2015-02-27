@@ -47,32 +47,10 @@
       </div>
     </header>
     <div class="playback-tracks">
-      <ul class="playback-track-list">
-      {% for track in playlist.tracks %}
-        <li class="playback-track">
-          <div class="playlist-progress">
-            <div class="progress-bars">
-              <div class="track-progress" style="width: {{ track.duration / playlist.totalDuration * 100 }}%">
-                <div class="current-progress"></div>
-              </div>
-            </div>
-          </div>
-          <div class="playback-track-artwork">
-            <a href="{{ track.url }}" target="_blank">
-            {% if track.artwork %}
-              <img src="{{ track.artwork }}" alt="Album artwork"/>
-            {% else %}
-              <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
-            {% endif %}
-            </a>
-          </div>
-          <h2 class="playback-track-title"><a href="{{ track.url }}" target="_blank">{{ track.title }}</a></h2>
-        </li>
-      {% endfor %}
-        <li class="add-playback-track">
-          <div class="track-search-container"></div>
-        </li>
-      </ul>
+      <ul class="playback-track-list"></ul>
+    </div>
+    <div class="add-playback-track">
+      <div class="track-search-container"></div>
     </div>
   </div>
 
