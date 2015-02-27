@@ -409,10 +409,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var socket = TWM.request('playlist:activeSocket');
       socket.emit('addTrack', trackData);
     },
-    addTrackToPlaylist: function(updatedPlaylistModel) {
+    addTrackToPlaylist: function(newTrackData) {
 
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var playlistCollection = TWM.request('playlist:playlistCollection');
-      playlistCollection.add(updatedPlaylistModel.tracks);
+      playlistCollection.add(newTrackData);
+      // Add the new track to the playlist manager
+      playlistManager.addTrackToPlaylist(newTrackData);
     }
   };
 });

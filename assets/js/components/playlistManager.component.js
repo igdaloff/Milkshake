@@ -4,7 +4,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     function PlaylistManager(data){
 
-      this.tracks = data.tracks || [];
+      this.tracks = [];
       this.trackElements = [];
       this.currentTrackIndex = null;
       this.isPlaying = false;
@@ -13,20 +13,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       // Create a jQuery element for each track that will contain the embedded player, create a Popcorn instance for each
       this.popsId = 'playlist-embeds';
       this.popsClass = 'playlist-embed';
-      for(var i in this.tracks) {
+      
+      // Add the bootstrapped tracks to the playlist
+      for(var i in data.tracks) {
 
-        var track = this.tracks[i];
-        var trackEmbedId = this.popsId.toString() + '-' + i;
-        // Create the track embed container if it doesn't exist
-        var $trackEmbed = $('#' + trackEmbedId);
-        if($trackEmbed.length === 0) {
-
-          $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
-        }
-        // Save the Popcorn instance
-        this.tracks[i].pop = this.initTrackEmbed(track, trackEmbedId);
-        // Save the DOM element
-        this.tracks[i].el = $trackEmbed;
+        var track = data.tracks[i];
+        this.addTrackToPlaylist(track);
       }
     }
 
@@ -41,6 +33,24 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         // Destroy the popcorn object
         track.pop.destroy();
       }
+    };
+
+    PlaylistManager.prototype.addTrackToPlaylist = function(trackData) {
+
+      var trackIndex = this.tracks.length;
+      this.tracks.push(trackData);
+      var trackEmbedId = this.popsId.toString() + '-' + trackIndex;
+      // Create the track embed container if it doesn't exist
+      var $trackEmbed = $('#' + trackEmbedId);
+      if($trackEmbed.length === 0) {
+
+        $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
+      }
+      // Save the Popcorn instance
+      this.tracks[trackIndex].pop = this.initTrackEmbed(trackData, trackEmbedId);
+      // Save the DOM element
+      this.tracks[trackIndex].el = $trackEmbed;
+
     };
 
     PlaylistManager.prototype.initTrackEmbed = function(track, domId) {

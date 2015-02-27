@@ -203,7 +203,9 @@ io.sockets.on('connection', function (socket) {
 
     addTrackToPlaylist(socket.roomId, newTrackData, function(updatedPlaylistModel) {
 
-      io.sockets.in(socket.roomId).emit('newTrack', updatedPlaylistModel);
+      // Return the newly added track
+      var newTrack = updatedPlaylistModel.tracks[updatedPlaylistModel.tracks.length - 1];
+      io.sockets.in(socket.roomId).emit('newTrack', newTrack);
     });
   });
   socket.on('removeTrack', removeTrackFromPlaylist);
@@ -350,9 +352,9 @@ var addTrackToPlaylist = function(playlistId, trackData, cb) {
       cb(response);
     }
 
-    playlist.addTrackToPlaylist(trackObj, function(newTrackModel) {
+    playlist.addTrackToPlaylist(trackObj, function(updatedPlaylistModel) {
 
-      cb(newTrackModel);
+      cb(updatedPlaylistModel);
     });
   });
 };

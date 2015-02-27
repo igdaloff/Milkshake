@@ -32,7 +32,7 @@ PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
 
     // Callback if there is one
     if(typeof(cb) === 'function') {
-      
+        
       cb(updatedPlaylistModel);
     }
   });
@@ -45,7 +45,7 @@ PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
 
     // Callback if there is one
     if(typeof(cb) === 'function') {
-      
+
       cb(updatedPlaylistModel);
     }
   });
