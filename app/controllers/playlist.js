@@ -345,19 +345,14 @@ var addTrackToPlaylist = function(playlistId, trackData, cb) {
 
       console.log('Error adding track to ' + playlistId);
       response = {
-        status: 'error',
-        newTrackData: model
+        status: 'error'
       };
       cb(response);
     }
 
     playlist.addTrackToPlaylist(trackObj, function(newTrackModel) {
 
-      var response = {
-        status: 'success',
-        newTrackData: newTrackModel
-      };
-      cb(response);
+      cb(newTrackModel);
     });
   });
 };
