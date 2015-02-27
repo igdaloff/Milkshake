@@ -405,22 +405,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     sendTrackToPlaylist: function(trackData) {
 
-      var playlistCollection = TWM.request('playlist:playlistCollection');
-      playlistCollection.add(trackData);
-    },
-    addTrackToPlaylist: function(trackModel) {
-
-      // If we didn't send the new track, add it to the playlist
+      // Request the socket object
       var socket = TWM.request('playlist:activeSocket');
+      socket.emit('addTrack', trackData);
+    },
+    addTrackToPlaylist: function(updatedPlaylistModel) {
+
       var playlistCollection = TWM.request('playlist:playlistCollection');
-      if(trackModel.sender !== socket.id) {
-
-        playlistCollection.add(trackModel);
-      }
-      else {
-
-
-      }
+      playlistCollection.add(updatedPlaylistModel.tracks);
     }
   };
 });

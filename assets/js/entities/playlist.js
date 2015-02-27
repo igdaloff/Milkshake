@@ -49,28 +49,10 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     initialize: function(opts) {
 
       this.id = playlistId;
-      this.listenTo(this, 'add', this.saveTrackToPlaylist);
     },
     url: function() {
 
       return '/' + this.id;
-    },
-    /**
-     * Save track to playlist
-     * When a track is added, if this is an existing playlist, send the track data over socket to save
-     * it into the playlist model. Do not send if a 'sender' attribute already exists on the track data
-     */
-    saveTrackToPlaylist: function(newTrackModel) {
-
-      if(typeof(this.id) !== 'string' || !this.id.length || typeof(newTrackModel.get('sender')) !== 'undefined') {
-
-        return false;
-      }
-
-      // Request the socket object
-      var socket = TWM.request('playlist:activeSocket');
-      newTrackModel.set('sender', socket.id);
-      socket.emit('addTrack', newTrackModel.attributes);
     }
   });
 

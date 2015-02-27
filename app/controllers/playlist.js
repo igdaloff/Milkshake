@@ -201,9 +201,9 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('addTrack', function(newTrackData) {
 
-    addTrackToPlaylist(newTrackData, function(newTrackModel) {
+    addTrackToPlaylist(socket.roomId, newTrackData, function(updatedPlaylistModel) {
 
-      io.sockets.in(socket.roomId).emit('newTrack', newTrackModel);
+      io.sockets.in(socket.roomId).emit('newTrack', updatedPlaylistModel);
     });
   });
   socket.on('removeTrack', removeTrackFromPlaylist);
@@ -325,10 +325,9 @@ var addPlaylistRow = function(playlistData, cb) {
   });
 };
 
-var addTrackToPlaylist = function(trackData, cb) {
+var addTrackToPlaylist = function(playlistId, trackData, cb) {
 
   console.log('track data to add:', trackData);
-  var playlistId = trackData.playlistId;
   var response;
   var trackObj = {
     trackId: trackData.trackId,
