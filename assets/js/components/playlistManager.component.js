@@ -31,10 +31,13 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       for(var i = 0; i < this.tracks.length; i++) {
 
         var track = this.tracks[i];
-        // Unlisten to all events
-        track.pop.off();
-        // Destroy the popcorn object
-        track.pop.destroy();
+        if(track.embedded) {
+          // Unlisten to all events
+          track.pop.off();
+          // Destroy the popcorn object
+          track.pop.destroy();
+          track.embedded = false;
+        }
       }
     };
 
@@ -193,8 +196,11 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       for(var i = 0; i < this.tracks.length; i++) {
 
-        var trackEmbed = this.tracks[i].pop;
-        trackEmbed.pause();
+        var track = this.tracks[i];
+        if(track.embedded) {
+          
+          track.pop.pause();
+        }
       }
     };
 
@@ -260,7 +266,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.pause = function() {
 
       var track = this.getCurrentTrackData();
-      if(typeof track.pop.pause === 'function') {
+      if(track.embedded && typeof track.pop.pause === 'function') {
         track.pop.pause();
       }
       else{
@@ -271,7 +277,10 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.resume = function() {
 
       var track = this.getCurrentTrackData();
-      track.pop.play();
+      if(track.embedded) {
+       
+        track.pop.play();
+      }
     };
 
     PlaylistManager.prototype.togglePlayPause = function(trackIndex) {
