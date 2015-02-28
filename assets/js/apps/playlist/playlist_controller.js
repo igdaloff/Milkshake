@@ -49,10 +49,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       playlistManager = TWM.request('playlist:activePlaylistMgr');
 
-      // Set the active track class ('current') when a track is playing or ends
+      // Set the active track class ('current') when a track is playing and past track class ('past') when it ends
       $(playlistManager).on('track:playing track:ended', this.setActiveTrackClass);
-      // Display played and playing artwork
-      $(playlistManager).on('track:playing', this.displayPlayedTrackArtwork);
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);
@@ -213,23 +211,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Remove current class from previous tracks
       $('.playback-track.current').removeClass('current');
       $('.playback-track').eq(currentTrackIndex).addClass('current');
-    },
-    displayPlayedTrackArtwork: function() {
-
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-
-      // Loop over played tracks and show the artwork
-      for(var i = 0; i < currentTrackIndex; i++) {
-
-        var $playbackTrack = $('.playback-track').eq(i);
-        $playbackTrack.css({
-          visibility: 'visible'
-        });
-      }
-
-      Playlist.Controller.detectTitleWidth();
-      Playlist.Controller.setLandscapeImage();
     },
     updateTimer: function() {
 

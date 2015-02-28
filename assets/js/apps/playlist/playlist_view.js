@@ -2,12 +2,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
   Playlist.Track = Marionette.ItemView.extend({
     template: 'playlist-track',
-    tagName: 'li',
-    className: 'playback-track'
+    tagName: 'tr',
+    className: 'playback-track basic-table-row'
   });
 
   Playlist.TrackList = Marionette.CollectionView.extend({
-    tagName: 'ul',
+    tagName: 'table',
     className: 'playback-track-list',
     childView: Playlist.Track
   });
@@ -15,8 +15,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.Controls = Marionette.ItemView.extend({
     el: '.playback-page',
     events: {
-      'click .mute-toggle': 'muteToggle',
-      'click .close-banner-message': 'removeFinishedBanner'
+      'click .mute-toggle': 'muteToggle'
     },
     muteToggle: function(e) {
 
@@ -31,10 +30,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         $muteToggle.removeClass('muted');
       }
-    },
-    removeFinishedBanner: function(e){
-      e.preventDefault();
-      $('.playlist-finished-message').removeClass('active');
     }
   });
 });

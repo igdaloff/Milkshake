@@ -1,0 +1,72 @@
+// =====================================
+// Table data (search results, playlist)
+// =====================================
+.basic-table{
+  table-layout: fixed;
+	width: 100%;
+  text-align: left;
+
+	&:empty{
+		display: none;
+	}
+}
+
+.basic-table-row{
+  width: 100%;
+  border-bottom: 1px solid $border-grey;
+  color: $black;
+
+  td{
+    width: 50px;
+    vertical-align: middle;
+  }
+}
+
+.basic-table-artwork{
+  position: relative;
+  text-align: left;
+}
+
+.basic-table-artwork-inner{
+  width: 50px;
+  overflow: hidden;
+
+  img{
+  	display: block;
+    min-width: 100%;
+    height: 50px;
+  }
+}
+
+td.basic-table-row-title{
+	width: 75%;
+	text-align: left;
+	padding-left: 1em;
+
+	span{
+	  display: inline;
+	}
+
+	h5{
+	  max-width: 75%;
+	  float: left;
+	  padding-right: 0.25em;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	  white-space: nowrap;
+	  display: inline-block;
+	  cursor: pointer;
+
+	  &:hover{
+	    text-decoration: underline;
+	  }
+	}
+
+	.playback-page & h5{
+		max-width: 100%;
+	}
+
+	a{
+		color: $black;
+	}
+}
