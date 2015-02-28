@@ -9,7 +9,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       };
       this.tracks = [];
       this.trackElements = [];
-      this.currentTrackIndex = null;
+      this.currentTrackIndex = 0;
       this.isPlaying = false;
       this.finished = false;
       this.muted = false;
@@ -28,7 +28,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.destroy = function() {
 
       this.stopAll();
-      for(var i in this.tracks) {
+      for(var i = 0; i < this.tracks.length; i++) {
 
         var track = this.tracks[i];
         // Unlisten to all events
@@ -40,9 +40,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.addTrackToPlaylist = function(trackData) {
 
-      var trackIndex = this.tracks.length;
-      var mergedData = _.extend(this.trackDefaults, trackData);
-      this.tracks.push(mergedData);
+      _.extend(trackData, this.trackDefaults);
+      this.tracks.push(trackData);
     };
 
     PlaylistManager.prototype.initTrackEmbed = function(trackIndex) {
@@ -56,39 +55,37 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
       }
 
-      var pop = Popcorn.smart( '#' + trackEmbedId, track.url);
-      pop.autoplay(false);
+      // Save the DOM element
+      track.el = $trackEmbed;
+
+      track.pop = Popcorn.smart( '#' + trackEmbedId, track.url);
+      track.pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
-      pop.on('ended', $.proxy(function(){
+      track.pop.on('ended', $.proxy(function(){
 
         $(this).trigger('track:ended');
         this.next();
       }, this));
-      pop.on('playing', $.proxy(function(){
+      track.pop.on('playing', $.proxy(function(){
 
         $(this).trigger('track:playing');
         this.isPlaying = true;
         this.finished = false;
       }, this));
-      pop.on('pause', $.proxy(function(){
+      track.pop.on('pause', $.proxy(function(){
 
         $(this).trigger('track:pause');
         this.isPlaying = false;
       }, this));
-      pop.on('timeupdate', $.proxy(function(){
+      track.pop.on('timeupdate', $.proxy(function(){
 
-        $(this).trigger('track:timeupdate', pop.currentTime());
+        $(this).trigger('track:timeupdate', track.pop.currentTime());
         this.listenToTrackEndAndLoadNext();
       }, this));
 
-      // Save the Popcorn instance
-      track.pop = pop;
-      // Save the DOM element
-      track.el = $trackEmbed;
-
       track.embedded = true;
 
-      return pop;
+      return track.pop;
     };
 
     PlaylistManager.prototype.listenToTrackEndAndLoadNext = function() {
@@ -98,8 +95,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       var nextTrackIndex = this.getCurrentTrackIndex() + 1;
       var nextTrackData = this.getTrackData(nextTrackIndex);
       var track = this.getCurrentTrackData();
-      // If: there is another track after the currently playing one; it is not yet embedded; we're within n seconds of the end of the current song
-      if(nextTrackIndex < this.tracks.length && !nextTrackData.embedded && track.pop.currentTime() + endBuffer >= track.duration) {
+      // If: this track is embedded, there is another track after the currently playing one; it is not yet embedded; we're within n seconds of the end of the current song
+      if(track.embedded && nextTrackIndex < this.tracks.length && !nextTrackData.embedded && track.pop.currentTime() + endBuffer >= track.duration) {
 
         this.initTrackEmbed(nextTrackIndex);
       }
@@ -194,7 +191,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.stopAll = function() {
 
-      for(var i in this.tracks) {
+      for(var i = 0; i < this.tracks.length; i++) {
 
         var trackEmbed = this.tracks[i].pop;
         trackEmbed.pause();
@@ -336,7 +333,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       var playlistDuration = 0;
       // Loop over previous tracks and add up the time
-      for(var trackIndex in this.tracks) {
+      for(var i = 0; i < this.tracks.length; i++) {
 
         var track = this.tracks[trackIndex];
         playlistDuration += track.duration;
@@ -397,9 +394,9 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       var startTrack = 0;
       var requestedTrackTime;
       // Loop over tracks and determine which track contains the requested start time
-      for(var trackIndex in this.tracks) {
+      for(var i = 0; i < this.tracks.length; i++) {
 
-        var track = this.tracks[trackIndex];
+        var track = this.tracks[i];
         timeCounter += track.duration;
         if(totalTime < timeCounter) {
 
@@ -428,20 +425,26 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.muteAll = function() {
 
-      for(var i in this.tracks) {
+      for(var i = 0; i < this.tracks.length; i++) {
 
         var track = this.tracks[i];
-        track.pop.mute();
+        if(track.embedded) {
+
+          track.pop.mute();
+        }
       }
       this.muted = true;
     };
 
     PlaylistManager.prototype.unmuteAll = function() {
 
-      for(var i in this.tracks) {
+      for(var i = 0; i < this.tracks.length; i++) {
 
         var track = this.tracks[i];
-        track.pop.unmute();
+        if(track.embedded) {
+
+          track.pop.unmute();
+        }
       }
       this.muted = false;
     };
