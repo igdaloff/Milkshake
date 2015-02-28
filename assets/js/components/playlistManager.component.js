@@ -18,7 +18,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.popsClass = 'playlist-embed';
       
       // Add the bootstrapped tracks to the playlist
-      for(var i in data.tracks) {
+      for(var i = 0; i < data.tracks.length; i++) {
 
         var track = data.tracks[i];
         this.addTrackToPlaylist(track);
@@ -56,7 +56,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         $trackEmbed = $('<div></div>').attr('id', trackEmbedId).attr('class', this.popsClass).appendTo('body');
       }
 
-      var pop = Popcorn.smart( '#' + domId, track.url);
+      var pop = Popcorn.smart( '#' + trackEmbedId, track.url);
       pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
       pop.on('ended', $.proxy(function(){
