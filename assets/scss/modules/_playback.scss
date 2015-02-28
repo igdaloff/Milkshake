@@ -76,6 +76,9 @@ $playback-artwork-width: 50px;
 	}
 }
 
+
+
+
 //Playback tracks
 .playback-tracks{
 	position: absolute;
@@ -98,18 +101,13 @@ $playback-artwork-width: 50px;
 		background: $light-green;
 	}
 
-	&.past{
-		color: rgba($off-black, 0.5);
+	&.played {
+		opacity: 0.5;
+	}
 
-		img{
-			@include filter(grayscale(100%));
-			opacity: 0.5;
-		}
-
-		.playlist-progress{
-			@extend .transition;
-			opacity: 0;
-		}
+	&:not(.current) .playback-track-artwork img{
+		@include filter(grayscale(100%));
+		opacity: 0.5;
 	}
 
 
@@ -161,7 +159,6 @@ $playback-artwork-width: 50px;
 
 
 // Playback states
-
 .playlist-full {
 	.playlist-full-message {
 		display: block;
