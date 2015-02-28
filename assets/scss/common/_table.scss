@@ -28,6 +28,7 @@
 }
 
 .basic-table-artwork-inner{
+	display: block;
   width: 50px;
   overflow: hidden;
 
@@ -39,6 +40,7 @@
 }
 
 td.basic-table-row-title{
+	position: relative;
 	width: 75%;
 	text-align: left;
 	padding-left: 1em;

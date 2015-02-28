@@ -31,6 +31,23 @@
   }
 }
 
+.icon{
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-variant: normal;
+  font-family: 'icomoon';
+  line-height: 1;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; //For custon icon fonts to appear correctly up in FF
+
+  @include smaller-than(large){
+    text-rendering: auto !important;
+  }
+}
+
 // To accompany all icons so screen readers communicate what icons mean.
 // Markup looks like <span class="screen-reader-text">E-mail</span>
 .screen-reader-text{

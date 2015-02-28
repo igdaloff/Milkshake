@@ -3,7 +3,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.Track = Marionette.ItemView.extend({
     template: 'playlist-track',
     tagName: 'tr',
-    className: 'playback-track basic-table-row'
+    className: 'playback-track basic-table-row',
     modelEvents: {
       'change:isPlaying': 'toggleIsPlayingClass',
       'change:hasPlayed': 'togglehasPlayedClass'
