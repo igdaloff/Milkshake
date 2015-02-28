@@ -4,6 +4,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   Entities.Track = Backbone.Model.extend({
     defaults: {
       isPlaying: false,
+      hasPlayed: false,
       previewProgress: 0
     },
     initialize: function() {
@@ -48,16 +49,41 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     model: Entities.Track,
     initialize: function(opts) {
 
-      this.id = playlistId;
+      this.on('change:isPlaying', this.updateTracksPlayStatus);
     },
     url: function() {
 
       return '/' + this.id;
+    },
+    /** 
+     * Update Tracks' Play Status
+     * When this track is set to isPlaying == true, update all the models in the collection.
+     * We need to set other tracks to isPlaying = false, and set all previous tracks in the
+     * collection to hasPlayed = true
+     */
+    updateTracksPlayStatus: function(playingTrack) {
+
+      if(playingTrack.get('isPlaying')) {
+
+        var playingTrackIndex = this.models.indexOf(playingTrack);
+        for(var i = 0; i < this.models.length; i++) {
+
+          var model = this.models[i];
+          if(i !== playingTrackIndex) {
+
+            model.set('isPlaying', false);
+          }
+          if(i < playingTrackIndex) {
+
+            model.set('hasPlayed', true);
+          }
+        }
+      }
     }
   });
 
   // Search result collection
-  Entities.TrackSearchResults = Backbone.Collection.extend({
+  Entities.TrackSearchResults = Entities.Playlist.extend({
     model: Entities.Track,
     baseUrl: "/search/",
     query: "",
@@ -71,7 +97,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     * If the new query does not match the old one, update this.query and make a
     * one-time listener to empty any old results when we next sync
     */
-    setQuery: function(query){
+    setQuery: function(query) {
       if(this.query != query){
         this.query = query;
         this.listenToOnce(this, "request", function(){

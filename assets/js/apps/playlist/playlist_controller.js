@@ -49,8 +49,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       playlistManager = TWM.request('playlist:activePlaylistMgr');
 
-      // Set the active track class ('current') when a track is playing or ends
-      $(playlistManager).on('track:playing track:ended', this.setActiveTrackClass);
+      // Set the isPlaying attribute on a track model when it is playing
+      $(playlistManager).on('track:playing track:ended', this.setPlayingTrackAttribute);
       // Set up marquee on new track titles
       $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
       // Display played and playing artwork
@@ -207,14 +207,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var openPlaylists = Playlist.Controller.getOpenPlaylists();
       return openPlaylists.indexOf(playlistId) > -1;
     },
-    setActiveTrackClass: function() {
+    setPlayingTrackAttribute: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-
-      // Remove current class from previous tracks
-      $('.playback-track.current').removeClass('current');
-      $('.playback-track').eq(currentTrackIndex).addClass('current');
+      var playlistCollection = TWM.request('playlist:playlistCollection');
+      var currTrackIndex = playlistManager.getCurrentTrackIndex();
+      // Set isPlaying on the currently playing track
+      playlistCollection.at(currTrackIndex).set('isPlaying', true);
     },
     displayPlayedTrackArtwork: function() {
 
@@ -321,10 +320,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       if(startTime !== 0) {
 
         startTime = Playlist.Controller.calculateTimeDiff(startTime);
-        if(startTime > playlist.getPlaylistDuration()) {
-
-          return false;
-        }
       }
       playlist.loadFromTotalTime(startTime, function(track) {
 
@@ -333,6 +328,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         // Remove the loading and waiting class from the body
         $('body').removeClass('playlist-loading');
       });
+      // Set the hasPlayed bool to true on all previous tracks
     },
     playPlaylist: function(data) {
 

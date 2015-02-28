@@ -3,7 +3,35 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.Track = Marionette.ItemView.extend({
     template: 'playlist-track',
     tagName: 'li',
-    className: 'playback-track'
+    className: 'playback-track',
+    modelEvents: {
+      'change:isPlaying': 'toggleIsPlayingClass',
+      'change:hasPlayed': 'togglehasPlayedClass'
+    },
+    toggleIsPlayingClass: function() {
+
+      var className = 'current';
+      if(this.model.get('isPlaying')) {
+
+        this.$el.addClass(className);
+      }
+      else {
+
+        this.$el.removeClass(className);
+      }
+    },
+    togglehasPlayedClass: function() {
+
+      var className = 'played';
+      if(this.model.get('hasPlayed')) {
+
+        this.$el.addClass(className);
+      }
+      else {
+
+        this.$el.removeClass(className);
+      }
+    }
   });
 
   Playlist.TrackList = Marionette.CollectionView.extend({

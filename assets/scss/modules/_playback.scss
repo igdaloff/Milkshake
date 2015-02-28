@@ -99,6 +99,10 @@ $playback-artwork-width: 60px;
 		background: $light-green;
 	}
 
+	&.played {
+		opacity: 0.5;
+	}
+
 	&:not(.current) .playback-track-artwork img{
 		@include filter(grayscale(100%));
 		opacity: 0.5;
