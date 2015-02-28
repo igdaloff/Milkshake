@@ -3,7 +3,7 @@
 // ========================
 
 //Header
-$playback-artwork-width: 60px;
+$playback-artwork-width: 45px;
 
 .playback-page {
 	overflow: hidden;
@@ -93,9 +93,6 @@ $playback-artwork-width: 60px;
 
 .playback-track{
 	position: relative;
-	display: table;
-	width: 100%;
-	border-bottom: 1px solid $border-grey;
 
 	&.current{
 		background: $light-green;

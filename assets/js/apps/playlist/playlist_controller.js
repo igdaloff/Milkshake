@@ -208,7 +208,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
 
-      // Remove current class from previous tracks and add past class
+      // Remove current class from previous tracks and add past class (TODO: Should probably move adding 'past' class into own function)
       $('.playback-track.current').removeClass('current').addClass('past');
       $('.playback-track.current').prevAll().addClass('past');
       $('.playback-track').eq(currentTrackIndex).addClass('current');

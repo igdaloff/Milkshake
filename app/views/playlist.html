@@ -50,7 +50,7 @@
     <div class="playback-tracks">
       <table class="playback-track-list basic-table">
         {% for track in playlist.tracks %}
-        <tr class="basic-table-row">
+        <tr class="basic-table-row playback-track">
           <td class="basic-table-artwork artwork">
             <div class="basic-table-artwork-inner">
              <img src="{% if track.artwork === 'undefined' || artwork === null %} /img/search-result-artwork-placehold.gif {% else %} {{ track.artwork }} {% endif %}" alt="Album artwork" />
