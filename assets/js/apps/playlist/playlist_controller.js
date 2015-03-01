@@ -288,7 +288,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       }
       playlist.loadFromTotalTime(startTime, function(track) {
 
-        // Tell the server we are ready to start        
+        // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
         // Remove the loading and waiting class from the body
         $('body').removeClass('playlist-loading');

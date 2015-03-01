@@ -146,6 +146,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       }
     },
     onShow: function() {
+
       // Show different search input placeholder text for playback search; TODO: get this to work
       if($('.playback-page')){
         $('.track-search-input').attr('placeholder', 'Add a track');
