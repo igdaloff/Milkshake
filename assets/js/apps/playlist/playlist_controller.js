@@ -331,7 +331,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     calculateTimeDiff: function(startTime) {
 
-      var currentUnixTime =  new Date().getTime();
+      var currentUnixTime = new Date().getTime();
       var timeDiff = currentUnixTime - startTime;
       var timeDiffSecs = Math.round(timeDiff / 1000);
       return timeDiffSecs;

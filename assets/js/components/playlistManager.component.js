@@ -55,7 +55,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.initTrackEmbed = function(trackIndex) {
 
       var track = this.getTrackData(trackIndex);
-      var trackEmbedId = this.popsId.toString() + '-' + trackIndex;
+      var trackEmbedId = this.popsId.toString() + '-' + track.id;
       // Create the track embed container if it doesn't exist
       var $trackEmbed = $('#' + trackEmbedId);
       if($trackEmbed.length === 0) {
@@ -487,6 +487,41 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         }
       }
       this.muted = false;
+    };
+
+    PlaylistManager.prototype.reorder = function(trackId, newRank) {
+
+      // First get the current rank of the track to update
+      var trackToUpdate = _.findWhere(this.tracks, {
+        id: trackId
+      });
+      var oldRank = trackToUpdate.rank;
+      var trackIndex = this.tracks.indexOf(trackToUpdate);
+
+      // Update the ranks of tracks between the old and new positions
+      var hi = oldRank > newRank ? oldRank : newRank;
+      var lo = oldRank < newRank ? oldRank : newRank;
+
+      for(var i = lo; i <= hi; i++) {
+
+        var track = this.tracks[i];
+        if(newRank > oldRank && i !== lo) {
+
+          track.rank = i - 1;
+        } 
+        else if(i !== hi) {
+
+          track.rank = i + 1;
+        }
+      }
+      
+      this.tracks[trackIndex].rank = newRank;
+
+      // Sort the array based on the new rankings
+      this.tracks = _.sortBy(this.tracks, function(o) {
+
+        return o.rank;
+      });
     };
 
     return PlaylistManager;

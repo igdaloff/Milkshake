@@ -130,7 +130,7 @@ io.sockets.on('connection', function (socket) {
         // Set the playlistStartTime to be now (current UNIX timestamp) if this is the first play
         if(playlistStartTime === 0) {
 
-          var unixTS = Math.round(new Date().getTime() / 1000);
+          var unixTS = new Date().getTime();
 
           // Save the start time to the database instance of this playlist
           Playlist.update({
@@ -276,7 +276,7 @@ exports.playlist = function(req, res){
 
 exports.createDummyPlaylist = function(req, res) {
 
-  var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+  var currentUnixTime =  new Date().getTime();
   var playlistData = {
     title: 'Testing, testing, 1 2 3 4',
     startTime: currentUnixTime,
