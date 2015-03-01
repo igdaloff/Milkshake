@@ -43,7 +43,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Allow tracks to be dragged and sorted
       $('.playback-track-list tbody').sortable({
-        cancel: '.played, .current'
+        cancel: '.played, .current',
+        placeholder: 'track-reorder-gap'
       }).disableSelection();
     }
   });

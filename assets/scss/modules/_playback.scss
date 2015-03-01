@@ -106,7 +106,9 @@ $playback-artwork-width: 50px;
 	}
 
 	&:not(.current):not(.played){
-		cursor: ns-resize;
+		cursor: -moz-grab;
+		cursor: -webkit-grab;
+		cursor: grab;
 	}
 
 	&:not(.current) .playback-track-artwork img{
@@ -114,7 +116,9 @@ $playback-artwork-width: 50px;
 		opacity: 0.5;
 	}
 
-
+	td{
+		font-size: 0.8em;
+	}
 }
 
 .playback-track-artwork{
@@ -131,8 +135,6 @@ $playback-artwork-width: 50px;
 }
 
 .playback-track-title{
-	font-size: 0.9em;
-
 	&:hover{
 		a{
 			text-decoration: underline;
@@ -140,25 +142,28 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.loading-message {
-	margin-top: 1.25em;
-	font-family: $sans-special;
-	font-size: 2em;
-	text-align: center;
 
-	.loading-indicator {
-		margin: 1em 0;
+
+
+// Draggable track styles
+.ui-sortable-helper{
+	background: white;
+	border: 0;
+	box-shadow: 0 0 0 2px $green;
+	@include transform(rotate(2deg));
+	overflow: hidden;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+
+	td.basic-table-row-title h5{
+		max-width: 65%;
 	}
 }
 
-.playlist,
-.loading-message,
-.welcome-message,
-.playlist-full-message,
-.playlist-progress {
-	display: none;
+.track-reorder-gap{
+	border: 2px dotted $green;
 }
-
 
 
 
@@ -204,4 +209,23 @@ $playback-artwork-width: 50px;
 		top: auto;
 		bottom: 5%;
 	}
+}
+
+.loading-message {
+	margin-top: 1.25em;
+	font-family: $sans-special;
+	font-size: 2em;
+	text-align: center;
+
+	.loading-indicator {
+		margin: 1em 0;
+	}
+}
+
+.playlist,
+.loading-message,
+.welcome-message,
+.playlist-full-message,
+.playlist-progress {
+	display: none;
 }
