@@ -1,17 +1,15 @@
-<div class="playlist-progress">
-  <div class="progress-bars">
-    <div class="track-progress">
-      <div class="current-progress"></div>
-    </div>
+<td class="playback-track-artwork artwork">
+  <div class="basic-table-artwork-inner">
+    <a href="<%- url %>" target="_blank">
+    <% if (artwork) { %>
+      <img src="<%- artwork %>" alt="Album artwork"/>
+    <% } else { %>
+      <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
+    <% } %>
+    </a>
   </div>
-</div>
-<div class="playback-track-artwork">
-  <a href="<%- url %>" target="_blank">
-  <% if (artwork) { %>
-    <img src="<%- artwork %>" alt="Album artwork"/>
-  <% } else { %>
-    <img src="/img/artwork-placehold.gif" alt="Album artwork"/>
-  <% } %>
-  </a>
-</div>
-<h2 class="playback-track-title"><a href="<%- url %>" target="_blank"><%- title %></a></h2>
+</td>
+<td class="basic-table-row-title playback-track-title">
+  <h5 class="playback-track-title"><a href="<%- url %>" target="_blank"><%- title %></a></h5>
+</td>
+<td class="track-search-result-duration"><%- duration %></td>

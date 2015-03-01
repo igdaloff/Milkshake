@@ -215,23 +215,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Set isPlaying on the currently playing track
       playlistCollection.at(currTrackIndex).set('isPlaying', true);
     },
-    displayPlayedTrackArtwork: function() {
-
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var currentTrackIndex = playlistManager.getCurrentTrackIndex();
-
-      // Loop over played tracks and show the artwork
-      for(var i = 0; i < currentTrackIndex; i++) {
-
-        var $playbackTrack = $('.playback-track').eq(i);
-        $playbackTrack.css({
-          visibility: 'visible'
-        });
-      }
-
-      Playlist.Controller.detectTitleWidth();
-      Playlist.Controller.setLandscapeImage();
-    },
     updateTimer: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
@@ -365,15 +348,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         playlistManager.muteAll();
       }
       return playlistManager.isMuted();
-    },
-    detectTitleWidth: function(){
-
-      $('.playback-track-title a').each(function(){
-        if( $(this).width() > $(this).parents('h2').width() ){
-          $(this).addClass('marquee');
-          $(this).parents('li').addClass('marquee-container');
-        }
-      });
     },
     setLandscapeImage: function(){
 

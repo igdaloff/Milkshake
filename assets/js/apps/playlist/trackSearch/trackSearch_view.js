@@ -3,7 +3,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
   TrackSearch.SearchResult = Marionette.ItemView.extend({
     template: 'track-search-result',
     tagName: 'tr',
-    className: 'track-search-result',
+    className: 'track-search-result basic-table-row',
     events: {
       'click .toggle-track-preview': 'toggleTrackPreview',
       'click .track-search-result-add': 'addTrack'
@@ -56,10 +56,10 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     addTrack: function(e){
 
       e.preventDefault();
-      
+
       // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
       if($('.playlist-create').length) {
-        
+
         TrackSearch.Controller.addTrack(this.model);
       }
       else {
@@ -130,7 +130,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
 
           this.$('.track-search-query').off('keyup.autosearch');
           this.$('.track-search-query').on('keyup.autosearch', function(e) {
-            
+
             _this.autoSearch(e);
           });
         });
@@ -154,6 +154,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       this.$('.track-search-query').addClass('loading');
       // Execute the query
       TrackSearch.Controller.searchTracks(query);
+
     },
     onRenderCollection: function() {
 
@@ -161,6 +162,8 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       $(this.childViewContainer).parent().addClass('visible');
       // Remove the loading class on completion
       this.$('.track-search-query').removeClass('loading');
+
+      $('.playback-page .track-search-results-container').perfectScrollbar();
     },
     /**
      * No results message

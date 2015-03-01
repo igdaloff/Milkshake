@@ -3,7 +3,7 @@
 // ========================
 
 //Header
-$playback-artwork-width: 60px;
+$playback-artwork-width: 50px;
 
 .playback-page {
 	overflow: hidden;
@@ -15,6 +15,7 @@ $playback-artwork-width: 60px;
 }
 
 .playback-header{
+	position: relative;
 	display: table;
 	height: 240px;
 	width: 100%;
@@ -23,6 +24,7 @@ $playback-artwork-width: 60px;
 	text-align: center;
 	background: white;
 	border-right: 1px solid $border-grey;
+	z-index: 100;
 }
 
 .playback-logo{
@@ -74,16 +76,19 @@ $playback-artwork-width: 60px;
 	}
 }
 
+
+
+
 //Playback tracks
 .playback-tracks{
 	position: absolute;
-	top: $playback-header-height;
-	bottom: $footer-height;
+	top: $playback-header-height + $playback-search-height;
+	bottom: 0;
 	width: $left-rail-width;
 	background: white;
-	border-top: 1px solid $border-grey;
 	border-right: 1px solid $border-grey;
-	overflow: auto;
+	z-index: 1;
+
 	li{
 		height: $playback-artwork-width;
 	}
@@ -91,9 +96,6 @@ $playback-artwork-width: 60px;
 
 .playback-track{
 	position: relative;
-	display: table;
-	width: 100%;
-	border-bottom: 1px solid $border-grey;
 
 	&.current{
 		background: $light-green;
@@ -107,22 +109,16 @@ $playback-artwork-width: 60px;
 		@include filter(grayscale(100%));
 		opacity: 0.5;
 	}
+
+
 }
 
 .playback-track-artwork{
-	width: $playback-artwork-width;
-	float: left;
-
 	a{
 		display: block;
-		overflow: hidden;
-		width: 100%;
 	}
 
 	img{
-		display: block;
-		width: 100%;
-
 		&.landscape{
 			width: $playback-artwork-width * 1.333333; //60px * 1.333333 (youtube aspect ratio)
 			margin-left: -10px;
@@ -131,13 +127,7 @@ $playback-artwork-width: 60px;
 }
 
 .playback-track-title{
-	position: relative;
-	display: table-cell;
-	width: $left-rail-width - $playback-artwork-width;
-	vertical-align: middle;
-	padding-left: 1em;
 	font-size: 0.9em;
-	z-index: 10;
 
 	&:hover{
 		a{
@@ -169,7 +159,6 @@ $playback-artwork-width: 60px;
 
 
 // Playback states
-
 .playlist-full {
 	.playlist-full-message {
 		display: block;

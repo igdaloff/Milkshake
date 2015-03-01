@@ -193,10 +193,12 @@
 }
 
 
+
+
 //Search
 .playlist-create{
 	.track-search-container{
-	  margin: 2em 0;
+	  margin: 3em 0 6em;
 	}
 
 	.track-search-input-container{
@@ -228,14 +230,12 @@
 	}
 
 	.search-submit{
-		position: absolute;
-		top: 1px;
-		right: 3px;
-		bottom: 1px;
-		width: 120px;
-		height: auto;
+		display: none;
 	}
 }
+
+
+
 
 //Playlist Title
 .playlist-create-title-container{

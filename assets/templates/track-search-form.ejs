@@ -1,12 +1,13 @@
 <form class="track-search-form">
   <div class="track-search-input-container">
     <input type="text" class="track-search-query input-field" placeholder="Search music from YouTube or Soundcloud" />
-    <!-- <button type="submit">Search</button> -->
+    <span class="screen-reader-text">Search tracks</span>
+    <button type="submit" class="search-submit btn btn-black"></button>
   </div>
 </form>
 <div class="no-results-message">
   <h4>No results found for &ldquo;<span class="search-term"></span>&rdquo;</h4>
 </div>
 <div class="track-search-results-container">
-  <table class="track-search-results"></table>
+  <table class="track-search-results basic-table"></table>
 </div>

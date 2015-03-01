@@ -1,32 +1,113 @@
 // =======================
 // Playback search
 // =======================
+.playback-page{
+	.track-search-results-container{
+		opacity: 1;
+		position: fixed;
+		top: -100%;
+		width: $left-rail-width;
+		height: 100%;
+		padding-bottom: $playback-header-height + $playback-search-height;
+		background: $black;
+		overflow: hidden;
+		border-right: 1px solid $border-grey;
+		z-index: 10;
 
-.add-playback-track {
-	position: relative;
-	z-index: 2444;
-	background: #FFF;
-}
-
-.track-search-input-container {
-	position: relative;
-}
-
-.add-playback-track{
-	.track-search-query{
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 45px;
-		padding-left: 1em;
-		color: $dark-grey;
-		font-size: 0.9em;
-		border: 0;
-		border-top: 1px solid $border-grey;
+		&.visible{
+			top: $playback-header-height + $playback-search-height;
+		}
 	}
-}
 
-.playback-search-results{
+	.track-search-results{
+		margin: 0;
 
+		td{
+			color: white;
+		}
+	}
+
+	.track-search-result{
+		border-bottom: 1px solid $off-black;
+
+		.track-search-result-duration{
+			text-align: right;
+		}
+
+		&:hover{
+			background: $off-black;
+
+			.track-search-result-source{
+				opacity: 1;
+			}
+		}
+	}
+
+	.track-search-input-container{
+		position: relative;
+		height: $playback-search-height;
+		z-index: 100;
+		border: 1px solid $border-grey;
+
+		.track-search-query{
+			height: 100%;
+			padding-left: 1em;
+			color: $dark-grey;
+			font-size: 0.9em;
+			border: 0;
+		}
+
+		.search-submit{
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 45px;
+			height: 100%;
+			@include icomoon(search);
+			font-size: 1em;
+			line-height: 0.9em;
+
+			&:hover, &:focus{
+				text-decoration: none;
+				background: $green;
+				color: $black;
+			}
+		}
+	}
+
+	.basic-table-row-title h5:hover{
+		text-decoration: none;
+	}
+
+	.track-search-result-source{
+		position: absolute;
+		left: -50px;
+		font-family: 'icomoon';
+		background: $off-black;
+		width: 50px;
+		height: 50px;
+		top: 0;
+		line-height: 50px;
+		text-align: center;
+		font-size: 1.5em;
+		color: white;
+		opacity: 0;
+
+		i{
+			position: absolute;
+			left: -9999px;
+		}
+	}
+
+	.icon-soundcloud:before{
+		content: '\f1be';
+	}
+
+	.icon-youtube:before{
+		content: '\f166';
+	}
+
+	.preview-track-container{
+		display: none;
+	}
 }

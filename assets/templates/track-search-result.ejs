@@ -1,14 +1,14 @@
-<td class="track-search-result-artwork artwork">
-  <div class="track-search-result-artwork-inner">
+<td class="track-search-result-artwork artwork basic-table-artwork">
+  <a href="<%= url %>" target="_blank" class="track-search-result-artwork-inner basic-table-artwork-inner">
 	 <img src="<% if(typeof artwork === 'undefined' || artwork === null){ %> /img/search-result-artwork-placehold.gif <% } else { %><%= artwork %><% } %>" alt="Album artwork" />
-  </div>
+  </a>
 </td>
-<td class="track-search-result-title">
+<td class="track-search-result-title basic-table-row-title">
 	<span class="track-search-result-add">
 		<span class="screen-reader-text">Preview</span>
-		<h5><%= title %></h5>
+		<h5 title="<%= title %>"><%= title %></h5>
 	</span>
-	<a href="<%= url %>" target="_blank" class="track-search-result-source"><i>(<% if(source === 'soundcloud'){ %>SoundCloud<% } else { %>YouTube<% } %>)</i></a>
+	<a href="<%= url %>" target="_blank" class="track-search-result-source icon icon-<% if(source === 'soundcloud'){ %>soundcloud<% } else { %>youtube<% } %>"><i>(<% if(source === 'soundcloud'){ %>SoundCloud<% } else { %>YouTube<% } %>)</i></a>
 </td>
 <td class="track-search-result-duration"><%= minutes %></td>
 <td class="preview-track-container">
