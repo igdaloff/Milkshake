@@ -373,7 +373,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var playlistCollection = TWM.request('playlist:playlistCollection');
-      playlistCollection.add(newTrackData);
+      var newModel = playlistCollection.add(newTrackData);
+      newTrackData.id = newModel.id;
       // Add the new track to the playlist manager
       playlistManager.addTrackToPlaylist(newTrackData);
     },
