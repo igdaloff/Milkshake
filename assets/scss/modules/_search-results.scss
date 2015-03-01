@@ -18,31 +18,8 @@
   margin-top: 1em;
 }
 
-@-webkit-keyframes highlight-flash {
-  0% {
-    background: $green;
-  }
-  100% {
-    background: none;
-  }
-}
-
-@keyframes highlight-flash {
-  0% {
-    background: $green;
-  }
-  100% {
-    background: none;
-  }
-}
-
 .track-search-result{
   border-bottom-color: $light-grey;
-
-  &.highlight{
-    -webkit-animation: highlight-flash 2s;
-    animation: highlight-flash 2s;
-  }
 }
 
 .track-search-result-source{

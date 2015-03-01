@@ -20,6 +20,11 @@
     width: 50px;
     vertical-align: middle;
   }
+
+  &.highlight{
+    -webkit-animation: highlight-flash 2s;
+    animation: highlight-flash 2s;
+  }
 }
 
 .basic-table-artwork{
@@ -67,8 +72,23 @@ td.basic-table-row-title{
 	.playback-page & h5{
 		max-width: 100%;
 	}
+}
 
-	a{
-		color: $black;
-	}
+// Indicator that track has been added
+@-webkit-keyframes highlight-flash {
+  0% {
+    background: $green;
+  }
+  100% {
+    background: $off-black;
+  }
+}
+
+@keyframes highlight-flash {
+  0% {
+    background: $green;
+  }
+  100% {
+    background: $off-black;
+  }
 }

@@ -87,6 +87,7 @@ $playback-artwork-width: 50px;
 	width: $left-rail-width;
 	background: white;
 	border-right: 1px solid $border-grey;
+	overflow: auto;
 	z-index: 1;
 
 	li{
@@ -111,7 +112,7 @@ $playback-artwork-width: 50px;
 		cursor: grab;
 	}
 
-	&:not(.current) .playback-track-artwork img{
+	&:not(.current) img{
 		@include filter(grayscale(100%));
 		opacity: 0.5;
 	}

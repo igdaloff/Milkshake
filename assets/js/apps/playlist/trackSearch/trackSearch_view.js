@@ -171,7 +171,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Remove the loading class on completion
       this.$('.track-search-input').removeClass('loading');
 
-      $('.playback-page .track-search-results-container').perfectScrollbar();
+      $('.track-search-results-container').perfectScrollbar();
 
       // Show close search button
       $('.track-search-close').fadeIn('fast');
