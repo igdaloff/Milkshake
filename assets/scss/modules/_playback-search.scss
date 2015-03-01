@@ -48,30 +48,46 @@
 		height: $playback-search-height;
 		z-index: 100;
 		border: 1px solid $border-grey;
+	}
 
-		.track-search-query{
-			height: 100%;
-			padding-left: 1em;
+	.track-search-input{
+		height: 100%;
+		padding-left: 1em;
+		font-size: 0.9em;
+		border: 0;
+		background: $off-white;
+
+		&::-webkit-input-placeholder {
 			color: $dark-grey;
-			font-size: 0.9em;
-			border: 0;
 		}
 
-		.search-submit{
-			position: absolute;
-			right: 0;
-			top: 0;
-			width: 45px;
-			height: 100%;
-			@include icomoon(search);
-			font-size: 1em;
-			line-height: 0.9em;
+		&:-moz-placeholder {
+			color: $dark-grey;
+		}
 
-			&:hover, &:focus{
-				text-decoration: none;
-				background: $green;
-				color: $black;
-			}
+		&::-moz-placeholder {
+			color: $dark-grey;
+		}
+
+		&:-ms-input-placeholder {
+			color: $dark-grey;
+		}
+	}
+
+	.search-submit{
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: $playback-search-height;
+		height: 100%;
+		@include icomoon(search);
+		font-size: 1em;
+		line-height: 0.9em;
+
+		&:hover, &:focus{
+			text-decoration: none;
+			background: $green;
+			color: $black;
 		}
 	}
 
@@ -109,5 +125,27 @@
 
 	.preview-track-container{
 		display: none;
+	}
+}
+
+.track-search-close{
+	display: none;
+	position: absolute;
+	top: 0;
+	right: 2.1em;
+	bottom: 0;
+	width: 1em;
+	height: 1em;
+	margin: auto;
+	text-align: center;
+	font-size: 1.75em;
+	font-family: $sans-special;
+	background: $black;
+	border-radius: 100%;
+	color: $green;
+
+	&:hover{
+		background: $green;
+		color: $black;
 	}
 }

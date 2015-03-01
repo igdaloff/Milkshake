@@ -35,7 +35,7 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
   //Navigate between tracks with arrow keys
   $("body").keydown(function(e) {
 
-    if( !$(".track-search-query").is(":focus") ){
+    if( !$(".track-search-input").is(":focus") ){
       var $chosenTrack = $(".selected");
 
       if(e.keyCode == 37) { // left
