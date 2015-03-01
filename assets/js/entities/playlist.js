@@ -49,7 +49,9 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
     model: Entities.Track,
     initialize: function(opts) {
 
-      this.on('change:isPlaying', this.updateTracksPlayStatus);
+      // Set a value on this object to keep track of the duration. On new track adds, update it
+      this.listenTo(this, 'add', this.incrementDuration);
+      this.listenTo(this, 'change:isPlaying', this.updateTracksPlayStatus);
     },
     url: function() {
 
@@ -79,6 +81,10 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
           }
         }
       }
+    },
+    incrementDuration: function(newModel) {
+
+      this.duration += newModel.get('duration');
     }
   });
 

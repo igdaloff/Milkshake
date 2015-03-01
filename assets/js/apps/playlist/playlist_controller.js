@@ -243,6 +243,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Update the time in the header
       $('.current-time').text(TWM.Lib.secondsToMinutes(currentTime));
     },
+    updateTimerTotal: function() {
+
+      var playlistCollection = TWM.request('playlist:playlistCollection');
+      $('.total-time').text(TWM.Lib.secondsToMinutes(playlistCollection.duration));
+    },
     updateProgressBar: function(currentTime) {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
