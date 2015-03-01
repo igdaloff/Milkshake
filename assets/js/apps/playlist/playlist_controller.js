@@ -246,7 +246,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     updateTimerTotal: function() {
 
       var playlistCollection = TWM.request('playlist:playlistCollection');
-      $('.total-time').text(TWM.Lib.secondsToMinutes(playlistCollection.duration));
+      $('.total-time').text(TWM.Lib.secondsToMinutes(playlistCollection.getTotalDuration()));
     },
     updateProgressBar: function(currentTime) {
 

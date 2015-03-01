@@ -28,6 +28,7 @@ PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
   var newRank = this.tracks.length + 1;
   trackData.rank = newRank;
   this.tracks.push(trackData);
+  this.totalDuration += trackData.duration;
   this.save(function(err, updatedPlaylistModel) {
 
     // Callback if there is one
@@ -41,6 +42,7 @@ PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
 PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
 
   this.tracks.pull(trackId);
+  this.totalDuration -= trackData.duration;
   this.save(function(err, updatedPlaylistModel) {
 
     // Callback if there is one

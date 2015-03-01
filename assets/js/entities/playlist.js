@@ -47,10 +47,8 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   // Playlist (collection of tracks)
   Entities.Playlist = Backbone.Collection.extend({
     model: Entities.Track,
-    initialize: function(opts) {
+    initialize: function() {
 
-      // Set a value on this object to keep track of the duration. On new track adds, update it
-      this.listenTo(this, 'add', this.incrementDuration);
       this.listenTo(this, 'change:isPlaying', this.updateTracksPlayStatus);
     },
     url: function() {
@@ -82,9 +80,15 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         }
       }
     },
-    incrementDuration: function(newModel) {
+    getTotalDuration: function() {
 
-      this.duration += newModel.get('duration');
+      var duration = 0;
+      for(var i = 0; i < this.models.length; i++) {
+
+        var model = this.models[i];
+        duration += model.get('duration');
+      }
+      return duration;
     }
   });
 
