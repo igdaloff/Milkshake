@@ -51,8 +51,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         update: function(e, ui) {
 
           var trackModelId = ui.item.data('id');
-          var newRank = ui.item.index() + 1;
-          Playlist.Controller.reorderTracks(trackModelId, newRank);
+          var newRank = ui.item.index();
+          Playlist.Controller.sendNewTrackOrder(trackModelId, newRank);
         }
       }).disableSelection();
     }

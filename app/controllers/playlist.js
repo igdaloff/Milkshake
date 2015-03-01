@@ -22,7 +22,7 @@ exports.processNewPlaylist = function(req, res){
       url: req.body['track' + i + 'url'],
       artwork: req.body['track' + i + 'artwork'],
       duration: parseFloat(req.body['track' + i + 'duration']),
-      rank: i + 1
+      rank: i
     };
     totalDuration += track.duration;
     playlistTracks.push(track);
@@ -288,7 +288,7 @@ exports.createDummyPlaylist = function(req, res) {
         url: 'http://www.youtube.com/watch?v=K5G1FmU-ldg&feature=youtube_gdata',
         artwork: 'http://i.ytimg.com/vi/K5G1FmU-ldg/default.jpg',
         duration: 338,
-        rank: 1
+        rank: 0
       },
       {
         trackId: '',
@@ -297,7 +297,7 @@ exports.createDummyPlaylist = function(req, res) {
         url: 'http://www.youtube.com/watch?v=XrvjwMIBtqA&feature=youtube_gdata',
         artwork: 'http://i.ytimg.com/vi/XrvjwMIBtqA/default.jpg',
         duration: 246,
-        rank: 2
+        rank: 1
       },
       {
         trackId: '',
@@ -306,7 +306,7 @@ exports.createDummyPlaylist = function(req, res) {
         url: 'http://www.youtube.com/watch?v=7syyywL9JuM&feature=youtube_gdata',
         artwork: 'http://i.ytimg.com/vi/7syyywL9JuM/default.jpg',
         duration: 160,
-        rank: 3
+        rank: 2
       }
     ],
     totalDuration: 744

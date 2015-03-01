@@ -1,6 +1,5 @@
 TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
-  // Search result
   Entities.Track = Backbone.Model.extend({
     defaults: {
       isPlaying: false,
@@ -8,6 +7,12 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       previewProgress: 0
     },
     initialize: function() {
+
+      // If there is no ID, but we have an _id attribute, use that to set the id
+      if(typeof(this.get('_id')) === 'string') {
+
+        this.id = this.get('_id');
+      }
 
       // When the track is not playing, set the previewProgress to 0
       this.listenTo(this, 'change:isPlaying', function() {

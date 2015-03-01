@@ -36,7 +36,7 @@ var PlaylistSchema = new Schema({
  */
 PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
 
-  var newRank = this.tracks.length + 1;
+  var newRank = this.tracks.length;
   trackData.rank = newRank;
   this.tracks.push(trackData);
   // Reset the start time if the duration of the playlist + start time is less than now
@@ -91,7 +91,6 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
   });
   var oldRank = trackToUpdate.rank;
   var trackIndex = this.tracks.indexOf(trackToUpdate);
-  this.tracks[trackIndex].rank = newRank;
 
   // Update the ranks of tracks between the old and new positions
   var hi = oldRank > newRank ? oldRank : newRank;
@@ -99,7 +98,7 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
 
   for(var i = lo; i <= hi; i++) {
 
-    var track = this.tracks[i - 1];
+    var track = this.tracks[i];
     if(newRank > oldRank && i !== lo) {
 
       track.rank = i - 1;
@@ -109,6 +108,9 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
       track.rank = i + 1;
     }
   }
+  
+  this.tracks[trackIndex].rank = newRank;
+
   // Sort the array based on the new rankings
   this.tracks = _.sortBy(this.tracks, function(o) {
 
