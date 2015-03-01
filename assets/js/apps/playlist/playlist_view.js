@@ -11,6 +11,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     onRender: function() {
 
       this.el.setAttribute('data-id', this.model.id);
+      this.toggleIsPlayingClass();
+      this.togglehasPlayedClass();
     },
     toggleIsPlayingClass: function() {
 
@@ -41,12 +43,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.TrackList = Marionette.CollectionView.extend({
     tagName: 'table',
     className: 'playback-track-list',
-    childView: Playlist.Track,
+    childView: Playlist.Track
+  });
 
+  Playlist.PlayedTrackList = Playlist.TrackList.extend({
+    className: 'playback-track-list played-tracks'
+  });
+
+  Playlist.FutureTrackList = Playlist.TrackList.extend({
+    className: 'playback-track-list future-tracks',
     onRender: function() {
 
       // Allow tracks to be dragged and sorted
-      $('.playback-track-list tbody').sortable({
+      this.$('tbody').sortable({
         cancel: '.played, .current',
         update: function(e, ui) {
 

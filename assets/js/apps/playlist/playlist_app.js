@@ -93,9 +93,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       return Playlist.Controller.getSocketHistory();
     });
 
-    // Initialize the track list view
-    var trackListView = new Playlist.TrackList({
-      el: '.playback-track-list',
+    // Initialize the track list views
+    var playedTrackListView = new Playlist.PlayedTrackList({
+      el: '.playback-track-list.played-tracks',
+      collection: playlist
+    }).render();
+
+    var futureTrackListView = new Playlist.FutureTrackList({
+      el: '.playback-track-list.future-tracks',
       collection: playlist
     }).render();
 

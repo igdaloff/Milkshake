@@ -92,6 +92,19 @@ $playback-artwork-width: 50px;
 	li{
 		height: $playback-artwork-width;
 	}
+	.playback-track-list.played-tracks tr{
+		display: none;
+		&.played,
+		&.current {
+			display: table-row;
+		}
+	}
+	.playback-track-list.future-tracks tr{
+		&.played,
+		&.current {
+			display: none;
+		}
+	}
 }
 
 .playback-track{
