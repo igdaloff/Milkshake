@@ -111,7 +111,8 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     className: 'track-search',
     template: 'track-search-form',
     events: {
-      'submit form': 'searchTracks'
+      'submit form': 'searchTracks',
+      'click .track-search-close': 'closeSearch'
     },
     initialize: function(opts) {
 
@@ -128,8 +129,8 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
 
         this.listenTo(this, 'render', function() {
 
-          this.$('.track-search-query').off('keyup.autosearch');
-          this.$('.track-search-query').on('keyup.autosearch', function(e) {
+          this.$('.track-search-input').off('keyup.autosearch');
+          this.$('.track-search-input').on('keyup.autosearch', function(e) {
 
             _this.autoSearch(e);
           });
@@ -141,17 +142,22 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // On render, display the current query in the search input
       if(typeof this.collection.query === 'string') {
 
-        this.$('.track-search-query').val(this.collection.query);
+        this.$('.track-search-input').val(this.collection.query);
+      }
+
+      // Show different search input placeholder text for playback search; TODO: get this to work
+      if($('.playback-page')){
+        $('.track-search-input').attr('placeholder', 'Add a track');
       }
     },
     searchTracks: function(e) {
 
       e.preventDefault();
       var $form = $(e.currentTarget);
-      var query = this.$('.track-search-query').val();
+      var query = this.$('.track-search-input').val();
 
       // Add the loading class to the input
-      this.$('.track-search-query').addClass('loading');
+      this.$('.track-search-input').addClass('loading');
       // Execute the query
       TrackSearch.Controller.searchTracks(query);
 
@@ -161,9 +167,12 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Add class for results transition
       $(this.childViewContainer).parent().addClass('visible');
       // Remove the loading class on completion
-      this.$('.track-search-query').removeClass('loading');
+      this.$('.track-search-input').removeClass('loading');
 
       $('.playback-page .track-search-results-container').perfectScrollbar();
+
+      // Show close search button
+      $('.track-search-close').fadeIn('fast');
     },
     /**
      * No results message
@@ -174,7 +183,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Set the query string in the template
       this.$('.search-term').text(this.collection.query);
       // remove the loading class
-      this.$('.track-search-query').removeClass('loading');
+      this.$('.track-search-input').removeClass('loading');
       // show the no results message
       $('.no-results-message').fadeIn();
       // hide the message as soon as new results are added
@@ -191,7 +200,14 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
         this.$el.find('form').trigger('submit');
         this.query = query;
       }
-    }, 1000, {leading: false})
+    }, 1000, {leading: false}),
+    closeSearch: function(e) {
+
+      e.preventDefault();
+      $('.track-search-results-container').removeClass('visible');
+      $('.track-search-close').fadeOut('fast');
+      $('.track-search-input').val('');
+    }
   });
 
 });
