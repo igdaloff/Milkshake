@@ -38,7 +38,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     tagName: 'table',
     className: 'playback-track-list',
     childView: Playlist.Track,
+    onShow: function() {
 
+      this.scrollToCurrentTrack();
+    },
     onRender: function() {
 
       // Allow tracks to be dragged and sorted
@@ -46,6 +49,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         cancel: '.played, .current',
         placeholder: 'track-reorder-gap'
       }).disableSelection();
+    },
+    scrollToCurrentTrack: function() {
+
+      // Scroll playlist container to current track
+      var currentTrackPos = $('.current').position();
+      $('.playback-tracks').scrollTop(currentTrackPos.top);
     }
   });
 
