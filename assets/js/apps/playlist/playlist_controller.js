@@ -53,8 +53,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $(playlistManager).on('track:playing track:ended', this.setPlayingTrackAttribute);
       // Set up marquee on new track titles
       $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
-      // Display played and playing artwork
-      $(playlistManager).on('track:playing', this.displayPlayedTrackArtwork);
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
       $(playlistManager).on('track:timeupdate', this.updateProgressBar);

@@ -105,6 +105,10 @@ $playback-artwork-width: 50px;
 		opacity: 0.5;
 	}
 
+	&:not(.current):not(.played){
+		cursor: ns-resize;
+	}
+
 	&:not(.current) .playback-track-artwork img{
 		@include filter(grayscale(100%));
 		opacity: 0.5;

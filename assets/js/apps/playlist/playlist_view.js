@@ -37,7 +37,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.TrackList = Marionette.CollectionView.extend({
     tagName: 'table',
     className: 'playback-track-list',
-    childView: Playlist.Track
+    childView: Playlist.Track,
+
+    onRender: function() {
+
+      // Allow tracks to be dragged and sorted
+      $('.playback-track-list tbody').sortable({
+        cancel: '.played, .current'
+      }).disableSelection();
+    }
   });
 
   Playlist.Controls = Marionette.ItemView.extend({
