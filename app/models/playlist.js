@@ -85,12 +85,10 @@ PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
  */
 PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
 
-  console.log('track id to update', trackId);
   // First get the current rank of the track to update
   var trackToUpdate = _.findWhere(this.tracks, {
-    _id: trackId
+    id: trackId
   });
-  console.log('track to update', trackToUpdate);
   var oldRank = trackToUpdate.rank;
   var trackIndex = this.tracks.indexOf(trackToUpdate);
   this.tracks[trackIndex].rank = newRank;
@@ -111,7 +109,6 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
       track.rank = i + 1;
     }
   }
-  console.log('track ranks:', this.tracks);
   // Sort the array based on the new rankings
   this.tracks = _.sortBy(this.tracks, function(o) {
 
