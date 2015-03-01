@@ -118,6 +118,13 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.loadFromTotalTime = function(startTime, callback) {
 
       var requestedTrack = this.getTrackFromTotalTime(startTime);
+      // If the requested start track is false, the startTime exceeds playlist duration
+      if(requestedTrack === false) {
+
+        callback();
+        return false;
+      }
+      // Otherwise it is a valid track, load it
       this.onTrackReady(requestedTrack.trackIndex, function(track) {
 
         track.pop.currentTime(requestedTrack.trackTime);
@@ -344,7 +351,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       // Loop over previous tracks and add up the time
       for(var i = 0; i < this.tracks.length; i++) {
 
-        var track = this.tracks[trackIndex];
+        var track = this.tracks[i];
         playlistDuration += track.duration;
       }
       return playlistDuration;
@@ -364,7 +371,14 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         var track = this.tracks[i];
         prevTrackDurations += track.duration;
       }
-      return prevTrackDurations + this.getCurrentTrackData().pop.currentTime();
+
+      // Get the currently playing track, if there is one, and add its time to the current total time
+      var currTrack = this.getCurrentTrackData();
+      if(currTrack !== null && currTrack.embedded) {
+        
+        prevTrackDurations += currTrack.pop.currentTime();
+      }
+      return prevTrackDurations;
     };
 
     PlaylistManager.prototype.getCurrentTotalTimeString = function() {
@@ -399,6 +413,11 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.getTrackFromTotalTime = function(totalTime) {
 
+      // Return false if the total time is greater than the duration of the playlist
+      if(totalTime > this.getPlaylistDuration()) {
+
+        return false;
+      }
       var timeCounter = 0;
       var startTrack = 0;
       var requestedTrackTime;

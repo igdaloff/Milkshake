@@ -281,24 +281,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('.current-time').text($('.total-time').text());
     },
     /*
-     * Fill complete progress bars
-     * We call this when the playlist first starts playing to set any completed tracks' progress bars to 100%
-     */
-    fillCompletedProgressBars: function() {
-
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var trackIndex = playlistManager.currentTrackIndex;
-      if(trackIndex > 0) {
-
-        for(var i = 0; i < trackIndex; i++) {
-
-          $('.current-progress').eq(i).css({
-            width: '100%'
-          });
-        }
-      }
-    },
-    /*
      * roomFull
      * If there are too many people in the room, notify the user and stop the module
      */
@@ -323,12 +305,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       }
       playlist.loadFromTotalTime(startTime, function(track) {
 
-        // Tell the server we are ready to start
+        // Tell the server we are ready to start        
         socket.emit('userReadyToPlay');
         // Remove the loading and waiting class from the body
         $('body').removeClass('playlist-loading');
       });
-      // Set the hasPlayed bool to true on all previous tracks
     },
     playPlaylist: function(data) {
 
@@ -343,12 +324,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         playlist.startPlaylist();
         TWM.trigger('playlist:playlistStart');
       }
-      else {
+      // If there's time left in the current playlist, get going
+      else if(startTime < playlist.getPlaylistDuration()) {
+
         var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
         var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
-        // Fill out completed tracks' progress bars
-        Playlist.Controller.fillCompletedProgressBars();
       }
 
       // Bind the Playlist UI
