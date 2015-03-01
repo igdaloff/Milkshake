@@ -102,19 +102,18 @@ $playback-artwork-width: 50px;
 		background: $light-green;
 	}
 
-	&.played {
+	&.played{
 		opacity: 0.5;
+
+		img{
+			@include filter(grayscale(100%));
+		}
 	}
 
 	&:not(.current):not(.played){
 		cursor: -moz-grab;
 		cursor: -webkit-grab;
 		cursor: grab;
-	}
-
-	&:not(.current) img{
-		@include filter(grayscale(100%));
-		opacity: 0.5;
 	}
 
 	td{
