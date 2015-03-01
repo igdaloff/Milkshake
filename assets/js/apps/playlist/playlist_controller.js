@@ -324,15 +324,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlist = TWM.request('playlist:activePlaylistMgr');
       var startTime = data.startTime;
+      var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
       // Account for any latency and get a fresh start time
-      if(startTime === 0) {
+      if(timeDiff === 0) {
         playlist.startPlaylist();
         TWM.trigger('playlist:playlistStart');
       }
       // If there's time left in the current playlist, get going
-      else if(startTime < playlist.getPlaylistDuration()) {
+      else if(timeDiff < playlist.getPlaylistDuration()) {
 
-        var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
         var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
       }
