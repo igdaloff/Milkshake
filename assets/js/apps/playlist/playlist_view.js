@@ -8,6 +8,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       'change:isPlaying': 'toggleIsPlayingClass',
       'change:hasPlayed': 'togglehasPlayedClass'
     },
+    onRender: function() {
+
+      this.el.setAttribute('data-id', this.model.id);
+    },
     toggleIsPlayingClass: function() {
 
       var className = 'current';
@@ -43,7 +47,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Allow tracks to be dragged and sorted
       $('.playback-track-list tbody').sortable({
-        cancel: '.played, .current'
+        cancel: '.played, .current',
+        update: function(e, ui) {
+
+          var trackModelId = ui.item.data('id');
+          var newRank = ui.item.index() + 1;
+          Playlist.Controller.reorderTracks(trackModelId, newRank);
+        }
       }).disableSelection();
     }
   });

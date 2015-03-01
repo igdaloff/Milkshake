@@ -376,6 +376,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       playlistCollection.add(newTrackData);
       // Add the new track to the playlist manager
       playlistManager.addTrackToPlaylist(newTrackData);
+    },
+    reorderTracks: function(trackId, newRank) {
+
+      var socket = TWM.request('playlist:activeSocket');
+      socket.emit('reorderTracks', {
+        trackId: trackId,
+        newRank: newRank
+      });
+
+      // TODO change the ranking in the playlist manager
     }
   };
 });

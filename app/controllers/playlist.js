@@ -2,6 +2,7 @@ var Playlist = require(config.root + 'app/models/playlist.js');
 var Conversation = require(config.root + 'app/models/conversation.js');
 var Time = require(config.root + 'lib/Time.js');
 var sanitizeHtml = require('sanitize-html');
+var _ = require('underscore');
 
 exports.processNewPlaylist = function(req, res){
   console.log(req.body);
@@ -21,8 +22,8 @@ exports.processNewPlaylist = function(req, res){
       url: req.body['track' + i + 'url'],
       artwork: req.body['track' + i + 'artwork'],
       duration: parseFloat(req.body['track' + i + 'duration']),
+      rank: i + 1
     };
-    console.log(track.duration);
     totalDuration += track.duration;
     playlistTracks.push(track);
   }
@@ -72,7 +73,7 @@ io.sockets.on('connection', function (socket) {
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
 
-      if (err){
+      if (err || docs === null){
         console.log(err);
         return err;
       }
@@ -210,9 +211,9 @@ io.sockets.on('connection', function (socket) {
   });
   socket.on('removeTrack', removeTrackFromPlaylist);
 
-  socket.on('reorderTracks', function(trackId, newRank) {
+  socket.on('reorderTracks', function(trackData) {
 
-    reorderTracks(trackId, newRank, function(updatedPlaylistModel) {
+    reorderTracks(socket.roomId, trackData.trackId, trackData.newRank, function(updatedPlaylistModel) {
 
       var updatedTrackArray = updatedPlaylistModel.tracks;
       io.sockets.in(socket.roomId).emit('reorderedTracks', updatedTrackArray);
@@ -224,7 +225,7 @@ io.sockets.on('connection', function (socket) {
 
 exports.playlist = function(req, res){
 
-  Playlist.findById(req.params.id, '-tracks._id', function(err, playlist){
+  Playlist.findById(req.params.id).lean().exec(function(err, playlist){
 
     if (err){
       console.log(err);
@@ -236,10 +237,19 @@ exports.playlist = function(req, res){
       return res.render('404');
     }
 
+    // Replace the _id binary with a string in the tracks array
+    for(var i = 0; i < playlist.tracks.length; i++) {
+
+      playlist.tracks[i].id = playlist.tracks[i]._id.toString();
+      delete playlist.tracks[i]._id;
+    }
+
+    console.log('final playlist tracks:', playlist.tracks);
+
     // Retreieve the conversation
     Conversation.findOne({
       playlistId: req.params.id
-    }, '-messages._id -messages.timestamp', function(err, conversation) {
+    }, '-messages.timestamp', function(err, conversation) {
 
       if (err){
         console.log(err);
@@ -277,7 +287,8 @@ exports.createDummyPlaylist = function(req, res) {
         title: 'Haddaway - What is Love + Lyrics',
         url: 'http://www.youtube.com/watch?v=K5G1FmU-ldg&feature=youtube_gdata',
         artwork: 'http://i.ytimg.com/vi/K5G1FmU-ldg/default.jpg',
-        duration: 338
+        duration: 338,
+        rank: 1
       },
       {
         trackId: '',
@@ -285,7 +296,8 @@ exports.createDummyPlaylist = function(req, res) {
         title: 'Luke Million - Arnold',
         url: 'http://www.youtube.com/watch?v=XrvjwMIBtqA&feature=youtube_gdata',
         artwork: 'http://i.ytimg.com/vi/XrvjwMIBtqA/default.jpg',
-        duration: 246
+        duration: 246,
+        rank: 2
       },
       {
         trackId: '',
@@ -293,7 +305,8 @@ exports.createDummyPlaylist = function(req, res) {
         title: 'Leggy Blonde - Flight Of The Conchords (Lyrics)',
         url: 'http://www.youtube.com/watch?v=7syyywL9JuM&feature=youtube_gdata',
         artwork: 'http://i.ytimg.com/vi/7syyywL9JuM/default.jpg',
-        duration: 160
+        duration: 160,
+        rank: 3
       }
     ],
     totalDuration: 744
@@ -393,7 +406,7 @@ var removeTrackFromPlaylist = function(playlistId, trackId, cb) {
   });
 };
 
-var reorderTracks = function(trackId, newRank, cb) {
+var reorderTracks = function(playlistId, trackId, newRank, cb) {
 
   Playlist.findById(playlistId, function(err, playlist) {
 
@@ -406,7 +419,7 @@ var reorderTracks = function(trackId, newRank, cb) {
       cb(response);
     }
 
-    Playlist.reorderTracks(trackId, newRank, function(updatedPlaylistModel) {
+    playlist.reorderTracks(trackId, newRank, function(updatedPlaylistModel) {
 
       cb(updatedPlaylistModel);
     });
