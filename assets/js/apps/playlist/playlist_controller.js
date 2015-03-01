@@ -285,7 +285,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var socket = TWM.request('playlist:activeSocket');
       var playlist = TWM.request('playlist:activePlaylistMgr');
       var startTime = typeof data.startTime !== 'undefined' ? data.startTime : 0;
-      // work out if we are starting from the start (0) or resuming, and if resuming calculate where to resume from
+      // work out if we are starting from the start (now) or resuming, and if resuming calculate where to resume from
       // based on what the server returned to us
       if(startTime !== 0) {
 
@@ -309,7 +309,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var startTime = data.startTime;
       var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
       // Account for any latency and get a fresh start time
-      if(timeDiff === 0) {
+      if(startTime === 0) {
         playlist.startPlaylist();
         TWM.trigger('playlist:playlistStart');
       }
@@ -318,6 +318,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
         playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
+      }
+      // Otherwise the playlist is over, mark the finished bool on the playlist manager
+      else {
+
+        playlist.finished = true;
       }
 
       // Bind the Playlist UI
@@ -328,9 +333,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     calculateTimeDiff: function(startTime) {
 
-      var currentUnixTime =  Math.round(new Date().getTime() / 1000);
+      var currentUnixTime =  new Date().getTime();
       var timeDiff = currentUnixTime - startTime;
-      return timeDiff;
+      var timeDiffSecs = Math.round(timeDiff / 1000);
+      return timeDiffSecs;
     },
     playlistFinished: function() {
 

@@ -45,6 +45,11 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       _.extend(trackData, this.trackDefaults);
       this.tracks.push(trackData);
+      // If the playlist has finishes, start playing the new track immediately
+      if(this.finished) {
+
+        this.playTrack(this.tracks.length - 1, 0, true);
+      }
     };
 
     PlaylistManager.prototype.initTrackEmbed = function(trackIndex) {
@@ -62,6 +67,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       track.el = $trackEmbed;
 
       track.pop = Popcorn.smart( '#' + trackEmbedId, track.url);
+
+      if(this.muted) {
+
+        track.pop.mute();        
+      }
+
       track.pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
       track.pop.on('ended', $.proxy(function(){
@@ -159,6 +170,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.playTrack = function(trackIndex, trackTime, wait, callback) {
 
+      this.finished = false;
       var track = this.getTrackData(trackIndex);
 
       // Initialize the track embed if it doesn't already exist
