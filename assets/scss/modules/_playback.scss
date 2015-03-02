@@ -130,6 +130,12 @@ $playback-artwork-width: 50px;
 		cursor: -moz-grab;
 		cursor: -webkit-grab;
 		cursor: grab;
+
+		&:hover{
+			.delete-track{
+				display: inline-block;
+			}
+		}
 	}
 
 	td{
@@ -156,6 +162,18 @@ $playback-artwork-width: 50px;
 			text-decoration: underline;
 		}
 	}
+}
+
+.delete-track{
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 16px;
+	line-height: 1.9;
+	@include icomoon('trashcan');
 }
 
 
