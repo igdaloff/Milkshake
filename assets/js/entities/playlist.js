@@ -52,6 +52,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   // Playlist (collection of tracks)
   Entities.Playlist = Backbone.Collection.extend({
     model: Entities.Track,
+    comparator: 'rank',
     initialize: function() {
 
       this.listenTo(this, 'change:isPlaying', this.updateTracksPlayStatus);

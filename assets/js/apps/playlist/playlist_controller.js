@@ -390,14 +390,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistCollection = TWM.request('playlist:playlistCollection');
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      playlistCollection.reset(updatedTracks);
-        
-      // Loop over the models in the track collection and update the ranks in the playlist manager
-      for(var i = 0; i < playlistCollection.models.length; i++) {
+       
+      // Loop over the models in the track collection and update the ranks in the playlist collection and playlist manager
+      for(var i = 0; i < updatedTracks.length; i++) {
 
-        var trackModel = playlistCollection.models[i];
-        playlistManager.setRank(trackModel.id, trackModel.get('rank'));
+        var updatedTrackData = updatedTracks[i];
+        playlistCollection.get(updatedTrackData._id).set('rank', updatedTrackData.rank);
+        playlistManager.setRank(updatedTrackData._id, updatedTrackData.rank);
       }
+      // Sort the collection and playlist manager
+      playlistCollection.sort();
       playlistManager.reSort();
     }
   };
