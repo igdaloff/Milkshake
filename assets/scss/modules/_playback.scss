@@ -93,16 +93,16 @@ $playback-artwork-width: 50px;
 	li{
 		height: $playback-artwork-width;
 	}
+
 	.playback-track-list.played-tracks tr{
 		display: none;
-		.delete-track {
-			display: none;
-		}
+
 		&.played,
 		&.current {
 			display: table-row;
 		}
 	}
+
 	.playback-track-list.future-tracks tr{
 		&.played,
 		&.current {
@@ -172,7 +172,7 @@ $playback-artwork-width: 50px;
 	bottom: 0;
 	margin: auto;
 	font-size: 16px;
-	line-height: 1.9;
+	line-height: 1.8;
 	@include icomoon('trashcan');
 }
 
@@ -206,6 +206,7 @@ $playback-artwork-width: 50px;
 	.playlist-full-message {
 		display: block;
 	}
+
 	.loading-message {
 		display: none !important;
 	}
@@ -215,6 +216,7 @@ $playback-artwork-width: 50px;
 	.welcome-message {
 		display: block;
 	}
+
 	.loading-message {
 		display: none !important;
 	}

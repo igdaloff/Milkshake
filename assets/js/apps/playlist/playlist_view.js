@@ -41,9 +41,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         this.$el.removeClass(className);
       }
     },
-    deleteTrack: function(e) {
+    deleteTrack: function() {
 
-      e.preventDefault();
       Playlist.Controller.sendTrackDelete(this.model.id);
     }
   });

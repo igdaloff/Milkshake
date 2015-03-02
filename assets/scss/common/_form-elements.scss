@@ -96,6 +96,8 @@
 	background: $black;
 	border-radius: 100%;
 	color: $green;
+	border: 0;
+	cursor: pointer;
 
 	&:hover{
 		background: $green;
