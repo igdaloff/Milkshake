@@ -256,7 +256,7 @@ exports.playlist = function(req, res){
     // Retreieve the conversation
     Conversation.findOne({
       playlistId: req.params.id
-    }, '-messages.timestamp', function(err, conversation) {
+    }, '-messages._id -messages.timestamp', function(err, conversation) {
 
       if (err){
         console.log(err);
