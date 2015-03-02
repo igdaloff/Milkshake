@@ -132,9 +132,17 @@ $playback-artwork-width: 50px;
 		cursor: grab;
 
 		&:hover{
-			.delete-track{
-				display: inline-block;
+			.delete-track-container{
+				opacity: 1;
 			}
+
+			.track-search-result-duration{
+				color: white;
+			}
+		}
+
+		.delete-track-container:focus{
+			opacity: 1;
 		}
 	}
 
@@ -164,8 +172,11 @@ $playback-artwork-width: 50px;
 	}
 }
 
+.delete-track-container{
+	opacity: 0;
+}
+
 .delete-track{
-	display: none;
 	position: absolute;
 	right: 10px;
 	top: 0;
