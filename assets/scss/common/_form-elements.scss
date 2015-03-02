@@ -84,3 +84,23 @@
 		background: $black;
 	}
 }
+
+.btn-circle{
+	width: 28px;
+	height: 28px;
+	margin: auto;
+	text-align: center;
+	font-size: 21px;
+	font-family: $sans-special;
+	line-height: 1.6;
+	background: $black;
+	border-radius: 100%;
+	color: $green;
+	border: 0;
+	cursor: pointer;
+
+	&:hover{
+		background: $green;
+		color: $black;
+	}
+}

@@ -17,14 +17,14 @@
 		&.visible{
 			top: $playback-header-height + $playback-search-height;
 		}
-	}
-
-	.track-search-results{
-		margin: 0;
 
 		td{
 			color: white;
 		}
+	}
+
+	.track-search-results{
+		margin: 0;
 	}
 
 	.track-search-result{
@@ -95,26 +95,6 @@
 		text-decoration: none;
 	}
 
-	.track-search-result-source{
-		position: absolute;
-		left: -50px;
-		font-family: 'icomoon';
-		background: $off-black;
-		width: 50px;
-		height: 50px;
-		top: 0;
-		line-height: 50px;
-		text-align: center;
-		font-size: 1.5em;
-		color: white;
-		opacity: 0;
-
-		i{
-			position: absolute;
-			left: -9999px;
-		}
-	}
-
 	.icon-soundcloud:before{
 		content: '\f1be';
 	}
@@ -128,24 +108,36 @@
 	}
 }
 
+.track-search-result-source{
+	position: absolute;
+	left: -50px;
+	font-family: 'icomoon';
+	background: $off-black;
+	width: 50px;
+	height: 50px;
+	top: 0;
+	line-height: 50px;
+	text-align: center;
+	font-size: 1.5em;
+	opacity: 0;
+
+	i{
+		position: absolute;
+		left: -9999px;
+	}
+
+	.highlight &{
+	  -webkit-animation: highlight-flash 2s;
+	  animation: highlight-flash 2s;
+	}
+}
+
 .track-search-close{
 	display: none;
 	position: absolute;
 	top: 0;
-	right: 2.1em;
+	right: 60px;
 	bottom: 0;
-	width: 1em;
-	height: 1em;
-	margin: auto;
-	text-align: center;
-	font-size: 1.75em;
-	font-family: $sans-special;
-	background: $black;
-	border-radius: 100%;
-	color: $green;
-
-	&:hover{
-		background: $green;
-		color: $black;
-	}
+	@include icomoon('plus');
+	@include transform(rotate(45deg));
 }

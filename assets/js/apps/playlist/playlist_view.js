@@ -50,7 +50,25 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.TrackList = Marionette.CollectionView.extend({
     tagName: 'table',
     className: 'playback-track-list',
-    childView: Playlist.Track
+    childView: Playlist.Track,
+    onShow: function() {
+
+      this.scrollToCurrentTrack();
+    },
+    onRender: function() {
+
+      // Allow tracks to be dragged and sorted
+      $('.playback-track-list tbody').sortable({
+        cancel: '.played, .current',
+        placeholder: 'track-reorder-gap'
+      }).disableSelection();
+    },
+    scrollToCurrentTrack: function() {
+
+      // Scroll playlist container to current track; TODO: make this work
+      var currentTrackPos = $('.current').position();
+      $('.playback-tracks').scrollTop(currentTrackPos.top);
+    }
   });
 
   Playlist.PlayedTrackList = Playlist.TrackList.extend({
@@ -70,7 +88,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
           var newRank = ui.item.index();
           Playlist.Controller.sendNewTrackOrder(trackModelId, newRank);
         }
-      }).disableSelection();
+      });
     }
   });
 

@@ -87,21 +87,22 @@ $playback-artwork-width: 50px;
 	width: $left-rail-width;
 	background: white;
 	border-right: 1px solid $border-grey;
+	overflow: auto;
 	z-index: 1;
 
 	li{
 		height: $playback-artwork-width;
 	}
+
 	.playback-track-list.played-tracks tr{
 		display: none;
-		.delete-track {
-			display: none;
-		}
+
 		&.played,
 		&.current {
 			display: table-row;
 		}
 	}
+
 	.playback-track-list.future-tracks tr{
 		&.played,
 		&.current {
@@ -117,20 +118,29 @@ $playback-artwork-width: 50px;
 		background: $light-green;
 	}
 
-	&.played {
+	&.played{
 		opacity: 0.5;
+
+		img{
+			@include filter(grayscale(100%));
+		}
 	}
 
 	&:not(.current):not(.played){
-		cursor: ns-resize;
+		cursor: -moz-grab;
+		cursor: -webkit-grab;
+		cursor: grab;
+
+		&:hover{
+			.delete-track{
+				display: inline-block;
+			}
+		}
 	}
 
-	&:not(.current) .playback-track-artwork img{
-		@include filter(grayscale(100%));
-		opacity: 0.5;
+	td{
+		font-size: 0.8em;
 	}
-
-
 }
 
 .playback-track-artwork{
@@ -147,8 +157,6 @@ $playback-artwork-width: 50px;
 }
 
 .playback-track-title{
-	font-size: 0.9em;
-
 	&:hover{
 		a{
 			text-decoration: underline;
@@ -156,25 +164,40 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.loading-message {
-	margin-top: 1.25em;
-	font-family: $sans-special;
-	font-size: 2em;
-	text-align: center;
+.delete-track{
+	display: none;
+	position: absolute;
+	right: 10px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 16px;
+	line-height: 1.8;
+	@include icomoon('trashcan');
+}
 
-	.loading-indicator {
-		margin: 1em 0;
+
+
+
+// Draggable track styles
+.ui-sortable-helper{
+	background: white;
+	border: 0;
+	box-shadow: 0 0 0 2px $green;
+	@include transform(rotate(2deg));
+	overflow: hidden;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+
+	td.basic-table-row-title h5{
+		max-width: 65%;
 	}
 }
 
-.playlist,
-.loading-message,
-.welcome-message,
-.playlist-full-message,
-.playlist-progress {
-	display: none;
+.track-reorder-gap{
+	border: 2px dotted $green;
 }
-
 
 
 
@@ -183,6 +206,7 @@ $playback-artwork-width: 50px;
 	.playlist-full-message {
 		display: block;
 	}
+
 	.loading-message {
 		display: none !important;
 	}
@@ -192,6 +216,7 @@ $playback-artwork-width: 50px;
 	.welcome-message {
 		display: block;
 	}
+
 	.loading-message {
 		display: none !important;
 	}
@@ -220,4 +245,23 @@ $playback-artwork-width: 50px;
 		top: auto;
 		bottom: 5%;
 	}
+}
+
+.loading-message {
+	margin-top: 1.25em;
+	font-family: $sans-special;
+	font-size: 2em;
+	text-align: center;
+
+	.loading-indicator {
+		margin: 1em 0;
+	}
+}
+
+.playlist,
+.loading-message,
+.welcome-message,
+.playlist-full-message,
+.playlist-progress {
+	display: none;
 }

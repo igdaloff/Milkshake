@@ -18,31 +18,8 @@
   margin-top: 1em;
 }
 
-@-webkit-keyframes highlight-flash {
-  0% {
-    background: $green;
-  }
-  100% {
-    background: none;
-  }
-}
-
-@keyframes highlight-flash {
-  0% {
-    background: $green;
-  }
-  100% {
-    background: none;
-  }
-}
-
 .track-search-result{
   border-bottom-color: $light-grey;
-
-  &.highlight{
-    -webkit-animation: highlight-flash 2s;
-    animation: highlight-flash 2s;
-  }
 }
 
 .track-search-result-source{
@@ -63,6 +40,7 @@
 }
 
 .track-search-result-duration{
+  position: relative;
   font-family: $sans-special;
 
   .playback-track-list &{
@@ -185,25 +163,9 @@ td.preview-track-container{
   }
 }
 
-.add-track-icon{
+.track-search-result-add.btn-circle{
   display: inline-block;
-  width: $button-width * 1rem;
-  height: $button-width * 1rem;
   @include icomoon('plus');
-  font-size: 1.25em;
-  line-height: 34px;
-  border: 1px solid;
-  border-radius: 100%;
-  text-align: center;
-  cursor: pointer;
-  background: $black;
-  color: $green;
-  border: 0;
-
-  &:hover{
-    color: $black;
-    background: $green;
-  }
 }
 
 .playlist-embed{
