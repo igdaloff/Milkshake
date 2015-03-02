@@ -344,8 +344,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       else {
 
         this.stopPlaylist();
-        $(this).trigger('playlist:ended');
-        this.finished = true;
+        this.setFinished();
         return null;
       }
     };
@@ -462,11 +461,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       };
     };
 
-    PlaylistManager.prototype.isFinished = function() {
-
-      return typeof this.finished !== 'undefined' && this.finished === true;
-    };
-
     PlaylistManager.prototype.isMuted = function() {
 
       return this.muted;
@@ -515,6 +509,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         return o.rank;
       });
+    };
+
+    PlaylistManager.prototype.setFinished = function() {
+
+      $(this).trigger('playlist:ended');
+      this.finished = true;
     };
 
     return PlaylistManager;

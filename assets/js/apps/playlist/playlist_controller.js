@@ -55,9 +55,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
-      $(playlistManager).on('track:timeupdate', this.updateProgressBar);
-      // Ensure progress bar is 100% width when a track ends
-      $(playlistManager).on('track:ended', this.fillProgressBar);
       // Listen to track ending and make sure the correct time is shown;
       $(playlistManager).on('playlist:ended', this.setTrackTimeOnEnd);
       $(playlistManager).on('playlist:ended', this.playlistFinished);
@@ -229,33 +226,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var playlistCollection = TWM.request('playlist:playlistCollection');
       $('.total-time').text(TWM.Lib.secondsToMinutes(playlistCollection.getTotalDuration()));
     },
-    updateProgressBar: function(currentTime) {
-
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var trackIndex = playlistManager.currentTrackIndex;
-      var $currentProgressBar = $('.current-progress').eq(trackIndex);
-      var currentTrackData = playlistManager.getCurrentTrackData();
-      if(currentTrackData !== null) {
-        currentTime = currentTrackData.pop.currentTime();
-        var progress = currentTime / currentTrackData.duration * 100;
-        progress = progress.toFixed(3);
-        $currentProgressBar.css({
-          width: progress + '%'
-        });
-      }
-    },
-    /*
-     * Fill progress bar
-     * When a track ends ensure that its progress bar is full, update time isn't reliable for this
-     */
-    fillProgressBar: function(event) {
-
-      var trackIndex = event.target.getCurrentTrackIndex();
-      var $currentProgressBar = $('.current-progress').eq(trackIndex);
-      $currentProgressBar.css({
-        width: '100%'
-      });
-    },
     /*
      * Set track time on end
      * We can't rely on time updates to update the track timer in the header when a track finishes,
@@ -303,31 +273,31 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('body').addClass('playlist-playing').removeClass('playlist-waiting playlist-loading');
       $('.share-playlist-url').slideUp();
 
-      var playlist = TWM.request('playlist:activePlaylistMgr');
-      var startTime = data.startTime;
-      var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
-      // Account for any latency and get a fresh start time
-      if(startTime === 0) {
-        playlist.startPlaylist();
-        TWM.trigger('playlist:playlistStart');
-      }
-      // If there's time left in the current playlist, get going
-      else if(timeDiff < playlist.getPlaylistDuration()) {
-
-        var updatedStartTime = playlist.getTrackFromTotalTime(timeDiff);
-        playlist.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
-      }
-      // Otherwise the playlist is over, mark the finished bool on the playlist manager
-      else {
-
-        playlist.finished = true;
-      }
-
       // Bind the Playlist UI
       Playlist.Controller.bindPlaylistUi();
       // Start the chat module
       Playlist.Chat.start();
 
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var startTime = data.startTime;
+      var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
+
+      // Account for any latency and get a fresh start time
+      if(startTime === 0) {
+        playlistManager.startPlaylist();
+        TWM.trigger('playlist:playlistStart');
+      }
+      // If there's time left in the current playlist, get going
+      else if(timeDiff < playlistManager.getPlaylistDuration()) {
+
+        var updatedStartTime = playlistManager.getTrackFromTotalTime(timeDiff);
+        playlistManager.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
+      }
+      // Otherwise the playlist is over, mark the finished bool on the playlist manager
+      else {
+
+        playlistManager.setFinished();
+      }
     },
     calculateTimeDiff: function(startTime) {
 
