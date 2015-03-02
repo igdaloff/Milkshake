@@ -55,8 +55,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateTimer);
-      // Listen to track ending and make sure the correct time is shown;
-      $(playlistManager).on('playlist:ended', this.setTrackTimeOnEnd);
+      // Listen to playlist ending and run necessary tasks
       $(playlistManager).on('playlist:ended', this.playlistFinished);
     },
     /**
@@ -215,7 +214,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
-      if(typeof currentTime !== 'number' || currentTime === 0) {
+      if(playlistManager.finished || typeof currentTime !== 'number' || currentTime === 0) {
         return false;
       }
       // Update the time in the header
@@ -225,16 +224,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistCollection = TWM.request('playlist:playlistCollection');
       $('.total-time').text(TWM.Lib.secondsToMinutes(playlistCollection.getTotalDuration()));
-    },
-    /*
-     * Set track time on end
-     * We can't rely on time updates to update the track timer in the header when a track finishes,
-     * sometimes it may end on one second off which looks weird. So we'll run this instead so that when the playlist
-     * finishes the current time equals the total time
-     */
-    setTrackTimeOnEnd: function() {
-
-      $('.current-time').text($('.total-time').text());
     },
     /*
      * roomFull
@@ -296,9 +285,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Otherwise the playlist is over, mark the finished bool on the playlist manager
       else {
 
-        var playlistCollection = TWM.request('playlist:playlistCollection');
-        playlistCollection.setAll('hasPlayed', true);
+        // Manualy tell the playlist manager it has finished
         playlistManager.setFinished();
+        // Run necessary tasks on finish
+        Playlist.Controller.playlistFinished();
       }
     },
     calculateTimeDiff: function(startTime) {
@@ -310,6 +300,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     playlistFinished: function() {
 
+      var playlistCollection = TWM.request('playlist:playlistCollection');
+      // Set all models to played
+      playlistCollection.setAll('hasPlayed', true);
+      playlistCollection.setAll('isPlaying', false);
+      // Update the current time to match the total time
+      $('.current-time').text($('.total-time').text());
       TWM.trigger('playlist:playlistEnd');
     },
     muteToggle: function() {

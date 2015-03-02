@@ -84,11 +84,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       track.pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
-      track.pop.on('ended', $.proxy(function(){
-
-        $(this).trigger('track:ended');
-        this.next();
-      }, this));
       track.pop.on('playing', $.proxy(function(){
 
         $(this).trigger('track:playing');
@@ -104,6 +99,11 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         $(this).trigger('track:timeupdate', track.pop.currentTime());
         this.listenToTrackEndAndLoadNext();
+      }, this));
+      track.pop.on('ended', $.proxy(function(){
+
+        $(this).trigger('track:ended');
+        this.next();
       }, this));
 
       track.embedded = true;
