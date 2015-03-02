@@ -5,7 +5,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     function PlaylistManager(data){
 
       this.trackDefaults = {
-        embedded: false
+        embedded: false,
+        loaded: false
       };
       this.tracks = [];
       this.trackElements = [];
@@ -107,6 +108,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       }, this));
 
       track.embedded = true;
+
+      // Mark the track as ready to play when it has loaded, so we know whether to wait when we come to play it
+      this.onTrackReady(trackIndex, function() {
+
+        track.loaded = true;
+      });
 
       return track.pop;
     };
@@ -338,7 +345,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.stopAll();
       if(nextTrackIndex < this.tracks.length) {
 
-        this.playTrack(nextTrackIndex);
+        var track = this.getTrackData(nextTrackIndex);
+        this.playTrack(nextTrackIndex, 0, track.loaded);
         return this.getTrackData(nextTrackIndex);
       }
       else {
