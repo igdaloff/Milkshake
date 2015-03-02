@@ -94,6 +94,9 @@ $playback-artwork-width: 50px;
 	}
 	.playback-track-list.played-tracks tr{
 		display: none;
+		.delete-track {
+			display: none;
+		}
 		&.played,
 		&.current {
 			display: table-row;

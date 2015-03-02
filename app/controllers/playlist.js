@@ -209,7 +209,14 @@ io.sockets.on('connection', function (socket) {
       io.sockets.in(socket.roomId).emit('newTrack', newTrack);
     });
   });
-  socket.on('removeTrack', removeTrackFromPlaylist);
+  socket.on('removeTrack', function(trackId) {
+
+    removeTrackFromPlaylist(socket.roomId, trackId, function(updatedPlaylistModel) {
+
+      // Return the ID of the deleted track
+      io.sockets.in(socket.roomId).emit('deleteTrack', trackId);
+    });
+  });
 
   socket.on('reorderTracks', function(trackData) {
 
@@ -389,19 +396,12 @@ var removeTrackFromPlaylist = function(playlistId, trackId, cb) {
     if(err) {
 
       console.log('Error removing track from ' + playlistId);
-      response = {
-        status: 'error'
-      };
-      cb(response);
+      return err;
     }
 
-    playlist.removeTrackFromPlaylist(trackId, function(model) {
+    playlist.removeTrackFromPlaylist(trackId, function(updatedPlaylistModel) {
 
-      var response = {
-        status: 'success',
-        playlist: model
-      };
-      cb(response);
+      cb(updatedPlaylistModel);
     });
   });
 };

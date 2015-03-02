@@ -378,6 +378,38 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Add the new track to the playlist manager
       playlistManager.addTrackToPlaylist(newTrackData);
     },
+    sendTrackDelete: function(trackId) {
+
+      var socket = TWM.request('playlist:activeSocket');
+      socket.emit('removeTrack', trackId);
+    },
+    deleteTrack: function(trackId) {
+
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var playlistCollection = TWM.request('playlist:playlistCollection');
+      // Get the rank of the track to be deleted
+      var oldRank = playlistCollection.get(trackId).get('rank');
+      // Remove the track from the collection
+      playlistCollection.remove(playlistCollection.get(trackId));
+      // Remove the track from the playlist manafer
+      playlistManager.destroy(trackId);
+      // Decrement the ranks of all models above this one where the rank was the same or higher
+      for(var i = 0; i < playlistCollection.models.length; i++) {
+
+        var trackModel = playlistCollection.at(i);
+        if(trackModel.get('rank') >= oldRank) {
+
+          var newRank = trackModel.get('rank') - 1;
+          // Update the model's rank
+          trackModel.set('rank', newRank);
+          // Update the rank of the playlist manager track
+          playlistManager.setRank(trackModel.id, newRank);
+        }
+      }
+      // Sort the collection and playlist manager
+      playlistCollection.sort();
+      playlistManager.reSort();
+    },
     sendNewTrackOrder: function(trackId, newRank) {
 
       var socket = TWM.request('playlist:activeSocket');

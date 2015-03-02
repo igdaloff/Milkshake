@@ -22,9 +22,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('userJoined', Playlist.Controller.userJoinedRoom);
       // A new track is added to the playlist
       socket.on('newTrack', Playlist.Controller.addTrackToPlaylist);
+      // Delete a track from the playlist
+      socket.on('deleteTrack', Playlist.Controller.deleteTrack);
       // A reordered set of tracks is sent from the server
       socket.on('reorderedTracks', Playlist.Controller.reorderTracks);
-
       // Set a request handler so we can get the active socket in future
       TWM.reqres.setHandler("playlist:activeSocket", function() {
 
@@ -105,7 +106,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     }).render();
 
     // Update the playlist total time when a track is added
-    playlist.on('add', Playlist.Controller.updateTimerTotal);
+    playlist.on('add remove', Playlist.Controller.updateTimerTotal);
 
     // Initialize the controls view
     var controlsView = new Playlist.Controls();
