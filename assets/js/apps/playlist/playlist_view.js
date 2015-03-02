@@ -4,6 +4,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     template: 'playlist-track',
     tagName: 'tr',
     className: 'playback-track basic-table-row',
+    events: {
+      'click .delete-track': 'deleteTrack'
+    },
     modelEvents: {
       'change:isPlaying': 'toggleIsPlayingClass',
       'change:hasPlayed': 'togglehasPlayedClass'
@@ -37,6 +40,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         this.$el.removeClass(className);
       }
+    },
+    deleteTrack: function() {
+
+      Playlist.Controller.sendTrackDelete(this.model.id);
     }
   });
 

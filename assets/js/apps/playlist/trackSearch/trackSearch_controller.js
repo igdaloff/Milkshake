@@ -87,7 +87,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       }
       if(typeof playlistManager === 'object') {
 
-        playlistManager.destroy();
+        playlistManager.destroyAll();
         playlistManager = false;
       }
     },

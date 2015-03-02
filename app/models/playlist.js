@@ -61,16 +61,38 @@ PlaylistSchema.method('addTrackToPlaylist', function(trackData, cb) {
 
 PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
 
-  this.tracks.pull(trackId);
-  this.totalDuration -= trackData.duration;
-  this.save(function(err, updatedPlaylistModel) {
-
-    // Callback if there is one
-    if(typeof(cb) === 'function') {
-
-      cb(updatedPlaylistModel);
-    }
+  // First get the current rank of the track to update
+  var trackToDelete = _.findWhere(this.tracks, {
+    id: trackId
   });
+  var oldRank = trackToDelete.rank;
+  var trackIndex = this.tracks.indexOf(trackToDelete);
+  // Remove the track from the array
+  this.tracks.splice(trackIndex, 1);
+  this.totalDuration -= trackToDelete.duration;
+  // If this wasn't the last track, re-order the ranks
+  if(trackIndex < this.tracks.length) {
+
+    // Get the next track's info, which is now at the index as the one we just deleted
+    var nextTrackId = this.tracks[trackIndex].id;
+    this.reorderTracks(nextTrackId, oldRank, savePlaylist);
+  }
+  else {
+
+    savePlaylist(this);
+  }
+
+  function savePlaylist(updatedPlaylistModel) {
+
+    updatedPlaylistModel.save(function(err, updatedPlaylistModel) {
+
+      // Callback if there is one
+      if(typeof(cb) === 'function') {
+
+        cb(updatedPlaylistModel);
+      }
+    });
+  }
 });
 
 /**

@@ -25,19 +25,28 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       }
     }
 
-    PlaylistManager.prototype.destroy = function() {
+    PlaylistManager.prototype.destroy = function(trackId) {
+
+      var trackToRemove = _.findWhere(this.tracks, {
+        id: trackId
+      });
+      var trackIndexToRemove = this.tracks.indexOf(trackToRemove);
+      if(trackToRemove.embedded) {
+        // Unlisten to all events
+        trackToRemove.pop.off();
+        // Destroy the popcorn object
+        trackToRemove.pop.destroy();
+      }
+      this.tracks.splice(trackIndexToRemove, 1);
+    };
+
+    PlaylistManager.prototype.destroyAll = function() {
 
       this.stopAll();
       for(var i = 0; i < this.tracks.length; i++) {
 
         var track = this.tracks[i];
-        if(track.embedded) {
-          // Unlisten to all events
-          track.pop.off();
-          // Destroy the popcorn object
-          track.pop.destroy();
-          track.embedded = false;
-        }
+        this.destroy(track.id);
       }
     };
 
