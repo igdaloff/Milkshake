@@ -296,6 +296,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Otherwise the playlist is over, mark the finished bool on the playlist manager
       else {
 
+        var playlistCollection = TWM.request('playlist:playlistCollection');
+        playlistCollection.setAll('hasPlayed', true);
         playlistManager.setFinished();
       }
     },

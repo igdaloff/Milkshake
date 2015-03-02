@@ -35,7 +35,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
         var playlistTime;
         // If the playlist has finished, use the total time
-        if(playlist.isFinished() === true) {
+        if(playlist.finished === true) {
 
           playlistTime = playlist.getPlaylistDuration();
         }
