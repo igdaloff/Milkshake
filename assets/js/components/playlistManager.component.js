@@ -346,7 +346,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       if(nextTrackIndex < this.tracks.length) {
 
         var track = this.getTrackData(nextTrackIndex);
-        this.playTrack(nextTrackIndex, 0, track.loaded);
+        this.playTrack(nextTrackIndex, 0, !track.loaded);
         return this.getTrackData(nextTrackIndex);
       }
       else {
