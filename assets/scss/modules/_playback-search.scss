@@ -136,20 +136,8 @@
 	display: none;
 	position: absolute;
 	top: 0;
-	right: 2.1em;
+	right: 60px;
 	bottom: 0;
-	width: 1em;
-	height: 1em;
-	margin: auto;
-	text-align: center;
-	font-size: 1.75em;
-	font-family: $sans-special;
-	background: $black;
-	border-radius: 100%;
-	color: $green;
-
-	&:hover{
-		background: $green;
-		color: $black;
-	}
+	@include icomoon('plus');
+	@include transform(rotate(45deg));
 }
