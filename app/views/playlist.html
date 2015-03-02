@@ -48,8 +48,8 @@
     </header>
     <div class="track-search-container"></div>
     <div class="playback-tracks">
-      <table class="playback-track-list basic-table">
-      </table>
+      <table class="playback-track-list played-tracks basic-table"></table>
+      <table class="playback-track-list future-tracks basic-table"></table>
     </div>
 
   </div>
@@ -59,11 +59,11 @@
 
 <script>
 var bootstrap = {
-  tracks: [{{ playlist.tracks|raw }}],
+  tracks: {{ playlist.tracks|json|raw }},
   messages: [{{ conversation.messages|raw }}],
   startTime: '{{ playlist.startTime }}'
 };
-var playlistId = "{{ playlist.id }}";
+var playlistId = "{{ playlist._id }}";
 </script>
 {% endblock %}
 

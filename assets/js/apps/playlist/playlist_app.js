@@ -22,6 +22,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('userJoined', Playlist.Controller.userJoinedRoom);
       // A new track is added to the playlist
       socket.on('newTrack', Playlist.Controller.addTrackToPlaylist);
+      // A reordered set of tracks is sent from the server
+      socket.on('reorderedTracks', Playlist.Controller.reorderTracks);
 
       // Set a request handler so we can get the active socket in future
       TWM.reqres.setHandler("playlist:activeSocket", function() {
@@ -91,9 +93,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       return Playlist.Controller.getSocketHistory();
     });
 
-    // Initialize the track list view
-    var trackListView = new Playlist.TrackList({
-      el: '.playback-track-list',
+    // Initialize the track list views
+    var playedTrackListView = new Playlist.PlayedTrackList({
+      el: '.playback-track-list.played-tracks',
+      collection: playlist
+    }).render();
+
+    var futureTrackListView = new Playlist.FutureTrackList({
+      el: '.playback-track-list.future-tracks',
       collection: playlist
     }).render();
 

@@ -112,7 +112,8 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     template: 'track-search-form',
     events: {
       'submit form': 'searchTracks',
-      'click .track-search-close': 'closeSearch'
+      'click .track-search-close': 'closeSearch',
+      'keydown': 'closeSearchEsc'
     },
     initialize: function(opts) {
 
@@ -209,6 +210,13 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       $('.track-search-results-container').removeClass('visible');
       $('.track-search-close').fadeOut('fast');
       $('.track-search-input').val('');
+    },
+    closeSearchEsc: function(e) {
+
+      var code = e.keyCode || e.which;
+      if(code == 27) {
+        this.closeSearch(e);
+      }
     }
   });
 

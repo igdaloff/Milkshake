@@ -8,6 +8,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       'change:isPlaying': 'toggleIsPlayingClass',
       'change:hasPlayed': 'togglehasPlayedClass'
     },
+    onRender: function() {
+
+      this.el.setAttribute('data-id', this.model.id);
+      this.toggleIsPlayingClass();
+      this.togglehasPlayedClass();
+    },
     toggleIsPlayingClass: function() {
 
       var className = 'current';
@@ -52,9 +58,30 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     scrollToCurrentTrack: function() {
 
-      // Scroll playlist container to current track
+      // Scroll playlist container to current track; TODO: make this work
       var currentTrackPos = $('.current').position();
       $('.playback-tracks').scrollTop(currentTrackPos.top);
+    }
+  });
+
+  Playlist.PlayedTrackList = Playlist.TrackList.extend({
+    className: 'playback-track-list played-tracks'
+  });
+
+  Playlist.FutureTrackList = Playlist.TrackList.extend({
+    className: 'playback-track-list future-tracks',
+    onRender: function() {
+
+      // Allow tracks to be dragged and sorted
+      this.$('tbody').sortable({
+        cancel: '.played, .current',
+        update: function(e, ui) {
+
+          var trackModelId = ui.item.data('id');
+          var newRank = ui.item.index();
+          Playlist.Controller.sendNewTrackOrder(trackModelId, newRank);
+        }
+      });
     }
   });
 

@@ -45,12 +45,17 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       _.extend(trackData, this.trackDefaults);
       this.tracks.push(trackData);
+      // If the playlist has finishes, start playing the new track immediately
+      if(this.finished) {
+
+        this.playTrack(this.tracks.length - 1, 0, true);
+      }
     };
 
     PlaylistManager.prototype.initTrackEmbed = function(trackIndex) {
 
       var track = this.getTrackData(trackIndex);
-      var trackEmbedId = this.popsId.toString() + '-' + trackIndex;
+      var trackEmbedId = this.popsId.toString() + '-' + track.id;
       // Create the track embed container if it doesn't exist
       var $trackEmbed = $('#' + trackEmbedId);
       if($trackEmbed.length === 0) {
@@ -62,6 +67,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       track.el = $trackEmbed;
 
       track.pop = Popcorn.smart( '#' + trackEmbedId, track.url);
+
+      if(this.muted) {
+
+        track.pop.mute();        
+      }
+
       track.pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
       track.pop.on('ended', $.proxy(function(){
@@ -159,6 +170,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
     PlaylistManager.prototype.playTrack = function(trackIndex, trackTime, wait, callback) {
 
+      this.finished = false;
       var track = this.getTrackData(trackIndex);
 
       // Initialize the track embed if it doesn't already exist
@@ -475,6 +487,25 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         }
       }
       this.muted = false;
+    };
+
+    PlaylistManager.prototype.setRank = function(trackId, newRank) {
+
+      // First get the current rank of the track to update
+      var trackToUpdate = _.findWhere(this.tracks, {
+        id: trackId
+      });
+      var trackIndex = this.tracks.indexOf(trackToUpdate);
+      this.tracks[trackIndex].rank = newRank;
+    };
+
+    PlaylistManager.prototype.reSort = function(trackId, newRank) {
+
+      // Sort the array based on the new rankings
+      this.tracks = _.sortBy(this.tracks, function(o) {
+
+        return o.rank;
+      });
     };
 
     return PlaylistManager;
