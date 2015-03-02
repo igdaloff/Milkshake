@@ -121,6 +121,10 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
   for(var i = lo; i <= hi; i++) {
 
     var track = this.tracks[i];
+    if(typeof(track) === 'undefined') {
+
+      continue;
+    }
     if(newRank > oldRank && i !== lo) {
 
       track.rank = i - 1;
@@ -142,7 +146,8 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
 
     // Callback if there is one
     if(typeof(cb) === 'function') {
-        
+      
+      console.log('updated tracks:', updatedPlaylistModel.tracks);
       cb(updatedPlaylistModel);
     }
   });
