@@ -5,7 +5,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     function PlaylistManager(data){
 
       this.trackDefaults = {
-        embedded: false
+        embedded: false,
+        loaded: false
       };
       this.tracks = [];
       this.trackElements = [];
@@ -84,11 +85,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       track.pop.autoplay(false);
       // Bind popcorn events to triggers on the 'this' object
-      track.pop.on('ended', $.proxy(function(){
-
-        $(this).trigger('track:ended');
-        this.next();
-      }, this));
       track.pop.on('playing', $.proxy(function(){
 
         $(this).trigger('track:playing');
@@ -105,8 +101,19 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         $(this).trigger('track:timeupdate', track.pop.currentTime());
         this.listenToTrackEndAndLoadNext();
       }, this));
+      track.pop.on('ended', $.proxy(function(){
+
+        $(this).trigger('track:ended');
+        this.next();
+      }, this));
 
       track.embedded = true;
+
+      // Mark the track as ready to play when it has loaded, so we know whether to wait when we come to play it
+      this.onTrackReady(trackIndex, function() {
+
+        track.loaded = true;
+      });
 
       return track.pop;
     };
@@ -338,14 +345,14 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.stopAll();
       if(nextTrackIndex < this.tracks.length) {
 
-        this.playTrack(nextTrackIndex);
+        var track = this.getTrackData(nextTrackIndex);
+        this.playTrack(nextTrackIndex, 0, !track.loaded);
         return this.getTrackData(nextTrackIndex);
       }
       else {
 
         this.stopPlaylist();
-        $(this).trigger('playlist:ended');
-        this.finished = true;
+        this.setFinished();
         return null;
       }
     };
@@ -462,11 +469,6 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       };
     };
 
-    PlaylistManager.prototype.isFinished = function() {
-
-      return typeof this.finished !== 'undefined' && this.finished === true;
-    };
-
     PlaylistManager.prototype.isMuted = function() {
 
       return this.muted;
@@ -515,6 +517,12 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
         return o.rank;
       });
+    };
+
+    PlaylistManager.prototype.setFinished = function() {
+
+      $(this).trigger('playlist:ended');
+      this.finished = true;
     };
 
     return PlaylistManager;
