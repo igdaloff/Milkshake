@@ -165,6 +165,8 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Execute the query
       TrackSearch.Controller.searchTracks(query);
 
+      // Show close search button
+      $('.track-search-close').fadeIn('fast');
     },
     onRenderCollection: function() {
 
@@ -174,9 +176,6 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       this.$('.track-search-input').removeClass('loading');
 
       $('.track-search-results-container').perfectScrollbar();
-
-      // Show close search button
-      $('.track-search-close').fadeIn('fast');
     },
     /**
      * No results message
@@ -189,11 +188,11 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // remove the loading class
       this.$('.track-search-input').removeClass('loading');
       // show the no results message
-      $('.no-results-message').fadeIn();
+      $('.no-results-message').addClass('visible');
       // hide the message as soon as new results are added
       this.listenToOnce(this.collection, 'reset', function() {
 
-        $('.no-results-message').hide();
+        $('.no-results-message').removeClass('visible');
       });
     },
     autoSearch: _.throttle(function(e) {
@@ -211,6 +210,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       $('.track-search-results-container').removeClass('visible');
       $('.track-search-close').fadeOut('fast');
       $('.track-search-input').val('');
+      $('.no-results-message.visible').removeClass('visible');
     },
     closeSearchEsc: function(e) {
 
