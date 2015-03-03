@@ -5,7 +5,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     tagName: 'tr',
     className: 'playback-track basic-table-row',
     events: {
-      'click .delete-track': 'deleteTrack'
+      'click .delete-track': 'deleteTrack',
+      'click .readd-track ': 'reAddTrack'
     },
     modelEvents: {
       'change:isPlaying': 'toggleIsPlayingClass',
@@ -44,6 +45,22 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     deleteTrack: function() {
 
       Playlist.Controller.sendTrackDelete(this.model.id);
+    },
+    reAddTrack: function(e){
+
+      e.preventDefault();
+
+      // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
+      if($('.playlist-create').length) {
+
+        TrackSearch.Controller.addTrack(this.model);
+      }
+      else {
+
+        TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
+        console.log('clicked');
+      }
+      this.highlightAddedTrack(e);
     }
   });
 

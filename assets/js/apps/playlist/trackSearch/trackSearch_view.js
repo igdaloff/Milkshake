@@ -6,7 +6,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     className: 'track-search-result basic-table-row',
     events: {
       'click .toggle-track-preview': 'toggleTrackPreview',
-      'click .track-search-result-add': 'addTrack'
+      'click .track-search-result-add ': 'addTrack'
     },
     modelEvents: {
       'change:isPlaying': 'togglePreviewButtonState',
@@ -65,6 +65,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       else {
 
         TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
+        console.log('clicked');
       }
       this.highlightAddedTrack(e);
     },

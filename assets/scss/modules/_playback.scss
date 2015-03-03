@@ -119,10 +119,29 @@ $playback-artwork-width: 50px;
 	}
 
 	&.played{
-		opacity: 0.5;
+		cursor: default;
 
 		img{
 			@include filter(grayscale(100%));
+			opacity: 0.5;
+		}
+
+		.playback-track-title{
+			opacity: 0.5;
+
+			a:hover{
+				text-decoration: none;
+			}
+		}
+
+		&:hover{
+			.readd-track-container{
+				opacity: 1;
+			}
+
+			.track-search-result-duration{
+				color: white;
+			}
 		}
 	}
 
@@ -146,6 +165,10 @@ $playback-artwork-width: 50px;
 		}
 	}
 
+	&:not(.played) .playback-track-title:hover a{
+		text-decoration: underline;
+	}
+
 	td{
 		font-size: 0.8em;
 	}
@@ -164,19 +187,11 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.playback-track-title{
-	&:hover{
-		a{
-			text-decoration: underline;
-		}
-	}
-}
-
-.delete-track-container{
+.delete-track-container, .readd-track-container{
 	opacity: 0;
 }
 
-.delete-track{
+.delete-track, .readd-track{
 	position: absolute;
 	right: 10px;
 	top: 0;
@@ -184,10 +199,20 @@ $playback-artwork-width: 50px;
 	margin: auto;
 	font-size: 16px;
 	line-height: 1.8;
+	z-index: 1;
+
+	&:focus{
+		outline: 0;
+	}
+}
+
+.delete-track{
 	@include icomoon('trashcan');
 }
 
-
+.readd-track{
+	@include icomoon('refresh');
+}
 
 
 // Draggable track styles
