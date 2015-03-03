@@ -192,4 +192,10 @@ td.preview-track-container{
   &.visible{
     top: $basic-table-row-height;
   }
+
+  h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

@@ -89,10 +89,7 @@ $playback-artwork-width: 50px;
 	border-right: 1px solid $border-grey;
 	overflow: auto;
 	z-index: 1;
-
-	li{
-		height: $playback-artwork-width;
-	}
+	background: $off-white;
 
 	.playback-track-list.played-tracks tr{
 		display: none;
@@ -113,6 +110,7 @@ $playback-artwork-width: 50px;
 
 .playback-track{
 	position: relative;
+	background: white;
 
 	&.current{
 		background: $light-green;

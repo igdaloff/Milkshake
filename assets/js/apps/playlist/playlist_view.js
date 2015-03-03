@@ -58,7 +58,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       else {
 
         TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
-        console.log('clicked');
       }
       this.highlightAddedTrack(e);
     }
@@ -70,7 +69,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     childView: Playlist.Track,
     onShow: function() {
 
+      // TODO: neither of these run at the right time
       this.scrollToCurrentTrack();
+      this.setLandscapeImage();
     },
     onRender: function() {
 
@@ -82,9 +83,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     scrollToCurrentTrack: function() {
 
-      // Scroll playlist container to current track; TODO: make this work
+      // Scroll playlist container to current track
       var currentTrackPos = $('.current').position();
       $('.playback-tracks').scrollTop(currentTrackPos.top);
+    },
+    setLandscapeImage: function(){
+
+      var $playlistArtwork = $('.playback-track-artwork img');
+
+      $playlistArtwork.each(function(){
+        if ($(this).width() > $(this).height()){
+          $(this).addClass('landscape');
+        }
+      });
     }
   });
 
