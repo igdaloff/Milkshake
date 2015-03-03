@@ -74,25 +74,24 @@ PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
   if(trackIndex < this.tracks.length) {
 
     // Get the next track's info, which is now at the index as the one we just deleted
-    var nextTrackId = this.tracks[trackIndex].id;
-    this.reorderTracks(nextTrackId, oldRank, savePlaylist);
-  }
-  else {
+    for(var i = oldRank; i < this.tracks.length; i++) {
 
-    savePlaylist(this);
-  }
+      var trackToIncrement = this.tracks[i];
+      if(typeof(trackToIncrement) !== 'undefined') {
 
-  function savePlaylist(updatedPlaylistModel) {
-
-    updatedPlaylistModel.save(function(err, updatedPlaylistModel) {
-
-      // Callback if there is one
-      if(typeof(cb) === 'function') {
-
-        cb(updatedPlaylistModel);
+        trackToIncrement.rank = trackToIncrement.rank - 1;
       }
-    });
+    }
   }
+
+  this.save(function(err, updatedPlaylistModel) {
+
+    // Callback if there is one
+    if(typeof(cb) === 'function') {
+
+      cb(updatedPlaylistModel);
+    }
+  });
 });
 
 /**
@@ -147,7 +146,6 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
     // Callback if there is one
     if(typeof(cb) === 'function') {
       
-      console.log('updated tracks:', updatedPlaylistModel.tracks);
       cb(updatedPlaylistModel);
     }
   });
