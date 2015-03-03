@@ -2,6 +2,10 @@
 // Playback search
 // =======================
 .playback-page{
+	.track-search-input{
+		padding-right: 60px;
+	}
+
 	.track-search-results-container{
 		opacity: 1;
 		position: fixed;
@@ -88,6 +92,21 @@
 			text-decoration: none;
 			background: $green;
 			color: $black;
+		}
+
+		&.loading:before{
+			content: '';
+			position: absolute;
+			width: 26px;
+			height: 26px;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		  background-image: url("../img/loading-fast-green.gif");
+		  background-repeat: no-repeat;
+		  background-size: 26px 26px;
 		}
 	}
 

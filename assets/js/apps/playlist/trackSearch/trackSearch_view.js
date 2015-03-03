@@ -161,7 +161,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       var query = this.$('.track-search-input').val();
 
       // Add the loading class to the input
-      this.$('.track-search-input').addClass('loading');
+      this.$('.search-submit').addClass('loading');
       // Execute the query
       TrackSearch.Controller.searchTracks(query);
 
@@ -173,7 +173,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Add class for results transition
       $(this.childViewContainer).parent().addClass('visible');
       // Remove the loading class on completion
-      this.$('.track-search-input').removeClass('loading');
+      this.$('.search-submit').removeClass('loading');
 
       $('.track-search-results-container').perfectScrollbar();
     },
