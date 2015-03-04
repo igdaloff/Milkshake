@@ -49,17 +49,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     reAddTrack: function(e){
 
       e.preventDefault();
-
-      // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
-      if($('.playlist-create').length) {
-
-        TrackSearch.Controller.addTrack(this.model);
-      }
-      else {
-
-        TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
-      }
-      this.highlightAddedTrack(e);
+      TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
     }
   });
 
