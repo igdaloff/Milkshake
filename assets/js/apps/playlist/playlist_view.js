@@ -18,6 +18,17 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       this.toggleIsPlayingClass();
       this.togglehasPlayedClass();
     },
+    onShow: function() {
+
+      this.setLandscapeImage();
+    },
+    setLandscapeImage: function(){
+
+      var $trackArtwork = this.$('img');
+      if ($trackArtwork.width() > $trackArtwork.height()){
+        $trackArtwork.addClass('landscape');
+      }
+    },
     toggleIsPlayingClass: function() {
 
       var className = 'current';
@@ -57,12 +68,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     tagName: 'table',
     className: 'playback-track-list',
     childView: Playlist.Track,
-    onShow: function() {
-
-      // TODO: neither of these run at the right time
-      this.scrollToCurrentTrack();
-      this.setLandscapeImage();
-    },
     onRender: function() {
 
       // Allow tracks to be dragged and sorted
@@ -70,22 +75,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         cancel: '.played, .current',
         placeholder: 'track-reorder-gap'
       }).disableSelection();
-    },
-    scrollToCurrentTrack: function() {
-
-      // Scroll playlist container to current track
-      var currentTrackPos = $('.current').position();
-      $('.playback-tracks').scrollTop(currentTrackPos.top);
-    },
-    setLandscapeImage: function(){
-
-      var $playlistArtwork = $('.playback-track-artwork img');
-
-      $playlistArtwork.each(function(){
-        if ($(this).width() > $(this).height()){
-          $(this).addClass('landscape');
-        }
-      });
     }
   });
 
@@ -95,6 +84,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
   Playlist.FutureTrackList = Playlist.TrackList.extend({
     className: 'playback-track-list future-tracks',
+    initialize: function() {
+        
+      // On first load, scroll to current track
+      this.listenToOnce(this.collection, 'change:isPlaying', this.scrollToCurrentTrack);
+    },
     onRender: function() {
 
       // Allow tracks to be dragged and sorted
@@ -107,6 +101,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
           Playlist.Controller.sendNewTrackOrder(trackModelId, newRank);
         }
       });
+    },
+    scrollToCurrentTrack: function(model) {
+
+      // Scroll playlist container to current track
+      var currentTrackPos = this.$('.current').position();
+      var currentTrackHeight = this.$('.current').height();
+      var playlistPos = this.$el.position();
+      $('.playback-tracks').scrollTop(currentTrackPos.top + playlistPos.top - currentTrackHeight);
     }
   });
 

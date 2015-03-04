@@ -65,7 +65,6 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       else {
 
         TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
-        console.log('clicked');
       }
       this.highlightAddedTrack(e);
     },
