@@ -325,6 +325,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Request the socket object
       var socket = TWM.request('playlist:activeSocket');
+      // Remove the _id and id attribute if they exist
+      delete trackData._id;
+      delete trackData.id;
       socket.emit('addTrack', trackData);
     },
     addTrackToPlaylist: function(newTrackData) {

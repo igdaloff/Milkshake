@@ -85,12 +85,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.FutureTrackList = Playlist.TrackList.extend({
     className: 'playback-track-list future-tracks',
     initialize: function() {
-        
+      
       // On first load, scroll to current track
       this.listenToOnce(this.collection, 'change:isPlaying', this.scrollToCurrentTrack);
     },
     onRender: function() {
 
+      var _this = this;
       // Allow tracks to be dragged and sorted
       this.$('tbody').sortable({
         cancel: '.played, .current',
@@ -100,6 +101,17 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
           var newRank = ui.item.index();
           Playlist.Controller.sendNewTrackOrder(trackModelId, newRank);
         }
+      });
+
+      // For following tracks, only jump to current track if the user isn't moused over the playlist-tracks element
+      this.$el.parent().on('mouseleave', function(e) {
+
+        _this.listenTo(_this.collection, 'change:isPlaying', _this.scrollToCurrentTrack);
+        $(this).off('mouseenter.cancelScrollJump');
+        $(this).on('mouseenter.cancelScrollJump', function() {
+
+          _this.stopListening(_this.collection, 'change:isPlaying');
+        });
       });
     },
     scrollToCurrentTrack: function(model) {
