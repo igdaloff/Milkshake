@@ -216,19 +216,6 @@
 		}
 	}
 
-	.track-search-input{
-		padding-right: 70px;
-
-	  &.loading{
-	  	position: relative;
-	    background-image: url("../img/loading-fast.gif");
-	    background-repeat: no-repeat;
-	    background-position: 96.5% 50%;
-	    background-size: 30px 30px;
-	    background-color: white;
-	  }
-	}
-
 	.search-submit{
 		display: none;
 	}

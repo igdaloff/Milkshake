@@ -5,7 +5,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     tagName: 'tr',
     className: 'playback-track basic-table-row',
     events: {
-      'click .delete-track': 'deleteTrack'
+      'click .delete-track': 'deleteTrack',
+      'click .readd-track ': 'reAddTrack'
     },
     modelEvents: {
       'change:isPlaying': 'toggleIsPlayingClass',
@@ -44,6 +45,21 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     deleteTrack: function() {
 
       Playlist.Controller.sendTrackDelete(this.model.id);
+    },
+    reAddTrack: function(e){
+
+      e.preventDefault();
+
+      // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
+      if($('.playlist-create').length) {
+
+        TrackSearch.Controller.addTrack(this.model);
+      }
+      else {
+
+        TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
+      }
+      this.highlightAddedTrack(e);
     }
   });
 
@@ -53,7 +69,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     childView: Playlist.Track,
     onShow: function() {
 
+      // TODO: neither of these run at the right time
       this.scrollToCurrentTrack();
+      this.setLandscapeImage();
     },
     onRender: function() {
 
@@ -65,9 +83,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     scrollToCurrentTrack: function() {
 
-      // Scroll playlist container to current track; TODO: make this work
+      // Scroll playlist container to current track
       var currentTrackPos = $('.current').position();
       $('.playback-tracks').scrollTop(currentTrackPos.top);
+    },
+    setLandscapeImage: function(){
+
+      var $playlistArtwork = $('.playback-track-artwork img');
+
+      $playlistArtwork.each(function(){
+        if ($(this).width() > $(this).height()){
+          $(this).addClass('landscape');
+        }
+      });
     }
   });
 

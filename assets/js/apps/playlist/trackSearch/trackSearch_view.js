@@ -6,7 +6,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     className: 'track-search-result basic-table-row',
     events: {
       'click .toggle-track-preview': 'toggleTrackPreview',
-      'click .track-search-result-add': 'addTrack'
+      'click .track-search-result-add ': 'addTrack'
     },
     modelEvents: {
       'change:isPlaying': 'togglePreviewButtonState',
@@ -65,6 +65,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       else {
 
         TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
+        console.log('clicked');
       }
       this.highlightAddedTrack(e);
     },
@@ -160,22 +161,21 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       var query = this.$('.track-search-input').val();
 
       // Add the loading class to the input
-      this.$('.track-search-input').addClass('loading');
+      this.$('.search-submit').addClass('loading');
       // Execute the query
       TrackSearch.Controller.searchTracks(query);
 
+      // Show close search button
+      $('.track-search-close').fadeIn('fast');
     },
     onRenderCollection: function() {
 
       // Add class for results transition
       $(this.childViewContainer).parent().addClass('visible');
       // Remove the loading class on completion
-      this.$('.track-search-input').removeClass('loading');
+      this.$('.search-submit').removeClass('loading');
 
       $('.track-search-results-container').perfectScrollbar();
-
-      // Show close search button
-      $('.track-search-close').fadeIn('fast');
     },
     /**
      * No results message
@@ -188,11 +188,11 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // remove the loading class
       this.$('.track-search-input').removeClass('loading');
       // show the no results message
-      $('.no-results-message').fadeIn();
+      $('.no-results-message').addClass('visible');
       // hide the message as soon as new results are added
       this.listenToOnce(this.collection, 'reset', function() {
 
-        $('.no-results-message').hide();
+        $('.no-results-message').removeClass('visible');
       });
     },
     autoSearch: _.throttle(function(e) {
@@ -210,6 +210,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       $('.track-search-results-container').removeClass('visible');
       $('.track-search-close').fadeOut('fast');
       $('.track-search-input').val('');
+      $('.no-results-message.visible').removeClass('visible');
     },
     closeSearchEsc: function(e) {
 

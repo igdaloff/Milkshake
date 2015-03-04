@@ -89,10 +89,7 @@ $playback-artwork-width: 50px;
 	border-right: 1px solid $border-grey;
 	overflow: auto;
 	z-index: 1;
-
-	li{
-		height: $playback-artwork-width;
-	}
+	background: $off-white;
 
 	.playback-track-list.played-tracks tr{
 		display: none;
@@ -113,16 +110,36 @@ $playback-artwork-width: 50px;
 
 .playback-track{
 	position: relative;
+	background: white;
 
 	&.current{
 		background: $light-green;
 	}
 
 	&.played{
-		opacity: 0.5;
+		cursor: default;
 
 		img{
 			@include filter(grayscale(100%));
+			opacity: 0.5;
+		}
+
+		.playback-track-title{
+			opacity: 0.5;
+
+			a:hover{
+				text-decoration: none;
+			}
+		}
+
+		&:hover{
+			.readd-track-container{
+				opacity: 1;
+			}
+
+			.track-search-result-duration{
+				color: white;
+			}
 		}
 	}
 
@@ -132,14 +149,22 @@ $playback-artwork-width: 50px;
 		cursor: grab;
 
 		&:hover{
-			.delete-track{
-				display: inline-block;
+			.delete-track-container{
+				opacity: 1;
 			}
+
+			.track-search-result-duration{
+				color: white;
+			}
+		}
+
+		.delete-track-container:focus{
+			opacity: 1;
 		}
 	}
 
-	td{
-		font-size: 0.8em;
+	&:not(.played) .playback-track-title:hover a{
+		text-decoration: underline;
 	}
 }
 
@@ -156,16 +181,11 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.playback-track-title{
-	&:hover{
-		a{
-			text-decoration: underline;
-		}
-	}
+.delete-track-container, .readd-track-container{
+	opacity: 0;
 }
 
-.delete-track{
-	display: none;
+.delete-track, .readd-track{
 	position: absolute;
 	right: 10px;
 	top: 0;
@@ -173,10 +193,20 @@ $playback-artwork-width: 50px;
 	margin: auto;
 	font-size: 16px;
 	line-height: 1.8;
+	z-index: 1;
+
+	&:focus{
+		outline: 0;
+	}
+}
+
+.delete-track{
 	@include icomoon('trashcan');
 }
 
-
+.readd-track{
+	@include icomoon('refresh');
+}
 
 
 // Draggable track styles

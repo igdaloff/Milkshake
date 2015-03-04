@@ -321,16 +321,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       }
       return playlistManager.isMuted();
     },
-    setLandscapeImage: function(){
-
-      var $playlistArtwork = $('.playback-track-artwork img');
-
-      $playlistArtwork.each(function(){
-        if ($(this).width() > $(this).height()){
-          $(this).addClass('landscape');
-        }
-      });
-    },
     sendTrackToPlaylist: function(trackData) {
 
       // Request the socket object
@@ -390,7 +380,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var playlistCollection = TWM.request('playlist:playlistCollection');
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-       
+
       // Loop over the models in the track collection and update the ranks in the playlist collection and playlist manager
       for(var i = 0; i < updatedTracks.length; i++) {
 

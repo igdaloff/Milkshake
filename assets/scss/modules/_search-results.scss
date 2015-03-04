@@ -1,6 +1,9 @@
 // =======================
 // Track Search
 // =======================
+.track-search{
+  position: relative;
+}
 
 .track-search-results-container{
   position: relative;
@@ -174,7 +177,25 @@ td.preview-track-container{
 }
 
 .no-results-message{
-  display: none;
-  margin-top: 2.5em;
-  font-size: 1.5em;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: $black;
+  color: white;
+  height: $basic-table-row-height;
+  line-height: $basic-table-row-height;
+  padding: 0 1em;
+  z-index: 10;
+  border-right: 1px solid $border-grey;
+  @extend .transition;
+
+  &.visible{
+    top: $basic-table-row-height;
+  }
+
+  h4{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
