@@ -26,6 +26,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('deleteTrack', Playlist.Controller.deleteTrack);
       // A reordered set of tracks is sent from the server
       socket.on('reorderedTracks', Playlist.Controller.reorderTracks);
+      // The room was renamed
+      socket.on('newPlaylistTitle', Playlist.Controller.renamePlaylist);
+
       // Set a request handler so we can get the active socket in future
       TWM.reqres.setHandler("playlist:activeSocket", function() {
 

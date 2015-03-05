@@ -394,6 +394,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Sort the collection and playlist manager
       playlistCollection.sort();
       playlistManager.reSort();
+    },
+    renamePlaylist: function(newTitle) {
+
+      // Todo - set up a playlist model that we can change this title on!
     }
   };
 });
