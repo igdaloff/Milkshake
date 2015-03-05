@@ -226,6 +226,18 @@ io.sockets.on('connection', function (socket) {
       io.sockets.in(socket.roomId).emit('reorderedTracks', updatedTrackArray);
     });
   });
+
+  socket.on('changeTitle', function(newTitle) {
+
+    Conversation.findOneAndUpdate({
+      playlistId: socket.roomId
+    }, {
+      title: newTitle
+    }, function() {
+
+      io.sockets.in(socket.roomId).emit('newPlaylistTitle', newTitle);
+    });
+  });
 });
 
 // End socket stuff
