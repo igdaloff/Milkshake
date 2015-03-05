@@ -65,6 +65,11 @@ PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
   var trackToDelete = _.findWhere(this.tracks, {
     id: trackId
   });
+  // If the track wasn't found, cancel this
+  if(typeof(trackToDelete) === 'undefined') {
+
+    return cb(this, {});
+  }
   var oldRank = trackToDelete.rank;
   var trackIndex = this.tracks.indexOf(trackToDelete);
   // Remove the track from the array
@@ -83,13 +88,12 @@ PlaylistSchema.method('removeTrackFromPlaylist', function(trackId, cb) {
       }
     }
   }
-
   this.save(function(err, updatedPlaylistModel) {
 
     // Callback if there is one
     if(typeof(cb) === 'function') {
 
-      cb(updatedPlaylistModel);
+      cb(updatedPlaylistModel, trackToDelete);
     }
   });
 });
