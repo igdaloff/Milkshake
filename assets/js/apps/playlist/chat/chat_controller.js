@@ -150,14 +150,22 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         type: 'log',
         content: 'Now playing: \'' + trackData.title + '\''
       });
+    },
+    newTrackAdded: function(newTrackData) {
+      
+      var messageCollection = TWM.request('chat:messageCollection');
+      messageCollection.add({
+        type: 'log',
+        content: '\'' + newTrackData.title + '\' was added to the playlist'
+      });
+    },
+    trackDeleted: function(deletedTrackData) {
+      
+      var messageCollection = TWM.request('chat:messageCollection');
+      messageCollection.add({
+        type: 'log',
+        content: '\'' + deletedTrackData.title + '\' was removed from the playlist'
+      });
     }
-    // playlistEndedMessage: function(event) {
-
-    //   var messageCollection = TWM.request('chat:messageCollection');
-    //   messageCollection.add({
-    //     type: 'log',
-    //     content: 'The playlist ended. Create a new one <a href="/" target="_blank">here</a>.'
-    //   });
-    // }
   };
 });

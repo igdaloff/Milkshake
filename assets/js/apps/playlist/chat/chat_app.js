@@ -23,6 +23,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     socket.on('userLeft', Chat.Controller.remoteUserDisconnected);
     // When the remote user re-connects
     socket.on('userJoined', Chat.Controller.remoteUserConnected);
+    // A new track was added
+    socket.on('newTrack', Chat.Controller.newTrackAdded);
+    // A track was removed
+    socket.on('deleteTrack', Chat.Controller.trackDeleted);
   };
 
   var bindPlaylistEvents = function(playlistManager) {

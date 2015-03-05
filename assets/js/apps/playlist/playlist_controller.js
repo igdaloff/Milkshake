@@ -344,16 +344,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var socket = TWM.request('playlist:activeSocket');
       socket.emit('removeTrack', trackId);
     },
-    deleteTrack: function(trackId) {
+    deleteTrack: function(trackData) {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var playlistCollection = TWM.request('playlist:playlistCollection');
-      // Get the rank of the track to be deleted
-      var oldRank = playlistCollection.get(trackId).get('rank');
+      // Get the rank of the track to be deleted from the collection
+      var oldRank = playlistCollection.get(trackData._id).get('rank');
       // Remove the track from the collection
-      playlistCollection.remove(playlistCollection.get(trackId));
+      playlistCollection.remove(playlistCollection.get(trackData._id));
       // Remove the track from the playlist manafer
-      playlistManager.destroy(trackId);
+      playlistManager.destroy(trackData._id);
       // Decrement the ranks of all models above this one where the rank was the same or higher
       for(var i = 0; i < playlistCollection.models.length; i++) {
 
@@ -394,6 +394,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Sort the collection and playlist manager
       playlistCollection.sort();
       playlistManager.reSort();
+    },
+    renamePlaylist: function(newTitle) {
+
+      // Todo - set up a playlist model that we can change this title on!
     }
   };
 });
