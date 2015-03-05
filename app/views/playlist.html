@@ -31,19 +31,20 @@
   <!-- Playlist contents -->
   <div class="playlist">
     <header class="playback-header">
-      <div class="playback-header-inner">
-        <a href="/" class="playback-logo">
-          <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
-          <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
-        </a>
-        <div class="playback-header-meta">
-          <h2>{{ playlist.title }}</h2>
-          <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
-        </div>
-        <div class="playlist-controls">
-          <a class="mute-toggle"></a>
-          <span class="screen-reader-text">Mute</span>
-        </div>
+      <a href="/" class="playback-logo">
+        <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
+        <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
+      </a>
+      <div class="playback-header-meta">
+        <h2 class="playlist-title">{{ playlist.title }}</h2>
+        <form>
+          <input class="playlist-title-input" type="text" name="playback-title" placeholder="Enter a room title." value="{{ playlist.title }}" />
+        </form>
+        <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
+      </div>
+      <div class="playlist-controls">
+        <a class="mute-toggle"></a>
+        <span class="screen-reader-text">Mute</span>
       </div>
     </header>
     <div class="track-search-container"></div>

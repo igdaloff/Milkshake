@@ -11,19 +11,18 @@ $playback-artwork-width: 50px;
 
 .playlist{
 	width: $left-rail-width;
-	background: white;
+	height: 100vh;
+	background: $light-grey;
+	border-right: 1px solid $border-grey;
 }
 
 .playback-header{
 	position: relative;
-	display: table;
-	height: 240px;
 	width: 100%;
-	padding: 0 1em;
+	padding: 1em;
 	font-family: $sans-special;
 	text-align: center;
 	background: white;
-	border-right: 1px solid $border-grey;
 	z-index: 100;
 }
 
@@ -42,15 +41,33 @@ $playback-artwork-width: 50px;
 	display: none;
 }
 
-.playback-header-meta{
-	h2{
-		margin: 0.5em 0;
+.playlist-title{
+	margin: 0.5em 0;
+	cursor: pointer;
+
+	.editable &{
+		display: none;
 	}
 }
 
-.playback-header-inner{
-	display: table-cell;
-	vertical-align: middle;
+.playlist-title-input{
+	display: none;
+	@extend h2;
+	width: 100%;
+	padding: 0.5em;
+	margin: 0.5em 0;
+	text-align: center;
+	color: $black;
+	border: 1px solid;
+	cursor: text;
+
+	&:focus{
+		outline: 0;
+	}
+
+	.editable &{
+		display: block;
+	}
 }
 
 .playlist-controls{
@@ -81,8 +98,6 @@ $playback-artwork-width: 50px;
 
 //Playback tracks
 .playback-tracks{
-	position: absolute;
-	top: $playback-header-height + $playback-search-height;
 	bottom: 0;
 	width: $left-rail-width;
 	background: white;
@@ -288,7 +303,7 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.playlist,
+
 .loading-message,
 .welcome-message,
 .playlist-full-message,
