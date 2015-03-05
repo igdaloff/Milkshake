@@ -85,7 +85,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.FutureTrackList = Playlist.TrackList.extend({
     className: 'playback-track-list future-tracks',
     initialize: function() {
-      
+
       // On first load, scroll to current track
       this.listenToOnce(this.collection, 'change:isPlaying', this.scrollToCurrentTrack);
     },
@@ -127,7 +127,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
   Playlist.Controls = Marionette.ItemView.extend({
     el: '.playback-page',
     events: {
-      'click .mute-toggle': 'muteToggle'
+      'click .mute-toggle': 'muteToggle',
+      'click .playlist-title': 'editPlaylistTitle',
+      'keydown': 'escEditPlaylistTitle',
+      'click .playlist-title-input, .playlist-title': 'preventTitleEditBubbling'
+    },
+    initialize: function() {
+
+      this.bindUIElements();
+    },
+    ui: {
+
+      playlistHeader: '.playback-header',
+      playlistTitleInput: '.playlist-title-input'
     },
     muteToggle: function(e) {
 
@@ -142,6 +154,27 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         $muteToggle.removeClass('muted');
       }
+    },
+    editPlaylistTitle: function() {
+
+      this.ui.playlistHeader.addClass('editable');
+      this.ui.playlistTitleInput.select();
+
+      $('body').on('click', function(e){
+        $('.playback-header').removeClass('editable');
+      })
+    },
+    escEditPlaylistTitle: function(e) {
+
+      var pressedKey = e.keyCode || e.which;
+
+      if(pressedKey == 27) {
+        this.ui.playlistHeader.removeClass('editable');
+      }
+    },
+    preventTitleEditBubbling: function(e) {
+
+      e.stopImmediatePropagation();
     }
   });
 });

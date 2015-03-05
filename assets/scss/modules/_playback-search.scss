@@ -52,6 +52,7 @@
 		height: $playback-search-height;
 		z-index: 100;
 		border: 1px solid $border-grey;
+		border-right: 0;
 	}
 
 	.track-search-input{

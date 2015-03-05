@@ -174,7 +174,11 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Remove the loading class on completion
       this.$('.search-submit').removeClass('loading');
 
-      $('.track-search-results-container').perfectScrollbar();
+      if( $('.track-search-results').height() >= $('.track-search-results-container').height() ){
+        $('.track-search-results-container').perfectScrollbar();
+      } else {
+        $('.track-search-results-container').perfectScrollbar('destroy');
+      }
     },
     /**
      * No results message
