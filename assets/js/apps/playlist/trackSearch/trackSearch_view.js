@@ -159,13 +159,15 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       var $form = $(e.currentTarget);
       var query = this.$('.track-search-input').val();
 
-      // Add the loading class to the input
-      this.$('.search-submit').addClass('loading');
-      // Execute the query
-      TrackSearch.Controller.searchTracks(query);
+      if(query !== ''){
+        // Add the loading class to the input
+        this.$('.search-submit').addClass('loading');
+        // Execute the query
+        TrackSearch.Controller.searchTracks(query);
 
-      // Show close search button
-      $('.track-search-close').fadeIn('fast');
+        // Show close search button
+        $('.track-search-close').fadeIn('fast');
+      }
     },
     onRenderCollection: function() {
 

@@ -5,6 +5,10 @@
 .playback-page {
 	overflow: hidden;
 
+	.main-content{
+		background: $off-white;
+	}
+
 	.footer-push{
 		display: none;
 	}
@@ -13,7 +17,7 @@
 .playlist{
 	width: $left-rail-width;
 	height: 100vh;
-	background: $light-grey;
+	background: $off-white;
 	border-right: 1px solid $border-grey;
 }
 
@@ -147,7 +151,7 @@
 	border-right: 1px solid $border-grey;
 	overflow: auto;
 	z-index: 1;
-	background: $light-grey;
+	background: $off-white;
 
 	.playback-track-list.played-tracks tr{
 		display: none;
@@ -321,10 +325,6 @@
 }
 
 .playlist-playing{
-	.main-content{
-		background: $light-grey;
-	}
-
 	.main-header{
 		display: none;
 	}
