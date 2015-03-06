@@ -8,11 +8,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     joinRoom: function() {
 
       var socket = TWM.request('playlist:activeSocket');
-      socket.emit('joinRoom', playlistId);
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      socket.emit('joinRoom', playlistModel.id);
     },
     userJoinedRoom: function(numUsersInRoom) {
 
-      if(numUsersInRoom === 1 && bootstrap.startTime.length === 0) {
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      if(numUsersInRoom === 1 && typeof(playlistModel.get('startTime')) === 'undefined') {
 
         $('body').addClass('playlist-waiting');
       }
@@ -204,10 +206,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     setPlayingTrackAttribute: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var playlistCollection = TWM.request('playlist:playlistCollection');
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
       var currTrackIndex = playlistManager.getCurrentTrackIndex();
       // Set isPlaying on the currently playing track
-      playlistCollection.at(currTrackIndex).set('isPlaying', true);
+      playlistModel.tracks.at(currTrackIndex).set('isPlaying', true);
     },
     updateTimer: function() {
 
@@ -222,8 +224,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     updateTimerTotal: function() {
 
-      var playlistCollection = TWM.request('playlist:playlistCollection');
-      $('.total-time').text(TWM.Lib.secondsToMinutes(playlistCollection.getTotalDuration()));
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      $('.total-time').text(TWM.Lib.secondsToMinutes(playlistModel.tracks.getTotalDuration()));
     },
     /*
      * roomFull
@@ -300,10 +302,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     playlistFinished: function() {
 
-      var playlistCollection = TWM.request('playlist:playlistCollection');
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
       // Set all models to played
-      playlistCollection.setAll('hasPlayed', true);
-      playlistCollection.setAll('isPlaying', false);
+      playlistModel.tracks.setAll('hasPlayed', true);
+      playlistModel.tracks.setAll('isPlaying', false);
       // Update the current time to match the total time
       $('.current-time').text($('.total-time').text());
       TWM.trigger('playlist:playlistEnd');
@@ -333,8 +335,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     addTrackToPlaylist: function(newTrackData) {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var playlistCollection = TWM.request('playlist:playlistCollection');
-      var newModel = playlistCollection.add(newTrackData);
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      var newModel = playlistModel.tracks.add(newTrackData);
       newTrackData.id = newModel.id;
       // Add the new track to the playlist manager
       playlistManager.addTrackToPlaylist(newTrackData);
@@ -347,17 +349,17 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     deleteTrack: function(trackData) {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var playlistCollection = TWM.request('playlist:playlistCollection');
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
       // Get the rank of the track to be deleted from the collection
-      var oldRank = playlistCollection.get(trackData._id).get('rank');
+      var oldRank = playlistModel.tracks.get(trackData._id).get('rank');
       // Remove the track from the collection
-      playlistCollection.remove(playlistCollection.get(trackData._id));
+      playlistModel.tracks.remove(playlistModel.tracks.get(trackData._id));
       // Remove the track from the playlist manafer
       playlistManager.destroy(trackData._id);
       // Decrement the ranks of all models above this one where the rank was the same or higher
-      for(var i = 0; i < playlistCollection.models.length; i++) {
+      for(var i = 0; i < playlistModel.tracks.models.length; i++) {
 
-        var trackModel = playlistCollection.at(i);
+        var trackModel = playlistModel.tracks.at(i);
         if(trackModel.get('rank') >= oldRank) {
 
           var newRank = trackModel.get('rank') - 1;
@@ -368,7 +370,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         }
       }
       // Sort the collection and playlist manager
-      playlistCollection.sort();
+      playlistModel.tracks.sort();
       playlistManager.reSort();
     },
     sendNewTrackOrder: function(trackId, newRank) {
@@ -381,23 +383,29 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     reorderTracks: function(updatedTracks) {
 
-      var playlistCollection = TWM.request('playlist:playlistCollection');
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
 
       // Loop over the models in the track collection and update the ranks in the playlist collection and playlist manager
       for(var i = 0; i < updatedTracks.length; i++) {
 
         var updatedTrackData = updatedTracks[i];
-        playlistCollection.get(updatedTrackData._id).set('rank', updatedTrackData.rank);
+        playlistModel.tracks.get(updatedTrackData._id).set('rank', updatedTrackData.rank);
         playlistManager.setRank(updatedTrackData._id, updatedTrackData.rank);
       }
       // Sort the collection and playlist manager
-      playlistCollection.sort();
+      playlistModel.tracks.sort();
       playlistManager.reSort();
+    },
+    sendNewPlaylistName: function(newTitle) {
+
+      var socket = TWM.request('playlist:activeSocket');
+      socket.emit('changeTitle', newTitle);
     },
     renamePlaylist: function(newTitle) {
 
-      // Todo - set up a playlist model that we can change this title on!
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      playlistModel.set('title', newTitle);
     }
   };
 });

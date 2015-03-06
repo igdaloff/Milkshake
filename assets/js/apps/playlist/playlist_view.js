@@ -105,11 +105,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     scrollToCurrentTrack: function(model) {
 
-      // Scroll playlist container to current track
-      var currentTrackPos = this.$('.current').position();
-      var currentTrackHeight = this.$('.current').height();
-      var playlistPos = this.$el.position();
-      $('.playback-tracks').scrollTop(currentTrackPos.top + playlistPos.top - currentTrackHeight);
+      // Only do something if a new track is playing, not if the last one just ended
+      if(model.get('isPlaying')) {
+        // Scroll playlist container to current track
+        var currentTrackPos = this.$('.current').position();
+        var currentTrackHeight = this.$('.current').height();
+        var playlistPos = this.$el.position();
+        $('.playback-tracks').scrollTop(currentTrackPos.top + playlistPos.top - currentTrackHeight);
+      }
     }
   });
 
@@ -117,19 +120,20 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     el: '.playback-page',
     events: {
       'click .mute-toggle': 'muteToggle',
-      'click .playlist-title': 'editPlaylistTitle',
+      'click .playlist-title': 'titleEdit',
       'keydown': 'escEditPlaylistTitle',
-      'click .playlist-title-input, .playlist-title': 'preventTitleEditBubbling',
       'click .end-of-tracks': 'focusTrackSearch'
+    },
+    ui: {
+      playlistHeader: '.playback-header',
+      playlistTitleInput: '.playlist-title-input'
+    },
+    modelEvents: {
+      'change:title': 'updateTitle'
     },
     initialize: function() {
 
       this.bindUIElements();
-    },
-    ui: {
-
-      playlistHeader: '.playback-header',
-      playlistTitleInput: '.playlist-title-input'
     },
     muteToggle: function(e) {
 
@@ -145,26 +149,54 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         $muteToggle.removeClass('muted');
       }
     },
-    editPlaylistTitle: function() {
+    titleEdit: function() {
 
+      var _this = this;
       this.ui.playlistHeader.addClass('editable');
       this.ui.playlistTitleInput.select();
 
-      $('body').on('click', function(e){
-        $('.playback-header').removeClass('editable');
+      $('body').off('click.disableEdit');
+      $('body').on('click.disableEdit', function(e){
+
+        if(!$(e.target).hasClass('playlist-title-editable') && $(e.target).parents('.playlist-title-editable').length === 0) {
+
+          _this.submitTitleChange();
+          $('body').off('click.disableEdit');
+        }
       });
+    },
+    submitTitleChange: function() {
+
+      $('.playback-header').removeClass('editable');
+      var newTitle = $('.playlist-title-input').val();
+      Playlist.Controller.sendNewPlaylistName(newTitle);
+    },
+    resetTitleChange: function() {
+
+      this.ui.playlistHeader.removeClass('editable');
+      this.ui.playlistTitleInput.val(this.model.get('title'));
     },
     escEditPlaylistTitle: function(e) {
 
       var pressedKey = e.keyCode || e.which;
 
-      if(pressedKey == 27) {
-        this.ui.playlistHeader.removeClass('editable');
+      // If esc key pressed, disable edit state
+      if(pressedKey === 27) {
+
+        this.resetTitleChange();
+      }
+      // If enter pressed, disable edit and submit change
+      else if(pressedKey === 13) {
+
+        e.preventDefault();
+        this.submitTitleChange();
       }
     },
-    preventTitleEditBubbling: function(e) {
+    updateTitle: function() {
 
-      e.stopImmediatePropagation();
+      var newTitle = this.model.get('title');
+      this.resetTitleChange();
+      this.$('.playlist-title').text(newTitle);
     },
     focusTrackSearch: function(e) {
 

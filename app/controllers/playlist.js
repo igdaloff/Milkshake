@@ -229,11 +229,14 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('changeTitle', function(newTitle) {
 
-    Conversation.findOneAndUpdate({
-      playlistId: socket.roomId
+    newTitle = sanitizeHtml(newTitle);
+    Playlist.findOneAndUpdate({
+      '_id': socket.roomId
     }, {
-      title: newTitle
-    }, function() {
+      '$set': {
+        title: newTitle
+      }
+    }, function(err, model) {
 
       io.sockets.in(socket.roomId).emit('newPlaylistTitle', newTitle);
     });

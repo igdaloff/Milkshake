@@ -44,14 +44,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
     // Don't do anything if this playlist is already open in another tab/window, ie stop the module
     // Check every n seconds in case the window is closed and we should try again
-    if(Playlist.Controller.playlistIsOpen(playlistId)) {
+    if(Playlist.Controller.playlistIsOpen(bootstrap.playlist._id)) {
 
       console.log('playlist open in another tab/window, waiting for it to close');
       Playlist.stop();
       var closedPlaylistPoller = window.setInterval(function() {
 
         console.log('still waiting...');
-        if(!Playlist.Controller.playlistIsOpen(playlistId)) {
+        if(!Playlist.Controller.playlistIsOpen(bootstrap.playlist._id)) {
 
           Playlist.start();
           window.clearInterval(closedPlaylistPoller);
@@ -61,29 +61,29 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     else {
 
       // Add this playlist Id to the locally stored open playlists array
-      Playlist.Controller.saveOpenPlaylistToLocal(playlistId);
+      Playlist.Controller.saveOpenPlaylistToLocal(bootstrap.playlist._id);
 
       // If the user leaves this page, remove the playlist ID from the openplaylists local array
       window.addEventListener("beforeunload", function(e){
 
-        Playlist.Controller.removeOpenPlaylistFromLocal(playlistId);
+        Playlist.Controller.removeOpenPlaylistFromLocal(bootstrap.playlist._id);
       }, false);
     }
   });
 
   Playlist.on('start', function(){
 
-    var tracks = bootstrap.tracks || [];
-    var playlist = TWM.request('newPlaylist:entities', tracks);
+    // Set up the playlist model using the bootstrapped data
+    var playlist = TWM.request('playlist:entities', bootstrap.playlist || []);
 
     // Set a handler to get the playlist collection entity
-    TWM.reqres.setHandler('playlist:playlistCollection', function() {
+    TWM.reqres.setHandler('playlist:activePlaylistModel', function() {
 
       return playlist;
     });
 
     // create a new playlist manager from the API.loadPlayer method
-    var playlistManager = Playlist.Controller.loadPlayer(playlist);
+    var playlistManager = Playlist.Controller.loadPlayer(playlist.tracks);
 
     // Set a handler to get the playlist manager easily
     TWM.reqres.setHandler('playlist:activePlaylistMgr', function() {
@@ -100,18 +100,20 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     // Initialize the track list views
     var playedTrackListView = new Playlist.PlayedTrackList({
       el: '.playback-track-list.played-tracks',
-      collection: playlist
+      collection: playlist.tracks
     }).render();
 
     var futureTrackListView = new Playlist.FutureTrackList({
       el: '.playback-track-list.future-tracks',
-      collection: playlist
+      collection: playlist.tracks
     }).render();
 
     // Update the playlist total time when a track is added
     playlist.on('add remove', Playlist.Controller.updateTimerTotal);
 
     // Initialize the controls view
-    var controlsView = new Playlist.Controls();
+    var controlsView = new Playlist.Controls({
+      model: playlist
+    });
   });
 });
