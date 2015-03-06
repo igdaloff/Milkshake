@@ -31,12 +31,13 @@
           <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
           <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
         </a>
-        <div class="playback-header-meta">
-          <form>
-            <input class="playlist-title" type="text" name="playback-title" placeholder="Enter a room title." value="{{ playlist.title }}" />
-          </form>
-          <time><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
-        </div>
+        <h2 class="playlist-title playlist-title-static">{{ playlist.title }}</h2>
+        <form>
+          <h2 class="playlist-title-editable">
+            <input class="playlist-title-input" type="text" name="playback-title" placeholder="Enter a room title." value="{{ playlist.title }}" />
+          </h2>
+        </form>
+        <time class="playlist-time"><span class="current-time">0:00</span> / <span class="total-time">{{ playlist.totalTime }}</span></time>
         <div class="playlist-controls">
           <a class="mute-toggle"></a>
           <span class="screen-reader-text">Mute</span>
