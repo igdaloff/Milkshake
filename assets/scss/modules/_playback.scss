@@ -131,10 +131,11 @@ $playback-artwork-width: 50px;
 	top: $playback-header-height + $playback-search-height;
 	bottom: 0;
 	width: $left-rail-width;
+	padding-bottom: $playback-header-height;
 	border-right: 1px solid $border-grey;
 	overflow: auto;
 	z-index: 1;
-	background: $off-white;
+	background: $light-grey;
 
 	.playback-track-list.played-tracks tr{
 		display: none;
