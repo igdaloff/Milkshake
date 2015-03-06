@@ -7,6 +7,10 @@ $playback-artwork-width: 50px;
 
 .playback-page {
 	overflow: hidden;
+
+	.footer-push{
+		display: none;
+	}
 }
 
 .playlist{
@@ -131,7 +135,6 @@ $playback-artwork-width: 50px;
 	top: $playback-header-height + $playback-search-height;
 	bottom: 0;
 	width: $left-rail-width;
-	padding-bottom: $playback-header-height;
 	border-right: 1px solid $border-grey;
 	overflow: auto;
 	z-index: 1;
@@ -254,6 +257,15 @@ $playback-artwork-width: 50px;
 	@include icomoon('refresh');
 }
 
+.end-of-tracks{
+	display: inline-block;
+	padding: 1em;
+	font-family: $sans-special;
+	color: $dark-grey;
+	line-height: 1.2;
+	font-style: italic;
+	font-size: 0.9em;
+}
 
 // Draggable track styles
 .ui-sortable-helper{
