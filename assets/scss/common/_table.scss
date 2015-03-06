@@ -34,14 +34,27 @@
 }
 
 .basic-table-artwork-inner{
+  position: relative;
 	display: block;
-  width: 50px;
+  width: $playback-artwork-width;
+  height: $playback-artwork-width;
   overflow: hidden;
 
   img{
+    position: absolute;
   	display: block;
     min-width: 100%;
-    height: 50px;
+    height: $playback-artwork-width;
+    left: -50%;
+    right: -50%;
+    margin: auto;
+  }
+
+  a{
+    display: block;
+    position: relative;
+    width: $playback-artwork-width;
+    height: $playback-artwork-width;
   }
 }
 

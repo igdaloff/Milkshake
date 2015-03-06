@@ -18,17 +18,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       this.toggleIsPlayingClass();
       this.togglehasPlayedClass();
     },
-    onShow: function() {
-
-      this.setLandscapeImage();
-    },
-    setLandscapeImage: function(){
-
-      var $trackArtwork = this.$('img');
-      if ($trackArtwork.width() > $trackArtwork.height()){
-        $trackArtwork.addClass('landscape');
-      }
-    },
     toggleIsPlayingClass: function() {
 
       var className = 'current';
@@ -162,7 +151,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       $('body').on('click', function(e){
         $('.playback-header').removeClass('editable');
-      })
+      });
     },
     escEditPlaylistTitle: function(e) {
 

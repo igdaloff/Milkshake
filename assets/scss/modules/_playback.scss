@@ -2,9 +2,6 @@
 // Playlist Playback
 // ========================
 
-//Header
-$playback-artwork-width: 50px;
-
 .playback-page {
 	overflow: hidden;
 
@@ -217,19 +214,6 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.playback-track-artwork{
-	a{
-		display: block;
-	}
-
-	img{
-		&.landscape{
-			width: $playback-artwork-width * 1.333333; //60px * 1.333333 (youtube aspect ratio)
-			margin-left: -10px;
-		}
-	}
-}
-
 .delete-track-container, .readd-track-container{
 	opacity: 0;
 }
@@ -265,6 +249,14 @@ $playback-artwork-width: 50px;
 	line-height: 1.2;
 	font-style: italic;
 	font-size: 0.9em;
+
+	&:hover{
+		color: $black;
+	}
+
+	a{
+		text-decoration: underline;
+	}
 }
 
 // Draggable track styles
