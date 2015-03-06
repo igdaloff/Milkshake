@@ -123,16 +123,6 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       var $artworkImg = $el.find('.artwork img');
       $artworkImg.attr('src', artworkUrl);
 
-      $artworkImg.removeClass('landscape');
-      $artworkImg.hide();
-
-      setTimeout(function(){
-        if ($artworkImg.width() > $artworkImg.height()){
-          $artworkImg.addClass('landscape');
-        }
-        $artworkImg.fadeIn();
-      }, 50);
-
       //Detect whether all 3 tracks have been selected and show Create Track button
       if($('.has-track-selection').length === 3) {
 

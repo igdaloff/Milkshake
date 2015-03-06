@@ -31,7 +31,7 @@
           <img class="playback-logo-animated" src="/img/loading-slow.gif" alt="Milkshake logo" />
           <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
         </a>
-        <h2 class="playlist-title playlist-title-static">{{ playlist.title }}</h2>
+        <h2 class="playlist-title playlist-title-static" title="Click to edit">{{ playlist.title }}</h2>
         <form>
           <h2 class="playlist-title-editable">
             <input class="playlist-title-input" type="text" name="playback-title" placeholder="Enter a room title." value="{{ playlist.title }}" />
@@ -48,6 +48,7 @@
     <div class="playback-tracks">
       <table class="playback-track-list played-tracks basic-table"></table>
       <table class="playback-track-list future-tracks basic-table"></table>
+      <span class="end-of-tracks"><a href="">Add more tracks</a>.</span>
     </div>
 
   </div>

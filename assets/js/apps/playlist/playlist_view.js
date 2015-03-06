@@ -18,17 +18,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       this.toggleIsPlayingClass();
       this.togglehasPlayedClass();
     },
-    onShow: function() {
-
-      this.setLandscapeImage();
-    },
-    setLandscapeImage: function(){
-
-      var $trackArtwork = this.$('img');
-      if ($trackArtwork.width() > $trackArtwork.height()){
-        $trackArtwork.addClass('landscape');
-      }
-    },
     toggleIsPlayingClass: function() {
 
       var className = 'current';
@@ -132,7 +121,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     events: {
       'click .mute-toggle': 'muteToggle',
       'click .playlist-title': 'titleEdit',
-      'keydown': 'escEditPlaylistTitle'
+      'keydown': 'escEditPlaylistTitle',
+      'click .end-of-tracks': 'focusTrackSearch'
     },
     ui: {
       playlistHeader: '.playback-header',
@@ -169,7 +159,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('body').on('click.disableEdit', function(e){
 
         if(!$(e.target).hasClass('playlist-title-editable') && $(e.target).parents('.playlist-title-editable').length === 0) {
-          
+
           _this.submitTitleChange();
           $('body').off('click.disableEdit');
         }
@@ -192,7 +182,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // If esc key pressed, disable edit state
       if(pressedKey === 27) {
-        
+
         this.resetTitleChange();
       }
       // If enter pressed, disable edit and submit change
@@ -207,6 +197,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var newTitle = this.model.get('title');
       this.resetTitleChange();
       this.$('.playlist-title').text(newTitle);
+    },
+    focusTrackSearch: function(e) {
+
+      e.preventDefault();
+      $('.track-search-input').focus();
     }
   });
 });
