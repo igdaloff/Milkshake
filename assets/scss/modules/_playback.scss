@@ -47,6 +47,18 @@
 
 .playback-logo-static{
 	display: none;
+
+	.playback-page:not(.playlist-playing) &{
+		display: block;
+	}
+}
+
+.playback-logo-animated{
+	display: none;
+
+	.playlist-playing &{
+		display: block;
+	}
 }
 
 .playlist-title{
