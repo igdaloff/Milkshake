@@ -302,6 +302,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     playlistFinished: function() {
 
+      $('body').removeClass('playlist-playing');
       var playlistModel = TWM.request('playlist:activePlaylistModel');
       // Set all models to played
       playlistModel.tracks.setAll('hasPlayed', true);
@@ -309,6 +310,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Update the current time to match the total time
       $('.current-time').text($('.total-time').text());
       TWM.trigger('playlist:playlistEnd');
+      // Set up a listener to re-add the playing class when a track starts playing again
+      playlistModel.listenTo(playlistModel.tracks, 'change:isPlaying', function(model) {
+
+        if(model.get('isPlaying')) {
+          $('body').addClass('playlist-playing');
+        }
+      });
     },
     muteToggle: function() {
 
