@@ -27,6 +27,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     socket.on('newTrack', Chat.Controller.newTrackAdded);
     // A track was removed
     socket.on('deleteTrack', Chat.Controller.trackDeleted);
+    // The room was renamed
+    socket.on('newPlaylistTitle', Chat.Controller.renamePlaylist);
   };
 
   var bindPlaylistEvents = function(playlistManager) {

@@ -166,6 +166,14 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         type: 'log',
         content: '\'' + deletedTrackData.title + '\' was removed from the playlist'
       });
+    },
+    renamePlaylist: function(newTitle) {
+      
+      var messageCollection = TWM.request('chat:messageCollection');
+      messageCollection.add({
+        type: 'log',
+        content: 'The room was renamed to \'' + newTitle + '\''
+      });
     }
   };
 });

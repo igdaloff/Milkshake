@@ -161,18 +161,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         if(!$(e.target).hasClass('playlist-title-editable') && $(e.target).parents('.playlist-title-editable').length === 0) {
 
           _this.submitTitleChange();
-          $('body').off('click.disableEdit');
         }
       });
     },
     submitTitleChange: function() {
 
       $('.playback-header').removeClass('editable');
+      $('body').off('click.disableEdit');
       var newTitle = $('.playlist-title-input').val();
       Playlist.Controller.sendNewPlaylistName(newTitle);
     },
     resetTitleChange: function() {
 
+      $('body').off('click.disableEdit');
       this.ui.playlistHeader.removeClass('editable');
       this.ui.playlistTitleInput.val(this.model.get('title'));
     },
