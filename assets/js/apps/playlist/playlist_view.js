@@ -116,11 +116,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     scrollToCurrentTrack: function(model) {
 
-      // Scroll playlist container to current track
-      var currentTrackPos = this.$('.current').position();
-      var currentTrackHeight = this.$('.current').height();
-      var playlistPos = this.$el.position();
-      $('.playback-tracks').scrollTop(currentTrackPos.top + playlistPos.top - currentTrackHeight);
+      // Only do something if a new track is playing, not if the last one just ended
+      if(model.get('isPlaying')) {
+        // Scroll playlist container to current track
+        var currentTrackPos = this.$('.current').position();
+        var currentTrackHeight = this.$('.current').height();
+        var playlistPos = this.$el.position();
+        $('.playback-tracks').scrollTop(currentTrackPos.top + playlistPos.top - currentTrackHeight);
+      }
     }
   });
 
@@ -162,7 +165,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       $('body').on('click', function(e){
         $('.playback-header').removeClass('editable');
-      })
+      });
     },
     escEditPlaylistTitle: function(e) {
 
