@@ -98,20 +98,27 @@
 			color: $black;
 		}
 
-		&.loading:before{
-			content: '';
-			position: absolute;
-			width: 26px;
-			height: 26px;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			margin: auto;
-		  background-image: url("../img/loading-fast-green.gif");
-		  background-repeat: no-repeat;
-		  background-size: 26px 26px;
+		&.loading{
+			&:before{
+				content: '';
+				position: absolute;
+				width: 26px;
+				height: 26px;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+			  background-image: url("../img/loading-fast-green.gif");
+			  background-repeat: no-repeat;
+			  background-size: 26px 26px;
+			}
+
+			&:hover{
+				background: $black;
+			}
 		}
+
 	}
 
 	.basic-table-row-title h5:hover{
