@@ -50,23 +50,35 @@ $playback-artwork-width: 50px;
 	}
 }
 
-.playlist-title-input{
-	display: none;
-	@extend h2;
-	width: 100%;
-	padding: 0.5em;
-	margin: 0.5em 0;
-	text-align: center;
-	color: $black;
-	border: 1px solid;
-	cursor: text;
-
-	&:focus{
-		outline: 0;
+.playlist-title-static{
+	.editable &{
+		display: none;
 	}
+}
+
+.playlist-title-editable{
+	display: none;
 
 	.editable &{
 		display: block;
+		margin: 9px 0; //10px margin - 1px border
+
+		.playlist-title-input{
+			width: 100%;
+			padding: 10px;
+			border: 1px solid;
+			margin-top: -1px;
+			cursor: default;
+			background: $off-white;
+			color: $black;
+			text-align: center;
+			font-family: $sans-special;
+			font-size: inherit;
+
+			&:focus{
+				outline: 0;
+			}
+		}
 	}
 }
 
