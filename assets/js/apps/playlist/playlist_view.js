@@ -169,7 +169,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('.playback-header').removeClass('editable');
       $('body').off('click.disableEdit');
       var newTitle = $('.playlist-title-input').val();
-      Playlist.Controller.sendNewPlaylistName(newTitle);
+      // If the title changed, send it
+      if(newTitle !== this.model.get('title')) {
+        
+        Playlist.Controller.sendNewPlaylistName(newTitle);
+      }
     },
     resetTitleChange: function() {
 
