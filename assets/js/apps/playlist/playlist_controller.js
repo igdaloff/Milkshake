@@ -400,7 +400,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     sendNewPlaylistName: function(newTitle) {
 
       var socket = TWM.request('playlist:activeSocket');
-      socket.emit('changeTitle', newTItle);
+      socket.emit('changeTitle', newTitle);
     },
     renamePlaylist: function(newTitle) {
 
