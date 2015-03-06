@@ -51,16 +51,19 @@
 		position: relative;
 		height: $playback-search-height;
 		z-index: 100;
-		border: 1px solid $border-grey;
-		border-right: 0;
 	}
 
 	.track-search-input{
 		height: 100%;
 		padding-left: 1em;
 		font-size: 0.9em;
-		border: 0;
 		background: $off-white;
+		border: 1px solid $border-grey;
+		border-left: 0;
+
+		&:focus{
+			border-color: $black;
+		}
 
 		&::-webkit-input-placeholder {
 			color: $dark-grey;

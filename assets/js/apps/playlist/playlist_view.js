@@ -119,7 +119,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       'click .mute-toggle': 'muteToggle',
       'click .playlist-title': 'editPlaylistTitle',
       'keydown': 'escEditPlaylistTitle',
-      'click .playlist-title-input, .playlist-title': 'preventTitleEditBubbling'
+      'click .playlist-title-input, .playlist-title': 'preventTitleEditBubbling',
+      'click .end-of-tracks': 'focusTrackSearch'
     },
     initialize: function() {
 
@@ -164,6 +165,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     preventTitleEditBubbling: function(e) {
 
       e.stopImmediatePropagation();
+    },
+    focusTrackSearch: function(e) {
+
+      e.preventDefault();
+      $('.track-search-input').focus();
     }
   });
 });
