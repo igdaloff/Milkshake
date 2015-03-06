@@ -185,16 +185,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var pressedKey = e.keyCode || e.which;
 
-      // If esc key pressed, disable edit state
-      if(pressedKey === 27) {
+      // Ignore these if the title edit field isn't open
+      if(this.ui.playlistHeader.hasClass('editable')) {
+        // If esc key pressed, disable edit state
+        if(pressedKey === 27) {
 
-        this.resetTitleChange();
-      }
-      // If enter pressed, disable edit and submit change
-      else if(pressedKey === 13) {
+          this.resetTitleChange();
+        }
+        // If enter pressed, disable edit and submit change
+        else if(pressedKey === 13) {
 
-        e.preventDefault();
-        this.submitTitleChange();
+          e.preventDefault();
+          this.submitTitleChange();
+        }
       }
     },
     updateTitle: function() {
