@@ -397,9 +397,15 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       playlistModel.tracks.sort();
       playlistManager.reSort();
     },
+    sendNewPlaylistName: function(newTitle) {
+
+      var socket = TWM.request('playlist:activeSocket');
+      socket.emit('changeTitle', newTItle);
+    },
     renamePlaylist: function(newTitle) {
 
-      // Todo - set up a playlist model that we can change this title on!
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      playlistModel.set('title', newTitle);
     }
   };
 });
