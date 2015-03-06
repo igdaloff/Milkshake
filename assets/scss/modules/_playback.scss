@@ -17,13 +17,20 @@ $playback-artwork-width: 50px;
 }
 
 .playback-header{
+	display: table;
 	position: relative;
 	width: 100%;
+	height: $playback-header-height;
 	padding: 1em;
 	font-family: $sans-special;
 	text-align: center;
 	background: white;
 	z-index: 100;
+}
+
+.playback-header-inner{
+	display: table-cell;
+	vertical-align: middle;
 }
 
 .playback-logo{
@@ -42,11 +49,16 @@ $playback-artwork-width: 50px;
 }
 
 .playlist-title{
-	margin: 0.5em 0;
+	width: 100%;
+	@extend h2;
+	padding: 10px 0;
+	margin: 10px 0;
+	text-align: center;
+	color: $black;
 	cursor: pointer;
 
-	.editable &{
-		display: none;
+	&:focus{
+		outline: 0;
 	}
 }
 
@@ -67,7 +79,7 @@ $playback-artwork-width: 50px;
 			width: 100%;
 			padding: 10px;
 			border: 1px solid;
-			margin-top: -1px;
+			margin-top: -1px; //To prevent jumpiness
 			cursor: default;
 			background: $off-white;
 			color: $black;
@@ -84,7 +96,7 @@ $playback-artwork-width: 50px;
 
 .playlist-controls{
 	width: 10px;
-	margin: 1em auto 0;
+	margin: 20px auto 0;
 	text-indent: -4px;
 }
 
@@ -110,9 +122,10 @@ $playback-artwork-width: 50px;
 
 //Playback tracks
 .playback-tracks{
+	position: absolute;
+	top: $playback-header-height + $playback-search-height;
 	bottom: 0;
 	width: $left-rail-width;
-	background: white;
 	border-right: 1px solid $border-grey;
 	overflow: auto;
 	z-index: 1;
@@ -315,8 +328,6 @@ $playback-artwork-width: 50px;
 	}
 }
 
-
-.loading-message,
 .welcome-message,
 .playlist-full-message,
 .playlist-progress {

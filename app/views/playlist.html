@@ -21,11 +21,6 @@
         <a class="btn btn-black" href="/">Create a new playlist</a>
       </div>
     </div>
-
-    <!-- Loading -->
-    <div class="loading-message wrapper">
-      <p>Loading tracks...</p>
-    </div>
   </div>
 
   <!-- Playlist contents -->
@@ -39,7 +34,7 @@
         <div class="playback-header-meta">
           <h2 class="playlist-title playlist-title-static">{{ playlist.title }}</h2>
           <form>
-            <h2 class="playlist-title playlist-title-editable">
+            <h2 class="playlist-title-editable">
               <input class="playlist-title-input" type="text" name="playback-title" placeholder="Enter a room title." value="{{ playlist.title }}" />
             </h2>
           </form>
