@@ -14,7 +14,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     userJoinedRoom: function(numUsersInRoom) {
 
       var playlistModel = TWM.request('playlist:activePlaylistModel');
-      if(numUsersInRoom === 1 && playlistModel.get('startTime').length === 0) {
+      if(numUsersInRoom === 1 && typeof(playlistModel.get('startTime')) === 'undefined') {
 
         $('body').addClass('playlist-waiting');
       }
