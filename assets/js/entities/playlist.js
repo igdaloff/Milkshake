@@ -1,5 +1,26 @@
 TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
+  Entities.Playlist = Backbone.Model.extend({
+    initialize: function() {
+
+      // If there is no ID, but we have an _id attribute, use that to set the id
+      if(typeof(this.get('_id')) === 'string') {
+
+        this.id = this.get('_id');
+      }
+
+      // Set up a collection at this.tracks
+      if(typeof(this.get('tracks')) === 'object') {
+
+        this.tracks = new Entities.Tracks(this.get('tracks'));
+        // Remove the tracks object from the model's attributes
+        this.unset('tracks', {
+          silent: true
+        });
+      }
+    }
+  });
+
   Entities.Track = Backbone.Model.extend({
     defaults: {
       isPlaying: false,
@@ -50,7 +71,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   });
 
   // Playlist (collection of tracks)
-  Entities.Playlist = Backbone.Collection.extend({
+  Entities.Tracks = Backbone.Collection.extend({
     model: Entities.Track,
     comparator: 'rank',
     initialize: function() {
@@ -99,7 +120,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
   });
 
   // Search result collection
-  Entities.TrackSearchResults = Entities.Playlist.extend({
+  Entities.TrackSearchResults = Entities.Tracks.extend({
     model: Entities.Track,
     baseUrl: "/search/",
     query: "",
@@ -126,16 +147,22 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   // Set our req/res handlers
 
-  TWM.reqres.setHandler("newTrackSearch:entities", function(models){
+  TWM.reqres.setHandler("tracks:entities", function(data){
 
-    var trackSearchResults = new Entities.TrackSearchResults(models);
-    return trackSearchResults;
+    var tracks = new Entities.Tracks(data);
+    return tracks;
   });
 
-  TWM.reqres.setHandler("newPlaylist:entities", function(models){
+  TWM.reqres.setHandler("playlist:entities", function(models){
 
     var playlist = new Entities.Playlist(models);
     return playlist;
+  });
+
+  TWM.reqres.setHandler("trackSearch:entities", function(models){
+
+    var trackSearchResults = new Entities.TrackSearchResults(models);
+    return trackSearchResults;
   });
 
 });

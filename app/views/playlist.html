@@ -56,11 +56,9 @@
 
 <script>
 var bootstrap = {
-  tracks: {{ playlist.tracks|json|raw }},
-  messages: [{{ conversation.messages|raw }}],
-  startTime: '{{ playlist.startTime }}'
+  playlist: {{ playlist|json|raw }},
+  messages: [{{ conversation.messages|raw }}]
 };
-var playlistId = "{{ playlist._id }}";
 </script>
 {% endblock %}
 

@@ -11,7 +11,7 @@ TWM.module("Playlist.TrackSearch", function(TrackSearch, TWM, Backbone, Marionet
     });
 
     // Create a collection to hold our results and pass them into a search form view
-    var resultsCollection = TWM.request('newTrackSearch:entities');
+    var resultsCollection = TWM.request('trackSearch:entities');
 
     var searchForm = new TrackSearch.SearchForm({
       collection: resultsCollection,
