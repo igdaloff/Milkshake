@@ -1,56 +1,21 @@
 TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
 
-  var $chosenTrack = $('.chosen-tracks li');
+  // prevent starting with parent
+  this.startWithParent = false;
 
-  $chosenTrack.first().addClass('selected');
+  Create.on('start', function() {
+    var client = new ZeroClipboard(document.getElementById('copy-playlist-url-btn'));
 
-  $chosenTrack.on('click', function(){
-  	$chosenTrack.removeClass('selected');
-  	$(this).addClass('selected');
-  	$(this).find('.playlist-track-select').prop("checked", true);
-  });
+    $('#playlist-url-form').on('submit', function(e){
 
+      e.preventDefault();
+      var playlistForm = this;
 
-  //Edit track
-  $(document).on("click", ".has-track-selection *", function(event){
-	  var $el = $(event.target).parents("li");
-	  var $chosenTrackArtwork = $el.find(".chosen-track-art img");
-	  var $chosenTrackTitle = $el.find(".chosen-track-title");
-	  var $chosenTrackSelect = $el.find(".playlist-track-select");
+      $('.copy-playlist-url-btn').val('Link copied! Now share it with a friend.');
 
-	  $el.removeClass("has-track-selection");
-	  $chosenTrackArtwork.attr("src", "").hide();
-	  $chosenTrackTitle.html("");
-	  $chosenTrackSelect.prop("checked", true);
-
-	  $(".playlist-create-title-container").fadeOut();
-	  $(".track-search-container").delay(500).fadeIn();
-	});
-
-  $('.track-form').on('submit', function() {
-
-    TWM.trigger('create:playlistCreate');
-  });
-
-  //Navigate between tracks with arrow keys
-  $("body").keydown(function(e) {
-
-    if( !$(".track-search-input").is(":focus") ){
-      var $chosenTrack = $(".selected");
-
-      if(e.keyCode == 37) { // left
-        if( $chosenTrack.prev("li").length ){
-          $chosenTrack.prev("li").addClass("selected");
-          $chosenTrack.removeClass("selected");
-          $chosenTrack.prev("li").find(".playlist-track-select").prop("checked", true);
-        }
-      } else if(e.keyCode == 39) { // right
-        if( $chosenTrack.next("li").length ){
-          $chosenTrack.next("li").addClass("selected");
-          $chosenTrack.removeClass("selected");
-          $chosenTrack.next("li").find(".playlist-track-select").prop("checked", true);
-        }
-      }
-    }
+      setTimeout( function () {
+        playlistForm.submit();
+      }, 2500);
+    });
   });
 });

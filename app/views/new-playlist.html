@@ -12,11 +12,17 @@
       <div class="intro-text">
         <h2>Listen to music in real-time with a friend.</h2>
       </div>
-      <form class="playlist-url-container" action="/process-new-playlist/" method="post">
+      <form id="playlist-url-form" action="/process-new-playlist/" method="post">
          <input type="text" class="new-playlist-url input-field" name="url" value="milkshake.mu/{{ newPlaylistId }}" readOnly="readOnly"/>
          <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
-         <input type="submit" class="btn btn-black copy-playlist-url-btn" value="Click to copy link and enter your playlist.">
+         <input type="submit" class="btn btn-black copy-playlist-url-btn" id="copy-playlist-url-btn" value="Click to copy link and enter your playlist." data-clipboard-text="milkshake.mu/{{ newPlaylistId }}">
        </form>
     </div>
   </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  TWM.Playlist.Create.start()
+</script>
 {% endblock %}

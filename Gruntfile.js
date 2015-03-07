@@ -47,7 +47,8 @@ module.exports = function(grunt){
           "./assets/popcorn-complete.min.js",
           "./assets/bower_components/Autolinker.js/dist/Autolinker.js",
           "./assets/bower_components/perfect-scrollbar/src/perfect-scrollbar.js",
-          "./assets/vendors/js/jquery-ui-1.11.3.custom/jquery-ui.js"
+          "./assets/vendors/js/jquery-ui-1.11.3.custom/jquery-ui.js",
+          "./assets/bower_components/zeroclipboard/dist/ZeroClipboard.js"
           ],
         dest: "./public/js/vendors.js"
       },
