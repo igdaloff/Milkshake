@@ -6,10 +6,20 @@ var _ = require('underscore');
 
 exports.processNewPlaylist = function(req, res){
 
-  addPlaylistRow(playlistData, function(playlistRow) {
+  // Check the requested playlist ID matches what's in the session
+  if(req.body.newPlaylistId === req.session.newPlaylistId) {
 
-    res.redirect('/' + playlistRow._id);
-  });
+    addPlaylistRow({
+      '_id': req.session.newPlaylistId
+    }, function(playlistRow) {
+
+      res.redirect('/' + playlistRow._id);
+    });
+  }
+  else {
+
+    res.status(500).send('The playlist ID could not be found');
+  }
 };
 
 // Socket stuff here
