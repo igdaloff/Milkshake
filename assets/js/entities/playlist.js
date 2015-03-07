@@ -1,6 +1,9 @@
 TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   Entities.Playlist = Backbone.Model.extend({
+    defaults: {
+      currentTime: 0
+    },
     initialize: function() {
 
       // If there is no ID, but we have an _id attribute, use that to set the id
@@ -16,6 +19,11 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         // Remove the tracks object from the model's attributes
         this.unset('tracks', {
           silent: true
+        });
+        // Listen to tracks being added/removed from the collection and update the model's totalDuration attr
+        this.listenTo(this.tracks, 'add remove', function() {
+
+          this.set('totalDuration', this.tracks.getTotalDuration());
         });
       }
     }

@@ -129,7 +129,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       playlistTitleInput: '.playlist-title-input'
     },
     modelEvents: {
-      'change:title': 'updateTitle'
+      'change:title': 'updateTitle',
+      'change:currentTime': 'updateCurrentTime',
+      'change:totalDuration': 'updateTotalDuration'
     },
     initialize: function() {
 
@@ -210,6 +212,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       e.preventDefault();
       $('.track-search-input').focus();
+    },
+    updateTotalDuration: function() {
+
+      this.$('.total-time').text(TWM.Lib.secondsToMinutes(this.model.get('totalDuration')));
+    },
+    updateCurrentTime: function() {
+
+      this.$('.current-time').text(TWM.Lib.secondsToMinutes(this.model.get('currentTime')));
     }
   });
 });

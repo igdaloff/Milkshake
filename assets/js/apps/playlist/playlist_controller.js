@@ -56,7 +56,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Set up marquee on new track titles
       $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
       // Bind time updates to the time and progress bar
-      $(playlistManager).on('track:timeupdate', this.updateTimer);
+      $(playlistManager).on('track:timeupdate', this.updateCurrentTime);
       // Listen to playlist ending and run necessary tasks
       $(playlistManager).on('playlist:ended', this.playlistFinished);
     },
@@ -211,21 +211,18 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Set isPlaying on the currently playing track
       playlistModel.tracks.at(currTrackIndex).set('isPlaying', true);
     },
-    updateTimer: function() {
+    updateCurrentTime: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
       var currentTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
       if(playlistManager.finished || typeof currentTime !== 'number' || currentTime === 0) {
+        
         return false;
       }
       // Update the time in the header
-      $('.current-time').text(TWM.Lib.secondsToMinutes(currentTime));
-    },
-    updateTimerTotal: function() {
-
       var playlistModel = TWM.request('playlist:activePlaylistModel');
-      $('.total-time').text(TWM.Lib.secondsToMinutes(playlistModel.tracks.getTotalDuration()));
+      playlistModel.set('currentTime', currentTime);
     },
     /*
      * roomFull

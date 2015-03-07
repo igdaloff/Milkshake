@@ -108,9 +108,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       collection: playlist.tracks
     }).render();
 
-    // Update the playlist total time when a track is added
-    playlist.on('add remove', Playlist.Controller.updateTimerTotal);
-
     // Initialize the controls view
     var controlsView = new Playlist.Controls({
       model: playlist
