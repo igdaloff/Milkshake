@@ -9,6 +9,7 @@
     "popcornjs": "~1.5.5",
     "socket.io": "~0.9.15",
     "Autolinker.js": "~0.11.2",
-    "perfect-scrollbar": "~0.5.2"
+    "perfect-scrollbar": "~0.5.2",
+    "zeroclipboard": "~2.2.0"
   }
 }
