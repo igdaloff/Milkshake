@@ -2,47 +2,21 @@
 {% block content %}
 
   <div class="playlist-create">
-    <a style="font-size: 3em; margin: 1em 0;display:block;" href="/dummy">MAKE ME A PLAYLIST</a>
+    <header class="main-header">
+      <h1 class="logo">
+        <a href="/"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
+      </h1>
+    </header>
+    <!-- <a style="font-size: 3em; margin: 1em 0;display:block;" href="/dummy">MAKE ME A PLAYLIST</a> -->
     <div class="wrapper">
       <div class="intro-text">
-        <h1>Create a playlist. Listen and chat in real-time with a friend.</h1>
+        <h2>Listen to music in real-time with a friend.</h2>
       </div>
-      <form class="track-form" action="/process-new-playlist/" method="post" autocomplete="off">
-        <div class="chosen-tracks-container">
-          <ul class="chosen-tracks">
-            {% for i in [0, 1, 2] %}
-            <li id="chosen-track-{{ i }}">
-              <div class="chosen-track-inner">
-                <!-- Track {{ i }} -->
-                <input data-index="{{ i }}" class="playlist-track-select" type="radio" name="track[]" id="playlist-track-{{ i }}" {% if i == 0 %}checked="checked"{% endif %}>
-                <label for="playlist-track-{{ i }}" class="chosen-track-label"></label>
-                <span class="track-number-label">{{ i+1 }}</span>
-                <div class="chosen-track-art artwork">
-                  <div class="chosen-track-art-inner">
-                    <img src="" alt="Track {{ i }} album art" />
-                  </div>
-                </div>
-                <span class="change-track-button"></span>
-                <input type="hidden" id="track-{{ i }}-title" name="track{{ i }}title" class="track-info-title">
-                <input type="hidden" id="track-{{ i }}-id" name="track{{ i }}id" class="track-info-id">
-                <input type="hidden" id="track-{{ i }}-source" name="track{{ i }}source">
-                <input type="hidden" id="track-{{ i }}-url" name="track{{ i }}url">
-                <input type="hidden" id="track-{{ i }}-artwork" name="track{{ i }}artwork">
-                <input type="hidden" id="track-{{ i }}-duration" name="track{{ i }}duration">
-              </div>
-              <p class="chosen-track-title"></p>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="playlist-create-title-container">
-          <input type="submit" class="btn btn-black playlist-create-submit" value="Create Playlist">
-          <input type="text" class="new-playlist-title input-field" name="title" placeholder="Give a title to your playlist" autocomplete="off">
-        </div>
-      </form>
-
-      <div class="track-search-container"></div>
-
+      <form class="playlist-url-container" action="/process-new-playlist/" method="post">
+         <input type="text" class="new-playlist-url input-field" name="url" value="milkshake.mu/{{ newPlaylistId }}" readOnly="readOnly"/>
+         <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
+         <input type="submit" class="btn btn-black copy-playlist-url-btn" value="Click to copy link and enter your playlist.">
+       </form>
     </div>
   </div>
 {% endblock %}

@@ -262,7 +262,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Add the playing class to the body and remove the waiting and loading classes
       $('body').addClass('playlist-playing').removeClass('playlist-waiting playlist-loading');
-      $('.share-playlist-url').slideUp();
 
       // Bind the Playlist UI
       Playlist.Controller.bindPlaylistUi();
