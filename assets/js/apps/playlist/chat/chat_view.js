@@ -76,6 +76,10 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     className: 'log-message'
   });
 
+  Chat.ErrorLogItem = Chat.LogItem.extend({
+    className: 'error-message'
+  });
+
   Chat.ChatContainer = Marionette.CompositeView.extend({
     template: 'chat-container',
     className: 'messages',
@@ -84,6 +88,9 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       // Return a message item if this is a chat message, a log item if it is of type 'log'
       if(item.get('type') === 'log') {
         return Chat.LogItem;
+      }
+      if(item.get('type') === 'error') {
+        return Chat.ErrorLogItem;
       }
       else {
         return Chat.ChatItem;

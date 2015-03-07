@@ -24,6 +24,8 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
         var track = data.tracks[i];
         this.addTrackToPlaylist(track);
       }
+
+      this.startErrorTimer();
     }
 
     PlaylistManager.prototype.destroy = function(trackId) {
@@ -523,6 +525,33 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
 
       $(this).trigger('playlist:ended');
       this.finished = true;
+    };
+
+    /**
+     * Start error timer
+     *
+     * If a new track doesn't start playing in 10 seconds, show an error in the chat log
+     */
+    PlaylistManager.prototype.startErrorTimer = function() {
+
+      var errorTimer;
+      var _this;
+      function triggerError() {
+
+        if(!_this.finished) {
+
+          $(_this).trigger('playlist:playbackError');
+        }        
+      }
+      $(this).on('track:playing', function() {
+
+        window.clearTimeout(errorTimer);
+      });
+      $(this).on('track:ended', function() {
+
+        window.clearTimeout(errorTimer);
+        errorTimer = window.setTimeout(triggerError, 10000);
+      });
     };
 
     return PlaylistManager;

@@ -48,6 +48,11 @@
 	}
 }
 
+.error-message {
+	@extend .log-message;
+	color: tomato;
+}
+
 $avatar-width: 50px;
 
 .chat-avatar-and-time{

@@ -35,6 +35,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
     // When a new track starts
     $(playlistManager).on('track:playing', Chat.Controller.newTrackMessage);
+    // If nothing plays for a while
+    $(playlistManager).on('playlist:playbackError', Chat.Controller.playbackErrorMessage);
   };
 
   Chat.on('start', function() {

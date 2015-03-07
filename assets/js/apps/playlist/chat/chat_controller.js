@@ -174,6 +174,14 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         type: 'log',
         content: 'The room was renamed to \'' + newTitle + '\''
       });
+    },
+    playbackErrorMessage: function() {
+
+      var messageCollection = TWM.request('chat:messageCollection');
+      messageCollection.add({
+        type: 'error',
+        content: 'Oops, looks like there was a problem loading the next track. Please refresh the page.'
+      });
     }
   };
 });
