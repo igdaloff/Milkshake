@@ -5,31 +5,6 @@ var sanitizeHtml = require('sanitize-html');
 var _ = require('underscore');
 
 exports.processNewPlaylist = function(req, res){
-  console.log(req.body);
-  // Build the new playlist object from the POST data
-  var playlistData = {
-    title: req.body.title,
-    created: Date.now()
-  };
-  var totalDuration = 0;
-  // Get the track info (0, 1, 2)
-  var playlistTracks = [];
-  for(var i = 0; i <= 2; i++){
-    var track = {
-      trackId: req.body['track' + i + 'id'],
-      source: req.body['track' + i + 'source'],
-      title: req.body['track' + i + 'title'],
-      url: req.body['track' + i + 'url'],
-      artwork: req.body['track' + i + 'artwork'],
-      duration: parseFloat(req.body['track' + i + 'duration']),
-      rank: i
-    };
-    totalDuration += track.duration;
-    playlistTracks.push(track);
-  }
-
-  playlistData.tracks = playlistTracks;
-  playlistData.totalDuration = totalDuration;
 
   addPlaylistRow(playlistData, function(playlistRow) {
 

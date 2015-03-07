@@ -7,11 +7,20 @@ var PlaylistSchema = new Schema({
   _id: {
     type: String,
     unique: true,
-    'default': shortId.generate
+    default: shortId.generate
   },
-  title: String,
-  created: Date,
-  totalDuration: Number,
+  title: 
+    type: String,
+    default: 'Untitled Playlist'
+  },
+  created: {
+    type: Date,
+    default: Date.now()
+  },
+  totalDuration: {
+    type: Number,
+    default: 0
+  },
   startTime: Number,
   tracks: [{
     trackId: String,
