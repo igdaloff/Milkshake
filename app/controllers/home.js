@@ -10,7 +10,9 @@ exports.home = function(req, res) {
     var shortId = require('shortid');
     var newPlaylistId = shortId.generate();
     req.session.newPlaylistId = newPlaylistId;
-    res.render('new-playlist', newPlaylistId);
+    res.render('new-playlist', {
+      newPlaylistId: newPlaylistId
+    });
   }
 };
 
