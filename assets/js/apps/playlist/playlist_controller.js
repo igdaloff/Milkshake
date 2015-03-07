@@ -274,8 +274,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Bind the Playlist UI
       Playlist.Controller.bindPlaylistUi();
-      // Start the chat module
-      Playlist.Chat.start();
 
       if(playlistManager.tracks.length) {
 

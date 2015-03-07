@@ -69,6 +69,7 @@ $(function() {
     var socket = io.connect('http://{{ socketAddress }}');
     socket.on('connect', function (data) {
       TWM.Playlist.API.onUserConnect(socket);
+      TWM.Playlist.Chat.start();
     });
   });
   TWM.Playlist.start();
