@@ -269,36 +269,41 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     playPlaylist: function(data) {
 
-      // Add the playing class to the body and remove the waiting and loading classes
-      $('body').addClass('playlist-playing').removeClass('playlist-waiting playlist-loading');
+      var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      // Do not execute if there are no tracks to play
 
       // Bind the Playlist UI
       Playlist.Controller.bindPlaylistUi();
       // Start the chat module
       Playlist.Chat.start();
 
-      var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var startTime = data.startTime;
-      var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
+      if(playlistManager.tracks.length) {
 
-      // Account for any latency and get a fresh start time
-      if(startTime === 0) {
-        playlistManager.startPlaylist();
-        TWM.trigger('playlist:playlistStart');
-      }
-      // If there's time left in the current playlist, get going
-      else if(timeDiff < playlistManager.getPlaylistDuration()) {
+        // Add the playing class to the body and remove the waiting and loading classes
+        $('body').addClass('playlist-playing').removeClass('playlist-waiting playlist-loading');
 
-        var updatedStartTime = playlistManager.getTrackFromTotalTime(timeDiff);
-        playlistManager.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
-      }
-      // Otherwise the playlist is over, mark the finished bool on the playlist manager
-      else {
+        var startTime = data.startTime;
+        var timeDiff = Playlist.Controller.calculateTimeDiff(startTime);
 
-        // Manualy tell the playlist manager it has finished
-        playlistManager.setFinished();
-        // Run necessary tasks on finish
-        Playlist.Controller.playlistFinished();
+        // Account for any latency and get a fresh start time
+        if(startTime === 0) {
+          playlistManager.startPlaylist();
+          TWM.trigger('playlist:playlistStart');
+        }
+        // If there's time left in the current playlist, get going
+        else if(timeDiff < playlistManager.getPlaylistDuration()) {
+
+          var updatedStartTime = playlistManager.getTrackFromTotalTime(timeDiff);
+          playlistManager.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
+        }
+        // Otherwise the playlist is over, mark the finished bool on the playlist manager
+        else {
+
+          // Manualy tell the playlist manager it has finished
+          playlistManager.setFinished();
+          // Run necessary tasks on finish
+          Playlist.Controller.playlistFinished();
+        }
       }
     },
     calculateTimeDiff: function(startTime) {
