@@ -9,7 +9,7 @@ var PlaylistSchema = new Schema({
     unique: true,
     default: shortId.generate
   },
-  title: 
+  title: {
     type: String,
     default: 'Untitled Playlist'
   },

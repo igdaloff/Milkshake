@@ -34,6 +34,16 @@ mongoose.connect(config.app.databaseUrl);
 
 /*
 ============================================
+Session
+============================================
+*/
+app.use(express.cookieParser());
+app.use(express.session({
+  secret: 'D1EmzMimx43inX1qVreaaF5RJEawEeH'
+}));
+
+/*
+============================================
 Server
 ============================================
 */

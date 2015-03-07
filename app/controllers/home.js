@@ -6,7 +6,11 @@ exports.home = function(req, res) {
     res.render('splash');  
   }
   else {
-    res.render('new-playlist');
+
+    var shortId = require('shortid');
+    var newPlaylistId = shortId.generate();
+    req.session.newPlaylistId = newPlaylistId;
+    res.render('new-playlist', newPlaylistId);
   }
 };
 
