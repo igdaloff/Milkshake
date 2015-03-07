@@ -250,13 +250,25 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         startTime = Playlist.Controller.calculateTimeDiff(startTime);
       }
-      playlist.loadFromTotalTime(startTime, function(track) {
+      // If there are tracks to play, wait until the first track has loaded
+      if(playlist.tracks.length) {
+
+        playlist.loadFromTotalTime(startTime, onReadyCb);
+
+      }
+      // Otherwise the playlist is ready now
+      else {
+
+        onReadyCb();
+      }
+
+      function onReadyCb() {
 
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
         // Remove the loading and waiting class from the body
-        $('body').removeClass('playlist-loading');
-      });
+        $('body').removeClass('playlist-loading');        
+      }
     },
     playPlaylist: function(data) {
 
