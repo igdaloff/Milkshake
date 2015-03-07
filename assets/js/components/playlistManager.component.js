@@ -12,7 +12,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
       this.trackElements = [];
       this.currentTrackIndex = 0;
       this.isPlaying = false;
-      this.finished = true;
+      this.finished = false;
       this.muted = false;
       // Create a jQuery element for each track that will contain the embedded player, create a Popcorn instance for each
       this.popsId = 'playlist-embeds';

@@ -14,10 +14,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     userJoinedRoom: function(numUsersInRoom) {
 
       var playlistModel = TWM.request('playlist:activePlaylistModel');
+      playlistModel.set('usersConnected', numUsersInRoom);
       if(numUsersInRoom === 1 && typeof(playlistModel.get('startTime')) === 'undefined') {
 
         $('body').addClass('playlist-waiting');
       }
+    },
+    remoteUserDisconnected: function(numUsersInRoom) {
+
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      playlistModel.set('usersConnected', numUsersInRoom);
     },
     /**
     * Load Player
@@ -359,6 +365,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       newTrackData.id = newModel.id;
       // Add the new track to the playlist manager
       playlistManager.addTrackToPlaylist(newTrackData);
+      // If the playlist has finished, or if two users are connected and the currentTime is at 0, start playing the new track now
+      if(playlistManager.finished || (playlistModel.get('usersConnected') === 2 && playlistModel.get('currentTime') === 0)) {
+        
+        playlistManager.playTrack(playlistManager.tracks.length - 1, 0, true);
+      }
     },
     sendTrackDelete: function(trackId) {
 
