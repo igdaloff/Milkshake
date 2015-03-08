@@ -175,7 +175,7 @@
 	background: white;
 
 	&.current{
-		background: $light-green;
+		background: $green;
 	}
 
 	&.played{
@@ -257,23 +257,8 @@
 	@include icomoon('refresh');
 }
 
-.end-of-tracks{
-	display: inline-block;
-	padding: 1em;
-	font-family: $sans-special;
-	color: $dark-grey;
-	line-height: 1.2;
-	font-style: italic;
-	font-size: 0.9em;
 
-	&:hover{
-		color: $black;
-	}
 
-	a{
-		text-decoration: underline;
-	}
-}
 
 // Draggable track styles
 .ui-sortable-helper{

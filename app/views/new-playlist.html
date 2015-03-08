@@ -3,20 +3,18 @@
 
   <div class="playlist-create">
     <div class="wrapper">
-      <header class="main-header">
-        <h1 class="logo">
-          <a href="/"><img src="/img/main-logo.svg" alt="Milkshake logo" /></a>
-        </h1>
-      </header>
-      <!-- <a style="font-size: 3em; margin: 1em 0;display:block;" href="/dummy">MAKE ME A PLAYLIST</a> -->
+      <a href="/" class="logo">
+        <img src="/img/main-logo.svg" class="static-logo" alt="Milkshake logo" />
+        <img src="/img/loading-fast.gif" class="animated-logo" alt="Milkshake logo" />
+      </a>
       <div class="intro-text">
-        <h2>Listen to music in real-time with a friend.</h2>
+        <h1>Create a playlist and listen with a friend in real-time. Search for music from Youtube and Soundcloud. No sign up required.</h1>
       </div>
+      <!-- <a style="font-size: 3em; margin: 1em 0;display:block;" href="/dummy">MAKE ME A PLAYLIST</a> -->
       <form id="playlist-url-form" action="/process-new-playlist/" method="post">
-         <input type="text" class="new-playlist-url input-field" name="url" value="milkshake.mu/{{ newPlaylistId }}" readOnly="readOnly"/>
-         <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
-         <input type="submit" class="btn btn-black copy-playlist-url-btn" id="copy-playlist-url-btn" value="Click to copy link and enter your playlist." data-clipboard-text="milkshake.mu/{{ newPlaylistId }}">
-       </form>
+        <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
+        <input type="submit" class="btn btn-black create-playlist-btn" value="Create a Playlist" />
+      </form>
     </div>
   </div>
 {% endblock %}
