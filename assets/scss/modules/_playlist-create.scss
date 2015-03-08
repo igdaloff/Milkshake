@@ -32,10 +32,14 @@
 }
 
 .intro-text{
-	padding: 4em;
+	padding: 3.5em 4em 4em;
 	line-height: 1.2;
 }
 
 .create-playlist-btn{
 	padding: 0 2em;
+
+	.new-playlist-loading &{
+		text-decoration: none;
+	}
 }
