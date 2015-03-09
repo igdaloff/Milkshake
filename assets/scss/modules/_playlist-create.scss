@@ -6,28 +6,40 @@
 	text-align: center;
 
 	.logo{
+		display: inline-block;
+
 		img{
-			display: block;
 			width: 85px;
 			margin: 0 auto;
 		}
 	}
 }
 
-.intro-text{
-	padding: 4em 2em;
+.static-logo{
+	display: block;
 
-	.btn{
-		margin-top: 2em;
-		line-height: 2.75;
+	.new-playlist-loading &{
+		display: none;
 	}
 }
 
-.new-playlist-url{
-	text-align: center;
-	cursor: text;
+.animated-logo{
+	display: none;
+
+	.new-playlist-loading &{
+		display: block;
+	}
 }
 
-.zeroclipboard-is-hover{
-	text-decoration: underline;
+.intro-text{
+	padding: 3.5em 4em 4em;
+	line-height: 1.2;
+}
+
+.create-playlist-btn{
+	padding: 0 2em;
+
+	.new-playlist-loading &{
+		text-decoration: none;
+	}
 }
