@@ -53,7 +53,7 @@ io.sockets.on('connection', function (socket) {
     }
 
     // Notify other members that a user joined
-    io.sockets.in(socket.roomId).emit('userJoined', numUsersInRoom);
+    socket.broadcast.to(socket.roomId).emit('userJoined', numUsersInRoom);
 
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
