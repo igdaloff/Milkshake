@@ -14,6 +14,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       }
       dateStr += dateObj.getMinutes() + ':' + dateObj.getSeconds();
       this.model.set('when', dateStr);
+      // Parse image URLs to HTML
+      this.parseImages();
     },
     onRender: function() {
 
@@ -67,6 +69,24 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
       var $content = this.$('.chat-message-content');
       $content.html($content.html().replace(/(?:\r\n|\r|\n)/g, '<br>'));
+    },
+    parseImages: function() {
+
+      var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+      var imageUrlRegex = /\.(?:jpe?g|gif|png)$/i;
+      var contentArr = this.model.get('content').split(' ');
+      var imageHtml = '';
+      for(var i = 0; i < contentArr.length; i++) {
+
+        var word = contentArr[i];
+        // If the word is an image, add it as a tag at the end of the content (and stop looking for more images)
+        if(urlRegex.test(word) && imageUrlRegex.test(word)) {
+
+          imageHtml += ' <img src="' + word + '">';
+          break;
+        }
+      }
+      this.model.set('content', this.model.get('content') + imageHtml);
     }
   });
 
