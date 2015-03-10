@@ -130,7 +130,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     onShow: function() {
 
       //Scrollbar for chat window that doesn't have defined height
-      $('.message-list').perfectScrollbar({
+      $('.messages-inner').perfectScrollbar({
         includePadding: true,
         suppressScrollX: true
       });
@@ -138,7 +138,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     onBeforeAddChild: function(childView) {
 
       // If we're fully scrolled to within n px of the bottom (tolerance), jump to the bottom of the new message when it shows
-      var messageContainer = this.$('.message-list')[0];
+      var messageContainer = this.$('.messages-inner')[0];
       var tolerance = 50;
       if($(messageContainer).outerHeight() + messageContainer.scrollTop >= messageContainer.scrollHeight - tolerance) {
 
@@ -148,7 +148,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     scrollChatToBottom: function(){
 
       //Keep scroll position at bottom after each message is sent
-      var messageContainer = this.$('.message-list')[0];
+      var messageContainer = this.$('.messages-inner')[0];
       messageContainer.scrollTop = messageContainer.scrollHeight;
     },
     initialize: function() {
@@ -209,7 +209,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
       this.removePlaceholder();
     },
-    /** 
+    /**
      * Sanitize input
      * Take a string, pass it into a DOM element and get it back out to ensure it ends up as a string, not tags
      * @param input - the string to be sanitize

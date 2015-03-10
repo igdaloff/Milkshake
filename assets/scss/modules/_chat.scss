@@ -1,5 +1,4 @@
 //Chat
-
 .messages-container {
 	position: fixed;
 	top: 0;
@@ -14,7 +13,7 @@
 	}
 }
 
-.message-list{
+.messages-inner{
 	min-width: $fixed-element-min-width;
 	padding: 1em;
 	overflow: hidden;
