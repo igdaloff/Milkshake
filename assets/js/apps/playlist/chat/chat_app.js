@@ -50,6 +50,14 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     // Create a new message collection
     var messageCollection = TWM.request('newMessageCollection:entities', messages);
 
+    messageCollection.listenTo(messageCollection, 'add', function(newMessage) {
+      console.log(newMessage.get('type') === 'chat');
+      if(newMessage.get('type') === 'chat') {
+        $('.new-playlist-onboarding').hide();
+        messageCollection.stopListening(messageCollection, 'add');
+      }
+    });
+
     // Create a chat container view with the messages collection
     var messageList = new Chat.ChatContainer({
       collection: messageCollection
