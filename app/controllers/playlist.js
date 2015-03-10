@@ -55,6 +55,9 @@ io.sockets.on('connection', function (socket) {
     // Notify other members that a user joined
     socket.broadcast.to(socket.roomId).emit('userJoined', numUsersInRoom);
 
+    // Notify the sender how many users are currently connected
+    socket.emit('numUsersInRoom', numUsersInRoom);
+
     // Check if this is a reconnect event and the startTime timestamp was set before
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
 

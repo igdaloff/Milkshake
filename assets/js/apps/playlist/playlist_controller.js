@@ -11,13 +11,22 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var playlistModel = TWM.request('playlist:activePlaylistModel');
       socket.emit('joinRoom', playlistModel.id);
     },
-    userJoinedRoom: function(numUsersInRoom) {
+    updateNumUsersInRoom: function(numUsersInRoom) {
 
       var playlistModel = TWM.request('playlist:activePlaylistModel');
       playlistModel.set('usersConnected', numUsersInRoom);
       if(numUsersInRoom === 1 && typeof(playlistModel.get('startTime')) === 'undefined') {
 
         $('body').addClass('playlist-waiting');
+      }
+    },
+    userJoinedRoom: function(numUsersInRoom) {
+
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      playlistModel.set('usersConnected', numUsersInRoom);
+      if(numUsersInRoom > 1) {
+
+        $('body').removeClass('playlist-waiting');
       }
     },
     remoteUserDisconnected: function(numUsersInRoom) {

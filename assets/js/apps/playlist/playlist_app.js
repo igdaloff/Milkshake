@@ -12,6 +12,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Pick up the socket ID when the server sends it to us
       socket.on('newConnectionId', Playlist.Controller.saveSocketId);
+      // When the user joins, this event tells them how many people are in the room now
+      socket.on('numUsersInRoom', Playlist.Controller.updateNumUsersInRoom);
       // If the room is full, perform an action to notify the user
       socket.on('roomFull', Playlist.Controller.roomFull);
       // When the server tells us when to start loading the playlist from
