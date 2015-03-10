@@ -5,7 +5,12 @@
 	text-align: center;
 
 	.main-content{
-		display: table;
+		margin-top: 4em;
+
+		.no-previous-playlists &{
+			margin: 0;
+			display: table;
+		}
 	}
 
 	.logo{
@@ -19,12 +24,14 @@
 }
 
 .playlist-create-inner{
-	display: table-cell;
-	vertical-align: middle;
-	width: 100%;
+	.no-previous-playlists &{
+		display: table-cell;
+		vertical-align: middle;
+		width: 100%;
 
-	.wrapper{
-		margin-top: -1 * $footer-height;
+		.wrapper{
+			margin-top: -1 * $footer-height;
+		}
 	}
 }
 
@@ -54,5 +61,32 @@
 
 	.new-playlist-loading &{
 		text-decoration: none;
+	}
+}
+
+
+
+
+// Previous Playlists
+.previous-playlists{
+	margin: 6em auto;
+
+	table{
+		table-layout: auto;
+		border-right: 1px solid $border-grey;
+		border-left: 1px solid $border-grey;
+	}
+
+	tr{
+		cursor: pointer;
+
+		&:hover td:first-child{
+			text-decoration: underline;
+		}
+	}
+
+	th, td{
+		padding: 1em;
+		white-space: nowrap;
 	}
 }

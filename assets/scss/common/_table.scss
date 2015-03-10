@@ -16,10 +16,18 @@
   border-bottom: 1px solid $border-grey;
   color: $black;
 
-  td{
+  td, th{
     width: 50px;
     vertical-align: middle;
     font-size: 0.9em;
+    font-family: $sans-special;
+  }
+
+  th{
+    padding: 0.5em 0;
+    background: $light-grey;
+    border-top: 1px solid $border-grey;
+    color: $dark-grey;
   }
 
   &.highlight{
