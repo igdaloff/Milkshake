@@ -3,7 +3,6 @@
 // =======================
 .main-content{
 	min-height: 100%;
-	margin: 0 auto (-1 * $footer-height);
 	position: relative;
 	.user-on-mobile &{
 		display: none;

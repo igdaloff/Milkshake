@@ -2,8 +2,11 @@
 // Playlist Create
 // =======================
 .playlist-create{
-	margin-top: 4em;
 	text-align: center;
+
+	.main-content{
+		display: table;
+	}
 
 	.logo{
 		display: inline-block;
@@ -12,6 +15,16 @@
 			width: 85px;
 			margin: 0 auto;
 		}
+	}
+}
+
+.playlist-create-inner{
+	display: table-cell;
+	vertical-align: middle;
+	width: 100%;
+
+	.wrapper{
+		margin-top: -1 * $footer-height;
 	}
 }
 
