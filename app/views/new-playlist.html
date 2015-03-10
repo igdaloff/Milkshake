@@ -1,22 +1,23 @@
 {% extends 'layout.html' %}
+{% set bodyClass = "playlist-create" %}
 {% block content %}
 
-  <div class="playlist-create">
-    <div class="wrapper">
-      <a href="/" class="logo">
-        <img src="/img/main-logo.svg" class="static-logo" alt="Milkshake logo" />
-        <img src="/img/loading-fast.gif" class="animated-logo" alt="Milkshake logo" />
-      </a>
-      <div class="intro-text">
-        <h1>Create a playlist and listen with a friend in real-time. Search for music from Youtube and Soundcloud. No sign up required.</h1>
-      </div>
-      <!-- <a style="font-size: 3em; margin: 1em 0;display:block;" href="/dummy">MAKE ME A PLAYLIST</a> -->
-      <form id="playlist-url-form" action="/process-new-playlist/" method="post">
-        <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
-        <input type="submit" class="btn btn-black create-playlist-btn" value="Create a Playlist" />
-      </form>
+<div class="playlist-create-inner">
+  <div class="wrapper">
+    <a href="/" class="logo">
+      <img src="/img/main-logo.svg" class="static-logo" alt="Milkshake logo" />
+      <img src="/img/loading-fast.gif" class="animated-logo" alt="Milkshake logo" />
+    </a>
+    <div class="intro-text">
+      <h1>Create a playlist and listen with a friend in real-time. Search for music from Youtube and Soundcloud. No sign up required.</h1>
     </div>
+    <!-- <a style="font-size: 3em; margin: 1em 0;display:block;" href="/dummy">MAKE ME A PLAYLIST</a> -->
+    <form id="playlist-url-form" action="/process-new-playlist/" method="post">
+      <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
+      <input type="submit" class="btn btn-black create-playlist-btn" value="Create a Playlist" />
+    </form>
   </div>
+</div>
 {% endblock %}
 
 {% block scripts %}
