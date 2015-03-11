@@ -151,6 +151,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       e.preventDefault();
       var $form = $(e.currentTarget);
       var query = this.$('.track-search-input').val();
+      var $searchResultContainer = $('.track-search-results-container');
 
       if(query !== ''){
         // Add the loading class to the input
@@ -161,6 +162,8 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
         // Show close search button
         $('.track-search-close').fadeIn('fast');
       }
+
+      $searchResultContainer.scrollTop(0);
     },
     onRenderCollection: function() {
 

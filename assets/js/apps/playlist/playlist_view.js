@@ -173,7 +173,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var newTitle = $('.playlist-title-input').val();
       // If the title changed, send it
       if(newTitle !== this.model.get('title')) {
-        
+
         Playlist.Controller.sendNewPlaylistName(newTitle);
       }
     },
