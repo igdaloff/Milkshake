@@ -232,7 +232,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var currentTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
       if(playlistManager.finished || typeof currentTime !== 'number' || currentTime === 0) {
-        
+
         return false;
       }
       // Update the time in the header
@@ -279,7 +279,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         // Tell the server we are ready to start
         socket.emit('userReadyToPlay');
         // Remove the loading and waiting class from the body
-        $('body').removeClass('playlist-loading');        
+        $('body').removeClass('playlist-loading');
       }
     },
     playPlaylist: function(data) {
@@ -376,7 +376,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       playlistManager.addTrackToPlaylist(newTrackData);
       // If the playlist has finished, or if two users are connected and the currentTime is at 0, start playing the new track now
       if(playlistManager.finished || (playlistModel.get('usersConnected') === 2 && playlistModel.get('currentTime') === 0)) {
-        
+
         playlistManager.playTrack(playlistManager.tracks.length - 1, 0, true);
       }
     },

@@ -321,13 +321,35 @@
 
 
 // Playback states
-.playlist-full {
-	.playlist-full-message {
-		display: block;
+.playlist-full{
+	.loading-message, .playlist{
+		display: none !important;
+	}
+}
+
+.playlist-full-message{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	background: white;
+	text-align: center;
+
+	.playlist-full &{
+		display: table;
 	}
 
-	.loading-message {
-		display: none !important;
+	.intro-text{
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.create-playlist-btn{
+		margin-top: 1em;
 	}
 }
 

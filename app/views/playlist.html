@@ -7,9 +7,11 @@
     <!-- Room Full -->
     <div class="playlist-full-message">
       <div class="intro-text">
-        <h1>Two's company, three's a crowd.</h1>
-        <p>Sorry, this playlist already has two listeners. Maybe you should make a new one instead.</p>
-        <a class="btn btn-black" href="/">Create a new playlist</a>
+        <h2>Sorry, this playlist already has two listeners.<br>Maybe make a new one instead.</h2>
+        <form id="playlist-url-form" action="/process-new-playlist/" method="post">
+          <input type="hidden" name="newPlaylistId" value="ZyZw6PG_h">
+          <input type="submit" class="btn btn-black create-playlist-btn" value="Create a Playlist">
+        </form>
       </div>
     </div>
   </div>
