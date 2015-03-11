@@ -26,7 +26,7 @@ module.exports = {
       sessionName: "mkshh",
       sessionSecret: "vgehkehkvlnbgynnuufghxptjx",
       databaseUrl: 'mongodb://milkshake_staging:d0db16178e09e69c635b7bedb82f37a7@c5.candidate.43.mongolayer.com:10005,c318.candidate.40.mongolayer.com:10318/milkshake_staging',
-      socketPort: 1337,
+      socketPort: 1336,
       splashPage: false
     },
     root: root
