@@ -207,7 +207,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       e.preventDefault();
       $('.track-search-results-container').removeClass('visible');
       $('.track-search-close').fadeOut('fast');
-      $('.track-search-input').val('');
+      $('.track-search-input').val('').focus();
       $('.no-results-message.visible').removeClass('visible');
     },
     closeSearchEsc: function(e) {
