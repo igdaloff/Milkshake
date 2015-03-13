@@ -112,6 +112,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     template: 'track-search-form',
     events: {
       'submit form': 'searchTracks',
+      'click .track-search-result-source': 'mutePlaylistForPreview',
       'click .track-search-close': 'closeSearch',
       'keydown': 'closeSearchEsc'
     },
@@ -205,6 +206,20 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
         this.query = query;
       }
     }, 1000, {leading: false}),
+    mutePlaylistForPreview: function() {
+
+      var muted = TWM.Playlist.Controller.muteToggle();
+      var $muteToggle = $('.mute-toggle');
+
+      if(muted) {
+
+        $muteToggle.addClass('muted');
+      }
+      else {
+
+        $muteToggle.removeClass('muted');
+      }
+    },
     closeSearch: function(e) {
 
       e.preventDefault();
