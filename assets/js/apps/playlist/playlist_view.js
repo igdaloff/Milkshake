@@ -81,6 +81,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     onRender: function() {
 
       var _this = this;
+
       // Allow tracks to be dragged and sorted
       this.$('tbody').sortable({
         cancel: '.played, .current',

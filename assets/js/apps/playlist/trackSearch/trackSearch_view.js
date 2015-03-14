@@ -68,6 +68,23 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
         TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
       }
       this.indicateAddedTrack(e);
+      this.makeNewTracksDraggable();
+    },
+    makeNewTracksDraggable: function(e) {
+
+      // Allow tracks for new playlists to be dragged and sorted
+      if(!$('.ui-sortable').length){
+        $('.playback-track-list tbody').sortable({
+          cancel: '.played, .current',
+          placeholder: 'track-reorder-gap',
+          update: function(e, ui) {
+
+            var trackModelId = ui.item.data('id');
+            var newRank = ui.item.index();
+            TWM.Playlist.Controller.sendNewTrackOrder(trackModelId, newRank);
+          }
+        }).disableSelection();
+      }
     },
     /**
      * Update preview progress
