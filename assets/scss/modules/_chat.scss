@@ -111,10 +111,13 @@ $avatar-width: 50px;
 	background: white;
 	border: 1px solid $border-grey;
 	word-wrap: break-word;
-	img {
+
+	img{
+		display: block;
 		max-width: 100%;
 		margin-top: 1em;
 	}
+
 	&:before, &:after{
 		content: '';
 		position: absolute;
@@ -160,6 +163,9 @@ $avatar-width: 50px;
 		}
 	}
 }
+
+
+
 
 //New message
 .new-message-container{
