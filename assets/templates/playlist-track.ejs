@@ -12,8 +12,8 @@
 <td class="basic-table-row-title playback-track-title">
   <h5 class="playback-track-title"><a href="<%- url %>" target="_blank"><%- title %></a></h5>
 </td>
-<td class="track-search-result-duration">
-  <%- TWM.Lib.secondsToMinutes(duration) %>
+<td class="track-search-result-duration-and-actions">
+  <span class="track-search-result-duration"><%- TWM.Lib.secondsToMinutes(duration) %></span>
   <div class="delete-track-container" tabindex="0">
     <span class="screen-reader-text">Delete track</span>
     <button class="delete-track btn-circle"></button>

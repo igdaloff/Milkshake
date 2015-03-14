@@ -4,25 +4,13 @@
   </a>
 </td>
 <td class="track-search-result-title basic-table-row-title">
-	<span class="track-search-result-add">
-		<span class="screen-reader-text">Preview</span>
-		<h5 title="<%= title %>"><%= title %></h5>
-	</span>
+	<h5 title="<%= title %>"><%= title %></h5>
 	<a href="<%= url %>" target="_blank" class="track-search-result-source icon icon-<% if(source === 'soundcloud'){ %>soundcloud<% } else { %>youtube<% } %>"><i>(<% if(source === 'soundcloud'){ %>SoundCloud<% } else { %>YouTube<% } %>)</i></a>
 </td>
-<td class="track-search-result-duration"><%= minutes %></td>
-<td class="preview-track-container">
-  <div class="preview-button-outer">
-    <div class="half lt50">
-      <div class="pie right"></div>
-    </div>
-    <div class="half gt50">
-      <div class="pie left"></div>
-    </div>
-    <button class="toggle-track-preview preview-button-target" title="Play a preview of this track"></button>
+<td class="track-search-result-duration-and-actions">
+  <span class="track-search-result-duration"><%= minutes %></span>
+  <div class="track-search-actions">
+    <span class="screen-reader-text">Add this track to playlist</span>
+    <a class="track-search-result-add btn-circle"></a>
   </div>
-</td>
-<td class="track-search-actions">
-  <span class="screen-reader-text">Add this track to playlist</span>
-	<a class="track-search-result-add btn-circle"></a>
 </td>
