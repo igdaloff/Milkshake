@@ -19,6 +19,6 @@
 .large-wrapper{
 	position: relative;
 	max-width: 1000px;
-	min-width: 600px;
+	min-width: $fixed-element-min-width;
 	margin: 0 auto;
 }
