@@ -44,10 +44,11 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
         $button.removeClass('playing');
       }
     },
-    highlightAddedTrack: function(e){
+    indicateAddedTrack: function(e){
       var $searchResultRow = $(e.target).parents('.track-search-result');
 
       $searchResultRow.addClass('highlight');
+      $searchResultRow.addClass('added-track');
 
       setTimeout(function(){
         $searchResultRow.removeClass('highlight');
@@ -66,7 +67,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
 
         TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
       }
-      this.highlightAddedTrack(e);
+      this.indicateAddedTrack(e);
     },
     /**
      * Update preview progress

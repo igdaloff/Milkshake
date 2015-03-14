@@ -133,6 +133,10 @@
       display: none;
     }
   }
+
+  &.added-track .track-search-result-add{
+    @include icomoon('checkmark');
+  }
 }
 
 .track-search-result-source{
