@@ -206,14 +206,9 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Set the query string in the template
       this.$('.search-term').text(this.collection.query);
       // remove the loading class
-      this.$('.track-search-input').removeClass('loading');
+      this.$('.search-submit').removeClass('loading');
       // show the no results message
       $('.no-results-message').addClass('visible');
-      // hide the message as soon as new results are added
-      this.listenToOnce(this.collection, 'reset', function() {
-
-        $('.no-results-message').removeClass('visible');
-      });
     },
     autoSearch: _.throttle(function(e) {
 
