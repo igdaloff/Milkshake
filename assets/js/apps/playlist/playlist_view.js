@@ -108,11 +108,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       // Only do something if a new track is playing, not if the last one just ended
       if(model.get('isPlaying')) {
-        // Scroll playlist container to current track
-        var currentTrackPos = this.$('.current').position();
-        var currentTrackHeight = this.$('.current').height();
-        var playlistPos = this.$el.position();
-        $('.playback-tracks').scrollTop(currentTrackPos.top + playlistPos.top - currentTrackHeight);
+        // Scroll playlist tracks container to the top of the future tracks element view (will always show new track)
+        var $scroller = this.$el.parent();
+        var oneTrackHeight = this.$('.current').height();
+        $scroller.scrollTop(this.$el.position().top + $scroller.scrollTop() - oneTrackHeight);
       }
     }
   });
