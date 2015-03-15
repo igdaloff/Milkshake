@@ -78,12 +78,8 @@ td.basic-table-row-title{
 
 	h5{
 	  max-width: 75%;
-	  float: left;
 	  padding-right: 0.25em;
-	  overflow: hidden;
-	  text-overflow: ellipsis;
-	  white-space: nowrap;
-	  display: inline-block;
+	  display: inline;
 	  cursor: pointer;
 
 	  &:hover{

@@ -12,7 +12,7 @@
 }
 
 .track-search-input{
-  padding-right: 60px;
+  padding-right: $basic-table-row-height + 10px;
   height: 100%;
   padding-left: 1em;
   font-size: 0.9em;
@@ -121,7 +121,7 @@
   &:hover{
     background: $off-black;
 
-    .track-search-result-source, .track-search-actions{
+    .track-search-actions{
       display: block;
     }
 
@@ -132,38 +132,12 @@
 
   &.added-track .track-search-result-add{
     @include icomoon('checkmark');
-  }
-}
+    cursor: default;
+    background: none;
 
-.track-search-result-source{
-  display: none;
-  position: absolute;
-  left: -1 * ($basic-table-row-height);
-  font-family: 'icomoon';
-  background: $off-black;
-  width: $basic-table-row-height;
-  height: $basic-table-row-height;
-  top: 0;
-  line-height: $basic-table-row-height;
-  text-align: center;
-  font-size: 1.5em;
-
-  i{
-    position: absolute;
-    left: -9999px;
-  }
-
-  .highlight &{
-    -webkit-animation: highlight-flash 2s;
-    animation: highlight-flash 2s;
-  }
-
-  &.icon-soundcloud:before{
-    content: '\f1be';
-  }
-
-  &.icon-youtube:before{
-    content: '\f166';
+    &:hover{
+      color: $green;
+    }
   }
 }
 
@@ -175,6 +149,19 @@
   position: relative;
   font-family: $sans-special;
   text-align: center;
+}
+
+.track-search-result-duration{
+  .added-track &{
+    display: none;
+  }
+}
+
+.track-search-result-source{
+  display: inline;
+  color: $dark-grey;
+  font-style: italic;
+  font-size: 12px;
 }
 
 .track-search-actions{
