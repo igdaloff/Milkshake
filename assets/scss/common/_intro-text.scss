@@ -1,0 +1,28 @@
+// =======================================================================
+// Intro Text
+// (this is what I'm calling the logo / text / button combo)
+// ========================================================================
+
+.intro-text-container{
+	.logo{
+		display: inline-block;
+
+		img{
+			width: 85px;
+			margin: 0 auto;
+		}
+	}
+
+	.intro-text{
+		padding: 3.5em 4em 4em;
+		line-height: 1.2;
+	}
+
+	.btn-black{
+		padding: 0 2em;
+
+		.new-playlist-loading &{
+			text-decoration: none;
+		}
+	}
+}

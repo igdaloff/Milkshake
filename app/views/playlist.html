@@ -6,8 +6,13 @@
   <div class="wrapper">
     <!-- Room Full -->
     <div class="playlist-full-message">
-      <div class="intro-text">
-        <h2>Sorry, this playlist already has two listeners.<br>Maybe make a new one instead.</h2>
+      <div class="intro-text-container">
+        <a href="/" class="logo">
+          <img class="playback-logo-static" src="/img/main-logo.svg" alt="Milkshake logo" />
+        </a>
+        <div class="intro-text">
+          <h2>Sorry, this playlist already has two listeners.<br>Click below to make a new one.</h2>
+        </div>
         <form id="playlist-url-form" action="/process-new-playlist/" method="post">
           <input type="hidden" name="newPlaylistId" value="ZyZw6PG_h">
           <input type="submit" class="btn btn-black create-playlist-btn" value="Create a Playlist">

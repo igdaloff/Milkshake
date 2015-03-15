@@ -12,15 +12,6 @@
 			display: table;
 		}
 	}
-
-	.logo{
-		display: inline-block;
-
-		img{
-			width: 85px;
-			margin: 0 auto;
-		}
-	}
 }
 
 .playlist-create-inner{
@@ -48,19 +39,6 @@
 
 	.new-playlist-loading &{
 		display: block;
-	}
-}
-
-.intro-text{
-	padding: 3.5em 4em 4em;
-	line-height: 1.2;
-}
-
-.create-playlist-btn{
-	padding: 0 2em;
-
-	.new-playlist-loading &{
-		text-decoration: none;
 	}
 }
 
