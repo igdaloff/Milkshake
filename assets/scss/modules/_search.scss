@@ -121,11 +121,7 @@
   &:hover{
     background: $off-black;
 
-    .track-search-result-source{
-      opacity: 1;
-    }
-
-    .track-search-actions{
+    .track-search-result-source, .track-search-actions{
       display: block;
     }
 
@@ -140,6 +136,7 @@
 }
 
 .track-search-result-source{
+  display: none;
   position: absolute;
   left: -1 * ($basic-table-row-height);
   font-family: 'icomoon';
@@ -150,7 +147,6 @@
   line-height: $basic-table-row-height;
   text-align: center;
   font-size: 1.5em;
-  opacity: 0;
 
   i{
     position: absolute;
@@ -188,6 +184,10 @@
   right: 0;
   bottom: 0;
   left: 0;
+
+  .added-track &{
+    display: block;
+  }
 }
 
 .track-search-result-add.btn-circle{
