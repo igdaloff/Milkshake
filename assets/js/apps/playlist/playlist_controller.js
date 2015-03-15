@@ -444,6 +444,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     renamePlaylist: function(newTitle) {
 
       var playlistModel = TWM.request('playlist:activePlaylistModel');
+      document.title = newTitle + ' - Milkshake';
       playlistModel.set('title', newTitle);
     }
   };

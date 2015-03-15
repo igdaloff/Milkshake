@@ -1,9 +1,8 @@
 TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
   var isTyping = false;
-  var docTitle = document.title;
   var notifierInterval;
-
+  var docTitle = document.title;
   Chat.Controller = {
     displayNewMessage: function(messageData) {
 
@@ -84,6 +83,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
      */
     startNotifier: function() {
 
+      var playlistTitle = TWM.request('playlist:activePlaylistModel').get('title');
+      docTitle = playlistTitle + ' - Milkshake';
       function toggleTitle() {
 
         document.title = (document.title === docTitle) ? '͡° ͜ʖ ͡° _/ New message!' : docTitle;
