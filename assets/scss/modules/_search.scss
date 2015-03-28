@@ -132,11 +132,12 @@
 
   &.added-track .track-search-result-add{
     @include icomoon('checkmark');
-    cursor: default;
     background: none;
 
     &:hover{
+      @include icomoon('plus');
       color: $green;
+      background: $black;
     }
   }
 }
