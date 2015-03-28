@@ -108,11 +108,8 @@ td.basic-table-row-title{
 }
 
 .table-row-duration{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1em;
-  margin: auto;
+  display: table-cell;
+  vertical-align: middle;
+  width: $basic-table-row-height;
+  height: $basic-table-row-height;
 }

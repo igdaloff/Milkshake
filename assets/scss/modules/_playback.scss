@@ -319,6 +319,18 @@ td.playback-track-title{
 	height: $basic-table-row-height;
 }
 
+.playback-track-current-time{
+	display: none;
+	padding-bottom: 2px;
+	margin-bottom: 3px;
+	border-bottom: 1px solid;
+
+	.current &{
+		display: inline-block;
+	}
+}
+
+
 .delete-track-container, .readd-track-container{
 	opacity: 0;
 }
