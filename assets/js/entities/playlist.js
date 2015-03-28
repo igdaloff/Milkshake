@@ -2,7 +2,8 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   Entities.Playlist = Backbone.Model.extend({
     defaults: {
-      currentTime: 0
+      currentTime: 0,
+      numTracks: 0
     },
     initialize: function() {
 
@@ -24,7 +25,58 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         this.listenTo(this.tracks, 'add remove', function() {
 
           this.set('totalDuration', this.tracks.getTotalDuration());
+          // Save the name of the last track added, we need this for the homepage recent playlist table
+          this.set('lastTrackAdded', this.tracks.at(this.tracks.length - 1).get('title'));
+          this.set('numTracks', this.tracks.length);
         });
+      }
+      
+      this.listenTo(this, 'change', this.setTimeUpdated);
+      this.listenTo(this, 'change', this.save);
+    },
+    setTimeUpdated: function() {
+
+      this.set('updated', Date.now());
+    },
+    /**
+     * Save playlist to local
+     * Add this playlist model to a locally stored array of playlist objects.
+     */
+    save: function() {
+
+      var recentPlaylists;
+      var playlistUpdated = false;
+      if (Modernizr.localstorage) {
+
+        var recentPlaylistsStr = localStorage.getItem('recentPlaylists');
+        // Parse the stringify'd array
+        if(recentPlaylistsStr !== null && recentPlaylistsStr.length) {
+          recentPlaylists = JSON.parse(recentPlaylistsStr);
+        }
+        // If the recentPlaylists array has not yet been created, add it in there
+        if(typeof recentPlaylists === 'undefined' || recentPlaylists === null) {
+
+          recentPlaylists = [];
+        }
+        // Initialize the object we want to save
+        var playlistDataToSave = _.clone(this.attributes);
+        playlistDataToSave.id = this.id;
+        // Check whether the playlist already exists, if so update it
+        for(var playlistIndex in recentPlaylists) {
+
+          var playlist = recentPlaylists[playlistIndex];
+          if(playlist.id === playlistDataToSave.id) {
+
+            recentPlaylists[playlistIndex] = playlistDataToSave;
+            playlistUpdated = true;
+          }
+        }
+        // If the playlist wasn't already in localStorage, it hasn't been updated. Let's add it now
+        recentPlaylists.push(playlistDataToSave);
+        // Stringify the array again so we can save it in local storage
+        recentPlaylistsStr = JSON.stringify(recentPlaylists);
+        localStorage.setItem('recentPlaylists', recentPlaylistsStr);
+        return recentPlaylists;
       }
     }
   });

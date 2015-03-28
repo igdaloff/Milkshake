@@ -44,37 +44,6 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     }
   };
 
-  Playlist.on('before:start', function() {
-
-    // Don't do anything if this playlist is already open in another tab/window, ie stop the module
-    // Check every n seconds in case the window is closed and we should try again
-    if(Playlist.Controller.playlistIsOpen(bootstrap.playlist._id)) {
-
-      console.log('playlist open in another tab/window, waiting for it to close');
-      Playlist.stop();
-      var closedPlaylistPoller = window.setInterval(function() {
-
-        console.log('still waiting...');
-        if(!Playlist.Controller.playlistIsOpen(bootstrap.playlist._id)) {
-
-          Playlist.start();
-          window.clearInterval(closedPlaylistPoller);
-        }
-      }, 1000);
-    }
-    else {
-
-      // Add this playlist Id to the locally stored open playlists array
-      Playlist.Controller.saveOpenPlaylistToLocal(bootstrap.playlist._id);
-
-      // If the user leaves this page, remove the playlist ID from the openplaylists local array
-      window.addEventListener("beforeunload", function(e){
-
-        Playlist.Controller.removeOpenPlaylistFromLocal(bootstrap.playlist._id);
-      }, false);
-    }
-  });
-
   Playlist.on('start', function(){
 
     // Set up the playlist model using the bootstrapped data

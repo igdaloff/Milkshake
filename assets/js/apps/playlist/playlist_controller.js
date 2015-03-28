@@ -128,96 +128,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       return socketIds;
     },
     /**
-     * Save open playlist to local
-     * Add this playlist ID to a locally stored array of IDs. This way we know if a user opens the same playlist
-     * in another tab/window and can stop it playing.
+     * Save playlist to local
+     * Add a playlist model to a locally stored array of playlist objects.
      */
-    saveOpenPlaylistToLocal: function(playlistId) {
-
-      var openPlaylists;
-      if (Modernizr.localstorage) {
-
-        var openPlaylistsStr = localStorage.getItem('openPlaylists');
-        // Parse the stringify'd array
-        if(openPlaylistsStr !== null && openPlaylistsStr.length) {
-          openPlaylists = JSON.parse(openPlaylistsStr);
-        }
-        // If the openPlaylists array has not yet been created, add it in there
-        if(typeof openPlaylists === 'undefined' || openPlaylists === null) {
-
-          openPlaylists = [];
-        }
-        openPlaylists.push(playlistId);
-        // Stringify the array again so we can save it in local storage
-        openPlaylistsStr = JSON.stringify(openPlaylists);
-        localStorage.setItem('openPlaylists', openPlaylistsStr);
-        return openPlaylists;
-      }
-    },
-    /**
-     * Remove open playlist from local
-     * Removes a playlist ID from the locally stored open playlist ID array
-     * To be triggered on playlist close so we don't stop users legitimately listening to a playlist
-     */
-    removeOpenPlaylistFromLocal: function(playlistId) {
-
-      var openPlaylists;
-      if (Modernizr.localstorage) {
-
-        var openPlaylistsStr = localStorage.getItem('openPlaylists');
-        // Parse the stringify'd array
-        if(openPlaylistsStr !== null && openPlaylistsStr.length) {
-          openPlaylists = JSON.parse(openPlaylistsStr);
-        }
-        // Check openPlaylists is an array and contains the ID we want to remove
-        if(typeof openPlaylists === 'undefined' || openPlaylists === null || openPlaylists.indexOf(playlistId) === -1) {
-
-          return false;
-        }
-        else {
-
-          // Find where playlistId is in the array and remove it
-          var arrIndex = openPlaylists.indexOf(playlistId);
-          openPlaylists.splice(arrIndex, 1);
-        }
-
-        // Stringify the array again so we can save it in local storage
-        openPlaylistsStr = JSON.stringify(openPlaylists);
-        localStorage.setItem('openPlaylists', openPlaylistsStr);
-        return openPlaylists;
-      }
-    },
-    /**
-     * Get open playlists
-     * Retrieve the array of open playlists from local storage
-     */
-    getOpenPlaylists: function() {
-
-      var openPlaylists;
-      if (Modernizr.localstorage) {
-        var openPlaylistsStr = localStorage.getItem('openPlaylists');
-        // Parse the stringify'd array
-        if(openPlaylistsStr !== null && openPlaylistsStr.length) {
-          openPlaylists = JSON.parse(openPlaylistsStr);
-        }
-      }
-      // Just return an empty array if openPlaylists was never set
-      if(typeof openPlaylists === 'undefined' || openPlaylists === null) {
-
-        return [];
-      }
-      return openPlaylists;
-    },
-    /**
-     * Playlist is open
-     * Check the local storage to see if the user already has this playlist open in another window/tab
-     * @return bool
-     */
-    playlistIsOpen: function(playlistId) {
-
-      var openPlaylists = Playlist.Controller.getOpenPlaylists();
-      return openPlaylists.indexOf(playlistId) > -1;
-    },
     setPlayingTrackAttribute: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');

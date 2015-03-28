@@ -17,6 +17,10 @@ var PlaylistSchema = new Schema({
     type: Date,
     default: Date.now()
   },
+  updated: {
+    type: Date,
+    default: Date.now()
+  },
   totalDuration: {
     type: Number,
     default: 0
@@ -30,7 +34,24 @@ var PlaylistSchema = new Schema({
     artwork: String,
     duration: Number,
     rank: Number,
-  }]
+  }],
+  numTracks: {
+    type: Number,
+    default: 0
+  },
+  lastTrackAdded: String
+});
+
+PlaylistSchema.pre('save', function(next){
+  
+  // Update the `updated` time field on each save
+  this.updated = Date.now();
+  this.numTracks = this.tracks.length;
+  if(this.numTracks) {
+    
+    this.lastTrackAdded = this.tracks[this.numTracks - 1].title;
+  }
+  next();
 });
 
 /**
