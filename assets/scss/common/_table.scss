@@ -68,7 +68,7 @@
 
 td.basic-table-row-title{
 	position: relative;
-	width: 80%;
+	width: 75%;
 	text-align: left;
 	padding-left: 1em;
 
@@ -77,18 +77,14 @@ td.basic-table-row-title{
 	}
 
 	h5{
+    position: relative;
 	  max-width: 75%;
-	  padding-right: 0.25em;
 	  display: inline;
 	  cursor: pointer;
 
 	  &:hover{
 	    text-decoration: underline;
 	  }
-	}
-
-	.playback-page & h5{
-		max-width: 100%;
 	}
 }
 
@@ -109,4 +105,14 @@ td.basic-table-row-title{
   100% {
     background: $off-black;
   }
+}
+
+.table-row-duration{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1em;
+  margin: auto;
 }

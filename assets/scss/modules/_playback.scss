@@ -149,10 +149,6 @@
 	}
 }
 
-.playlist-time{
-	display: inline-block;
-}
-
 .playlist-controls{
 	display: inline;
 	width: 10px;
@@ -193,6 +189,7 @@
 
 	.playlist-loading & {
 		overflow: hidden;
+
 		&:before {
 			content: '';
 			position: absolute;
@@ -240,8 +237,8 @@
 			opacity: 0.5;
 		}
 
-		.playback-track-title{
-			opacity: 0.5;
+		.playback-track-title, .table-row-duration{
+			color: $grey;
 
 			a:hover{
 				text-decoration: none;
@@ -253,7 +250,7 @@
 				opacity: 1;
 			}
 
-			.track-search-result-duration{
+			.table-row-duration{
 				color: white;
 			}
 		}
@@ -269,7 +266,7 @@
 				opacity: 1;
 			}
 
-			.track-search-result-duration{
+			.table-row-duration{
 				color: white;
 			}
 		}
@@ -282,6 +279,44 @@
 	&:not(.played) .playback-track-title:hover a{
 		text-decoration: underline;
 	}
+}
+
+td.playback-track-title{
+	width: 100%;
+
+	h5{
+		display: inline-block;
+		max-width: 100%;
+		padding-right: $basic-table-row-height;
+	}
+}
+
+.track-progress{
+	position: absolute;
+	height: $basic-table-row-height;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+
+	.current &{
+		background: $light-green;
+	}
+}
+
+.current-progress{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+
+	.current &{
+		background: $green;
+	}
+}
+
+.track-search-result-duration-and-actions{
+	position: absolute;
+	right: 0;
+	height: $basic-table-row-height;
 }
 
 .delete-track-container, .readd-track-container{

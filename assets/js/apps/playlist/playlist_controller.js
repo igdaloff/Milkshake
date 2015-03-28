@@ -72,6 +72,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $(playlistManager).on('track:playing track:ended', this.detectTitleWidth);
       // Bind time updates to the time and progress bar
       $(playlistManager).on('track:timeupdate', this.updateCurrentTime);
+      // Ensure progress bar is 100% width when a track ends
+      $(playlistManager).on('track:ended', this.fillProgressBar);
       // Listen to playlist ending and run necessary tasks
       $(playlistManager).on('playlist:ended', this.playlistFinished);
     },
@@ -242,6 +244,18 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
       var currentTrackTime = playlistManager.getCurrentTrackData().pop.currentTime();
       playlistModel.tracks.at(currentTrackIndex).set('currentTime', currentTrackTime);
+    },
+    /*
+     * Fill progress bar
+     * When a track ends ensure that its progress bar is full, update time isn't reliable for this
+     */
+    fillProgressBar: function(event) {
+
+      var trackIndex = event.target.getCurrentTrackIndex();
+      var $currentProgressBar = $('.current-progress').eq(trackIndex);
+      $currentProgressBar.css({
+        width: '100%'
+      });
     },
     /*
      * roomFull
