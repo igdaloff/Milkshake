@@ -51,7 +51,6 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     var messageCollection = TWM.request('newMessageCollection:entities', messages);
 
     messageCollection.listenTo(messageCollection, 'add', function(newMessage) {
-      console.log(newMessage.get('type') === 'chat');
       if(newMessage.get('type') === 'chat') {
         $('.new-playlist-onboarding').hide();
         messageCollection.stopListening(messageCollection, 'add');
