@@ -31,6 +31,7 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
   Entities.Track = Backbone.Model.extend({
     defaults: {
+      currentTime: 0,
       isPlaying: false,
       hasPlayed: false,
       previewProgress: 0
@@ -109,8 +110,9 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
             model.set('isPlaying', false);
           }
           if(i < playingTrackIndex) {
-
+            
             model.set('hasPlayed', true);
+            model.set('currentTime', model.get('duration'));
           }
         }
       }

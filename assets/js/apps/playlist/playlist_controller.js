@@ -229,15 +229,19 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     updateCurrentTime: function() {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
-      var currentTime = playlistManager.getCurrentTotalTime();
+      var currentTotalTime = playlistManager.getCurrentTotalTime();
       // Cancel if the currentTime is 0 or not a number
-      if(playlistManager.finished || typeof currentTime !== 'number' || currentTime === 0) {
+      if(playlistManager.finished || typeof currentTotalTime !== 'number' || currentTotalTime === 0) {
 
         return false;
       }
-      // Update the time in the header
+      // Update the current time on the playlist model
       var playlistModel = TWM.request('playlist:activePlaylistModel');
-      playlistModel.set('currentTime', currentTime);
+      playlistModel.set('currentTime', currentTotalTime);
+      // And on the current track model
+      var currentTrackIndex = playlistManager.getCurrentTrackIndex();
+      var currentTrackTime = playlistManager.getCurrentTrackData().pop.currentTime();
+      playlistModel.tracks.at(currentTrackIndex).set('currentTime', currentTrackTime);
     },
     /*
      * roomFull
