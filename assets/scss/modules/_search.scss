@@ -136,8 +136,7 @@
 
     &:hover{
       @include icomoon('plus');
-      color: $green;
-      background: $black;
+      background: $green;
     }
   }
 }
