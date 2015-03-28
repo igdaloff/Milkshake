@@ -30,9 +30,9 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
           this.set('numTracks', this.tracks.length);
         });
       }
-      
+
       this.listenTo(this, 'change', this.setTimeUpdated);
-      this.listenTo(this, 'change', this.save);
+      this.listenTo(this, 'change', _.debounce(this.save, 250));
     },
     setTimeUpdated: function() {
 
@@ -62,12 +62,12 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         var playlistDataToSave = _.clone(this.attributes);
         playlistDataToSave.id = this.id;
         // Check whether the playlist already exists, if so update it
-        for(var playlistIndex in recentPlaylists) {
+        for(var i = 0; i < recentPlaylists.length; i++) {
 
-          var playlist = recentPlaylists[playlistIndex];
+          var playlist = recentPlaylists[i];
           if(playlist.id === playlistDataToSave.id) {
 
-            recentPlaylists[playlistIndex] = playlistDataToSave;
+            recentPlaylists[i] = playlistDataToSave;
             playlistUpdated = true;
           }
         }
