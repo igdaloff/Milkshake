@@ -5,44 +5,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     tagName: 'tr',
     className: 'track-search-result basic-table-row',
     events: {
-      'click .toggle-track-preview': 'toggleTrackPreview',
       'click .track-search-result-add ': 'addTrack'
-    },
-    modelEvents: {
-      'change:isPlaying': 'togglePreviewButtonState',
-      'change:previewProgress': 'updatePreviewProgress'
-    },
-    toggleTrackPreview: function(e){
-
-      e.preventDefault();
-      var $button = $(e.currentTarget);
-      // Add the loading class to show some kind of loading indicator and remove other loading classes
-      $('.loading').removeClass('loading');
-      $button.addClass('loading');
-      // If the preview is already playing, stop it
-      if(this.model.get('isPlaying')) {
-
-        TrackSearch.Controller.stopTrackPreview(this.model);
-      }
-      // Otherwise start a preview
-      else {
-
-        TrackSearch.Controller.previewTrack(this.model);
-      }
-    },
-    togglePreviewButtonState: function() {
-
-      var $button = this.$('.toggle-track-preview');
-      // Regardless of new state, remove the loading class
-      $button.removeClass('loading');
-      if(this.model.get('isPlaying')) {
-
-        $button.addClass('playing');
-      }
-      else {
-
-        $button.removeClass('playing');
-      }
     },
     indicateAddedTrack: function(e){
       var $searchResultRow = $(e.target).parents('.track-search-result');
@@ -86,41 +49,6 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
         }).disableSelection();
       }
     },
-    /**
-     * Update preview progress
-     * Based on the percentage progress of the preview, calculate how much we should rotate
-     * the two pie halves by, based on 180 degrees each
-     */
-    updatePreviewProgress: function(e) {
-
-      var progress = this.model.get('previewProgress');
-      var firstHalf = 0, secondHalf = 0;
-      var $firstHalf = this.$('.pie.right');
-      var $secondHalf = this.$('.pie.left');
-      if(progress >= 50) {
-
-        firstHalf = 180;
-        secondHalf = (progress - 50) / 50 * 180;
-      }
-      else {
-
-        firstHalf = progress / 50 * 180;
-        secondHalf = 0;
-      }
-      var firstHalfTransform = 'rotate(' + Math.floor(firstHalf) + 'deg)';
-      var secondHalfTransform = 'rotate(' + Math.floor(secondHalf) + 'deg)';
-
-      $firstHalf.css({
-        '-webkit-transform': firstHalfTransform,
-        '-ms-transform': firstHalfTransform,
-        'transform': firstHalfTransform
-      });
-      $secondHalf.css({
-        '-webkit-transform': secondHalfTransform,
-        '-ms-transform': secondHalfTransform,
-        'transform': secondHalfTransform
-      });
-    }
   });
 
   TrackSearch.SearchForm = Marionette.CompositeView.extend({
