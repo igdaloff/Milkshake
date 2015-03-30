@@ -132,11 +132,11 @@
 
   &.added-track .track-search-result-add{
     @include icomoon('checkmark');
-    cursor: default;
     background: none;
 
     &:hover{
-      color: $green;
+      @include icomoon('plus');
+      background: $green;
     }
   }
 }
@@ -145,7 +145,7 @@
   text-decoration: none;
 }
 
-.track-search-result-duration-and-actions{
+.table-row-duration-and-actions{
   position: relative;
   font-family: $sans-special;
   text-align: center;

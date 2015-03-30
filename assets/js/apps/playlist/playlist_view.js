@@ -10,7 +10,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     modelEvents: {
       'change:isPlaying': 'toggleIsPlayingClass',
-      'change:hasPlayed': 'togglehasPlayedClass'
+      'change:hasPlayed': 'togglehasPlayedClass',
+      'change:currentTime': 'updateProgressBarAndTime'
     },
     onRender: function() {
 
@@ -41,6 +42,20 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         this.$el.removeClass(className);
       }
+    },
+    updateProgressBarAndTime: function() {
+
+      var $currentProgressBar = this.$('.current-progress');
+      var currentTrackTime = this.model.get('currentTime')
+      var progress = currentTrackTime / this.model.get('duration') * 100;
+      var $currentTrackTime = this.$('.playback-track-current-time');
+
+      progress = progress.toFixed(3);
+      $currentProgressBar.css({
+        width: progress + '%'
+      });
+
+      $currentTrackTime.html(TWM.Lib.secondsToMinutes(currentTrackTime));
     },
     deleteTrack: function() {
 
