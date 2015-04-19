@@ -10,7 +10,6 @@ TWM.module("Playlist.Create", function(Create, TWM, Backbone, Marionette, $, _){
       var playlistForm = this;
 
       $('.playlist-create').addClass('new-playlist-loading');
-      $('.create-playlist-btn').val('Loading...');
 
       setTimeout( function () {
         playlistForm.submit();
