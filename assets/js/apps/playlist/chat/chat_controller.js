@@ -1,7 +1,7 @@
 TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
 
   var isTyping = false;
-  var notifierInterval;
+  var notifierInterval = false;
   var docTitle = document.title;
   Chat.Controller = {
     displayNewMessage: function(messageData) {
@@ -100,8 +100,14 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     stopNotifier: function() {
 
       // Reset the title and kill the interval
-      document.title = docTitle;
-      window.clearInterval(notifierInterval);
+      if(notifierInterval !== false) {
+       
+        var playlistTitle = TWM.request('playlist:activePlaylistModel').get('title');
+        docTitle = playlistTitle + ' - Milkshake';
+        document.title = docTitle;
+        window.clearInterval(notifierInterval);
+        notifierInterval = false;
+      }
     },
     remoteUserDisconnected: function(numUsersInRoom) {
 
