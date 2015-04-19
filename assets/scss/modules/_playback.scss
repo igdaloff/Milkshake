@@ -43,6 +43,25 @@
 		}
 	}
 
+	h2{
+		display: block;
+		margin-bottom: 0.75em;
+		font-size: 1em;
+		color: $black;
+	}
+
+	p{
+		font-size: 0.8em;
+	}
+
+	.playlist-waiting &{
+		display: block;
+	}
+}
+
+.playback-logo-waiting{
+	display: none;
+
 	.playlist-waiting &{
 		display: block;
 	}
@@ -90,7 +109,7 @@
 .playback-logo-static{
 	display: none;
 
-	.playback-page:not(.playlist-playing) &{
+	.playback-page:not(.playlist-playing):not(.playlist-waiting) &{
 		display: block;
 	}
 }
