@@ -535,7 +535,7 @@ TWM.module('Components', function(Components, TWM, Backbone, Marionette, $, _){
     PlaylistManager.prototype.startErrorTimer = function() {
 
       var errorTimer;
-      var _this;
+      var _this = this;
       function triggerError() {
 
         if(!_this.finished) {
