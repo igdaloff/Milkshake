@@ -181,6 +181,106 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       {
         name: "Miles Davis",
         image: "miles-davis.jpg"
+      },
+      {
+        name: "Katy Perry",
+        image: "katy-perry.jpg"
+      },
+      {
+        name: "Rhianna",
+        image: "rhianna.jpg"
+      },
+      {
+        name: "Missy Elliott",
+        image: "missy-elliott.jpg"
+      },
+      {
+        name: "Jay Z",
+        image: "jay-z.jpg"
+      },
+      {
+        name: "Beyonce",
+        image: "beyonce-knowles.jpg"
+      },
+      {
+        name: "Gwen Stefani",
+        image: "gwen-stefani.jpg"
+      },
+      {
+        name: "George Clinton",
+        image: "george-clinton.jpg"
+      },
+      {
+        name: "Buddy Holly",
+        image: "buddy-holly.jpg"
+      },
+      {
+        name: "Kurt Cobain",
+        image: "kurt-cobain.jpg"
+      },
+      {
+        name: "Elton John",
+        image: "elton-john.jpg"
+      },
+      {
+        name: "Stevie Wonder",
+        image: "stevie-wonder.jpg"
+      },
+      {
+        name: "Adam Levine",
+        image: "adam-levine.jpg"
+      },
+      {
+        name: "Sam Smith",
+        image: "sam-smith.jpg"
+      },
+      {
+        name: "Kelly Clarkson",
+        image: "kelly-clarkson.jpg"
+      },
+      {
+        name: "Usher",
+        image: "usher.jpg"
+      },
+      {
+        name: "Drake",
+        image: "drake.jpg"
+      },
+      {
+        name: "Dr. Dre",
+        image: "dr-dre.jpg"
+      },
+      {
+        name: "Blake Shelton",
+        image: "blake-shelton.jpg"
+      },
+      {
+        name: "Aretha Franklin",
+        image: "aretha-franklin.jpg"
+      },
+      {
+        name: "Jimi Hendrix",
+        image: "jimi-hendrix.jpg"
+      },
+      {
+        name: "Nick Jonas",
+        image: "nick-jonas.jpg"
+      },
+      {
+        name: "Snoop Dogg",
+        image: "snoop-dogg.jpg"
+      },
+      {
+        name: "Bob Marley",
+        image: "bob-marley.jpg"
+      },
+      {
+        name: "Joey Ramone",
+        image: "joey-ramone.jpg"
+      },
+      {
+        name: "Kanye West",
+        image: "kanye-west.jpg"
       }
       ];
 
