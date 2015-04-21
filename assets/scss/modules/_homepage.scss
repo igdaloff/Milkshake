@@ -87,10 +87,17 @@
 
 		&:hover td:first-child{
 			text-decoration: underline;
+			@include icomoon(double-right-arrow, after);
+
+			&:after{
+				position: absolute;
+				padding-left: 0.5em;
+			}
 		}
 	}
 
 	th, td{
+		position: relative;
 		max-width: 300px;
 		padding: 1em;
 		white-space: nowrap;
