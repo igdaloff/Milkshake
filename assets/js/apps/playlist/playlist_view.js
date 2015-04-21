@@ -46,7 +46,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     updateProgressBarAndTime: function() {
 
       var $currentProgressBar = this.$('.current-progress');
-      var currentTrackTime = this.model.get('currentTime')
+      var currentTrackTime = this.model.get('currentTime');
       var progress = currentTrackTime / this.model.get('duration') * 100;
       var $currentTrackTime = this.$('.playback-track-current-time');
 

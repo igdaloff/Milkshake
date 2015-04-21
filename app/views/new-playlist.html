@@ -3,23 +3,25 @@
 {% block content %}
 
 <div class="playlist-create-inner">
-  <div class="wrapper intro-text-container">
+  <div class="intro-text-container">
     <a href="/" class="logo">
       <img src="/img/main-logo.svg" class="static-logo" alt="Milkshake logo" />
       <img src="/img/loading-fast.gif" class="animated-logo" alt="Milkshake logo" />
     </a>
     <div class="intro-text">
-      <h1>Listen to and make playlists with a friend in real-time. No sign up required.</h1>
+      <h1>Listen to playlists with a friend in real-time. No sign up required.</h1>
     </div>
     <form id="playlist-url-form" action="/process-new-playlist/" method="post">
       <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
-      <input type="submit" class="btn btn-black create-playlist-btn" value="Create a Playlist" />
+      <input type="submit" class="create-playlist-btn" value="Create a Playlist" />
     </form>
   </div>
 </div>
 
-<div class="previous-playlists wrapper"></div>
-
+<div class="previous-playlists-container">
+  <h2>Your Playlists</h2>
+  <div class="previous-playlists"></div>
+</div>
 {% endblock %}
 
 {% block scripts %}
