@@ -15,7 +15,6 @@
 	padding: 10px 0;
 	text-align: center;
 	font-family: $sans-special;
-	font-size: 14px;
 	color: $dark-grey;
 	overflow: hidden;
 	z-index: 10;
@@ -23,6 +22,10 @@
 	@include smaller-than(extra-large){
 		padding-left: 20px;
 		padding-right: 20px;
+	}
+
+	.left-aligned-homepage &{
+		padding: 1em 0 0 4em;
 	}
 
 	.playback-page &{
@@ -113,6 +116,7 @@
 
 	&:hover, &:hover input{
 		color: $black;
+		text-decoration: underline;
 	}
 
 	&:after{
