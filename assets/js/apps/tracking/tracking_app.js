@@ -2,28 +2,22 @@ TWM.module('Tracking', function(Tracking, TWM, Backbone, Marionette, $, _){
 
   Tracking.on('start', function() {
 
-    // New search
-    TWM.on('trackSearch:newSearch', function(query) {
-
-      ga('send', 'event', 'create', 'Search');
-    });
-
-    // Preview track
-    TWM.on('trackSearch:previewTrack', function(trackData) {
-
-      ga('send', 'event', 'create', 'Preview track');
-    });
-
-    // Add track
-    TWM.on('trackSearch:addTrack', function(trackData) {
-
-      ga('send', 'event', 'create', 'Add track to playlist');
-    });
-
     // Create playlist
     TWM.on('create:playlistCreate', function() {
 
       ga('send', 'event', 'create', 'Create playlist');
+    });
+
+    // New search
+    TWM.on('playlist:newSearch', function(query) {
+
+      ga('send', 'event', 'playback', 'Search');
+    });
+
+    // Add track
+    TWM.on('playlist:addTrack', function(trackData) {
+
+      ga('send', 'event', 'playback', 'Add track to playlist');
     });
 
     // Playlist started
@@ -32,17 +26,28 @@ TWM.module('Tracking', function(Tracking, TWM, Backbone, Marionette, $, _){
       ga('send', 'event', 'playback', 'Start playlist');
     });
 
-    // Playlist ended
-    TWM.on('playlist:playlistEnd', function() {
+    // Delete track
+    TWM.on('playlist:deleteTrack', function() {
 
-      ga('send', 'event', 'playback', 'End playlist');
+      ga('send', 'event', 'playback', 'Delete track');
     });
 
-    // Make new playlist CTA
-    TWM.on('playlist:createAnotherPlaylist', function() {
+    // Reorder track
+    TWM.on('playlist:reorderTrack', function() {
 
-      ga('send', 'event', 'playback', 'Create after playlist');
+      ga('send', 'event', 'playback', 'Reorder track');
     });
 
+    // Re-add a track
+    TWM.on('playlist:readdTrack', function() {
+
+      ga('send', 'event', 'playback', 'Readd track');
+    });
+
+    // Click a previous playlist link
+    TWM.on('playlist:enterPreviousPlaylist', function() {
+
+      ga('send', 'event', 'create', 'Click previous playlist');
+    });
   });
 });
