@@ -164,14 +164,10 @@
 }
 
 .playlist-controls{
-	display: none;
+	display: inline;
 	width: 10px;
 	margin-left: 10px;
 	vertical-align: middle;
-
-	.playlist-playing &{
-		display: inline;
-	}
 }
 
 .mute-toggle{
