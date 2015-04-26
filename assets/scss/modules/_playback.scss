@@ -19,43 +19,42 @@
 // New playlist onboarding
 .new-playlist-onboarding{
 	display: none;
-	padding: 2em 6em;
+	padding: 8em;
 	text-align: center;
-	font-size: 1.3em;
-	line-height: 1.2;
 	color: $dark-grey;
 	font-family: $sans-special;
 
-	input{
-		display: block;
-		margin: 1em auto;
-		padding: 0.5em 1em;
-		font-size: 1em;
-		text-align: center;
-		border: 0;
-		font-family: $sans-special;
-		background: none;
-		border: 1px solid;
-		color: $black;
-
-		&:focus{
-			outline: 0;
-		}
+	.playlist-waiting &{
+		display: table-cell;
+		vertical-align: middle
 	}
 
 	h2{
 		display: block;
 		margin-bottom: 0.75em;
-		font-size: 1em;
+		font-size: 2em;
 		color: $black;
 	}
 
 	p{
-		font-size: 0.8em;
+		font-size: 1.4em;
+		line-height: 1.2;
 	}
+}
 
-	.playlist-waiting &{
-		display: block;
+.playlist-share-url{
+	display: block;
+	margin: 1em auto;
+	padding: 0.5em 1em;
+	font-size: 2em;
+	text-align: center;
+	border: 0;
+	font-family: $sans-special;
+	border: 1px solid;
+	color: $black;
+
+	&:focus{
+		outline: 0;
 	}
 }
 

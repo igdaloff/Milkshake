@@ -18,6 +18,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       if(numUsersInRoom === 1 && typeof(playlistModel.get('startTime')) === 'undefined') {
 
         $('body').addClass('playlist-waiting');
+        $('.playlist-share-url').select();
       }
     },
     userJoinedRoom: function(numUsersInRoom) {
