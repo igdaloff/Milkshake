@@ -9,7 +9,7 @@
       <img src="/img/loading-fast.gif" class="animated-logo" alt="Milkshake logo" />
     </a>
     <div class="intro-text">
-      <h1>Make playlists and listen with a friend in real-time. No sign up.</h1>
+      <h1>Make playlists and listen with a friend in real-time. <span>No sign up.</span></h1>
     </div>
     <form id="playlist-url-form" action="/process-new-playlist/" method="post">
       <input type="hidden" name="newPlaylistId" value="{{ newPlaylistId }}" />
@@ -18,7 +18,10 @@
   </div>
 </div>
 
-<div class="previous-playlists wrapper"></div>
+<div class="previous-playlists-container wrapper">
+  <h2>Your Playlists</h2>
+  <div class="previous-playlists"></div>
+</div>
 
 {% endblock %}
 
