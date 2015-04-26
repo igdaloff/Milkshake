@@ -51,17 +51,18 @@
 
 	table{
 		table-layout: auto;
-		border-right: 1px solid $border-grey;
-		border-left: 1px solid $border-grey;
 	}
 
-	tr{
-		&:hover td:first-child{
-			text-decoration: underline;
-		}
-	}
-
-	th, td{
+	th, a{
 		padding: 1em;
+	}
+
+	.basic-table-row:hover{
+		cursor: pointer;
+		background: $green;
+	}
+
+	a{
+		display: block;
 	}
 }

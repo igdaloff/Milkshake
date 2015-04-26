@@ -13,7 +13,7 @@
   <div class="track-progress">
     <div class="current-progress"></div>
   </div>
-  <h5 class="playback-track-title"><a href="<%- url %>" target="_blank"><%- title %></a></h5>
+  <h5 class="playback-track-title"><%- title %> <a class="track-search-result-source" href="<%- url %>"><% if(source === 'soundcloud'){ %>(Soundcloud)<% } else { %>(Youtube)<% } %></a></h5>
 </td>
 <td class="table-row-duration-and-actions">
   <div class="table-row-duration">

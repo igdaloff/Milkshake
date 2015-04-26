@@ -129,11 +129,6 @@
 	margin: 10px 0;
 	text-align: center;
 	color: $black;
-	cursor: pointer;
-
-	&:focus{
-		outline: 0;
-	}
 }
 
 .playlist-title-static{
@@ -258,10 +253,6 @@
 
 		.playback-track-title, .table-row-duration{
 			color: $grey;
-
-			a:hover{
-				text-decoration: none;
-			}
 		}
 
 		&:hover{
@@ -293,10 +284,6 @@
 		.delete-track-container:focus{
 			opacity: 1;
 		}
-	}
-
-	&:not(.played) .playback-track-title:hover a{
-		text-decoration: underline;
 	}
 }
 

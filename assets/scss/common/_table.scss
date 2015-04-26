@@ -16,6 +16,10 @@
   border-bottom: 1px solid $border-grey;
   color: $black;
 
+  thead &{
+    border: 0;
+  }
+
   td, th{
     width: 50px;
     vertical-align: middle;
@@ -26,7 +30,6 @@
   th{
     padding: 0.5em 0;
     background: $light-grey;
-    border-top: 1px solid $border-grey;
     color: $dark-grey;
   }
 
@@ -80,12 +83,11 @@ td.basic-table-row-title{
     position: relative;
 	  max-width: 75%;
 	  display: inline;
-	  cursor: pointer;
-
-	  &:hover{
-	    text-decoration: underline;
-	  }
 	}
+
+  a:hover{
+    text-decoration: underline;
+  }
 }
 
 // Indicator that track has been added

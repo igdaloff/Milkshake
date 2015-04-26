@@ -4,7 +4,7 @@
   </a>
 </td>
 <td class="track-search-result-title basic-table-row-title">
-	<h5 title="<%= title %>"><%= title %></h5><a class="track-search-result-source" href=""><% if(source === 'soundcloud'){ %>(Soundcloud)<% } else { %>(Youtube)<% } %></a>
+	<h5 title="<%= title %>"><%= title %></h5><a class="track-search-result-source" target="_blank" href="<%- url %>" target="_blank"><% if(source === 'soundcloud'){ %>(Soundcloud)<% } else { %>(Youtube)<% } %></a>
 </td>
 <td class="table-row-duration-and-actions">
   <span class="table-row-duration track-search-result-duration"><%= minutes %></span>
