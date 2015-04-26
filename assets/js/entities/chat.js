@@ -281,6 +281,46 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
       {
         name: "Kanye West",
         image: "kanye-west.jpg"
+      },
+      {
+        name: "Dizzee Rascal",
+        image: "dizzee-rascal.jpg"
+      },
+      {
+        name: "Annie Lennox",
+        image: "annie-lennox.jpg"
+      },
+      {
+        name: "BB King",
+        image: "bb-king.jpg"
+      },
+      {
+        name: "Burial",
+        image: "burial.jpg"
+      },
+      {
+        name: "Damon Albarn",
+        image: "damon-albarn.jpg"
+      },
+      {
+        name: "Four Tet",
+        image: "four-tet.jpg"
+      },
+      {
+        name: "Jack Black",
+        image: "jack-black.jpg"
+      },
+      {
+        name: "Jack White",
+        image: "jack-white.jpg"
+      },
+      {
+        name: "Sting",
+        image: "sting.jpg"
+      },
+      {
+        name: "Tricky",
+        image: "tricky.jpg"
       }
       ];
 
