@@ -53,7 +53,7 @@
 
 	.left-aligned-homepage &{
 		h1{
-			max-width: 500px;
+			max-width: 650px;
 		}
 
 		.create-playlist-btn{
@@ -113,6 +113,8 @@
 
 	table{
 		table-layout: auto;
+		width: 100%;
+		text-align: left;
 	}
 
 	th, a{

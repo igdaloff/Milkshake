@@ -22,8 +22,8 @@ TWM.module('Homepage', function(Homepage, TWM, Backbone, Marionette, $, _){
   });
 
   Homepage.RecentPlaylists = Marionette.CompositeView.extend({
-    tagName: 'table',
-    className: 'basic-table',
+    tagName: 'div',
+    className: 'previous-playlists',
     template: 'recent-playlist-table',
     childViewContainer: 'tbody',
     childView: Homepage.RecentPlaylist

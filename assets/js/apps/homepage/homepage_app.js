@@ -32,7 +32,7 @@ TWM.module('Homepage', function(Homepage, TWM, Backbone, Marionette, $, _){
     if(playlistCollection.length) {
 
       var recentPlaylistsRegion = new Marionette.Region({
-        el: '.previous-playlists'
+        el: '.previous-playlists-container'
       });
 
       var recentPlaylistsView = new Homepage.RecentPlaylists({
