@@ -54,7 +54,8 @@
 <script>
 var bootstrap = {
   playlist: {{ playlist|json|raw }},
-  messages: [{{ conversation.messages|raw }}]
+  messages: [{{ conversation.messages|raw }}],
+  baseUrl: '{{ baseUrl }}'
 };
 </script>
 {% endblock %}
