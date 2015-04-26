@@ -131,6 +131,8 @@
 }
 
 .playlist-title-static{
+	cursor: pointer;
+
 	.editable &{
 		display: none;
 	}
@@ -163,10 +165,14 @@
 }
 
 .playlist-controls{
-	display: inline;
+	display: none;
 	width: 10px;
 	margin-left: 10px;
 	vertical-align: middle;
+
+	.playlist-playing &{
+		display: inline;
+	}
 }
 
 .mute-toggle{
