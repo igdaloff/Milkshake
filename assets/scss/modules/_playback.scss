@@ -108,7 +108,7 @@
 .playback-logo-static{
 	display: none;
 
-	.playback-page:not(.playlist-playing):not(.playlist-waiting) &{
+	.playback-page:not(.playlist-playing) &{
 		display: block;
 	}
 }
