@@ -25,9 +25,12 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         this.listenTo(this.tracks, 'add remove', function() {
 
           this.set('totalDuration', this.tracks.getTotalDuration());
-          // Save the name of the last track added, we need this for the homepage recent playlist table
-          this.set('lastTrackAdded', this.tracks.at(this.tracks.length - 1).get('title'));
           this.set('numTracks', this.tracks.length);
+          // Save the name of the last track added, we need this for the homepage recent playlist table
+          if(this.tracks.length) {
+            
+            this.set('lastTrackAdded', this.tracks.at(this.tracks.length - 1).get('title'));
+          }
         });
       }
 
