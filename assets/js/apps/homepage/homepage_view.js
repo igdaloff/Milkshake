@@ -4,6 +4,9 @@ TWM.module('Homepage', function(Homepage, TWM, Backbone, Marionette, $, _){
     tagName: 'tr',
     className: 'basic-table-row',
     template: 'recent-playlist-row',
+    events: {
+      'click a': 'sendGAEvent'
+    },
     onBeforeRender: function() {
 
       // Set a default value for last track added in case there are no tracks
@@ -18,6 +21,10 @@ TWM.module('Homepage', function(Homepage, TWM, Backbone, Marionette, $, _){
         var dateString = d.toDateString();
         this.model.set('updatedDateString', dateString);
       }
+    },
+    sendGAEvent: function() {
+
+      TWM.trigger('playlist:clickPreviousPlaylistLink');
     }
   });
 

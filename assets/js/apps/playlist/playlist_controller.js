@@ -233,6 +233,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         // Account for any latency and get a fresh start time
         if(startTime === 0) {
           playlistManager.startPlaylist();
+          // GA event
           TWM.trigger('playlist:playlistStart');
         }
         // If there's time left in the current playlist, get going
@@ -297,6 +298,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       delete trackData._id;
       delete trackData.id;
       socket.emit('addTrack', trackData);
+      // GA event
+      TWM.trigger('playlist:addTrack');
     },
     addTrackToPlaylist: function(newTrackData) {
 
@@ -316,6 +319,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       var socket = TWM.request('playlist:activeSocket');
       socket.emit('removeTrack', trackId);
+      // GA event
+      TWM.trigger('playlist:deleteTrack');
     },
     deleteTrack: function(trackData) {
 
@@ -351,6 +356,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         trackId: trackId,
         newRank: newRank
       });
+      // GA event
+      TWM.trigger('playlist:reorderTrack');
     },
     reorderTracks: function(updatedTracks) {
 
@@ -378,6 +385,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       var playlistModel = TWM.request('playlist:activePlaylistModel');
       document.title = newTitle + ' - Milkshake';
       playlistModel.set('title', newTitle);
+    },
+    reAddTrack: function(modelAttributes) {
+
+      TWM.Playlist.Controller.sendTrackToPlaylist(modelAttributes);
+      // GA event
+      TWM.trigger('playlist:readdTrack');
     }
   };
 });

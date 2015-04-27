@@ -40,6 +40,12 @@ TWM.module('Homepage', function(Homepage, TWM, Backbone, Marionette, $, _){
       });
 
       recentPlaylistsRegion.show(recentPlaylistsView);
+
+      // GA tracking event
+      $('.create-playlist-btn').on('click', function() {
+
+        TWM.trigger('homepage:playlistCreate');
+      });
     }
   });
 });

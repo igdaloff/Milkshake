@@ -64,7 +64,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     reAddTrack: function(e){
 
       e.preventDefault();
-      TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
+      TWM.Playlist.Controller.reAddTrack(this.model.attributes);
     }
   });
 

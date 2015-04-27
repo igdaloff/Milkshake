@@ -3,13 +3,13 @@ TWM.module('Tracking', function(Tracking, TWM, Backbone, Marionette, $, _){
   Tracking.on('start', function() {
 
     // Create playlist
-    TWM.on('create:playlistCreate', function() {
+    TWM.on('homepage:playlistCreate', function() {
 
       ga('send', 'event', 'create', 'Create playlist');
     });
 
     // New search
-    TWM.on('playlist:newSearch', function(query) {
+    TWM.on('trackSearch:newSearch', function(query) {
 
       ga('send', 'event', 'playback', 'Search');
     });
@@ -45,7 +45,7 @@ TWM.module('Tracking', function(Tracking, TWM, Backbone, Marionette, $, _){
     });
 
     // Click a previous playlist link
-    TWM.on('playlist:enterPreviousPlaylist', function() {
+    TWM.on('playlist:clickPreviousPlaylistLink', function() {
 
       ga('send', 'event', 'create', 'Click previous playlist');
     });
