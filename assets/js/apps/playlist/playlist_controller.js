@@ -315,6 +315,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
         playlistManager.playTrack(playlistManager.tracks.length - 1, 0, true);
       }
+      // If this is the first track being added by the first user (pre-start) embed it
+      else if(playlistModel.tracks.length === 1) {
+
+        playlistManager.initTrackEmbed(0);
+      }
     },
     sendTrackDelete: function(trackId) {
 
