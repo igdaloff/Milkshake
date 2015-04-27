@@ -14,6 +14,20 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         messageCollection.add(messageData);
       }
     },
+    displayNewLogMessage: function(messageContent) {
+
+      // Log a message as long as the playlist has started or 2 users are connected
+      var playlistStarted = TWM.request('playlist:isPlaying');
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
+      if(playlistStarted || playlistModel.get('usersConnected') > 1) {
+
+        var messageCollection = TWM.request('chat:messageCollection');
+        messageCollection.add({
+          type: 'log',
+          content: messageContent
+        });
+      }
+    },
     sendNewMessage: function(content) {
 
       // Get the currently active socket object
@@ -151,36 +165,20 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
      */
     newTrackMessage: function(event) {
 
-      var messageCollection = TWM.request('chat:messageCollection');
       var trackData = event.target.getCurrentTrackData();
-      messageCollection.add({
-        type: 'log',
-        content: 'Now playing: \'' + trackData.title + '\''
-      });
+      Chat.Controller.displayNewLogMessage('Now playing: \'' + trackData.title + '\'');
     },
     newTrackAdded: function(newTrackData) {
       
-      var messageCollection = TWM.request('chat:messageCollection');
-      messageCollection.add({
-        type: 'log',
-        content: '\'' + newTrackData.title + '\' was added to the playlist'
-      });
+      Chat.Controller.displayNewLogMessage('\'' + newTrackData.title + '\' was added to the playlist');
     },
     trackDeleted: function(deletedTrackData) {
       
-      var messageCollection = TWM.request('chat:messageCollection');
-      messageCollection.add({
-        type: 'log',
-        content: '\'' + deletedTrackData.title + '\' was removed from the playlist'
-      });
+      Chat.Controller.displayNewLogMessage('\'' + deletedTrackData.title + '\' was removed from the playlist');
     },
     renamePlaylist: function(newTitle) {
       
-      var messageCollection = TWM.request('chat:messageCollection');
-      messageCollection.add({
-        type: 'log',
-        content: 'The room was renamed to \'' + newTitle + '\''
-      });
+      Chat.Controller.displayNewLogMessage('The room was renamed to \'' + newTitle + '\'');
     },
     playbackErrorMessage: function() {
 

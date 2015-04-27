@@ -234,13 +234,14 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         if(startTime === 0) {
           playlistManager.startPlaylist();
           // GA event
-          TWM.trigger('playlist:playlistStart');
+          TWM.trigger('playlist:start');
         }
         // If there's time left in the current playlist, get going
         else if(timeDiff < playlistManager.getPlaylistDuration()) {
 
           var updatedStartTime = playlistManager.getTrackFromTotalTime(timeDiff);
           playlistManager.playTrack(updatedStartTime.trackIndex, updatedStartTime.trackTime);
+          TWM.trigger('playlist:resume');
         }
         // Otherwise the playlist is over, mark the finished bool on the playlist manager
         else {

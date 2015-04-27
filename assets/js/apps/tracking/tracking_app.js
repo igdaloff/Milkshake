@@ -21,7 +21,7 @@ TWM.module('Tracking', function(Tracking, TWM, Backbone, Marionette, $, _){
     });
 
     // Playlist started
-    TWM.on('playlist:playlistStart', function() {
+    TWM.on('playlist:start', function() {
 
       ga('send', 'event', 'playback', 'Start playlist');
     });

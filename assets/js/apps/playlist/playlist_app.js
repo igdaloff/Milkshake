@@ -44,6 +44,23 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     }
   };
 
+  Playlist.on('before:start', function() {
+    
+    var playlistPlaying = false;
+
+    // Set playlistPlaying to true when the playlist starts or is resumed
+    TWM.on('playlist:start playlist:resume', function() {
+
+      playlistPlaying = true;
+    });
+
+    // Set a handler to return a bool of whether or not the playlist is playing
+    TWM.reqres.setHandler('playlist:isPlaying', function() {
+
+      return playlistPlaying;
+    });
+  });
+
   Playlist.on('start', function(){
 
     // Set up the playlist model using the bootstrapped data
