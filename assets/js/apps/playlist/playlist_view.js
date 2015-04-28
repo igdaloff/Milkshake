@@ -77,7 +77,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Allow tracks to be dragged and sorted
       $('.playback-track-list tbody').sortable({
         cancel: '.played, .current',
-        placeholder: 'track-reorder-gap'
+        placeholder: 'track-reorder-gap',
+        axis: 'y',
+        containment: 'parent'
       }).disableSelection();
     }
   });

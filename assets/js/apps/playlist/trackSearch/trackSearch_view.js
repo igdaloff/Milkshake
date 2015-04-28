@@ -48,7 +48,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
           }
         }).disableSelection();
       }
-    },
+    }
   });
 
   TrackSearch.SearchForm = Marionette.CompositeView.extend({

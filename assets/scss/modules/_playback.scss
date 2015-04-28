@@ -234,6 +234,10 @@
 	}
 }
 
+.playback-track-list{
+	table-layout: auto;
+}
+
 .playback-track{
 	position: relative;
 	background: white;
@@ -266,7 +270,7 @@
 		}
 	}
 
-	&:not(.current):not(.played){
+	&:not(.current):not(.played):not(.ui-sortable-helper){
 		cursor: -moz-grab;
 		cursor: -webkit-grab;
 		cursor: grab;
@@ -319,10 +323,19 @@ td.playback-track-title{
 	}
 }
 
-.table-row-duration-and-actions{
-	position: absolute;
+td.table-row-duration-and-actions{
+	position: relative;
 	right: 0;
 	height: $basic-table-row-height;
+	text-align: center;
+
+	.ui-sortable-helper &{
+		padding-right: 10px; //Hack to keep duration looking centered mid-drag
+	}
+}
+
+.ui-sortable-helper .delete-track-container{
+	display: none;
 }
 
 .playback-track-current-time{
@@ -334,6 +347,11 @@ td.playback-track-title{
 	.current &{
 		display: inline-block;
 	}
+}
+
+.playback-track-total-time{
+	display: inline-block;
+	width: 50px;
 }
 
 
@@ -377,10 +395,6 @@ td.playback-track-title{
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;
 	cursor: grabbing;
-
-	td.basic-table-row-title h5{
-		max-width: 65%;
-	}
 }
 
 .track-reorder-gap{
