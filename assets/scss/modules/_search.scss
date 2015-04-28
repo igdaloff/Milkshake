@@ -162,6 +162,10 @@
   color: $dark-grey;
   font-style: italic;
   font-size: 12px;
+
+  .played &{
+    color: $grey;
+  }
 }
 
 .track-search-actions{

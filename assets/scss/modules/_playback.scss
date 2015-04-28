@@ -261,7 +261,7 @@
 
 		&:hover{
 			.readd-track-container{
-				opacity: 1;
+				display: block;
 			}
 
 			.table-row-duration{
@@ -277,7 +277,7 @@
 
 		&:hover{
 			.delete-track-container{
-				opacity: 1;
+				display: block;
 			}
 
 			.table-row-duration{
@@ -286,7 +286,7 @@
 		}
 
 		.delete-track-container:focus{
-			opacity: 1;
+			display: block;
 		}
 	}
 }
@@ -356,7 +356,7 @@ td.table-row-duration-and-actions{
 
 
 .delete-track-container, .readd-track-container{
-	opacity: 0;
+	display: none;
 }
 
 .delete-track, .readd-track{
