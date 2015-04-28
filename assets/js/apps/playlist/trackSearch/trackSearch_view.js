@@ -138,15 +138,6 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // show the no results message
       $('.no-results-message').addClass('visible');
     },
-    autoSearch: _.throttle(function(e) {
-
-      var query = e.target.value.trim();
-      if(query.length && (typeof this.query === 'undefined' || this.query !== query)) {
-
-        this.$el.find('form').trigger('submit');
-        this.query = query;
-      }
-    }, 1000, {leading: false}),
     mutePlaylistForPreview: function() {
 
       var muted = TWM.Playlist.Controller.muteToggle();

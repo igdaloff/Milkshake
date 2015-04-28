@@ -14,8 +14,7 @@ TWM.module("Playlist.TrackSearch", function(TrackSearch, TWM, Backbone, Marionet
     var resultsCollection = TWM.request('trackSearch:entities');
 
     var searchForm = new TrackSearch.SearchForm({
-      collection: resultsCollection,
-      autoSearch: $('.playlist-create').length
+      collection: resultsCollection
     });
     searchFormContainer.show(searchForm);
 
@@ -40,6 +39,4 @@ TWM.module("Playlist.TrackSearch", function(TrackSearch, TWM, Backbone, Marionet
     $('.playlist-create-title-container').fadeOut();
     $('.track-search-container').delay(500).fadeIn();
   });
-
-
 });
