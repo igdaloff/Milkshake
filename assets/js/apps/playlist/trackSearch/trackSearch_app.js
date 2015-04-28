@@ -24,19 +24,4 @@ TWM.module("Playlist.TrackSearch", function(TrackSearch, TWM, Backbone, Marionet
       return resultsCollection;
     });
   });
-
-  //Show playlist create button once a user has entered a character into input field
-  var $playlistTitleInput = $('.new-playlist-title'),
-      $playlistCreateButton = $('.playlist-create-submit');
-
-  $playlistTitleInput.keyup( function(){
-    $playlistCreateButton.addClass('active');
-  });
-
-
-  //Show search field again if user selects track slot after already choosing 3
-  $('.change-track-button').on('click', function(){
-    $('.playlist-create-title-container').fadeOut();
-    $('.track-search-container').delay(500).fadeIn();
-  });
 });
