@@ -296,8 +296,17 @@ td.playback-track-title{
 
 	h5{
 		display: inline-block;
+		display: -webkit-box;
 		max-width: 100%;
 		padding-right: $basic-table-row-height;
+		height: 1em * 2; // Font size * lines to show
+		margin: 0 auto;
+		font-size: 1em;
+		line-height: 1;
+		-webkit-line-clamp: 2; // Lines to show
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 }
 
