@@ -254,8 +254,6 @@ exports.playlist = function(req, res){
       delete playlist.tracks[i]._id;
     }
 
-    console.log('final playlist tracks:', playlist.tracks);
-
     // Retreieve the conversation
     Conversation.findOne({
       playlistId: req.params.id
