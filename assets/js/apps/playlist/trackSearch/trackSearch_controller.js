@@ -10,12 +10,16 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
       // Abort existing search if there is one
       if(typeof currentSearch !== 'undefined' && currentSearch.abort === 'function') {
 
-        currentSearch.abort();
+        TrackSearch.Controller.cancelSearch();
       }
       currentSearch = resultsCollection.fetch({
         reset: true
       });
       TWM.trigger('trackSearch:newSearch', query);
+    },
+    cancelSearch: function() {
+
+      currentSearch.abort();
     }
   };
 });

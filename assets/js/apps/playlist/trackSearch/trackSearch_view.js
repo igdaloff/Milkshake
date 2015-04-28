@@ -155,10 +155,12 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     closeSearch: function(e) {
 
       e.preventDefault();
+      TrackSearch.Controller.cancelSearch();
       $('.track-search-results-container').removeClass('visible');
       $('.track-search-close').fadeOut('fast');
       $('.track-search-input').val('').focus();
       $('.no-results-message.visible').removeClass('visible');
+      this.$('.search-submit').removeClass('loading');
     },
     closeSearchEsc: function(e) {
 
