@@ -43,6 +43,8 @@
 
 .playlist-share-url{
 	display: block;
+	width: 66.666667%;
+	min-width: 500px;
 	margin: 1em auto;
 	padding: 0.5em 1em;
 	font-size: 2em;
@@ -299,8 +301,6 @@ td.playback-track-title{
 		display: -webkit-box;
 		max-width: 100%;
 		padding-right: $basic-table-row-height;
-		height: 1em * 2; // Font size * lines to show
-		margin: 0 auto;
 		font-size: 1em;
 		line-height: 1;
 		-webkit-line-clamp: 2; // Lines to show
@@ -333,7 +333,7 @@ td.playback-track-title{
 }
 
 td.table-row-duration-and-actions{
-	position: relative;
+	position: absolute;
 	right: 0;
 	height: $basic-table-row-height;
 	text-align: center;
@@ -342,8 +342,8 @@ td.table-row-duration-and-actions{
 		padding-right: 10px; //Hack to keep duration looking centered mid-drag
 	}
 
-	.current &{
-		position: absolute;
+	&:not(.current) &{
+		position: relative;
 	}
 }
 

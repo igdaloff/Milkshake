@@ -295,10 +295,6 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
         image: "bb-king.jpg"
       },
       {
-        name: "Burial",
-        image: "burial.jpg"
-      },
-      {
         name: "Damon Albarn",
         image: "damon-albarn.jpg"
       },
