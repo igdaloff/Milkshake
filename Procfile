@@ -1,1 +1,1 @@
-web: bundle install && bower install --allow-root && grunt prod --force && npm run-script start-staging
+web: bundle install && bower install --allow-root && grunt prod --force && npm run-script start-prod
