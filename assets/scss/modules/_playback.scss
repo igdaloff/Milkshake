@@ -332,6 +332,10 @@ td.table-row-duration-and-actions{
 	.ui-sortable-helper &{
 		padding-right: 10px; //Hack to keep duration looking centered mid-drag
 	}
+
+	.current &{
+		position: absolute;
+	}
 }
 
 .ui-sortable-helper .delete-track-container{
