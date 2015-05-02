@@ -6,39 +6,36 @@
 	text-align: center;
 
 	.main-content{
-		height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
-		height: 100%;
 		margin: 0 auto (-1 * $footer-height); /* the bottom margin is the negative value of the footer's height */
 
 		.no-previous-playlists &{
-			margin: 0;
 			display: table;
 		}
 	}
-}
 
-.left-aligned-homepage{
-	text-align: left;
-
-	.wrapper{
-		width: auto;
-	}
-
-	.intro-text{
-		padding: 2.5em 0;
-		line-height: 1.3;
-
-		span{
-			display: block;
-		}
-	}
-
-	.btn{
-		height: auto;
-	}
-
-	.main-footer{
+	&.left-aligned-homepage{
 		text-align: left;
+
+		.wrapper{
+			width: auto;
+		}
+
+		.intro-text{
+			padding: 2.5em 0;
+			line-height: 1.3;
+
+			span{
+				display: block;
+			}
+		}
+
+		.btn{
+			height: auto;
+		}
+
+		.main-footer{
+			text-align: left;
+		}
 	}
 }
 
