@@ -244,6 +244,10 @@
 	position: relative;
 	background: white;
 
+	&:hover .table-row-duration{
+		display: none;
+	}
+
 	&.current{
 		background: $green;
 	}
@@ -265,10 +269,6 @@
 			.readd-track-container{
 				display: block;
 			}
-
-			.table-row-duration{
-				color: white;
-			}
 		}
 	}
 
@@ -281,15 +281,16 @@
 			.delete-track-container{
 				display: block;
 			}
-
-			.table-row-duration{
-				color: white;
-			}
 		}
 
 		.delete-track-container:focus{
 			display: block;
 		}
+	}
+
+	&.current:hover .skip-track-container,
+	&.current .skip-track-container:focus{
+		display: block;
 	}
 }
 
@@ -367,20 +368,23 @@ td.table-row-duration-and-actions{
 	width: 50px;
 }
 
-
-.delete-track-container, .readd-track-container{
+.track-action-container{
 	display: none;
-}
 
-.delete-track, .readd-track{
-	position: absolute;
-	right: 10px;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	font-size: 16px;
-	line-height: 1.8;
-	z-index: 1;
+	.btn-circle{
+		position: absolute;
+		right: 10px;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		font-size: 16px;
+		line-height: 1.8;
+		z-index: 1;
+
+		&:focus{
+			outline: 0;
+		}
+	}
 
 	&:focus{
 		outline: 0;
@@ -393,6 +397,10 @@ td.table-row-duration-and-actions{
 
 .readd-track{
 	@include icomoon('refresh');
+}
+
+.skip-track{
+	@include icomoon('skip');
 }
 
 
