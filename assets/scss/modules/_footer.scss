@@ -6,13 +6,9 @@
 }
 
 .main-footer{
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	width: 100%;
 	height: $footer-height;
-	padding: 10px 0;
+	padding: 0;
 	text-align: center;
 	font-family: $sans-special;
 	color: $dark-grey;
@@ -25,7 +21,7 @@
 	}
 
 	.left-aligned-homepage &{
-		padding: 1em 0 0 4em;
+		padding: 1em 0 0;
 	}
 
 	.playback-page &{
