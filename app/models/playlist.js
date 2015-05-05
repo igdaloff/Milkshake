@@ -185,4 +185,49 @@ PlaylistSchema.method('reorderTracks', function(trackId, newRank, cb) {
   });
 });
 
+/**
+ * Truncate track at current time
+ *
+ * Calculate the current time of the current track and set that as the new duration for that track. This allows us to skip tracks.
+ * 
+ * @param {Function} cb The callback function to run after the new track duration has been set (updatedPlaylistModel, updatedTrackData)
+ */
+PlaylistSchema.method('truncateTrackAtCurrentTime', function(cb) {
+
+  var currentUnixTime = new Date().getTime();
+  var currentTime = (currentUnixTime - this.startTime) / 1000;
+  var timeCounter = 0;
+  var currentTrackIndex = 0;
+  var currentTrackTime;
+  var currentTrackOb;
+
+  // Loop over tracks and determine which track contains the requested start time
+  for(var i = 0; i < this.tracks.length; i++) {
+
+    var track = this.tracks[i];
+    timeCounter += track.duration;
+    if(currentTime < timeCounter) {
+
+      currentTrackTime = currentTime - (timeCounter - track.duration);
+      break;
+    }
+    else {
+      currentTrackIndex++;
+    }
+  }
+
+  // Update the relevant track with the new time
+  currentTrackOb = this.tracks[currentTrackIndex];
+  currentTrackOb.duration = currentTrackTime;
+  
+  this.save(function(err, updatedPlaylistModel) {
+
+    // Callback if there is one
+    if(typeof(cb) === 'function') {
+      
+      cb(updatedPlaylistModel, currentTrackOb);
+    }
+  });
+});
+
 module.exports = mongoose.model('Playlist', PlaylistSchema);

@@ -206,6 +206,15 @@ io.sockets.on('connection', function (socket) {
     });
   });
 
+  socket.on('skipTrack', function(trackId) {
+
+    truncateTrackAtCurrentTime(socket.roomId, trackId, function(updatedPlaylistModel, deletedTrackData) {
+
+      // Return the data of the deleted track
+      io.sockets.in(socket.roomId).emit('skipTrack', deletedTrackData);
+    });
+  });
+
   socket.on('reorderTracks', function(trackData) {
 
     reorderTracks(socket.roomId, trackData.trackId, trackData.newRank, function(updatedPlaylistModel) {
@@ -375,7 +384,7 @@ var addTrackToPlaylist = function(playlistId, trackData, cb) {
 
     if(err) {
 
-      console.log('Error adding track to ' + playlistId);
+      console.error('Error adding track to ' + playlistId);
       response = {
         status: 'error'
       };
@@ -396,7 +405,7 @@ var removeTrackFromPlaylist = function(playlistId, trackId, cb) {
 
     if(err) {
 
-      console.log('Error removing track from ' + playlistId);
+      console.error('Error removing track from ' + playlistId);
       return err;
     }
 
@@ -407,13 +416,30 @@ var removeTrackFromPlaylist = function(playlistId, trackId, cb) {
   });
 };
 
+var truncateTrackAtCurrentTime = function(playlistId, trackId, cb) {
+
+  Playlist.findById(playlistId, function(err, playlist) {
+
+    if(err) {
+
+      console.error('Error skipping track in ' + playlistId);
+      return err;
+    }
+
+    playlist.truncateTrackAtCurrentTime(function(updatedPlaylistModel, skippedTrackData) {
+
+      cb(updatedPlaylistModel, skippedTrackData);
+    });
+  });
+};
+
 var reorderTracks = function(playlistId, trackId, newRank, cb) {
 
   Playlist.findById(playlistId, function(err, playlist) {
 
     if(err) {
 
-      console.log('Error removeing track from ' + playlistId);
+      console.error('Error removeing track from ' + playlistId);
       response = {
         status: 'error'
       };
