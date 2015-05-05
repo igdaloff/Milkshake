@@ -75,6 +75,9 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Disable the button to avoid multiple clicks
       $(e.currentTarget).prop('disabled', true);
       TWM.Playlist.Controller.sendTrackSkip(this.model.id);
+
+      // Toggle the styles for the next track, even if it hasn't loaded
+      $(this.el).toggleClass('current played');
     }
   });
 
