@@ -410,9 +410,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     skipTrack: function(skippedTrackData) {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
+      var playlistModel = TWM.request('playlist:activePlaylistModel');
 
-      // Skip to the next track in the playlist. If there isn't one, the playlist will stop
-      playlistManager.next();
+      // Ensure that the skipped track and the currently playing track have the same ID, ie. it has not already finished/been skipped
+      var currentTrackIndex = playlistManager.getCurrentTrackIndex();
+      var currentTrackModel = playlistModel.tracks.at(currentTrackIndex);
+      if(currentTrackModel.id === skippedTrackData._id) {
+
+        // Skip to the next track in the playlist. If there isn't one, the playlist will stop
+        playlistManager.next();
+      }
     }
   };
 });
