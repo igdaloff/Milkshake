@@ -6,7 +6,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     className: 'playback-track basic-table-row',
     events: {
       'click .delete-track': 'deleteTrack',
-      'click .readd-track ': 'reAddTrack'
+      'click .readd-track ': 'reAddTrack',
+      'click .skip-track': 'skipTrack'
     },
     modelEvents: {
       'change:isPlaying': 'toggleIsPlayingClass',
@@ -65,6 +66,11 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       e.preventDefault();
       TWM.Playlist.Controller.reAddTrack(this.model.attributes);
+    },
+    skipTrack: function(e) {
+
+      e.preventDefault();
+      TWM.Playlist.Controller.sendTrackSkip(this.model.id);
     }
   });
 

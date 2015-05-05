@@ -328,6 +328,13 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // GA event
       TWM.trigger('playlist:deleteTrack');
     },
+    sendTrackSkip: function(trackId) {
+
+      var socket = TWM.request('playlist:activeSocket');
+      socket.emit('skipTrack', trackId);
+      // GA event
+      TWM.trigger('playlist:skipTrack');
+    },
     deleteTrack: function(trackData) {
 
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
