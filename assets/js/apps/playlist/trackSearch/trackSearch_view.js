@@ -20,16 +20,7 @@ TWM.module('Playlist.TrackSearch', function(TrackSearch, TWM, Backbone, Marionet
     addTrack: function(e){
 
       e.preventDefault();
-
-      // #Hack - use the existence of playlist-create el to determine whether this is new or existing playlist
-      if($('.playlist-create').length) {
-
-        TrackSearch.Controller.addTrack(this.model);
-      }
-      else {
-
-        TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
-      }
+      TWM.Playlist.Controller.sendTrackToPlaylist(this.model.attributes);
       this.indicateAddedTrack(e);
       this.makeNewTracksDraggable();
     },
