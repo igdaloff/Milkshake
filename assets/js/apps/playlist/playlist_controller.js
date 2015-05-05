@@ -401,22 +401,16 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     },
     reAddTrack: function(modelAttributes) {
 
+      // Reset the track's duration in case it was skipped and the duration was truncated
+      modelAttributes.duration = modelAttributes.originalDuration;
       TWM.Playlist.Controller.sendTrackToPlaylist(modelAttributes);
       // GA event
       TWM.trigger('playlist:readdTrack');
     },
     skipTrack: function(skippedTrackData) {
 
-      var playlistModel = TWM.request('playlist:activePlaylistModel');
       var playlistManager = TWM.request('playlist:activePlaylistMgr');
 
-      // Update the track model with the new track data
-      var skippedTrackModel = playlistModel.tracks.get(skippedTrackData._id);
-      if(typeof(skippedTrackModel) === 'undefined') {
-
-        return this;
-      }
-      skippedTrackModel.set(skippedTrackData);
       // Skip to the next track in the playlist. If there isn't one, the playlist will stop
       playlistManager.next();
     }

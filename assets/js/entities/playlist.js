@@ -113,6 +113,12 @@ TWM.module("Entities", function(Entities, TWM, Backbone, Marionette, $, _){
 
         this.set('playlistId', this.collection.id);
       }
+
+      // If there is a 'duration' but no 'originalDuration' attribute, set it from 'duration'
+      if(typeof(this.get('originalDuration')) === 'undefined' && typeof(this.get('duration')) !== 'undefined') {
+
+        this.set('originalDuration', this.get('duration'));
+      }
     },
     /*
     * Parse the response and add a human-readable 'minutes' value for the duration

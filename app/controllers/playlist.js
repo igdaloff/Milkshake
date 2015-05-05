@@ -376,7 +376,8 @@ var addTrackToPlaylist = function(playlistId, trackData, cb) {
     title: trackData.title,
     url: trackData.url,
     artwork: trackData.artwork,
-    duration: trackData.duration
+    duration: trackData.duration,
+    originalDuration: trackData.duration
   };
 
   // Save the track to the Playlist in the DB

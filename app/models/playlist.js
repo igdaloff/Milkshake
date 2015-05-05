@@ -33,6 +33,7 @@ var PlaylistSchema = new Schema({
     url: String,
     artwork: String,
     duration: Number,
+    originalDuration: Number,
     rank: Number,
   }],
   numTracks: {
