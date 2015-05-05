@@ -32,6 +32,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       socket.on('reorderedTracks', Playlist.Controller.reorderTracks);
       // The room was renamed
       socket.on('newPlaylistTitle', Playlist.Controller.renamePlaylist);
+      // A track was skipped
+      socket.on('skipTrack', Playlist.Controller.skipTrack);
 
       // Set a request handler so we can get the active socket in future
       TWM.reqres.setHandler("playlist:activeSocket", function() {
