@@ -218,7 +218,11 @@ PlaylistSchema.method('truncateTrackAtCurrentTime', function(cb) {
 
   // Update the relevant track with the new time
   currentTrackOb = this.tracks[currentTrackIndex];
-  currentTrackOb.duration = currentTrackTime;
+
+  if(typeof(currentTrackOb) !== 'undefined') {
+    
+    currentTrackOb.duration = currentTrackTime;
+  }
   
   this.save(function(err, updatedPlaylistModel) {
 
