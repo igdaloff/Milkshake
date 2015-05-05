@@ -58,8 +58,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
 
       $currentTrackTime.html(TWM.Lib.secondsToMinutes(currentTrackTime));
     },
-    deleteTrack: function() {
+    deleteTrack: function(e) {
 
+      // Disable the button to avoid multiple clicks
+      $(e.currentTarget).prop('disabled', true);
       Playlist.Controller.sendTrackDelete(this.model.id);
     },
     reAddTrack: function(e){
@@ -70,6 +72,8 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
     skipTrack: function(e) {
 
       e.preventDefault();
+      // Disable the button to avoid multiple clicks
+      $(e.currentTarget).prop('disabled', true);
       TWM.Playlist.Controller.sendTrackSkip(this.model.id);
     }
   });
