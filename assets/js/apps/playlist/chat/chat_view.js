@@ -58,6 +58,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       // Ordering of these is important
       this.parseNewLines();
       this.parseLinks();
+      this.scrollOnImageLoad();
     },
     parseLinks: function() {
 
@@ -87,6 +88,19 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         }
       }
       this.model.set('content', this.model.get('content') + imageHtml);
+    },
+    scrollOnImageLoad: function() {
+
+      // If the new message contains an image, trigger a loaded event once it's loaded so the parent view scrolls again
+      var $messageImage = this.$el.find('.chat-message-content img');
+      if($messageImage.length) {
+
+        var _this = this;
+        $messageImage.one('load', function() {
+
+          _this.trigger('imageLoaded');
+        });
+      }
     }
   });
 
@@ -138,11 +152,9 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     onBeforeAddChild: function(childView) {
 
       // If we're fully scrolled to within n px of the bottom (tolerance), jump to the bottom of the new message when it shows
-      var messageContainer = this.$('.messages-inner')[0];
-      var tolerance = 50;
-      if($(messageContainer).outerHeight() + messageContainer.scrollTop >= messageContainer.scrollHeight - tolerance) {
+      if(this.chatViewportIsFullyScrolled()) {
 
-        this.listenToOnce(childView, 'show', this.scrollChatToBottom);
+        this.listenTo(childView, 'show destroy imageLoaded', this.scrollChatToBottom);
       }
     },
     scrollChatToBottom: function(){
@@ -150,6 +162,12 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       //Keep scroll position at bottom after each message is sent
       var messageContainer = this.$('.messages-inner')[0];
       messageContainer.scrollTop = messageContainer.scrollHeight;
+    },
+    chatViewportIsFullyScrolled: function() {
+
+      var messageContainer = this.$('.messages-inner')[0];
+      var tolerance = 50;
+      return $(messageContainer).outerHeight() + messageContainer.scrollTop >= messageContainer.scrollHeight - tolerance;
     },
     initialize: function() {
 
