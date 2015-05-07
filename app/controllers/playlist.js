@@ -62,7 +62,7 @@ io.sockets.on('connection', function (socket) {
     Playlist.findById(playlistId, 'startTime', function(err, docs) {
 
       if (err || docs === null){
-        console.log(err);
+        console.error(err);
         return err;
       }
       if(typeof docs.startTime !== "undefined") {
@@ -70,7 +70,7 @@ io.sockets.on('connection', function (socket) {
       }
       // Emit the loadPlaylistFrom event telling the new client where to load from
       // If this is a first time request load from 0
-      console.log('Emit the loadPlaylistFrom event');
+      console.log('Emit the loadPlaylistFrom event for', playlistId);
       socket.emit('loadPlaylistFrom', {
         startTime: playlistStartTime
       });
@@ -110,7 +110,6 @@ io.sockets.on('connection', function (socket) {
 
       if(usersReady === 2) {
 
-        console.log('emit playPlaylist event to everyone');
         io.sockets.in(socket.roomId).emit('playPlaylist', {
           startTime: playlistStartTime
         });
@@ -129,9 +128,8 @@ io.sockets.on('connection', function (socket) {
             multi: false
           }, function(err, numAffected) {
 
-            console.log('rows updated:', numAffected);
             if (err){
-              console.log(err);
+              console.error(err);
               return err;
             }
           });
@@ -247,7 +245,7 @@ exports.playlist = function(req, res){
   Playlist.findById(req.params.id).lean().exec(function(err, playlist){
 
     if (err){
-      console.log(err);
+      console.error(err);
     }
 
     if(playlist === null) {
@@ -269,7 +267,7 @@ exports.playlist = function(req, res){
     }, '-messages._id -messages.timestamp', function(err, conversation) {
 
       if (err){
-        console.log(err);
+        console.error(err);
       }
       // Create the permalink to send to the page
       // Check to see if the playlist has already finished
@@ -347,7 +345,7 @@ var addPlaylistRow = function(playlistData, cb) {
   playlistRow.save(function(err, playlist) {
 
     if (err){
-      console.log(err);
+      console.error(err);
       return err;
     }
 
@@ -368,7 +366,6 @@ var addPlaylistRow = function(playlistData, cb) {
 
 var addTrackToPlaylist = function(playlistId, trackData, cb) {
 
-  console.log('track data to add:', trackData);
   var response;
   var trackObj = {
     trackId: trackData.trackId,
