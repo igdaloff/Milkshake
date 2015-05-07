@@ -321,17 +321,24 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         playlistManager.initTrackEmbed(0);
       }
     },
-    sendTrackDelete: function(trackId) {
+    sendTrackDelete: function(trackModel) {
 
       var socket = TWM.request('playlist:activeSocket');
-      socket.emit('removeTrack', trackId);
+      socket.emit('removeTrack', trackModel.id);
       // GA event
       TWM.trigger('playlist:deleteTrack');
     },
-    sendTrackSkip: function(trackId) {
+    sendTrackSkip: function(trackModel) {
 
       var socket = TWM.request('playlist:activeSocket');
-      socket.emit('skipTrack', trackId);
+      socket.emit('skipTrack', trackModel.id);
+
+      // Force this track to be hasPlayed and notPlaying, so it greys out immediately
+      trackModel.set({
+        hasPlayed: true,
+        isPlaying: false
+      });
+
       // GA event
       TWM.trigger('playlist:skipTrack');
     },
@@ -415,7 +422,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Ensure that the skipped track and the currently playing track have the same ID, ie. it has not already finished/been skipped
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
       var currentTrackModel = playlistModel.tracks.at(currentTrackIndex);
-      if(currentTrackModel.id === skippedTrackData._id) {
+      if(skippedTrackData !== null && currentTrackModel.id === skippedTrackData._id) {
 
         // Skip to the next track in the playlist. If there isn't one, the playlist will stop
         playlistManager.next();
