@@ -122,6 +122,17 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         notifierInterval = false;
       }
     },
+    toggleRemoteUserDisconnectedClass: function(numUsersInRoom) {
+
+      if(numUsersInRoom > 1) {
+
+        $('body').removeClass('remote-user-disconnected');
+      }
+      else {
+
+        $('body').addClass('remote-user-disconnected');
+      }
+    },
     remoteUserDisconnected: function(numUsersInRoom) {
 
       // Perform no action if there are already two or more people in the room
@@ -138,8 +149,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         type: 'log',
         content: 'Your friend has disconnected'
       });
-      // Add a disconnected class to the body
-      $('body').addClass('remote-user-disconnected');
+      // Toggle the connected class
+      Chat.Controller.toggleRemoteUserDisconnectedClass(numUsersInRoom);
     },
     remoteUserConnected: function(numUsersInRoom) {
 
@@ -155,8 +166,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         type: 'log',
         content: 'Your friend has connected'
       });
-      // Remove disconnected class from the body
-      $('body').removeClass('remote-user-disconnected');
+      // Toggle the connected class
+      Chat.Controller.toggleRemoteUserDisconnectedClass(numUsersInRoom);
     },
     /*
      * New track message

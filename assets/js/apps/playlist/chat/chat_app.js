@@ -19,6 +19,8 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
     socket.on('userTyping', Chat.Controller.remoteUserTyping);
     // When a user not typing notification is received
     socket.on('userNotTyping', Chat.Controller.remoteUserNotTyping);
+    // When the server tells us how many people are in the room
+    socket.on('numUsersInRoom', Chat.Controller.toggleRemoteUserDisconnectedClass);
     // When the remote user disconnects
     socket.on('userLeft', Chat.Controller.remoteUserDisconnected);
     // When the remote user re-connects
