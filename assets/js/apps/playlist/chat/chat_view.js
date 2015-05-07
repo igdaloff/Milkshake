@@ -161,14 +161,18 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
       this.listenTo(TWM, 'chat:remoteUserNotTyping', this.remoteUserNotTyping);
       this.listenTo(this.collection, 'add', function(model) {
 
-        // When a new message is received, check it's remote and if the input field is blurred, start the notifier
-        if(model.get('remote') && !$('.new-message-field').is(':focus') && model.get('type') === 'chat') {
+        // When a new message is received, check it's remote and if the window is blurred, start the notifier
+        if(model.get('remote') && !$(window).is(':focus') && model.get('type') === 'chat') {
 
           Chat.Controller.startNotifier();
+          // Stop the notifier when the window is focused, or any other action is performed
+          $(window).on('focus.notifier click.notifier keyup.notifier keydown.notifier', function() {
+
+            Chat.Controller.stopNotifier();
+            $(window).off('focus.notifier click.notifier keyup.notifier keydown.notifier');
+          });
         }
       });
-      // Stop the notifier when the window is focused, or any other action is performed
-      $(window).on('focus click keyup keydown', Chat.Controller.stopNotifier);
     },
     isUserTyping: function(e) {
 
