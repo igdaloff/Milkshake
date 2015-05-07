@@ -78,9 +78,9 @@
 	border: 0;
 
 	&:hover, &:focus{
-		text-decoration: underline;
 		outline: none;
-		background: $black;
+		background: $green;
+		color: $black;
 	}
 }
 
