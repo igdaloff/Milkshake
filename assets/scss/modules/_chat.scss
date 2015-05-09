@@ -30,6 +30,10 @@
 	.playlist-waiting &{
 		display: table;
 	}
+
+	.chat-active &{
+		display: block;
+	}
 }
 
 .chat-message{
