@@ -51,6 +51,11 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
           window.clearTimeout(animate);
         });
       }
+
+      // Add '.chat-active' class as soon as first chat is sent
+      if(!$('.chat-active').length){
+        $('.messages-container').addClass('chat-active');
+      }
     },
     onShow: function() {
 
@@ -229,6 +234,7 @@ TWM.module('Playlist.Chat', function(Chat, TWM, Backbone, Marionette, $, _){
         $newMessageField.val('').focus();
       }
 
+      this.scrollChatToBottom();
       this.removePlaceholder();
     },
     /**
