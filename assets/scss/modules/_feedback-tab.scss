@@ -1,0 +1,57 @@
+// =======================
+// Feedback tab
+// =======================
+#doorbell-button{
+  top: 45%;
+  right: -30px;
+  bottom: auto;
+  height: 2em;
+  padding: 10px 15px 25px;
+  background: $black;
+  font-family: $sans-special;
+  font-size: 1em;
+  @include transform(rotate(-90deg));
+
+  &:hover, &:focus, &:active{
+  	background: $green;
+  	color: $black;
+  	outline: 0;
+  }
+}
+
+#doorbell{
+	form{
+		padding: 15px 20px 20px;
+		border: 1px solid $border-grey;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+
+		legend{
+			@extend h2;
+			margin-bottom: 0.7em;
+			border: 0;
+		}
+
+		textarea{
+			width: calc(96% - 1px);
+			padding: 0.5em 2%;
+			font-family: $sans-light;
+			font-size: 0.9em;
+		}
+	}
+
+	.close{
+		top: 5px;
+		right: 20px;
+		font-size: 3em;
+		font-family: $sans-special;
+		color: $black;
+		opacity: 1;
+	}
+}
+
+#doorbell-submit-button{
+	@extend .btn-black;
+	margin-bottom: 1em;
+	font-size: 1em;
+}

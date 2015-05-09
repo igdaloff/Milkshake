@@ -77,7 +77,7 @@
         <li><a target="_blank" href="https://twitter.com/jeshake">James</a> and</li>
         <li><a target="_blank" href="https://twitter.com/spensertalks">Spenser</a>.</li>
       </ul>
-      <p class="feedback-link"><a onclick="BAROMETER.show();" href="#">Feedback? Click here</a>.</p>
+      <p class="feedback-link"><a onclick="event.preventDefault(); doorbell.show();" href="">Feedback? Click here</a>.</p>
     </footer>
 
     <div class="mobile-message intro-text">
@@ -131,10 +131,17 @@
       });
     </script>
     {% block scripts %}{% endblock %}
-    <style type='text/css'>@import url('http://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css');</style>
-    <script src='http://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js' type='text/javascript'></script>
-    <script type="text/javascript" charset="utf-8">
-      BAROMETER.load('mBHQYEnNrabaeF6nCbxKg');
+
+    <!-- Doorbell feedback tab -->
+    <script type="text/javascript">
+        window.doorbellOptions = {
+          hideEmail: true,
+          email: 'email@email.com',
+          appKey: 'MzfJ0ZjDhKYZa352DFUp0RJCUWrLTaefvlfI3HrAi4xGZ7MSMEOFG5T1OX2ekiEO'
+        };
+        (function(d, t) {
+            var g = d.createElement(t);g.id = 'doorbellScript';g.type = 'text/javascript';g.async = true;g.src = 'https://embed.doorbell.io/button/1276?t='+(new Date().getTime());(d.getElementsByTagName('head')[0]||d.getElementsByTagName('body')[0]).appendChild(g);
+        }(document, 'script'));
     </script>
   </body>
 </html>
