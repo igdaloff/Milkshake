@@ -28,6 +28,10 @@
 		vertical-align: middle
 	}
 
+	.chat-active &{
+		display: none;
+	}
+
 	h2{
 		display: block;
 		margin-bottom: 0.75em;
