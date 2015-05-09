@@ -90,6 +90,10 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
         placeholder: 'track-reorder-gap',
         axis: 'y'
       }).disableSelection();
+
+      $('.playback-track-list tbody').sortable({
+        axis: 'y'
+      });
     }
   });
 
@@ -196,8 +200,12 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       $('.playback-header').removeClass('editable');
       $('body').off('click.disableEdit');
       var newTitle = $('.playlist-title-input').val();
-      // If the title changed, send it
+
+      // If the title changed, send it; if no title given, give it a default name
       if(newTitle !== this.model.get('title')) {
+        if(newTitle === ''){
+          newTitle = 'Untitled Playlist';
+        }
 
         Playlist.Controller.sendNewPlaylistName(newTitle);
       }
