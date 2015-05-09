@@ -500,3 +500,50 @@ td.table-row-duration-and-actions{
 .playlist-progress {
 	display: none;
 }
+
+
+
+
+//Invite user banner
+.invite-user-banner{
+	position: relative;
+	padding: 1em;
+	background: $black;
+	color: white;
+	z-index: 1;
+
+	p{
+		font-family: $sans-special;
+
+		&:before{
+			@extend .btn-circle;
+			display: inline-block;
+			content: '!';
+			margin-right: 0.5em;
+			border: 2px solid;
+			color: $green;
+			line-height: 1.2;
+			font-weight: bold;
+			text-indent: 1px;
+			cursor: inherit;
+		}
+
+		&:hover:before{
+			background: none;
+			color: $green;
+			border: 2px solid;
+		}
+	}
+
+	input{
+		position: relative;
+		min-width: 200px;
+		background: none;
+		border: 0;
+		color: inherit;
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: bold;
+		cursor: text;
+	}
+}
