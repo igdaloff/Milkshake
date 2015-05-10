@@ -25,6 +25,7 @@
 		border: 1px solid $border-grey;
 		-webkit-box-shadow: none;
 		box-shadow: none;
+		border-radius: 0;
 
 		legend{
 			@extend h2;
@@ -32,21 +33,44 @@
 			border: 0;
 		}
 
-		textarea{
-			width: calc(96% - 1px);
+		textarea, input[type="email"]{
+			width: calc(96% - 2px);
 			padding: 0.5em 2%;
 			font-family: $sans-light;
 			font-size: 0.9em;
+			border: 1px solid $border-grey;
+
+			&:focus{
+				border-color: $black;
+				outline: 0;
+			}
 		}
 	}
 
+	input[type="email"]{
+		height: 2em;
+	}
+
 	.close{
-		top: 5px;
+		top: 15px;
 		right: 20px;
-		font-size: 3em;
+		font-size: 2em;
+		width: 26px;
+		height: 26px;
+		line-height: 0.9;
+		text-shadow: none;
+		border-radius: 100%;
+		background: $black;
 		font-family: $sans-special;
-		color: $black;
+		font-weight: 100;
+		color: $green;
 		opacity: 1;
+		text-align: center;
+
+		&:hover{
+			color: $black;
+			background: $green;
+		}
 	}
 }
 
@@ -54,4 +78,13 @@
 	@extend .btn-black;
 	margin-bottom: 1em;
 	font-size: 1em;
+}
+
+#doorbell-powered-by{
+	color: $grey;
+
+	&:hover{
+		color: $black;
+		text-decoration: underline;
+	}
 }
