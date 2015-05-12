@@ -422,7 +422,7 @@ TWM.module('Playlist', function(Playlist, TWM, Backbone, Marionette, $, _){
       // Ensure that the skipped track and the currently playing track have the same ID, ie. it has not already finished/been skipped
       var currentTrackIndex = playlistManager.getCurrentTrackIndex();
       var currentTrackModel = playlistModel.tracks.at(currentTrackIndex);
-      if(skippedTrackData !== null && currentTrackModel.id === skippedTrackData._id) {
+      if(skippedTrackData === null || currentTrackModel.id === skippedTrackData._id) {
 
         // Skip to the next track in the playlist. If there isn't one, the playlist will stop
         playlistManager.next();
