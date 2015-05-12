@@ -72,7 +72,7 @@
 			width: auto;
 			border-bottom: 2px solid;
 
-			&:hover{
+			&:hover, &:focus{
 				text-decoration: none;
 				color: $black;
 			}

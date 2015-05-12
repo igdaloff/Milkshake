@@ -44,15 +44,11 @@
 		display: inline-block;
 	}
 
-	a:hover{
-		text-decoration: underline;
-		color: $black;
-	}
-
-	a, input{
-		&:focus, &:active{
-			outline: none;
-			border: 1px solid $black;
+	a, .email-submit-link{
+		&:focus, &:active, &:hover{
+			text-decoration: underline;
+			color: $black;
+			outline: 0;
 		}
 	}
 }
