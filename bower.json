@@ -11,5 +11,8 @@
     "Autolinker.js": "~0.11.2",
     "perfect-scrollbar": "~0.5.2",
     "zeroclipboard": "~2.2.0"
+  },
+  "resolutions": {
+    "underscore": "1.8.3"
   }
 }
