@@ -71,5 +71,4 @@ app.configure(function(){
   app.use(express.urlencoded());
 });
 
-
 var routes = require("./config/routes")(app);
