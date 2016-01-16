@@ -86,7 +86,6 @@ module.exports = function(grunt){
   grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks("grunt-jsttojs");
 
-  grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist"]);
+  grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist", "uglify"]);
   grunt.registerTask("default", ["jshint", "build", "watch"]);
-  grunt.registerTask("prod", ["build", "uglify"]);
 };
