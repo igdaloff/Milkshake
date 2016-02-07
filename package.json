@@ -31,7 +31,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "postinstall": "bundle install",
+    "postinstall": "bower install --allow-root",
     "start": "node app.js",
     "start-prod": "NODE_ENV=production node app.js",
     "start-dev": "NODE_ENV=development node app.js",
