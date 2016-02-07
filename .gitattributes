@@ -1,0 +1,2 @@
+config/routes.js filter=git-crypt diff=git-crypt
+config/application_ini.js filter=git-crypt diff=git-crypt
