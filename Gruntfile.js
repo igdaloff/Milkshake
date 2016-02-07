@@ -88,4 +88,5 @@ module.exports = function(grunt){
 
   grunt.registerTask("build", ["jsttojs", "concat:vendor", "concat:app", "compass:dist", "uglify"]);
   grunt.registerTask("default", ["jshint", "build", "watch"]);
+  grunt.registerTask("heroku", ["build"]);
 };
