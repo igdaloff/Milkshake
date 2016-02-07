@@ -102,7 +102,7 @@ io.sockets.on('connection', function (socket) {
 
         var client = io.sockets.connected[user];
 
-        if(client.isReady) {
+        if(client && client.isReady) {
 
           usersReady++;
         }
